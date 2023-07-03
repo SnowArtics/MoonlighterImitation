@@ -50,20 +50,14 @@ namespace sn
 	void DungeonScene::LateUpdate()
 	{
 		Scene::LateUpdate();
-
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			Scene::GetLaye
+			SceneManager::LoadScene(L"TitleScene");
 		}
 	}
 	void DungeonScene::Render()
 	{
 		Scene::Render();
-
-		//if (Input::GetKeyDown(eKeyCode::SPACE))
-		//{
-		//	SceneManager::LoadScene(L"TitleScene");
-		//}
 	}
 	void DungeonScene::OnEnter()
 	{

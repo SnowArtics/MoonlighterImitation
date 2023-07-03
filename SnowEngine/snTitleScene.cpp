@@ -47,6 +47,18 @@ namespace sn
 		}
 
 		{
+			//로고
+			GameObject* Background = new GameObject();
+			AddGameObject(eLayerType::Background, Background);
+			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"LogoMaterial01"));
+			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 1.0f, 0.0f));
+			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(4.f, 2.0f, 2.0f));
+		}
+
+		{
 			//Main Camera
 			GameObject* camera = new GameObject();
 			AddGameObject(eLayerType::Player, camera);
@@ -62,15 +74,17 @@ namespace sn
 	void TitleScene::LateUpdate()
 	{
 		Scene::LateUpdate();
+
+		if (Input::GetKeyDown(eKeyCode::SPACE))
+		{
+			SceneManager::LoadScene(L"VillageScene");
+		}
 	}
 	void TitleScene::Render()
 	{
 		Scene::Render();
 
-		//if (Input::GetKeyDown(eKeyCode::SPACE))
-		//{
-		//	SceneManager::LoadScene(L"VillageScene");
-		//}
+
 	}
 	void TitleScene::OnEnter()
 	{

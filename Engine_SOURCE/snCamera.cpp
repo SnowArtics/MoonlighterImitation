@@ -34,7 +34,6 @@ namespace sn
 		, mOpaqueGameObjects{}
 		, mCutOutGameObjects{}
 		, mTransparentGameObjects{}
-		, mChangeSceneName(L"nullptr")
 	{
 		EnableLayerMasks();
 	}
@@ -71,11 +70,6 @@ namespace sn
 		RenderCutOut();
 		RenderTransparent();
 		EnableDepthStencilState();
-
-		if (mChangeSceneName != L"nullptr") {
-			SceneManager::LoadScene(mChangeSceneName);
-			mChangeSceneName = L"nullptr";
-		}
 	}
 
 	bool Camera::CreateViewMatrix()

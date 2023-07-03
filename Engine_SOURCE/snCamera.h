@@ -44,10 +44,6 @@ namespace sn
 		void EnableDepthStencilState();
 		void DisableDepthStencilState();
 
-		void LoadScene(std::wstring _sceneName) {
-			mChangeSceneName = _sceneName;
-		}
-
 	private:
 		static Matrix View;
 		static Matrix Projection;
@@ -65,7 +61,5 @@ namespace sn
 		std::vector<GameObject*> mOpaqueGameObjects;
 		std::vector<GameObject*> mCutOutGameObjects;
 		std::vector<GameObject*> mTransparentGameObjects;
-
-		std::wstring mChangeSceneName;
 	};
 }

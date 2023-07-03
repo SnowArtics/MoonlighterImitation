@@ -24,9 +24,9 @@ namespace sn
 		std::vector<T*> FindObjectsOfType()
 		{
 			std::vector<T*> findObjs = {};
-			for (Layer* layer : mLayers)
+			for (Layer layer : mLayers)
 			{
-				auto gameObjs = layer->GetGameObjects();
+				auto gameObjs = layer.GetGameObjects();
 				for (GameObject* obj : gameObjs)
 				{
 					T* buff = dynamic_cast<T*>(obj);

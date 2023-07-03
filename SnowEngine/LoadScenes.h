@@ -22,6 +22,6 @@ namespace sn
 		SceneManager::CreateScene<VillageScene>(L"VillageScene");
 		SceneManager::CreateScene<DungeonScene>(L"DungeonScene");
 
-		SceneManager::LoadScene(L"TitleScene");
+		SceneManager::LoadScene(L"VillageScene");
 	}
 }
