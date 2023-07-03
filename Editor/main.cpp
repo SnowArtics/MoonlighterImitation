@@ -1,18 +1,12 @@
 ﻿// Editor.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
-#pragma once
+
 #include "framework.h"
 #include "Editor.h"
-#include "..\Engine_SOURCE\snApplication.h"
-#include "..\Engine_SOURCE\snRenderer.h"
-#include "..\Engine_SOURCE\snResources.h"
-#include "LoadScenes.h"
-
-#ifdef _DEBUG
-#pragma comment(lib, "..\\x64\\Debug\\SnowEngine.lib")
-#else
-#pragma comment(lib, "..\\x64\\Release\\SnowEngine.lib")
-#endif
+#include "snApplication.h"
+#include "snRenderer.h"
+#include "snResources.h"
+#include "snSceneManager.h"
 
 #include <crtdbg.h>
 #ifdef _DEBUG
@@ -101,7 +95,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 //
 ATOM MyRegisterClass(HINSTANCE hInstance)
 {
-    WNDCLASSEXW wcex = {};
+    WNDCLASSEXW wcex;
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
@@ -147,7 +141,6 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
     UpdateWindow(hWnd);
 
     application.Initialize();
-    sn::InitializeScenes();
 
     return TRUE;
 }
