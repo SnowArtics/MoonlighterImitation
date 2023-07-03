@@ -1,6 +1,8 @@
 #pragma once
 #include "snComponent.h"
 
+class GameObject;
+
 namespace sn
 {
 	class Transform : public Component
@@ -32,6 +34,9 @@ namespace sn
 		Vector3 Right() { return mRight; }
 		Vector3 Up() { return mUp; }
 
+		void SetOwner(GameObject* _owner) { mOwner = _owner; }
+		GameObject* GetOwner() { return mOwner; }
+
 		void SetParent(Transform* transform) { mParent = transform; }
 		Transform* GetParent() { return mParent; }
 
@@ -46,6 +51,7 @@ namespace sn
 
 		Matrix mWorld;
 
+		GameObject* mOwner;
 		Transform* mParent;
 	};
 };

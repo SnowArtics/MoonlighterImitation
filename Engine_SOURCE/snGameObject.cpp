@@ -6,8 +6,11 @@
 namespace sn {
 	GameObject::GameObject()
 		: mState(eState::Active)
+		, mEnable(true)
 	{
 		AddComponent<Transform>();
+		Transform* transform = GetComponent<Transform>();
+		transform->SetOwner(this);
 	}
 
 	GameObject::~GameObject()

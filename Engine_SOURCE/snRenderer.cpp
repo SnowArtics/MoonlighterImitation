@@ -178,6 +178,15 @@ namespace renderer {
 			spriteMaterial->SetTexture(texture);
 			Resources::Insert(L"UISword01", spriteMaterial);
 		}
+		{
+			//inventory base »ý¼º
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"UIInventoryBase01", L"..\\Resources\\Texture\\UI\\Inventory\\Inventory_base.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(spriteShader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"UIInventoryBaseMaterial01", spriteMaterial);
+		}
 	}
 
 	void SetupState() {

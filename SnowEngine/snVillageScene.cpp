@@ -33,7 +33,16 @@ namespace sn
 			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
 			Background->GetComponent<Transform>()->SetScale(Vector3(19.495792f, 16.f, 2.0f));
 		}
-
+		{
+			//인벤토리 UI 생성
+			GameObject* UI = new GameObject();
+			AddGameObject(eLayerType::UI, UI);
+			MeshRenderer* mr = UI->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"UIInventoryBaseMaterial01"));
+			UI->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+			UI->GetComponent<Transform>()->SetScale(Vector3(7.576642335766424f, 4.f, 2.0f));
+		}
 		{
 			//UI 생성 부분
 			{
@@ -92,7 +101,6 @@ namespace sn
 				UI->GetComponent<Transform>()->SetScale(Vector3(9.599958f, 5.4f, 2.0f));
 			}
 		}
-
 		{
 			//Main Camera
 			GameObject* camera = new GameObject();

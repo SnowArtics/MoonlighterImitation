@@ -171,6 +171,10 @@ namespace sn
 			if (mr == nullptr)
 				continue;
 
+			//게임오브젝트가 비활성화 상태라면?
+			if (obj->GetEnable() == false)
+				continue;
+
 			std::shared_ptr<Material> mt = mr->GetMaterial();
 			eRenderingMode mode = mt->GetRenderingMode();
 			switch (mode)
