@@ -1,4 +1,4 @@
-#include "snTitleScene.h"
+ï»¿#include "snTitleScene.h"
 #include "snGameObject.h"
 #include "snMeshRenderer.h"
 #include "snMesh.h"
@@ -23,7 +23,7 @@ namespace sn
 	void TitleScene::Initialize()
 	{
 		{
-			//¹è°æ ÀÌ¹ÌÁö1 »ý¼º
+			//ë°°ê²½1
 			GameObject* Background = new GameObject();
 			AddGameObject(eLayerType::Background, Background);
 			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
@@ -35,7 +35,7 @@ namespace sn
 		}
 
 		{
-			//¹è°æ ÀÌ¹ÌÁö2 »ý¼º
+			//ë°°ê²½2
 			GameObject* Background = new GameObject();
 			AddGameObject(eLayerType::Background, Background);
 			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
@@ -67,10 +67,10 @@ namespace sn
 	{
 		Scene::Render();
 
-		if (Input::GetKeyDown(eKeyCode::SPACE))
-		{
-			SceneManager::LoadScene(L"MainScene");
-		}
+		//if (Input::GetKeyDown(eKeyCode::SPACE))
+		//{
+		//	SceneManager::LoadScene(L"VillageScene");
+		//}
 	}
 	void TitleScene::OnEnter()
 	{

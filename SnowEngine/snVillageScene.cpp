@@ -1,4 +1,4 @@
-#include "snMainScene.h"
+ï»¿#include "snVillageScene.h"
 #include "snGameObject.h"
 #include "snMeshRenderer.h"
 #include "snMesh.h"
@@ -14,16 +14,16 @@
 
 namespace sn
 {
-	MainScene::MainScene()
+	VillageScene::VillageScene()
 	{
 	}
-	MainScene::~MainScene()
+	VillageScene::~VillageScene()
 	{
 	}
-	void MainScene::Initialize()
+	void VillageScene::Initialize()
 	{
 		{
-			//¹è°æ ÀÌ¹ÌÁö1 »ý¼º
+			//ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½1 ï¿½ï¿½ï¿½ï¿½
 			GameObject* Background = new GameObject();
 			AddGameObject(eLayerType::Background, Background);
 			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
@@ -43,27 +43,27 @@ namespace sn
 			camera->AddComponent<CameraScript>();
 		}
 	}
-	void MainScene::Update()
+	void VillageScene::Update()
 	{
 		Scene::Update();
 	}
-	void MainScene::LateUpdate()
+	void VillageScene::LateUpdate()
 	{
 		Scene::LateUpdate();
 	}
-	void MainScene::Render()
+	void VillageScene::Render()
 	{
 		Scene::Render();
-		if (Input::GetKeyDown(eKeyCode::SPACE))
-		{
-			SceneManager::LoadScene(L"DungeonScene");
-		}
+		//if (Input::GetKeyDown(eKeyCode::SPACE))
+		//{
+		//	SceneManager::LoadScene(L"DungeonScene");
+		//}
 	}
-	void MainScene::OnEnter()
+	void VillageScene::OnEnter()
 	{
 		Initialize();
 	}
-	void MainScene::OnExit()
+	void VillageScene::OnExit()
 	{
 	}
 }

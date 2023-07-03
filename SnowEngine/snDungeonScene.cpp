@@ -1,4 +1,4 @@
-#include "snDungeonScene.h"
+ï»¿#include "snDungeonScene.h"
 #include "snGameObject.h"
 #include "snMeshRenderer.h"
 #include "snMesh.h"
@@ -23,7 +23,7 @@ namespace sn
 	void DungeonScene::Initialize()
 	{
 		{
-			//¹è°æ ÀÌ¹ÌÁö1 »ý¼º
+			//ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½1 ï¿½ï¿½ï¿½ï¿½
 			GameObject* Background = new GameObject();
 			AddGameObject(eLayerType::Background, Background);
 			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
@@ -50,15 +50,20 @@ namespace sn
 	void DungeonScene::LateUpdate()
 	{
 		Scene::LateUpdate();
+
+		if (Input::GetKeyDown(eKeyCode::SPACE))
+		{
+			Scene::GetLaye
+		}
 	}
 	void DungeonScene::Render()
 	{
 		Scene::Render();
 
-		if (Input::GetKeyDown(eKeyCode::SPACE))
-		{
-			SceneManager::LoadScene(L"TitleScene");
-		}
+		//if (Input::GetKeyDown(eKeyCode::SPACE))
+		//{
+		//	SceneManager::LoadScene(L"TitleScene");
+		//}
 	}
 	void DungeonScene::OnEnter()
 	{

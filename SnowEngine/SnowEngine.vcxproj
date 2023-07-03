@@ -163,12 +163,18 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="snCameraScript.h" />
+    <ClInclude Include="snDungeonScene.h" />
     <ClInclude Include="snPlayScene.h" />
+    <ClInclude Include="snTitleScene.h" />
+    <ClInclude Include="snVillageScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="snCameraScript.cpp" />
+    <ClCompile Include="snDungeonScene.cpp" />
     <ClCompile Include="SnowEngine.cpp" />
     <ClCompile Include="snPlayScene.cpp" />
+    <ClCompile Include="snTitleScene.cpp" />
+    <ClCompile Include="snVillageScene.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
