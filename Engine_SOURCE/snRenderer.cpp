@@ -125,6 +125,15 @@ namespace renderer {
 			Resources::Insert(L"DungeonBackgroundMaterial01", spriteMaterial);
 		}
 		{
+			//Shop Background 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"ShopBackground01", L"..\\Resources\\Texture\\Background\\Shop\\shop_background.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(spriteShader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"ShopBackgroundMaterial01", spriteMaterial);
+		}
+		{
 			//UI Base01 持失
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"UIBase01", L"..\\Resources\\Texture\\UI\\Base\\UI_base01.png");

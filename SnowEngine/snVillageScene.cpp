@@ -134,7 +134,7 @@ namespace sn
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			SceneManager::LoadScene(L"DungeonScene");
+			SceneManager::LoadScene(L"ShopScene");
 		}
 		if (Input::GetKeyDown(eKeyCode::I))
 		{

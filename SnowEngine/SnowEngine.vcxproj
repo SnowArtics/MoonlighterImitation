@@ -165,6 +165,7 @@
     <ClInclude Include="snCameraScript.h" />
     <ClInclude Include="snDungeonScene.h" />
     <ClInclude Include="snPlayScene.h" />
+    <ClInclude Include="snShopScene.h" />
     <ClInclude Include="snTitleScene.h" />
     <ClInclude Include="snVillageScene.h" />
   </ItemGroup>
@@ -173,6 +174,7 @@
     <ClCompile Include="snDungeonScene.cpp" />
     <ClCompile Include="SnowEngine.cpp" />
     <ClCompile Include="snPlayScene.cpp" />
+    <ClCompile Include="snShopScene.cpp" />
     <ClCompile Include="snTitleScene.cpp" />
     <ClCompile Include="snVillageScene.cpp" />
   </ItemGroup>

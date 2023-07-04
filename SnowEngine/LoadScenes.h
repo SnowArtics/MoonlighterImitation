@@ -3,6 +3,7 @@
 #include "snPlayScene.h"
 #include "snTitleScene.h"
 #include "snVillageScene.h"
+#include "snShopScene.h"
 #include "snDungeonScene.h"
 
 #ifdef _DEBUG
@@ -20,6 +21,7 @@ namespace sn
 
 		SceneManager::CreateScene<TitleScene>(L"TitleScene");
 		SceneManager::CreateScene<VillageScene>(L"VillageScene");
+		SceneManager::CreateScene<ShopScene>(L"ShopScene");
 		SceneManager::CreateScene<DungeonScene>(L"DungeonScene");
 
 		SceneManager::LoadScene(L"VillageScene");

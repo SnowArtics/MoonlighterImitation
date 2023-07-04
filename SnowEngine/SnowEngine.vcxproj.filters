@@ -17,6 +17,9 @@
     <ClCompile Include="snTitleScene.cpp">
       <Filter>Scene\Title</Filter>
     </ClCompile>
+    <ClCompile Include="snShopScene.cpp">
+      <Filter>Scene\Shop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -37,6 +40,9 @@
     </ClInclude>
     <ClInclude Include="snTitleScene.h">
       <Filter>Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="snShopScene.h">
+      <Filter>Scene\Shop</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +66,9 @@
     </Filter>
     <Filter Include="Scene\Title">
       <UniqueIdentifier>{503b2401-a6b0-4bcf-af4b-c1427fde3a14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Shop">
+      <UniqueIdentifier>{6d5242b0-4908-4016-be2e-d32c3c44ba0e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
