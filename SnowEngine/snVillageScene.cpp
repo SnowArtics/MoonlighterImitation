@@ -36,12 +36,14 @@ namespace sn
 		{
 			//인벤토리 UI 생성
 			GameObject* UI = new GameObject();
+			UI->SetName(L"InventoryBase");
 			AddGameObject(eLayerType::UI, UI);
 			MeshRenderer* mr = UI->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"UIInventoryBaseMaterial01"));
 			UI->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 			UI->GetComponent<Transform>()->SetScale(Vector3(7.576642335766424f, 4.f, 2.0f));
+			UI->SetEnable(false);
 		}
 		{
 			//UI 생성 부분
@@ -133,6 +135,13 @@ namespace sn
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
 			SceneManager::LoadScene(L"DungeonScene");
+		}
+		if (Input::GetKeyDown(eKeyCode::I))
+		{
+			GameObject* inven =  Scene::Find(L"InventoryBase");
+			std::wstring asdf = inven->GetName();
+			if (inven->GetEnable() == true) inven->SetEnable(false);
+			else inven->SetEnable(true);
 		}
 	}
 	void VillageScene::Render()

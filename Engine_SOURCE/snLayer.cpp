@@ -2,6 +2,7 @@
 
 namespace sn {
 	Layer::Layer()
+		: mGameObjects()
 	{
 	}
 
