@@ -37,9 +37,21 @@ namespace sn
 
 			return findObjs;
 		}
-		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
+		GameObject* Find(std::wstring _gameObjectName)
+		{
+			for (Layer* layer : mLayers) {
+				const std::vector<GameObject*> gameObjs = layer->GetGameObjects();
+				for (GameObject* obj : gameObjs) {
+					if (obj->GetName() == _gameObjectName) {
+						return obj;
+					}
+				}
+			}
+			return nullptr;
+		}
+		Layer* GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
 
 	private:
-		std::vector<Layer> mLayers;
+		std::vector<Layer*> mLayers;
 	};
 }

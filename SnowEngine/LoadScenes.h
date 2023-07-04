@@ -1,6 +1,10 @@
 #pragma once
 #include "..\Engine_SOURCE\snSceneManager.h"
 #include "snPlayScene.h"
+#include "snTitleScene.h"
+#include "snVillageScene.h"
+#include "snShopScene.h"
+#include "snDungeonScene.h"
 
 #ifdef _DEBUG
 #pragma comment(lib, "..\\x64\\Debug\\SnowEngine.lib")
@@ -14,5 +18,12 @@ namespace sn
 	{
 		//PlayScene* playScene = new PlayScene();
 		SceneManager::CreateScene<PlayScene>(L"PlayScene");
+
+		SceneManager::CreateScene<TitleScene>(L"TitleScene");
+		SceneManager::CreateScene<VillageScene>(L"VillageScene");
+		SceneManager::CreateScene<ShopScene>(L"ShopScene");
+		SceneManager::CreateScene<DungeonScene>(L"DungeonScene");
+
+		SceneManager::LoadScene(L"VillageScene");
 	}
 }

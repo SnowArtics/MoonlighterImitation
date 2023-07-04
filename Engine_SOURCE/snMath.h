@@ -15,6 +15,8 @@
 
 #define XM_CONSTEXPR
 
+#define PI 3.14159265359f
+
 using namespace DirectX;
 using namespace DirectX::PackedVector;
 
@@ -313,6 +315,9 @@ namespace sn::math
         static const Vector3 Left;
         static const Vector3 Forward;
         static const Vector3 Backward;
+
+        Vector3 AngleToRadian() { return Vector3(this->x * (PI / 180), this->y * (PI / 180), this->z * (PI / 180)); }
+        Vector3 RadianToAngle() { return Vector3(this->x * (180 / PI), this->y * (180 / PI), this->z * (180 / PI)); }
     };
 
     // Binary operators

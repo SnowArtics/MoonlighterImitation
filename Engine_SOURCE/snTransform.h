@@ -1,6 +1,8 @@
 #pragma once
 #include "snComponent.h"
 
+class GameObject;
+
 namespace sn
 {
 	class Transform : public Component
@@ -17,7 +19,7 @@ namespace sn
 		void BindConstantBuffer();
 
 		void SetPosition(Vector3 position) { mPosition = position; }
-		void SetRotation(Vector3 rotation) { mRotation = rotation; }
+		void SetRotation(Vector3 rotation) { mRotation = rotation.AngleToRadian(); }
 		void SetScale(Vector3 scale) { mScale = scale; }
 
 		void SetPosition(float x, float y, float z) { mPosition = Vector3(x, y, z); }
@@ -31,6 +33,9 @@ namespace sn
 		Vector3 Foward() { return mFoward; }
 		Vector3 Right() { return mRight; }
 		Vector3 Up() { return mUp; }
+
+		void SetOwner(GameObject* _owner) { mOwner = _owner; }
+		GameObject* GetOwner() { return mOwner; }
 
 		void SetParent(Transform* transform) { mParent = transform; }
 		Transform* GetParent() { return mParent; }
@@ -46,6 +51,7 @@ namespace sn
 
 		Matrix mWorld;
 
+		GameObject* mOwner;
 		Transform* mParent;
 	};
 };

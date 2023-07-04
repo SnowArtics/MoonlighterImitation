@@ -23,6 +23,9 @@ namespace sn
 		virtual void LateUpdate();
 		virtual void Render();
 
+		bool GetEnable() { return mEnable; }
+		void SetEnable(bool _enable) { mEnable = _enable; }
+
 		template <typename T>
 		T* GetComponent()
 		{
@@ -71,5 +74,7 @@ namespace sn
 		eState mState;
 		std::vector<Component*> mComponents;
 		std::vector<Script*> mScripts;
+
+		bool mEnable;
 	};
 }

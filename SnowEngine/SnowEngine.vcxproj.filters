@@ -8,6 +8,18 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="SnowEngine.cpp" />
+    <ClCompile Include="snDungeonScene.cpp">
+      <Filter>Scene\Dungeon</Filter>
+    </ClCompile>
+    <ClCompile Include="snVillageScene.cpp">
+      <Filter>Scene\Village</Filter>
+    </ClCompile>
+    <ClCompile Include="snTitleScene.cpp">
+      <Filter>Scene\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="snShopScene.cpp">
+      <Filter>Scene\Shop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -20,6 +32,18 @@
     <ClInclude Include="LoadScenes.h">
       <Filter>Load</Filter>
     </ClInclude>
+    <ClInclude Include="snDungeonScene.h">
+      <Filter>Scene\Dungeon</Filter>
+    </ClInclude>
+    <ClInclude Include="snVillageScene.h">
+      <Filter>Scene\Village</Filter>
+    </ClInclude>
+    <ClInclude Include="snTitleScene.h">
+      <Filter>Scene\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="snShopScene.h">
+      <Filter>Scene\Shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -30,6 +54,21 @@
     </Filter>
     <Filter Include="Script">
       <UniqueIdentifier>{b3fcc8aa-7452-4e05-ba0c-161bff2af79c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Dungeon">
+      <UniqueIdentifier>{5ed970bb-4685-403b-90e7-7a55907d38d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Village">
+      <UniqueIdentifier>{2dc68194-ee97-4531-80d5-cf2ddc6bdb4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\DugeonGate">
+      <UniqueIdentifier>{bc4e9370-abe3-4869-b90c-118b34d5d0ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Title">
+      <UniqueIdentifier>{503b2401-a6b0-4bcf-af4b-c1427fde3a14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Shop">
+      <UniqueIdentifier>{6d5242b0-4908-4016-be2e-d32c3c44ba0e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

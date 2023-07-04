@@ -98,6 +98,15 @@ namespace renderer {
 			Resources::Insert(L"TitleBackgroundMaterial02", spriteMaterial);
 		}
 		{
+			//鸥捞撇拳搁 硅版 捞固瘤 2 皋抛府倔 积己
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Logo01", L"..\\Resources\\Texture\\UI\\Logo\\logo.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(spriteShader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"LogoMaterial01", spriteMaterial);
+		}
+		{
 			//付阑 硅版 捞固瘤 1 皋抛府倔 积己
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"VillageBackground_1", L"..\\Resources\\Texture\\Background\\Village\\Village_Background.png");
@@ -114,6 +123,78 @@ namespace renderer {
 			spriteMaterial->SetShader(spriteShader);
 			spriteMaterial->SetTexture(texture);
 			Resources::Insert(L"DungeonBackgroundMaterial01", spriteMaterial);
+		}
+		{
+			//Shop Background 积己
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"ShopBackground01", L"..\\Resources\\Texture\\Background\\Shop\\shop_background.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(spriteShader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"ShopBackgroundMaterial01", spriteMaterial);
+		}
+		{
+			//UI Base01 积己
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"UIBase01", L"..\\Resources\\Texture\\UI\\Base\\UI_base01.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(spriteShader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"UIBaseMaterial01", spriteMaterial);
+		}
+		{
+			//UI Base02 积己
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"UIBase02", L"..\\Resources\\Texture\\UI\\Base\\UI_base02.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(spriteShader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"UIBaseMaterial02", spriteMaterial);
+		}
+		{
+			//UI Gold 积己
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"UIGold01", L"..\\Resources\\Texture\\UI\\Base\\UI_gold.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(spriteShader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"UIGoldMaterial01", spriteMaterial);
+		}
+		{
+			//UI weapon1 space 积己
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"UIWeapon01", L"..\\Resources\\Texture\\UI\\Base\\UI_weapon_1.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(spriteShader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"UIWeaponMaterial01", spriteMaterial);
+		}
+		{
+			//UI weapon2 space 积己
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"UIWeapon02", L"..\\Resources\\Texture\\UI\\Base\\UI_weapon_2.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(spriteShader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"UIWeaponMaterial02", spriteMaterial);
+		}
+		{
+			//UI base weapon sword and shield 积己
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"UIWeapon02", L"..\\Resources\\Texture\\UI\\Base\\Sword.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(spriteShader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"UISword01", spriteMaterial);
+		}
+		{
+			//inventory base 积己
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"UIInventoryBase01", L"..\\Resources\\Texture\\UI\\Inventory\\Inventory_base.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(spriteShader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"UIInventoryBaseMaterial01", spriteMaterial);
 		}
 	}
 
@@ -202,6 +283,15 @@ namespace renderer {
 
 		GetDevice()->CreateDepthStencilState(&depthStencilDesc
 			, depthStencilStates[(UINT)eDSType::Less].GetAddressOf());
+
+		//lessEqual
+		depthStencilDesc.DepthEnable = true;
+		depthStencilDesc.DepthFunc = D3D11_COMPARISON_FUNC::D3D11_COMPARISON_LESS_EQUAL;
+		depthStencilDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
+		depthStencilDesc.StencilEnable = false;
+
+		GetDevice()->CreateDepthStencilState(&depthStencilDesc
+			, depthStencilStates[(UINT)eDSType::LessEqual].GetAddressOf());
 
 		//Greater
 		depthStencilDesc.DepthEnable = true;

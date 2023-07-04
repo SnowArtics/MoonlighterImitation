@@ -1,6 +1,7 @@
 #pragma once
 #include "snComponent.h"
 #include "snGraphics.h"
+#include "snSceneManager.h"
 
 namespace sn
 {
