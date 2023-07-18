@@ -52,6 +52,7 @@ namespace sn {
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteMaterial02"));
 			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
+			player->GetComponent<Transform>()->SetScale(Vector3(5.5f, 5.5f, 1.0f));
 			//player->AddComponent<CameraScript>();
 		}
 
