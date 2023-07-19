@@ -1,4 +1,4 @@
-ï»¿#include "snDungeonScene.h"
+#include "snDungeonScene01.h"
 #include "snGameObject.h"
 #include "snMeshRenderer.h"
 #include "snMesh.h"
@@ -12,18 +12,21 @@
 #include "snResources.h"
 #include "snInput.h"
 
-namespace sn
-{
-	DungeonScene::DungeonScene()
+#include <random>
+
+namespace sn {
+	DungeonScene01::DungeonScene01()
 	{
 	}
-	DungeonScene::~DungeonScene()
+
+	DungeonScene01::~DungeonScene01()
 	{
 	}
-	void DungeonScene::Initialize()
+
+	void DungeonScene01::Initialize()
 	{
 		{
-			//ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½1 ï¿½ï¿½ï¿½ï¿½
+			//´øÀü ¹è°æ ·Îµù //1.593406
 			GameObject* Background = new GameObject();
 			AddGameObject(eLayerType::Background, Background);
 			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
@@ -34,8 +37,31 @@ namespace sn
 			Background->GetComponent<Transform>()->SetScale(Vector3(9.77777735f, 5.5f, 2.0f));
 		}
 
+#pragma region Object
+		//¿ÀºêÁ§Æ®¸¦ ·£´ýÀ¸·Î »ý¼º
+
+		// ½Ãµå°ªÀ» ÇöÀç ½Ã°£À¸·Î ¼³Á¤
+		std::random_device rd;
+		// ·£´ý ¿£Áø »ý¼º
+		std::mt19937 mt(rd());
+		// ±ÕÀÏ ºÐÆ÷¸¦ °¡Áø ·£´ý ¼ýÀÚ »ý¼º±â »ý¼º (0 ÀÌ»ó 99 ÀÌÇÏ)
+		std::uniform_real_distribution<float> distX(1.f, 8.f);	
+		std::uniform_real_distribution<float> distY(0.5f, 5.0f);
+
 		{
-			//ì¸ë²¤í† ë¦¬ UI ìƒì„±
+			GameObject* Object = new GameObject();
+			AddGameObject(eLayerType::Obstacle, Object);
+			MeshRenderer* mr = Object->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"FountainMaterial"));
+
+			Object->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 10.0f, -1.f));
+			float YToXRatio = mr->GetMaterial()->GetTexture()->GetYToXRatio();
+			Object->GetComponent<Transform>()->SetScale(Vector3(0.2f*YToXRatio, 0.2f, 0.0f));
+		}
+#pragma endregion
+		{
+			//ÀÎº¥Åä¸® UI »ý¼º
 			GameObject* UI = new GameObject();
 			UI->SetName(L"InventoryBase");
 			AddGameObject(eLayerType::UI, UI);
@@ -47,7 +73,7 @@ namespace sn
 			UI->SetEnable(false);
 		}
 		{
-			//UI ìƒì„± ë¶€ë¶„
+			//UI »ý¼º ºÎºÐ
 			{
 				GameObject* UI = new GameObject();
 				AddGameObject(eLayerType::UI, UI);
@@ -67,7 +93,7 @@ namespace sn
 				UI->GetComponent<Transform>()->SetScale(Vector3(9.599958f, 5.4f, 2.0f));
 			}
 			{
-				//UI ìš°ì¸¡ ìƒë‹¨ ë¬´ê¸° UI ìƒì„±
+				//UI ¿ìÃø »ó´Ü ¹«±â UI »ý¼º
 				GameObject* UI = new GameObject();
 				AddGameObject(eLayerType::UI, UI);
 				MeshRenderer* mr = UI->AddComponent<MeshRenderer>();
@@ -110,6 +136,7 @@ namespace sn
 			AddGameObject(eLayerType::Player, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 			Camera* cameraComp = camera->AddComponent<Camera>();
+			cameraComp->EnableLayerMasks();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
 		}
@@ -125,16 +152,18 @@ namespace sn
 			//camera->AddComponent<CameraScript>();
 		}
 	}
-	void DungeonScene::Update()
+
+	void DungeonScene01::Update()
 	{
 		Scene::Update();
 	}
-	void DungeonScene::LateUpdate()
+
+	void DungeonScene01::LateUpdate()
 	{
 		Scene::LateUpdate();
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			SceneManager::LoadScene(L"TitleScene");
+			SceneManager::LoadScene(L"DungeonScene02");
 		}
 		if (Input::GetKeyDown(eKeyCode::I))
 		{
@@ -144,15 +173,20 @@ namespace sn
 			else inven->SetEnable(true);
 		}
 	}
-	void DungeonScene::Render()
+
+	void DungeonScene01::Render()
 	{
 		Scene::Render();
 	}
-	void DungeonScene::OnEnter()
+
+	void DungeonScene01::OnEnter()
 	{
 		Initialize();
 	}
-	void DungeonScene::OnExit()
+
+	void DungeonScene01::OnExit()
 	{
+		
 	}
+
 }

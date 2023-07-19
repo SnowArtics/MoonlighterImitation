@@ -1,4 +1,4 @@
-#include "snVillageScene.h"
+#include "snDungeonBoss.h"
 #include "snGameObject.h"
 #include "snMeshRenderer.h"
 #include "snMesh.h"
@@ -14,24 +14,24 @@
 
 namespace sn
 {
-	VillageScene::VillageScene()
+	DungeonBoss::DungeonBoss()
 	{
 	}
-	VillageScene::~VillageScene()
+	DungeonBoss::~DungeonBoss()
 	{
 	}
-	void VillageScene::Initialize()
+	void DungeonBoss::Initialize()
 	{
 		{
-			//마을 배경 로그인
+			//던전 배경 로딩
 			GameObject* Background = new GameObject();
 			AddGameObject(eLayerType::Background, Background);
 			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"VillageBackgroundMaterial01"));
+			mr->SetMaterial(Resources::Find<Material>(L"DungeonBossRoom01"));
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			Background->GetComponent<Transform>()->SetScale(Vector3(19.495792f, 16.f, 2.0f));
-			//Background->GetComponent<Transform>()->SetScale(Vector3(6.0806f, 5.f, 2.0f));
+			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(9.77777735f, 5.5f, 2.0f));
 		}
 
 		{
@@ -125,16 +125,16 @@ namespace sn
 			//camera->AddComponent<CameraScript>();
 		}
 	}
-	void VillageScene::Update()
+	void DungeonBoss::Update()
 	{
 		Scene::Update();
 	}
-	void VillageScene::LateUpdate()
+	void DungeonBoss::LateUpdate()
 	{
 		Scene::LateUpdate();
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			SceneManager::LoadScene(L"ShopScene");
+			SceneManager::LoadScene(L"TitleScene");
 		}
 		if (Input::GetKeyDown(eKeyCode::I))
 		{
@@ -144,15 +144,15 @@ namespace sn
 			else inven->SetEnable(true);
 		}
 	}
-	void VillageScene::Render()
+	void DungeonBoss::Render()
 	{
 		Scene::Render();
 	}
-	void VillageScene::OnEnter()
+	void DungeonBoss::OnEnter()
 	{
 		Initialize();
 	}
-	void VillageScene::OnExit()
+	void DungeonBoss::OnExit()
 	{
 	}
 }

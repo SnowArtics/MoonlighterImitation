@@ -163,7 +163,12 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="snCameraScript.h" />
-    <ClInclude Include="snDungeonScene.h" />
+    <ClInclude Include="snDungeon.h" />
+    <ClInclude Include="snDungeonBoss.h" />
+    <ClInclude Include="snDungeonEntrance.h" />
+    <ClInclude Include="snDungeonScene01.h" />
+    <ClInclude Include="snDungeonScene02.h" />
+    <ClInclude Include="snDungeonScene03.h" />
     <ClInclude Include="snPlayScene.h" />
     <ClInclude Include="snShopScene.h" />
     <ClInclude Include="snTitleScene.h" />
@@ -171,7 +176,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="snCameraScript.cpp" />
-    <ClCompile Include="snDungeonScene.cpp" />
+    <ClCompile Include="snDungeon.cpp" />
+    <ClCompile Include="snDungeonBoss.cpp" />
+    <ClCompile Include="snDungeonEntrance.cpp" />
+    <ClCompile Include="snDungeonScene01.cpp" />
+    <ClCompile Include="snDungeonScene02.cpp" />
+    <ClCompile Include="snDungeonScene03.cpp" />
     <ClCompile Include="SnowEngine.cpp" />
     <ClCompile Include="snPlayScene.cpp" />
     <ClCompile Include="snShopScene.cpp" />

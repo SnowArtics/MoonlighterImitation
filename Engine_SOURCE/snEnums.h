@@ -19,6 +19,8 @@ namespace sn::enums
 		Background,
 		BackObject,
 		Player,
+		Obstacle,
+		DesObstacle,
 		Monster,
 		UI,
 		End,

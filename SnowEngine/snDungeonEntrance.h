@@ -1,13 +1,12 @@
 #pragma once
-#include "..\Engine_SOURCE\snScene.h"
+#include "snDungeon.h"
 
-namespace sn
-{
-	class DungeonScene : public Scene
+namespace sn {
+	class DungeonEntrance : public Dungeon
 	{
 	public:
-		DungeonScene();
-		virtual ~DungeonScene();
+		DungeonEntrance();
+		virtual ~DungeonEntrance();
 
 		virtual void Initialize() override;
 		virtual void Update() override;

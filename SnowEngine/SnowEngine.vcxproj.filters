@@ -8,17 +8,32 @@
       <Filter>Scene</Filter>
     </ClCompile>
     <ClCompile Include="SnowEngine.cpp" />
-    <ClCompile Include="snDungeonScene.cpp">
+    <ClCompile Include="snDungeon.cpp">
       <Filter>Scene\Dungeon</Filter>
-    </ClCompile>
-    <ClCompile Include="snVillageScene.cpp">
-      <Filter>Scene\Village</Filter>
     </ClCompile>
     <ClCompile Include="snTitleScene.cpp">
       <Filter>Scene\Title</Filter>
     </ClCompile>
     <ClCompile Include="snShopScene.cpp">
       <Filter>Scene\Shop</Filter>
+    </ClCompile>
+    <ClCompile Include="snDungeonScene01.cpp">
+      <Filter>Scene\Dungeon\Dungeon01</Filter>
+    </ClCompile>
+    <ClCompile Include="snDungeonScene02.cpp">
+      <Filter>Scene\Dungeon\Dungeon02</Filter>
+    </ClCompile>
+    <ClCompile Include="snDungeonScene03.cpp">
+      <Filter>Scene\Dungeon\Dungeon03</Filter>
+    </ClCompile>
+    <ClCompile Include="snDungeonBoss.cpp">
+      <Filter>Scene\Dungeon\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="snVillageScene.cpp">
+      <Filter>Scene\Village</Filter>
+    </ClCompile>
+    <ClCompile Include="snDungeonEntrance.cpp">
+      <Filter>Scene\Dungeon\DungeonEntrance</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -32,17 +47,32 @@
     <ClInclude Include="LoadScenes.h">
       <Filter>Load</Filter>
     </ClInclude>
-    <ClInclude Include="snDungeonScene.h">
+    <ClInclude Include="snDungeon.h">
       <Filter>Scene\Dungeon</Filter>
-    </ClInclude>
-    <ClInclude Include="snVillageScene.h">
-      <Filter>Scene\Village</Filter>
     </ClInclude>
     <ClInclude Include="snTitleScene.h">
       <Filter>Scene\Title</Filter>
     </ClInclude>
     <ClInclude Include="snShopScene.h">
       <Filter>Scene\Shop</Filter>
+    </ClInclude>
+    <ClInclude Include="snDungeonScene01.h">
+      <Filter>Scene\Dungeon\Dungeon01</Filter>
+    </ClInclude>
+    <ClInclude Include="snDungeonScene02.h">
+      <Filter>Scene\Dungeon\Dungeon02</Filter>
+    </ClInclude>
+    <ClInclude Include="snDungeonScene03.h">
+      <Filter>Scene\Dungeon\Dungeon03</Filter>
+    </ClInclude>
+    <ClInclude Include="snDungeonBoss.h">
+      <Filter>Scene\Dungeon\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="snVillageScene.h">
+      <Filter>Scene\Village</Filter>
+    </ClInclude>
+    <ClInclude Include="snDungeonEntrance.h">
+      <Filter>Scene\Dungeon\DungeonEntrance</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +99,21 @@
     </Filter>
     <Filter Include="Scene\Shop">
       <UniqueIdentifier>{6d5242b0-4908-4016-be2e-d32c3c44ba0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Dungeon\Dungeon01">
+      <UniqueIdentifier>{e36c4834-9324-4bc5-9d1e-2fbf5a9c8adb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Dungeon\Dungeon02">
+      <UniqueIdentifier>{76fd7f7b-3062-426f-ab88-144a12517206}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Dungeon\Dungeon03">
+      <UniqueIdentifier>{f8579c41-f43b-499b-b9a2-8caae00cfa62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Dungeon\Boss">
+      <UniqueIdentifier>{8f1a2ad9-59eb-43cc-b117-a5a9bd66a29a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Dungeon\DungeonEntrance">
+      <UniqueIdentifier>{bc214530-3535-4e1b-a8a9-5c27398a3eca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -32,6 +32,7 @@ namespace sn
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.1f));
 			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
 			Background->GetComponent<Transform>()->SetScale(Vector3(8.18725f, 10.f, 2.0f));
+			//Background->GetComponent<Transform>()->SetScale(Vector3(4.093625f, 5.f, 2.0f));
 		}
 		{
 			//Main Camera
@@ -64,7 +65,7 @@ namespace sn
 
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			SceneManager::LoadScene(L"DungeonScene");
+			SceneManager::LoadScene(L"DungeonEntrance");
 		}
 	}
 	void ShopScene::Render()

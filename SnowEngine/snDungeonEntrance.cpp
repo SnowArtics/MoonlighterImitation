@@ -1,4 +1,4 @@
-#include "snVillageScene.h"
+#include "snDungeonEntrance.h"
 #include "snGameObject.h"
 #include "snMeshRenderer.h"
 #include "snMesh.h"
@@ -12,26 +12,25 @@
 #include "snResources.h"
 #include "snInput.h"
 
-namespace sn
-{
-	VillageScene::VillageScene()
+namespace sn {
+	DungeonEntrance::DungeonEntrance()
 	{
 	}
-	VillageScene::~VillageScene()
+	DungeonEntrance::~DungeonEntrance()
 	{
 	}
-	void VillageScene::Initialize()
+	void DungeonEntrance::Initialize()
 	{
 		{
-			//마을 배경 로그인
+			//던전 배경 로딩 //1.171428571428571
 			GameObject* Background = new GameObject();
 			AddGameObject(eLayerType::Background, Background);
 			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"VillageBackgroundMaterial01"));
+			mr->SetMaterial(Resources::Find<Material>(L"DungeonEntranceMaterial01"));
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			Background->GetComponent<Transform>()->SetScale(Vector3(19.495792f, 16.f, 2.0f));
-			//Background->GetComponent<Transform>()->SetScale(Vector3(6.0806f, 5.f, 2.0f));
+			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(11.1714f, 10.f, 2.0f));
 		}
 
 		{
@@ -125,16 +124,16 @@ namespace sn
 			//camera->AddComponent<CameraScript>();
 		}
 	}
-	void VillageScene::Update()
+	void DungeonEntrance::Update()
 	{
 		Scene::Update();
 	}
-	void VillageScene::LateUpdate()
+	void DungeonEntrance::LateUpdate()
 	{
 		Scene::LateUpdate();
 		if (Input::GetKeyDown(eKeyCode::SPACE))
 		{
-			SceneManager::LoadScene(L"ShopScene");
+			SceneManager::LoadScene(L"DungeonScene01");
 		}
 		if (Input::GetKeyDown(eKeyCode::I))
 		{
@@ -144,15 +143,15 @@ namespace sn
 			else inven->SetEnable(true);
 		}
 	}
-	void VillageScene::Render()
+	void DungeonEntrance::Render()
 	{
 		Scene::Render();
 	}
-	void VillageScene::OnEnter()
+	void DungeonEntrance::OnEnter()
 	{
 		Initialize();
 	}
-	void VillageScene::OnExit()
+	void DungeonEntrance::OnExit()
 	{
 	}
 }
