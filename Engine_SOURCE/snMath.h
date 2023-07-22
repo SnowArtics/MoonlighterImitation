@@ -23,6 +23,7 @@ using namespace DirectX::PackedVector;
 namespace sn::math
 {
     struct Vector2;
+    struct Vector3;
     struct Vector4;
     struct Matrix;
     struct Quaternion;

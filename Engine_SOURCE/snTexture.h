@@ -25,11 +25,15 @@ namespace sn::graphics
 
 		float GetYToXRatio() { return YToXRatio; }
 
+		size_t GetWidth() { return mImage.GetMetadata().width; }
+		size_t GetHeight() { return mImage.GetMetadata().height; }
+
 	private:
 		ScratchImage mImage;
 		Microsoft::WRL::ComPtr<ID3D11Texture2D> mTexture;
 		Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> mSRV;
 		D3D11_TEXTURE2D_DESC mDesc;
 		float YToXRatio;
+
 	};
 }

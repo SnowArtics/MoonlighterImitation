@@ -8,7 +8,7 @@ namespace sn
 	class GameObject : public Entity
 	{
 	public:
-		enum eState
+		enum class eState
 		{
 			Active,
 			Paused,
@@ -48,9 +48,32 @@ namespace sn
 		}
 
 		template <typename T>
-		T* AddComponent()
+		const std::vector<T*> GetComponents()
 		{
-			T* comp = new T();
+			std::vector<T*> comps;
+
+			T* component;
+			for (Component* comp : mComponents)
+			{
+				component = dynamic_cast<T*>(comp);
+				if (component != nullptr)
+					comps.push_back(component);
+			}
+
+			for (Script* script : mScripts)
+			{
+				component = dynamic_cast<T*>(script);
+				if (component != nullptr)
+					comps.push_back(component);
+			}
+
+			return comps;
+		}
+
+		template <typename T, typename... Args>
+		T* AddComponent(Args&&... args)
+		{
+			T* comp = new T(std::forward<Args>(args)...);
 
 			Component* buff
 				= dynamic_cast<Component*>(comp);
@@ -66,9 +89,13 @@ namespace sn
 				mScripts.push_back(script);
 
 			comp->SetOwner(this);
+			comp->Initialize();
 
 			return comp;
 		}
+
+		void SetState(eState state) { mState = state; }
+		eState GetState() { return mState; }
 
 	private:
 		eState mState;

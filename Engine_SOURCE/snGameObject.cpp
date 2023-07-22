@@ -9,8 +9,6 @@ namespace sn {
 		, mEnable(true)
 	{
 		AddComponent<Transform>();
-		Transform* transform = GetComponent<Transform>();
-		transform->SetOwner(this);
 	}
 
 	GameObject::~GameObject()
@@ -35,6 +33,15 @@ namespace sn {
 
 	void GameObject::Initialize()
 	{
+		for (Component* comp : mComponents)
+		{
+			comp->Initialize();
+		}
+
+		for (Script* script : mScripts)
+		{
+			script->Initialize();
+		}
 	}
 
 	void GameObject::Update()

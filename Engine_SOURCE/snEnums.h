@@ -7,8 +7,10 @@ namespace sn::enums
 		None,
 		Transform,
 		Mesh,
+		Collider2D,
 		Particle,
 		MeshRenderer,
+		Animator,
 		Script,
 		Camera,
 		End,
@@ -16,6 +18,7 @@ namespace sn::enums
 
 	enum class eLayerType
 	{
+		Grid,
 		Background,
 		BackObject,
 		Player,
@@ -23,7 +26,9 @@ namespace sn::enums
 		DesObstacle,
 		Monster,
 		UI,
-		End,
+
+		Camera,
+		End = 16,
 	};
 
 	enum class eResourceType
@@ -32,6 +37,16 @@ namespace sn::enums
 		Shader,
 		Material,
 		Mesh,
+		Animation,
+		End,
+	};
+
+	enum class eColliderType
+	{
+		Rect,
+		Circle,
+		Sphere,
+		Cube,
 		End,
 	};
 }

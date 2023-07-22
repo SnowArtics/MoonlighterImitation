@@ -48,9 +48,9 @@ namespace sn::graphics
 		);
 		mSRV->GetResource((ID3D11Resource**)mTexture.GetAddressOf());
 
-		return S_OK;
-
 		YToXRatio = mImage.GetMetadata().width / mImage.GetMetadata().height;
+
+		return S_OK;
     }
 
 	void Texture::BindShader(eShaderStage stage, UINT startSlot)

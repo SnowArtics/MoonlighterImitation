@@ -1,13 +1,14 @@
 #pragma once
-#include "snScene.h"
+#include "../Engine_SOURCE/snGameObject.h"
 
-namespace sn
+
+namespace gui
 {
-	class PlayScene : public Scene
+	class DebugObject : public sn::GameObject
 	{
 	public:
-		PlayScene();
-		virtual ~PlayScene();
+		DebugObject();
+		~DebugObject();
 
 		virtual void Initialize() override;
 		virtual void Update() override;
@@ -15,6 +16,5 @@ namespace sn
 		virtual void Render() override;
 
 	private:
-
 	};
 }

@@ -82,6 +82,18 @@
     <Filter Include="Graphics\Texture">
       <UniqueIdentifier>{1cc94eee-11f2-4d61-8fb0-8b872b68a005}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Object">
+      <UniqueIdentifier>{99ca68b8-2ba2-49f6-9027-4fba0ad7a547}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Collider">
+      <UniqueIdentifier>{c62efed4-51b9-4401-89d1-83f597e8a499}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObject\Component\Animator">
+      <UniqueIdentifier>{58d7358a-971c-477b-a142-abfcc9f923d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource\Resources\Animation">
+      <UniqueIdentifier>{69a206a9-9619-46ec-b19c-734364b31696}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -165,6 +177,21 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)snTexture.h">
       <Filter>Graphics\Texture</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snObject.h">
+      <Filter>Common\Object</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snCollider2D.h">
+      <Filter>GameObject\Component\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snCollisionManager.h">
+      <Filter>Scene\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snAnimator.h">
+      <Filter>GameObject\Component\Animator</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snAnimation.h">
+      <Filter>Resource\Resources\Animation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)snMath.inl">
@@ -240,6 +267,18 @@
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)snTexture.cpp">
       <Filter>Graphics\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snCollider2D.cpp">
+      <Filter>GameObject\Component\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snCollisionManager.cpp">
+      <Filter>Scene\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snAnimator.cpp">
+      <Filter>GameObject\Component\Animator</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snAnimation.cpp">
+      <Filter>Resource\Resources\Animation</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

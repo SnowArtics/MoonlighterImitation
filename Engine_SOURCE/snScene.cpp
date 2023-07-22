@@ -3,50 +3,54 @@
 namespace sn {
 	sn::Scene::Scene()
 	{
-		for (int i = 0; i < (int)sn::enums::eLayerType::End; i++) {
-			Layer* layer = new Layer();
-			mLayers.push_back(layer);
-		}
+		mLayers.resize((int)sn::enums::eLayerType::End);
 	}
 
 	sn::Scene::~Scene()
 	{
-		for (int i = 0; i < (int)sn::enums::eLayerType::End; i++) {
-			delete mLayers[i];
-		}
+		mLayers.clear();
 	}
 
 	void sn::Scene::Initialize()
 	{
-		for (Layer* layer : mLayers)
+		for (Layer& layer : mLayers)
 		{
-			layer->Initialize();
+			layer.Initialize();
 		}
 	}
 
 	void sn::Scene::Update()
 	{
-		for (Layer* layer : mLayers)
+		for (Layer& layer : mLayers)
 		{
-			layer->Update();
+			layer.Update();
 		}
 	}
 
 	void sn::Scene::LateUpdate()
 	{
-		for (Layer* layer : mLayers)
+		for (Layer& layer : mLayers)
 		{
-			layer->LateUpdate();
+			layer.LateUpdate();
 		}
 	}
 
 	void sn::Scene::Render()
 	{
-		for (Layer* layer : mLayers)
+		for (Layer& layer : mLayers)
 		{
-			layer->Render();
+			layer.Render();
 		}
 	}
+
+	void Scene::Destroy()
+	{
+		for (Layer& layer : mLayers)
+		{
+			layer.Destory();
+		}
+	}
+
 	void Scene::OnEnter()
 	{
 	}
@@ -55,6 +59,6 @@ namespace sn {
 	}
 	void Scene::AddGameObject(eLayerType type, GameObject* gameObj)
 	{
-		mLayers[(int)type]->AddGameObject(gameObj);
+		mLayers[(int)type].AddGameObject(gameObj);
 	}
 }

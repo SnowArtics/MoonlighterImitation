@@ -6,11 +6,15 @@
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "d3dcompiler.lib")
 
+#include "snEnums.h"
+#include "snMath.h"
+
 #define CB_GETBINDSLOT(name) __CBUFFERBINDSLOT__##name##__
 #define CBUFFER(name, slot) static const int CB_GETBINDSLOT(name) = slot; struct alignas(16) name 
 
 #define CBSLOT_TRANSFORM		0
-//#define CBSLOT_PARTICLE		1
+#define CBSLOT_GRID					2
+#define CBSLOT_ANIMATION2D		3
 
 namespace sn::graphics
 {
@@ -29,6 +33,8 @@ namespace sn::graphics
 	{
 		Transform,
 		Material,
+		Grid,
+		Animator,
 		End,
 	};
 
@@ -86,5 +92,19 @@ namespace sn::graphics
 
 		}
 		virtual ~GpuBuffer() = default;
+	};
+
+	struct DebugMesh
+	{
+		enums::eColliderType type;
+		math::Vector3 position;
+		math::Vector3 rotation;
+		math::Vector3 scale;
+
+		std::vector<math::Vector3> vertexs;
+
+		float radius;
+		float duration;
+		float time;
 	};
 }

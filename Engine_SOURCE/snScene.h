@@ -14,6 +14,7 @@ namespace sn
 		virtual void Update();
 		virtual void LateUpdate();
 		virtual void Render();
+		virtual void Destroy();
 
 		virtual void OnEnter();
 		virtual void OnExit();
@@ -39,8 +40,8 @@ namespace sn
 		}
 		GameObject* Find(std::wstring _gameObjectName)
 		{
-			for (Layer* layer : mLayers) {
-				const std::vector<GameObject*> gameObjs = layer->GetGameObjects();
+			for (Layer& layer : mLayers) {
+				const std::vector<GameObject*> gameObjs = layer.GetGameObjects();
 				for (GameObject* obj : gameObjs) {
 					if (obj->GetName() == _gameObjectName) {
 						return obj;
@@ -49,9 +50,9 @@ namespace sn
 			}
 			return nullptr;
 		}
-		Layer* GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
+		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
 
 	private:
-		std::vector<Layer*> mLayers;
+		std::vector<Layer> mLayers;
 	};
 }

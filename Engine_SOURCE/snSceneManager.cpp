@@ -7,6 +7,7 @@ namespace sn
 
 	void SceneManager::Initialize()
 	{
+		//mActiveScene->Initialize();
 	}
 
 	void SceneManager::Update()
@@ -23,6 +24,12 @@ namespace sn
 	{
 		mActiveScene->Render();
 	}
+
+	void SceneManager::Destroy()
+	{
+		mActiveScene->Destroy();
+	}
+
 	void SceneManager::Release()
 	{
 		for (auto& iter : mScenes)
@@ -41,6 +48,8 @@ namespace sn
 		mActiveScene->OnExit();
 		mActiveScene = iter->second;
 		mActiveScene->OnEnter();
+
+		mActiveScene->Initialize();
 
 		return iter->second;
 	}

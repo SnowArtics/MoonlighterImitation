@@ -3,6 +3,7 @@
 #include "snTime.h"
 #include "snRenderer.h"
 #include "snSceneManager.h"
+#include "snCollisionManager.h"
 
 namespace sn
 {
@@ -24,6 +25,7 @@ namespace sn
 		Update();
 		LateUpdate();
 		Render();
+		Destroy();
 	}
 
 	void Application::Initialize()
@@ -33,12 +35,14 @@ namespace sn
 
 		renderer::Initialize();
 		SceneManager::Initialize();
+		CollisionManager::Initialize();
 	}
 
 	void Application::Update()
 	{
 		Time::Update();
 		Input::Update();
+		CollisionManager::Update();
 		SceneManager::Update();
 	}
 
@@ -55,6 +59,15 @@ namespace sn
 		graphicDevice->UpdateViewPort();
 		//SceneManager::Render();
 		renderer::Render();
+	}
+
+	void Application::Destroy()
+	{
+		SceneManager::Destroy();
+	}
+
+	void Application::Present()
+	{
 		graphicDevice->Present();
 	}
 
