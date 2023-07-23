@@ -182,10 +182,10 @@ namespace renderer {
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"SpriteMaterial02", material);
 
-		spriteShader
+		std::shared_ptr<Shader> animSpriteShader
 			= Resources::Find<Shader>(L"SpriteAnimationShader");
 		material = std::make_shared<Material>();
-		material->SetShader(spriteShader);
+		material->SetShader(animSpriteShader);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"SpriteAnimaionMaterial", material);
 		
@@ -458,6 +458,10 @@ namespace renderer {
 			spriteMaterial->SetTexture(texture);
 			Resources::Insert(L"UIInventoryBaseMaterial01", spriteMaterial);
 		}
+#pragma endregion
+#pragma region Player
+
+
 #pragma endregion
 	}
 

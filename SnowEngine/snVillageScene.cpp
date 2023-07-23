@@ -12,6 +12,7 @@
 #include "snResources.h"
 #include "snInput.h"
 #include "snRenderer.h"
+#include "snAnimator.h"
 
 namespace sn
 {
@@ -31,8 +32,39 @@ namespace sn
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"VillageBackgroundMaterial01"));
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			Background->GetComponent<Transform>()->SetScale(Vector3(19.495792f, 16.f, 2.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(15.840331f, 13.f, 2.0f));
 			//Background->GetComponent<Transform>()->SetScale(Vector3(6.0806f, 5.f, 2.0f));
+		}
+
+		{
+			//플레이어 생성
+			GameObject* Player = new GameObject();
+			AddGameObject(eLayerType::Player, Player);
+			Player->SetName(L"Player");
+			Collider2D* cd = Player->AddComponent<Collider2D>();
+			cd->SetSize(Vector2(1.0f, 1.0f));
+			MeshRenderer* mr = Player->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			std::shared_ptr<Texture> atlas
+				= Resources::Load<Texture>(L"LinkSprite", L"..\\Resources\\Texture\\Player\\moveState.png");
+
+			Animator* at = Player->AddComponent<Animator>();
+			at->Create(L"MOVE_UP", atlas, Vector2(0.0f, 0.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"MOVE_DOWN", atlas, Vector2(0.0f, 120.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"MOVE_RIGHT", atlas, Vector2(0.0f, 240.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"MOVE_LEFT", atlas, Vector2(0.0f, 360.0f), Vector2(120.0f, 120.0f), 8);
+
+			at->Create(L"ROLL_UP", atlas, Vector2(0.0f, 480.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"ROLL_DOWN", atlas, Vector2(0.0f, 600.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"ROLL_RIGHT", atlas, Vector2(0.0f, 720.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"ROLL_LEFT", atlas, Vector2(0.0f, 840.0f), Vector2(120.0f, 120.0f), 8);
+
+			at->PlayAnimation(L"MOVE_UP", true);
+
+			Player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+			Player->GetComponent<Transform>()->SetScale(Vector3(1.f, 1.f, 1.9f));
 		}
 
 		{
