@@ -2,8 +2,6 @@
 
 #include "snPlayerFSM.h"
 
-namespace sn
-{
 	PlayerState::PlayerState(PLAYER_STATE _state)
 		: state(_state)
 		, playerFSM(nullptr)
@@ -12,4 +10,3 @@ namespace sn
 	PlayerState::~PlayerState()
 	{
 	}
-}

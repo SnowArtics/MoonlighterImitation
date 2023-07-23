@@ -2,6 +2,7 @@
 
 namespace sn {
 	sn::Scene::Scene()
+		: flag(true)
 	{
 		mLayers.resize((int)sn::enums::eLayerType::End);
 	}

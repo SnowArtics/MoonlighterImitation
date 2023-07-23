@@ -52,7 +52,11 @@ namespace sn
 		}
 		Layer& GetLayer(eLayerType type) { return mLayers[(UINT)type]; }
 
+		bool GetFlag() { return flag; }
+		void SetFlag(bool _flag) { flag = _flag; }
+
 	private:
 		std::vector<Layer> mLayers;
+		bool flag;
 	};
 }

@@ -1,8 +1,6 @@
 #pragma once
 #include "snPlayerState.h"
 
-namespace sn {
-
     class MoveState :
         public PlayerState
     {
@@ -15,5 +13,3 @@ namespace sn {
 		virtual void Enter();
 		virtual void Exit();
     };
-
-}

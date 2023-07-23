@@ -1,7 +1,6 @@
 #pragma once
 #include "snPlayerState.h"
 
-namespace sn {
 	class IdleState : public PlayerState
 	{
 	public:
@@ -14,5 +13,3 @@ namespace sn {
 		virtual void Exit();
 
 	};	
-}
-

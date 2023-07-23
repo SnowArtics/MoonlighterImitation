@@ -14,6 +14,11 @@
 #include "snRenderer.h"
 #include "snAnimator.h"
 
+#include "snPlayerFSM.h"
+#include "snMoveState.h"
+#include "snIdleState.h"
+#include "snRollState.h"
+
 namespace sn
 {
 	VillageScene::VillageScene()
@@ -56,15 +61,25 @@ namespace sn
 			at->Create(L"MOVE_RIGHT", atlas, Vector2(0.0f, 240.0f), Vector2(120.0f, 120.0f), 8);
 			at->Create(L"MOVE_LEFT", atlas, Vector2(0.0f, 360.0f), Vector2(120.0f, 120.0f), 8);
 
-			at->Create(L"ROLL_UP", atlas, Vector2(0.0f, 480.0f), Vector2(120.0f, 120.0f), 8);
-			at->Create(L"ROLL_DOWN", atlas, Vector2(0.0f, 600.0f), Vector2(120.0f, 120.0f), 8);
-			at->Create(L"ROLL_RIGHT", atlas, Vector2(0.0f, 720.0f), Vector2(120.0f, 120.0f), 8);
-			at->Create(L"ROLL_LEFT", atlas, Vector2(0.0f, 840.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"ROLL_RIGHT", atlas, Vector2(0.0f, 480.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"ROLL_LEFT", atlas, Vector2(0.0f, 600.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"ROLL_UP", atlas, Vector2(0.0f, 720.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"ROLL_DOWN", atlas, Vector2(0.0f, 840.0f), Vector2(120.0f, 120.0f), 8);
 
-			at->PlayAnimation(L"MOVE_UP", true);
+			at->Create(L"IDLE_RIGHT", atlas, Vector2(0.0f, 960.0f), Vector2(120.0f, 120.0f), 10);
+			at->Create(L"IDLE_LEFT", atlas, Vector2(0.0f, 1080.0f), Vector2(120.0f, 120.0f), 10);
+			at->Create(L"IDLE_UP", atlas, Vector2(0.0f, 1200.0f), Vector2(120.0f, 120.0f), 10);
+			at->Create(L"IDLE_DOWN", atlas, Vector2(0.0f, 1320.0f), Vector2(120.0f, 120.0f), 10);
+
+			at->PlayAnimation(L"MOVE_RIGHT", true);
 
 			Player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 			Player->GetComponent<Transform>()->SetScale(Vector3(1.f, 1.f, 1.9f));
+
+			PlayerFSM* playerFSM = Player->AddComponent<PlayerFSM>();
+			playerFSM->AddState(new RollState);
+			playerFSM->AddState(new MoveState);
+			playerFSM->AddState(new IdleState);
 		}
 
 		{
@@ -144,7 +159,7 @@ namespace sn
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
-			camera->AddComponent<CameraScript>();
+			//camera->AddComponent<CameraScript>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 		}
@@ -168,7 +183,7 @@ namespace sn
 	void VillageScene::LateUpdate()
 	{
 		Scene::LateUpdate();
-		if (Input::GetKeyDown(eKeyCode::SPACE))
+		if (Input::GetKeyDown(eKeyCode::Z))
 		{
 			SceneManager::LoadScene(L"ShopScene");
 		}
@@ -186,7 +201,10 @@ namespace sn
 	}
 	void VillageScene::OnEnter()
 	{
-		Initialize();
+		if (GetFlag() == true) {
+			Initialize();
+			SetFlag(false);
+		}
 	}
 	void VillageScene::OnExit()
 	{

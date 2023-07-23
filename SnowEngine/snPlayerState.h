@@ -2,7 +2,8 @@
 
 #include "snPlayerFSM.h"
 
-namespace sn {
+using namespace sn;
+
 	class PlayerState
 	{
 	public:
@@ -25,5 +26,4 @@ namespace sn {
 		PlayerFSM*		playerFSM;
 		PLAYER_STATE	state;
 	};
-}
 
