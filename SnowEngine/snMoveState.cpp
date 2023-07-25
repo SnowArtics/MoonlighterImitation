@@ -22,39 +22,39 @@ using namespace sn;
 
 		actionDir.clear();
 
-		if (Input::GetKey(eKeyCode::LEFT))
+		if (Input::GetKey(eKeyCode::A))
 		{
- 			pos.x -= 1.0f * Time::DeltaTime();
+ 			pos.x -= 2.5f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::LEFT);
 			tr->SetPosition(pos);
 			actionDir.push_back(PLAYER_DIR::LEFT);
 		}
-		if (Input::GetKey(eKeyCode::RIGHT))
+		if (Input::GetKey(eKeyCode::D))
 		{
-			pos.x += 1.0f * Time::DeltaTime();
+			pos.x += 2.5f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::RIGHT);
 			tr->SetPosition(pos);
 			actionDir.push_back(PLAYER_DIR::RIGHT);
 		}
-		if (Input::GetKey(eKeyCode::DOWN))
+		if (Input::GetKey(eKeyCode::S))
 		{
-			pos.y -= 1.0f * Time::DeltaTime();			
+			pos.y -= 2.5f * Time::DeltaTime();			
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::DOWN);
 			tr->SetPosition(pos);
 			actionDir.push_back(PLAYER_DIR::DOWN);
 		}
-		if (Input::GetKey(eKeyCode::UP))
+		if (Input::GetKey(eKeyCode::W))
 		{
-			pos.y += 1.0f * Time::DeltaTime();			
+			pos.y += 2.5f * Time::DeltaTime();			
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::UP);
 			tr->SetPosition(pos);
 			actionDir.push_back(PLAYER_DIR::UP);
 		}
 
-		if (!(Input::GetKey(eKeyCode::LEFT))
-			&& !(Input::GetKey(eKeyCode::RIGHT))
-			&& !(Input::GetKey(eKeyCode::DOWN))
-			&& !(Input::GetKey(eKeyCode::UP))) {
+		if (!(Input::GetKey(eKeyCode::A))
+			&& !(Input::GetKey(eKeyCode::D))
+			&& !(Input::GetKey(eKeyCode::S))
+			&& !(Input::GetKey(eKeyCode::W))) {
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::IDLE);
 		}
 

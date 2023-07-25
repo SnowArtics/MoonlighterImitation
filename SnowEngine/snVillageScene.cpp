@@ -29,17 +29,95 @@ namespace sn
 	}
 	void VillageScene::Initialize()
 	{
+#pragma region VillageObject
 		{
-			//마을 배경 로그인
+			//마을 배경 로그인 //1.218487394
 			GameObject* Background = new GameObject();
 			AddGameObject(eLayerType::Background, Background);
 			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"VillageBackgroundMaterial01"));
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			Background->GetComponent<Transform>()->SetScale(Vector3(15.840331f, 13.f, 2.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(18.27731091f, 15.f, 2.0f));
 			//Background->GetComponent<Transform>()->SetScale(Vector3(6.0806f, 5.f, 2.0f));
 		}
+		{
+			//Will의 상점 만들기
+			//1.15151515
+			GameObject* Background = new GameObject();
+			Background->SetName(L"WillsHome");
+			AddGameObject(eLayerType::BackObject, Background);
+			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Build_WiilsHomeMaterial01"));
+			Background->GetComponent<Transform>()->SetPosition(Vector3(2.15f, 5.f, 0.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(3.45454545f, 3.f, 2.0f));
+
+			GameObject* willsFlag = new GameObject();
+			willsFlag->SetName(L"WillsFlagBack");
+			AddGameObject(eLayerType::BackObject, willsFlag);
+			MeshRenderer* mr2 = willsFlag->AddComponent<MeshRenderer>();
+			mr2->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr2->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			std::shared_ptr<Texture> atlas
+				= Resources::Load<Texture>(L"WillsFlagSprite", L"..\\Resources\\Texture\\Village\\Build_WillsHome_Flag.png");
+
+			Animator* at = willsFlag->AddComponent<Animator>();
+			at->Create(L"Wills_Flag", atlas, Vector2(0.0f, 0.0f), Vector2(93.0f, 190.0f), 53, 190.f);
+
+			willsFlag->GetComponent<Transform>()->SetPosition(Vector3(3.45f, 5.0f, 0.0f));
+			willsFlag->GetComponent<Transform>()->SetScale(Vector3(3.45454545f, 3.f, 2.0f));
+
+			at->PlayAnimation(L"Wills_Flag", true);
+		}
+		{
+			//윌의 옆집 (위의 거주지) 만들기
+			//0.8903394
+			GameObject* Background = new GameObject();
+			Background->SetName(L"TopHome1");
+			AddGameObject(eLayerType::BackObject, Background);
+			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"Build_Top1Material01"));
+			Background->GetComponent<Transform>()->SetPosition(Vector3(-1.35f, 4.95f, 0.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(2.2258485f, 2.5f, 2.0f));
+
+			//0.5
+			Background = new GameObject();
+			Background->SetName(L"TopBuild_Awning01");
+			AddGameObject(eLayerType::BackObject, Background);
+			MeshRenderer* mr2 = Background->AddComponent<MeshRenderer>();
+			mr2->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr2->SetMaterial(Resources::Find<Material>(L"Build_AwningMaterial01"));
+			Background->GetComponent<Transform>()->SetPosition(Vector3(-2.89f, 4.58f, 0.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(0.75f, 1.5f, 2.0f));
+		}
+		//{
+		//	//대장간 생성
+		//	//1.32505175
+		//	GameObject* Background = new GameObject();
+		//	Background->SetName(L"Forge01");
+		//	AddGameObject(eLayerType::BackObject, Background);
+		//	MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"Build_ForgeMaterial01"));
+		//	Background->GetComponent<Transform>()->SetPosition(Vector3(8.f, -3.f, 0.0f));
+		//	Background->GetComponent<Transform>()->SetScale(Vector3(3.97515525f, 3.5f, 2.0f));
+		//}
+		{
+			//마을 게시판
+			//1.5223880
+			GameObject* Background = new GameObject();
+			Background->SetName(L"BuildBoard");
+			AddGameObject(eLayerType::BackObject, Background);
+			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"BuildBoardMaterial01"));
+			Background->GetComponent<Transform>()->SetPosition(Vector3(1.07f, 0.53f, 0.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(1.2179104f, 0.8f, 1.0f));
+		}
+#pragma endregion
 
 		{
 			//플레이어 생성
@@ -74,12 +152,14 @@ namespace sn
 			at->PlayAnimation(L"MOVE_RIGHT", true);
 
 			Player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			Player->GetComponent<Transform>()->SetScale(Vector3(1.f, 1.f, 1.9f));
+			Player->GetComponent<Transform>()->SetScale(Vector3(0.8f, 0.8f, 1.0f));
 
 			PlayerFSM* playerFSM = Player->AddComponent<PlayerFSM>();
 			playerFSM->AddState(new RollState);
 			playerFSM->AddState(new MoveState);
 			playerFSM->AddState(new IdleState);
+
+			SetPlayer(Player);
 		}
 
 		{
@@ -159,7 +239,7 @@ namespace sn
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
-			//camera->AddComponent<CameraScript>();
+			camera->AddComponent<CameraScript>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 		}

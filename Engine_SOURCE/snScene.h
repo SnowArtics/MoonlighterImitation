@@ -19,6 +19,10 @@ namespace sn
 		virtual void OnEnter();
 		virtual void OnExit();
 
+		void SetPlayer(GameObject* _player) { mPlayer = _player; }
+
+		GameObject* GetPlayer() { return mPlayer; }
+
 		void AddGameObject(eLayerType type, GameObject* gameObj);
 
 		template <typename T>
@@ -58,5 +62,6 @@ namespace sn
 	private:
 		std::vector<Layer> mLayers;
 		bool flag;
+		GameObject* mPlayer;
 	};
 }
