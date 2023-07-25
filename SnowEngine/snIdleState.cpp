@@ -14,22 +14,22 @@
 	{
 		
 
-		if (Input::GetKeyDown(eKeyCode::LEFT))
+		if (Input::GetKeyDown(eKeyCode::A))
 		{
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::MOVE);
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::LEFT);
 		}
-		if (Input::GetKeyDown(eKeyCode::RIGHT))
+		if (Input::GetKeyDown(eKeyCode::D))
 		{
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::MOVE);
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::RIGHT);
 		}
-		if (Input::GetKeyDown(eKeyCode::DOWN))
+		if (Input::GetKeyDown(eKeyCode::S))
 		{
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::MOVE);
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::DOWN);
 		}
-		if (Input::GetKeyDown(eKeyCode::UP))
+		if (Input::GetKeyDown(eKeyCode::W))
 		{
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::MOVE);
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::UP);
