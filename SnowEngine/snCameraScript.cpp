@@ -12,9 +12,12 @@ namespace sn
 		Transform* tr = GetOwner()->GetComponent<Transform>();
 		Vector3 pos = tr->GetPosition();
 
-		Transform* playerTr = SceneManager::GetActiveScene()->GetPlayer()->GetComponent<Transform>();
-		Vector3 playerPos = playerTr->GetPosition();
+		if (SceneManager::GetActiveScene()->GetPlayer() != nullptr) {
 
-		tr->SetPosition(Vector3(playerPos.x,playerPos.y,pos.z));
+			Transform* playerTr = SceneManager::GetActiveScene()->GetPlayer()->GetComponent<Transform>();
+			Vector3 playerPos = playerTr->GetPosition();
+
+			tr->SetPosition(Vector3(playerPos.x, playerPos.y, pos.z));
+		}
 	}
 }

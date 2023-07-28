@@ -12,6 +12,9 @@
 #include "snCollider2D.h"
 #include "snPlayerMove.h"
 #include "snAnimator.h"
+#include "snLight.h"
+#include "snComputeShader.h"
+#include "snCollisionManager.h"
 
 namespace sn {
 	PlayScene::PlayScene()
@@ -22,6 +25,11 @@ namespace sn {
 	}
 	void PlayScene::Initialize()
 	{
+		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
+
+		ComputeShader* cs = new ComputeShader();
+		cs->Create(L"PaintCS.hlsl", "main");
+
 		{
 			GameObject* player
 				= object::Instantiate<GameObject>(Vector3(0.0f, 0.0f, 1.0001f), eLayerType::Player);
@@ -42,7 +50,7 @@ namespace sn {
 				= Resources::Load<Texture>(L"LinkSprite", L"..\\Resources\\Texture\\linkSprites.png");
 
 			Animator* at = player->AddComponent<Animator>();
-			at->Create(L"Idle", atlas, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), 3);
+			at->Create(L"Idle", atlas, Vector2(0.0f, 0.0f), Vector2(120.0f, 130.0f), 3, 150.f);
 
 			at->PlayAnimation(L"Idle", true);
 			player->AddComponent<PlayerMove>();
@@ -59,6 +67,25 @@ namespace sn {
 			Collider2D* cd = player->AddComponent<Collider2D>();
 			//cd->SetSize(Vector2(1.2f, 1.2f));
 			//player->AddComponent<PlayerMove>();
+		}
+
+		{
+			GameObject* light = new GameObject();
+			light->SetName(L"Smile");
+			AddGameObject(eLayerType::Light, light);
+			Light* lightComp = light->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
+		}
+
+		{
+			GameObject* light = new GameObject();
+			light->SetName(L"Smile");
+			AddGameObject(eLayerType::Light, light);
+			Light* lightComp = light->AddComponent<Light>();
+			lightComp->SetType(eLightType::Point);
+			lightComp->SetColor(Vector4(1.0f, 0.0f, 1.0f, 1.0f));
+			lightComp->SetRadius(2.0f);
 		}
 
 		//{
@@ -144,5 +171,13 @@ namespace sn {
 	void PlayScene::Render()
 	{
 		Scene::Render();
+	}
+	void PlayScene::OnEnter()
+	{
+			if (GetFlag() == true) {
+				Initialize();
+				SetFlag(false);
+			}
+		
 	}
 }
