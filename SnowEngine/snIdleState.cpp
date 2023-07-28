@@ -12,24 +12,22 @@
 	}
 	void IdleState::Update()
 	{
-		
-
-		if (Input::GetKeyDown(eKeyCode::A))
+		if (Input::GetKey(eKeyCode::A))
 		{
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::MOVE);
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::LEFT);
 		}
-		if (Input::GetKeyDown(eKeyCode::D))
+		if (Input::GetKey(eKeyCode::D))
 		{
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::MOVE);
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::RIGHT);
 		}
-		if (Input::GetKeyDown(eKeyCode::S))
+		if (Input::GetKey(eKeyCode::S))
 		{
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::MOVE);
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::DOWN);
 		}
-		if (Input::GetKeyDown(eKeyCode::W))
+		if (Input::GetKey(eKeyCode::W))
 		{
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::MOVE);
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::UP);

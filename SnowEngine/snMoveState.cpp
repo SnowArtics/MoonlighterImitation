@@ -24,28 +24,28 @@ using namespace sn;
 
 		if (Input::GetKey(eKeyCode::A))
 		{
- 			pos.x -= 2.5f * Time::DeltaTime();
+ 			pos.x -= 2.3f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::LEFT);
 			tr->SetPosition(pos);
 			actionDir.push_back(PLAYER_DIR::LEFT);
 		}
 		if (Input::GetKey(eKeyCode::D))
 		{
-			pos.x += 2.5f * Time::DeltaTime();
+			pos.x += 2.3f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::RIGHT);
 			tr->SetPosition(pos);
 			actionDir.push_back(PLAYER_DIR::RIGHT);
 		}
 		if (Input::GetKey(eKeyCode::S))
 		{
-			pos.y -= 2.5f * Time::DeltaTime();			
+			pos.y -= 2.3f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::DOWN);
 			tr->SetPosition(pos);
 			actionDir.push_back(PLAYER_DIR::DOWN);
 		}
 		if (Input::GetKey(eKeyCode::W))
 		{
-			pos.y += 2.5f * Time::DeltaTime();			
+			pos.y += 2.3f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::UP);
 			tr->SetPosition(pos);
 			actionDir.push_back(PLAYER_DIR::UP);
