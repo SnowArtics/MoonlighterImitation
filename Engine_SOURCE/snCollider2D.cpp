@@ -144,6 +144,8 @@ namespace sn
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetComponents<Script>();
 
+		mMesh.hit = true;
+
 		for (Script* script : scripts)
 		{
 			script->OnCollisionEnter(other);
@@ -163,6 +165,8 @@ namespace sn
 	{
 		const std::vector<Script*>& scripts
 			= GetOwner()->GetComponents<Script>();
+
+		mMesh.hit = false;
 
 		for (Script* script : scripts)
 		{

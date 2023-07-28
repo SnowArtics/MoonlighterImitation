@@ -24,19 +24,19 @@
 			switch (GetPlayerFSM()->GetDirection())
 			{
 			case PLAYER_DIR::UP:
-				pos.y += 1.0f * Time::DeltaTime();
+				pos.y += 2.0f * Time::DeltaTime();
 				tr->SetPosition(pos);
 				break;
 			case PLAYER_DIR::DOWN:
-				pos.y -= 1.0f * Time::DeltaTime();
+				pos.y -= 2.0f * Time::DeltaTime();
 				tr->SetPosition(pos);
 				break;
 			case PLAYER_DIR::RIGHT:
-				pos.x += 1.0f * Time::DeltaTime();
+				pos.x += 2.0f * Time::DeltaTime();
 				tr->SetPosition(pos);
 				break;
 			case PLAYER_DIR::LEFT:
-				pos.x -= 1.0f * Time::DeltaTime();
+				pos.x -= 2.0f * Time::DeltaTime();
 				tr->SetPosition(pos);
 				break;
 			default:
@@ -48,19 +48,19 @@
 			switch (actionDir[i])
 			{
 			case PLAYER_DIR::UP:
-				pos.y += 1.0f * Time::DeltaTime();
+				pos.y += 2.0f * Time::DeltaTime();
 				tr->SetPosition(pos);
 				break;
 			case PLAYER_DIR::DOWN:
-				pos.y -= 1.0f * Time::DeltaTime();
+				pos.y -= 2.0f * Time::DeltaTime();
 				tr->SetPosition(pos);
 				break;
 			case PLAYER_DIR::RIGHT:
-				pos.x += 1.0f * Time::DeltaTime();
+				pos.x += 2.0f * Time::DeltaTime();
 				tr->SetPosition(pos);
 				break;
 			case PLAYER_DIR::LEFT:
-				pos.x -= 1.0f * Time::DeltaTime();
+				pos.x -= 2.0f * Time::DeltaTime();
 				tr->SetPosition(pos);
 				break;
 			default:
@@ -68,7 +68,7 @@
 			}
 		}
 
-		if (time > 0.7f)
+		if (time > 0.48f)
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::MOVE);
 	}
 	void RollState::Enter()
