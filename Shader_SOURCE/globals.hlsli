@@ -28,6 +28,14 @@ cbuffer Editor : register(b4)
     float4 ColliderColor;
 }
 
+cbuffer ParticleSystem : register(b5)
+{
+    uint elementCount;
+    float elapsedTime;
+    int padd;
+    int padd2;
+}
+
 Texture2D albedoTexture : register(t0);
 Texture2D atlasTexture : register(t12);
 
@@ -43,7 +51,24 @@ struct LightAttribute
     int pad;
 };
 
+struct Particle
+{
+    float4 position;
+    float4 direction;
+
+    float endTime;
+    float time;
+    float speed;
+    uint active;
+};
+
+struct ParticleShared
+{
+    uint ActiveSharedCount;
+};
+
 StructuredBuffer<LightAttribute> lightsAttribute : register(t13);
+StructuredBuffer<Particle> particles : register(t14);
 
 SamplerState pointSampler : register(s0);
 SamplerState anisotropicSampler : register(s1);

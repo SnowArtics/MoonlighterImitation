@@ -18,6 +18,7 @@ namespace sn::graphics
 		bool CreateBuffer(ID3D11Buffer** buffer, D3D11_BUFFER_DESC* desc, D3D11_SUBRESOURCE_DATA* data);
 		bool CompileFromfile(const std::wstring& fileName, const std::string& funcName, const std::string& version, ID3DBlob** ppCode);
 		bool CreateVertexShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11VertexShader** ppVertexShader);
+		bool CreateGeometryShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11GeometryShader** ppGeometryShader);
 		bool CreatePixelShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11PixelShader** ppPixelShader);
 		bool CreateComputeShader(const void* pShaderBytecode, SIZE_T BytecodeLength, ID3D11ComputeShader** ppComputeShader);
 		bool CreateSamplerState(const D3D11_SAMPLER_DESC* pSamplerDesc, ID3D11SamplerState** ppSamplerState);
@@ -34,7 +35,13 @@ namespace sn::graphics
 		void BindVertexBuffer(UINT StartSlot, ID3D11Buffer* const* ppVertexBuffers, const UINT* pStrides, const UINT* pOffsets);
 		void BindIndexBuffer(ID3D11Buffer* pIndexBuffer, DXGI_FORMAT Format, UINT Offset);
 		void BindVertexShader(ID3D11VertexShader* pVetexShader);
+		void BindHullShader(ID3D11HullShader* pHullShader);
+		void BindDomainShader(ID3D11DomainShader* pDomainShader);
+		void BindGeometryShader(ID3D11GeometryShader* pGeometryShader);
 		void BindPixelShader(ID3D11PixelShader* pPixelShader);
+		void BindComputeShader(ID3D11ComputeShader* pComputeShader);
+		void Dispatch(UINT ThreadGroupCountX, UINT ThreadGroupCountY, UINT ThreadGroupCountZ);
+
 		//이 함수는 생성한 constantBuffer를 GPU에 묶어주는 역할을 한다. 이렇게 하면 해당하는 데이터가
 		//GPU에 생성해준다.
 		void SetConstantBuffer(ID3D11Buffer* buffer, void* data, UINT size);
@@ -44,13 +51,17 @@ namespace sn::graphics
 		//모든 스테이지에 다 보내준다. Switch Case 안씀
 		void BindsConstantBuffer(eShaderStage stage, eCBType type, ID3D11Buffer* buffer);
 		void BindShaderResource(eShaderStage stage, UINT startSlot, ID3D11ShaderResourceView** ppSRV);
+		void BindUnorderedAccess(UINT slot, ID3D11UnorderedAccessView** ppUnorderedAccessViews, const UINT* pUAVInitialCounts);
 		void BindSampler(eShaderStage stage, UINT StartSlot, ID3D11SamplerState** ppSamplers);
 		void BindViewPort(D3D11_VIEWPORT* viewPort);
 		void BindRasterizeState(ID3D11RasterizerState* pRasterizerState);
 		void BindDepthStencilState(ID3D11DepthStencilState* pDepthStencilState);
 		void BindBlendState(ID3D11BlendState* pBlendState);
+		void CopyResource(ID3D11Resource* pDstResource, ID3D11Resource* pSrcResource);
 		
 		void DrawIndexed(UINT IndexCount, UINT StartIndexLocation, INT BaseVertexLocation);
+		void DrawIndexedInstanced(UINT IndexCountPerInstance, UINT InstanceCount
+			, UINT StartIndexLocation, INT BaseVertexLocation, UINT StartInstanceLocation);
 		void ClearTarget();
 		void UpdateViewPort();
 		void Draw();

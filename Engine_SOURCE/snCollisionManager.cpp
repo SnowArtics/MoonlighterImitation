@@ -41,50 +41,58 @@ namespace sn
 
 		for (GameObject* leftObj : lefts)
 		{
-			Collider2D* leftCol = leftObj->GetComponent<Collider2D>();
-			if (leftCol == nullptr)
-				continue;
-			if (leftObj->GetState()
-				!= GameObject::eState::Active)
-				continue;
+			//Collider2D* leftCol = leftObj->GetComponent<Collider2D>();
+			//if (leftCol == nullptr)
+			//	continue;
+			//if (leftObj->GetState()
+			//	!= GameObject::eState::Active)
+			//	continue;
+			//if (leftCol->GetEnable() == false)
+			//	continue;
 
-			for (GameObject* rightObj : rights)
-			{
-				Collider2D* rightCol = rightObj->GetComponent<Collider2D>();
-				if (rightCol == nullptr)
-					continue;
-				if (leftObj == rightObj)
-					continue;
-				if (rightObj->GetState()
-					!= GameObject::eState::Active)
-					continue;
-
-				ColliderCollision(leftCol, rightCol);
-			}
-			//std::vector<Collider2D*> leftCols = leftObj->GetComponents<Collider2D>();
-			//for (Collider2D* leftCol : leftCols) {
-			//	if (leftCol == nullptr)
+			//for (GameObject* rightObj : rights)
+			//{
+			//	Collider2D* rightCol = rightObj->GetComponent<Collider2D>();
+			//	if (rightCol == nullptr)
 			//		continue;
-			//	if (leftObj->GetState()
+			//	if (leftObj == rightObj)
+			//		continue;
+			//	if (rightObj->GetState()
 			//		!= GameObject::eState::Active)
 			//		continue;
+			//	if (rightCol->GetEnable() == false)
+			//		continue;
 
-			//	for (GameObject* rightObj : rights)
-			//	{
-			//		std::vector<Collider2D*> rightCols = rightObj->GetComponents<Collider2D>();
-			//		for (Collider2D* rightCol : rightCols) {
-			//			if (rightCol == nullptr)
-			//				continue;
-			//			if (leftObj == rightObj)
-			//				continue;
-			//			if (rightObj->GetState()
-			//				!= GameObject::eState::Active)
-			//				continue;
-
-			//			ColliderCollision(leftCol, rightCol);
-			//		}					
-			//	}
+			//	ColliderCollision(leftCol, rightCol);
 			//}
+			std::vector<Collider2D*> leftCols = leftObj->GetComponents<Collider2D>();
+			for (Collider2D* leftCol : leftCols) {
+				if (leftCol == nullptr)
+					continue;
+				if (leftObj->GetState()
+					!= GameObject::eState::Active)
+					continue;
+				//if (leftCol->GetEnable() == false)
+				//	continue;
+
+				for (GameObject* rightObj : rights)
+				{
+					std::vector<Collider2D*> rightCols = rightObj->GetComponents<Collider2D>();
+					for (Collider2D* rightCol : rightCols) {
+						if (rightCol == nullptr)
+							continue;
+						if (leftObj == rightObj)
+							continue;
+						if (rightObj->GetState()
+							!= GameObject::eState::Active)
+							continue;
+						//if (rightCol->GetEnable() == false)
+						//	continue;
+
+						ColliderCollision(leftCol, rightCol);
+					}					
+				}
+			}
 		}
 	}
 
@@ -103,7 +111,12 @@ namespace sn
 		{
 			mCollisionMap.insert(std::make_pair(id.id, false));
 			iter = mCollisionMap.find(id.id);
+			iter->second == false;
 		}
+
+		if (iter->second == false && (left->GetEnable() == false || right->GetEnable() == false))
+			return;
+
 		//여기서 겹쳤는지 확인.
 		if (Intersect(left, right))
 		{
@@ -111,6 +124,8 @@ namespace sn
 			if (iter->second == false)
 			{
 				//최초 충돌
+				UINT leftID = left->GetColliderID();
+				UINT rightID = left->GetColliderID();
 				left->OnCollisionEnter(right);
 				right->OnCollisionEnter(left);
 				iter->second = true;
@@ -139,6 +154,10 @@ namespace sn
 	{
 		eColliderType leftType = left->GetColliderType();
 		eColliderType rightType = right->GetColliderType();
+
+		//두개의 충돌체 중 하나라도 비활성화 상태면 무조건 충돌 아닌 상태
+		if (left->GetEnable() == false || right->GetEnable() == false)
+			return false;
 		// 네모 네모 충돌
 		// 분리축 이론
 

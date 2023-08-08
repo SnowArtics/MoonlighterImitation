@@ -19,5 +19,26 @@ namespace sn
 
 			tr->SetPosition(Vector3(playerPos.x, playerPos.y, pos.z));
 		}
+
+		if (Input::GetKey(eKeyCode::LEFT))
+		{
+			pos.x -= 5.0f * Time::DeltaTime();
+			tr->SetPosition(pos);
+		}
+		else if (Input::GetKey(eKeyCode::RIGHT))
+		{
+			pos.x += 5.0f * Time::DeltaTime();
+			tr->SetPosition(pos);
+		}
+		else if (Input::GetKey(eKeyCode::DOWN))
+		{
+			pos.y -= 5.0f * Time::DeltaTime();
+			tr->SetPosition(pos);
+		}
+		else if (Input::GetKey(eKeyCode::UP))
+		{
+			pos.y += 5.0f * Time::DeltaTime();
+			tr->SetPosition(pos);
+		}
 	}
 }

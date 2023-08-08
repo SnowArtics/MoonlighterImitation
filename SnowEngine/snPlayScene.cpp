@@ -15,8 +15,10 @@
 #include "snLight.h"
 #include "snComputeShader.h"
 #include "snCollisionManager.h"
+#include "snPaintShader.h"
+#include "snParticleSystem.h"
 
-namespace sn {
+namespace sn {	
 	PlayScene::PlayScene()
 	{
 	}
@@ -27,8 +29,10 @@ namespace sn {
 	{
 		CollisionManager::SetLayer(eLayerType::Player, eLayerType::Monster, true);
 
-		ComputeShader* cs = new ComputeShader();
-		cs->Create(L"PaintCS.hlsl", "main");
+		std::shared_ptr<PaintShader> paintShader = Resources::Find<PaintShader>(L"PaintShader");
+		std::shared_ptr<Texture> paintTexture = Resources::Find<Texture>(L"PaintTexuture");
+		paintShader->SetTarget(paintTexture);
+		paintShader->OnExcute();
 
 		{
 			GameObject* player
@@ -67,6 +71,18 @@ namespace sn {
 			Collider2D* cd = player->AddComponent<Collider2D>();
 			//cd->SetSize(Vector2(1.2f, 1.2f));
 			//player->AddComponent<PlayerMove>();
+		}
+
+		{
+			GameObject* player = new GameObject();
+			player->SetName(L"Particle");
+			AddGameObject(eLayerType::Monster, player);
+			ParticleSystem* mr = player->AddComponent<ParticleSystem>();
+			player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 1.0f));
+			player->GetComponent<Transform>()->SetScale(Vector3(0.2f, 0.2f, 0.2f));
+			//Collider2D* cd = player->AddComponent<Collider2D>();
+			//cd->SetSize(Vector2(1.2f, 1.2f));
+			//player->AddComponent<PlayerScript>();
 		}
 
 		{
@@ -121,6 +137,7 @@ namespace sn {
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::Player, false);
+			cameraComp->TurnLayerMask(eLayerType::Monster, false);
 			//camera->AddComponent<CameraScript>();
 		}
 

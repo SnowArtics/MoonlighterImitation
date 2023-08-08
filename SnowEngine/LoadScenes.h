@@ -33,5 +33,8 @@ namespace sn
 		SceneManager::CreateScene<DungeonBoss>(L"DungeonBossScene01");
 
 		SceneManager::LoadScene(L"VillageScene");
+
+		SceneManager::SetChangeScene(L"PlayScene");
+		//SceneManager::LoadScene(L"VillageScene");
 	}
 }

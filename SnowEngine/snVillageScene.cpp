@@ -121,7 +121,9 @@ namespace sn
 			Background->GetComponent<Transform>()->SetPosition(Vector3(1.07f, 0.53f, 0.0f));
 			Background->GetComponent<Transform>()->SetScale(Vector3(1.2179104f, 0.8f, 1.0f));
 			Collider2D* cd = Background->AddComponent<Collider2D>();
+			cd->SetName(L"BuildBoardCollder");
 			cd->SetSize(Vector2(1.0f, 1.0f));
+			cd->SetEnable(true);
 		}
 #pragma endregion
 
@@ -132,7 +134,10 @@ namespace sn
 			Player->SetName(L"Player");
 			Collider2D* cd = Player->AddComponent<Collider2D>();
 			cd->SetSize(Vector2(0.5f, 0.5f));
+			cd->SetName(L"FisrtCollider");
+			cd->SetEnable(true);
 			Collider2D* cd2 = Player->AddComponent<Collider2D>();
+			cd2->SetName(L"SecondCollider");
 			//cd2->SetSize(Vector2(0.5f, 0.8f));
 			//cd2->SetCenter(Vector2(0.2f, -0.1f));
 			cd2->SetEnable(false);
@@ -178,10 +183,14 @@ namespace sn
 			at->Create(L"BOW_RIGHT", atlas, Vector2(120.0f, 240.0f), Vector2(120.f, 120.f), 7);
 			at->Create(L"BOW_LEFT", atlas, Vector2(120.0f, 360.0f), Vector2(120.f, 120.f), 7);
 
-			at->PlayAnimation(L"BOW_UP", true);
+			atlas = Resources::Load<Texture>(L"WILLCHARGE", L"..\\Resources\\bowChargeState.png");
+
+			at->Create(L"BOW_CHARGE", atlas, Vector2(0.0f, 0.0f), Vector2(42.f, 80.f), 26);
+
+			at->PlayAnimation(L"BOW_DOWN", true);
 
 			Player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			Player->GetComponent<Transform>()->SetScale(Vector3(1.f, 1.f, 1.0f));
+			Player->GetComponent<Transform>()->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 
 			PlayerFSM* playerFSM = Player->AddComponent<PlayerFSM>();
 			playerFSM->AddState(new RollState);
@@ -271,10 +280,12 @@ namespace sn
 			AddGameObject(eLayerType::Player, camera);
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 			Camera* cameraComp = camera->AddComponent<Camera>();
+			cameraComp->EnableLayerMasks();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
+			SetMainCamera(cameraComp);
 		}
 
 		//UI Camera
@@ -307,7 +318,7 @@ namespace sn
 		Scene::LateUpdate();
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
-			SceneManager::LoadScene(L"ShopScene");
+			SceneManager::SetChangeScene(L"ShopScene");
 		}
 		if (Input::GetKeyDown(eKeyCode::I))
 		{
@@ -327,8 +338,10 @@ namespace sn
 			Initialize();
 			SetFlag(false);
 		}
+		renderer::mainCamera = GetMainCamera();
 	}
 	void VillageScene::OnExit()
 	{
+		//Scene::~Scene();
 	}
 }
