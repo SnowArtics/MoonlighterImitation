@@ -23,6 +23,8 @@
 #include "snSwordState3.h"
 #include "snBowState.h"
 
+#include "MazeMaker.h"
+
 namespace sn
 {
 	VillageScene::VillageScene()
@@ -33,6 +35,11 @@ namespace sn
 	}
 	void VillageScene::Initialize()
 	{
+		MazeMaker::GetInst()->Init();
+		MazeMaker::GetInst()->BackTracking(2, 2);
+		const std::vector<std::vector<int>> arr = MazeMaker::GetInst()->GetDirArr();
+		std::pair<int, int> startPos = MazeMaker::GetInst()->GetStartPos();
+
 #pragma region VillageObject
 		{
 			//마을 배경 로그인 //1.218487394

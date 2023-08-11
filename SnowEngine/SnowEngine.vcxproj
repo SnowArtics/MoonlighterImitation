@@ -163,6 +163,7 @@
   <ItemGroup>
     <ClInclude Include="framework.h" />
     <ClInclude Include="LoadScenes.h" />
+    <ClInclude Include="MazeMaker.h" />
     <ClInclude Include="snBowState.h" />
     <ClInclude Include="snCameraScript.h" />
     <ClInclude Include="snDungeon.h">
@@ -222,6 +223,7 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="MazeMaker.cpp" />
     <ClCompile Include="snBowState.cpp" />
     <ClCompile Include="snCameraScript.cpp" />
     <ClCompile Include="snDungeon.cpp">

@@ -68,6 +68,9 @@
     <ClCompile Include="snBowState.cpp">
       <Filter>Script\Player\PlayeFSM\BOW</Filter>
     </ClCompile>
+    <ClCompile Include="MazeMaker.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -140,6 +143,9 @@
     <ClInclude Include="snBowState.h">
       <Filter>Script\Player\PlayeFSM\BOW</Filter>
     </ClInclude>
+    <ClInclude Include="MazeMaker.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -201,6 +207,9 @@
     </Filter>
     <Filter Include="Script\Player\PlayeFSM\BOW">
       <UniqueIdentifier>{046f85cf-cfeb-4bab-8d7f-7f3f8f4012dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{ddf701db-c0f1-43d4-a097-cb72df767f33}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
