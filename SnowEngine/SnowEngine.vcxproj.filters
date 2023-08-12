@@ -1,9 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="snCameraScript.cpp">
-      <Filter>Script</Filter>
-    </ClCompile>
     <ClCompile Include="snPlayScene.cpp">
       <Filter>Scene</Filter>
     </ClCompile>
@@ -71,12 +68,15 @@
     <ClCompile Include="MazeMaker.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
+    <ClCompile Include="snCameraScript.cpp">
+      <Filter>Script\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="snDungoneCamera.cpp">
+      <Filter>Script\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
-    <ClInclude Include="snCameraScript.h">
-      <Filter>Script</Filter>
-    </ClInclude>
     <ClInclude Include="snPlayScene.h">
       <Filter>Scene</Filter>
     </ClInclude>
@@ -146,6 +146,12 @@
     <ClInclude Include="MazeMaker.h">
       <Filter>Manager</Filter>
     </ClInclude>
+    <ClInclude Include="snCameraScript.h">
+      <Filter>Script\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="snDungoneCamera.h">
+      <Filter>Script\Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -210,6 +216,9 @@
     </Filter>
     <Filter Include="Manager">
       <UniqueIdentifier>{ddf701db-c0f1-43d4-a097-cb72df767f33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Camera">
+      <UniqueIdentifier>{3af212a9-c3be-44db-905a-39b0d25646d1}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

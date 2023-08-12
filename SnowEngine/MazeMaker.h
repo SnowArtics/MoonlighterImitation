@@ -24,7 +24,7 @@ public:
 	void BackTracking(int row, int column);
 	void CellRandomSelect(int range);
 	void MazeProcess();
-	bool CellSearch(int x, int y);
+	int CellSearch(int x, int y);
 	void MoveToMerge();
 	void MoveToPreviousCell();
 

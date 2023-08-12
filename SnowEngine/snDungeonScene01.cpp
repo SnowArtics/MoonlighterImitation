@@ -6,6 +6,16 @@
 #include "snTransform.h"
 #include "snCamera.h"
 #include "snCameraScript.h"
+#include "snAnimator.h"
+
+#include "snPlayerFSM.h"
+#include "snMoveState.h"
+#include "snIdleState.h"
+#include "snRollState.h"
+#include "snSwordState1.h"
+#include "snSwordState2.h"
+#include "snSwordState3.h"
+#include "snBowState.h"
 
 #include "snSceneManager.h"
 
@@ -14,6 +24,8 @@
 
 #include <random>
 #include "snRenderer.h"
+
+#include "MazeMaker.h"
 
 namespace sn {
 	DungeonScene01::DungeonScene01()
@@ -26,18 +38,136 @@ namespace sn {
 
 	void DungeonScene01::Initialize()
 	{
-		{
-			//던전 배경 로딩 //1.593406
-			GameObject* Background = new GameObject();
-			AddGameObject(eLayerType::Background, Background);
-			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"DungeonBackgroundMaterial01"));
-			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
-			Background->GetComponent<Transform>()->SetScale(Vector3(9.77777735f, 5.5f, 2.0f));
-		}
+		MazeMaker::GetInst()->Init();
+		MazeMaker::GetInst()->BackTracking(4, 4);
+		arr = MazeMaker::GetInst()->GetDirArr();
+		playerMapPos = MazeMaker::GetInst()->GetStartPos();
 
+		std::vector<std::wstring> DungeonName;
+		DungeonName.push_back(L"DungeonBackgroundMaterial0-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial1-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial2-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial3-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial4-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial5-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial6-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial7-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial8-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial9-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial10-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial11-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial12-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial13-0");
+
+		std::shuffle(DungeonName.begin(), DungeonName.end(), std::default_random_engine());
+
+#pragma region DungeonBackground
+		int k = 0;
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 4; j++) {
+				//던전 배경 로딩 //1.593406
+				if (arr[i][j] != 0) {
+					GameObject* Background = new GameObject();
+					AddGameObject(eLayerType::Background, Background);
+					MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
+					mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+					if (playerMapPos.second == j && playerMapPos.first == i) {
+						mr->SetMaterial(Resources::Find<Material>(L"DungeonBackgroundMaterial0"));
+					}
+					else {
+						mr->SetMaterial(Resources::Find<Material>(DungeonName[k]));
+						k++;
+					}
+					Background->GetComponent<Transform>()->SetPosition(Vector3((float)j * 9.72f, -((float)i * 5.45f), 0.0f));
+					//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
+					Background->GetComponent<Transform>()->SetScale(Vector3(9.777778f, 5.5f, 0.0f));				
+				}
+			}
+		}
+#pragma endregion
+#pragma region Player
+		{
+			//플레이어 생성
+			GameObject* Player = new GameObject();
+			AddGameObject(eLayerType::Player, Player);
+			Player->SetName(L"Player");
+			Collider2D* cd = Player->AddComponent<Collider2D>();
+			cd->SetSize(Vector2(0.5f, 0.5f));
+			cd->SetName(L"FisrtCollider");
+			cd->SetEnable(true);
+			Collider2D* cd2 = Player->AddComponent<Collider2D>();
+			cd2->SetName(L"SecondCollider");
+			//cd2->SetSize(Vector2(0.5f, 0.8f));
+			//cd2->SetCenter(Vector2(0.2f, -0.1f));
+			cd2->SetEnable(false);
+			MeshRenderer* mr = Player->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			//Light* lightComp = Player->AddComponent<Light>();
+			//lightComp->SetType(eLightType::Point);
+			//lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
+			//lightComp->SetRadius(2.0f);
+
+			std::shared_ptr<Texture> atlas
+				= Resources::Load<Texture>(L"WillMoveSprite", L"..\\Resources\\Texture\\Player\\moveState.png");
+
+			Animator* at = Player->AddComponent<Animator>();
+			at->Create(L"MOVE_UP", atlas, Vector2(0.0f, 0.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"MOVE_DOWN", atlas, Vector2(0.0f, 120.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"MOVE_RIGHT", atlas, Vector2(0.0f, 240.0f), Vector2(120.0f, 120.0f), 8);
+			at->Create(L"MOVE_LEFT", atlas, Vector2(0.0f, 360.0f), Vector2(120.0f, 120.0f), 8);
+
+			at->Create(L"ROLL_RIGHT", atlas, Vector2(0.0f, 480.0f), Vector2(120.0f, 120.0f), 8, 110.f, 0.06f);
+			at->Create(L"ROLL_LEFT", atlas, Vector2(0.0f, 600.0f), Vector2(120.0f, 120.0f), 8, 110.f, 0.06f);
+			at->Create(L"ROLL_UP", atlas, Vector2(0.0f, 720.0f), Vector2(120.0f, 120.0f), 8, 110.f, 0.06f);
+			at->Create(L"ROLL_DOWN", atlas, Vector2(0.0f, 840.0f), Vector2(120.0f, 120.0f), 8, 110.f, 0.06f);
+
+			at->Create(L"IDLE_RIGHT", atlas, Vector2(0.0f, 960.0f), Vector2(120.0f, 120.0f), 10);
+			at->Create(L"IDLE_LEFT", atlas, Vector2(0.0f, 1080.0f), Vector2(120.0f, 120.0f), 10);
+			at->Create(L"IDLE_UP", atlas, Vector2(0.0f, 1200.0f), Vector2(120.0f, 120.0f), 10);
+			at->Create(L"IDLE_DOWN", atlas, Vector2(0.0f, 1320.0f), Vector2(120.0f, 120.0f), 10);
+
+			atlas = Resources::Load<Texture>(L"WillSwordAttackSprite", L"..\\Resources\\Texture\\Player\\swordState.png");
+
+			at->Create(L"SWORD_UP1", atlas, Vector2(120.0f, 0.0f), Vector2(120.f, 120.f), 5);
+			at->Create(L"SWORD_DOWN1", atlas, Vector2(120.0f, 120.0f), Vector2(120.f, 120.f), 5);
+			at->Create(L"SWORD_RIGHT1", atlas, Vector2(120.0f, 240.0f), Vector2(120.f, 120.f), 5);
+			at->Create(L"SWORD_LEFT1", atlas, Vector2(120.0f, 360.0f), Vector2(120.f, 120.f), 5);
+
+			at->Create(L"SWORD_UP2", atlas, Vector2(720.f, 0.0f), Vector2(120.f, 120.f), 5);
+			at->Create(L"SWORD_DOWN2", atlas, Vector2(720.f, 120.0f), Vector2(120.f, 120.f), 5);
+			at->Create(L"SWORD_RIGHT2", atlas, Vector2(720.f, 240.0f), Vector2(120.f, 120.f), 5);
+			at->Create(L"SWORD_LEFT2", atlas, Vector2(720.f, 360.0f), Vector2(120.f, 120.f), 5);
+
+			atlas = Resources::Load<Texture>(L"WillBowAttackSprite", L"..\\Resources\\Texture\\Player\\bowState.png");
+
+			at->Create(L"BOW_UP", atlas, Vector2(120.0f, 0.0f), Vector2(120.f, 120.f), 7);
+			at->Create(L"BOW_DOWN", atlas, Vector2(120.0f, 120.0f), Vector2(120.f, 120.f), 7);
+			at->Create(L"BOW_RIGHT", atlas, Vector2(120.0f, 240.0f), Vector2(120.f, 120.f), 7);
+			at->Create(L"BOW_LEFT", atlas, Vector2(120.0f, 360.0f), Vector2(120.f, 120.f), 7);
+
+			atlas = Resources::Load<Texture>(L"WILLCHARGE", L"..\\Resources\\bowChargeState.png");
+
+			at->Create(L"BOW_CHARGE", atlas, Vector2(0.0f, 0.0f), Vector2(42.f, 80.f), 26);
+
+			at->PlayAnimation(L"BOW_DOWN", true);
+
+			Player->GetComponent<Transform>()->SetPosition(Vector3(playerMapPos.second * 9.72f, playerMapPos.first * -5.45f, 0.0f));
+			Player->GetComponent<Transform>()->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+
+			PlayerFSM* playerFSM = Player->AddComponent<PlayerFSM>();
+			playerFSM->AddState(new RollState);
+			playerFSM->AddState(new MoveState);
+			playerFSM->AddState(new SwordState1);
+			playerFSM->AddState(new SwordState2);
+			playerFSM->AddState(new SwordState3);
+			playerFSM->AddState(new BowState);
+			playerFSM->AddState(new IdleState);
+
+			SetPlayer(Player);
+		}
+#pragma endregion
 #pragma region Object
 		//오브젝트를 랜덤으로 생성
 
@@ -142,6 +272,7 @@ namespace sn {
 			camera->AddComponent<CameraScript>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
+			SetMainCamera(cameraComp);
 		}
 
 		//UI Camera
@@ -153,6 +284,15 @@ namespace sn {
 			cameraComp->DisableLayerMasks();
 			cameraComp->TurnLayerMask(eLayerType::UI, true);
 			//camera->AddComponent<CameraScript>();
+		}
+		// Light
+		{
+			GameObject* light = new GameObject();
+			light->SetName(L"DirectionalLight01");
+			AddGameObject(eLayerType::Light, light);
+			Light* lightComp = light->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
 		}
 		Scene::Initialize();
 	}
@@ -186,11 +326,12 @@ namespace sn {
 	void DungeonScene01::OnEnter()
 	{
 		Initialize();
+		renderer::mainCamera = GetMainCamera();
 	}
 
 	void DungeonScene01::OnExit()
 	{
-		
+		DestroyAll();
 	}
 
 }

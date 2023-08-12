@@ -59,7 +59,7 @@ void MazeMaker::MazeProcess()
 	CellSearch(currentPos.second, currentPos.first);
 }
 
-bool MazeMaker::CellSearch(int x, int y)
+int MazeMaker::CellSearch(int x, int y)
 {
 	std::vector<int> moveDirection;
 	moveDirection.push_back(1);
@@ -69,43 +69,76 @@ bool MazeMaker::CellSearch(int x, int y)
 
 	std::shuffle(moveDirection.begin(), moveDirection.end(), std::default_random_engine());
 
+	int deleteMapCount = 0;
 	if (y > -1 && y<arr.size() && x>-1 && x<arr[0].size() && arr[y][x] == -1) {
 		arr[y][x] = 0;
 		for (int i = 0; i < 4; i++) {
+			int CellSearchResult = 0;
 			switch (moveDirection[i])
 			{
 			case 1:
-				if (CellSearch(x, y + 1)) {
+				CellSearchResult = CellSearch(x, y + 1);
+				if (CellSearchResult==1) {
 					dirArr[y][x] += DIRDOWN;
 					dirArr[y + 1][x] += DIRUP;
 				}
+				else if (CellSearchResult == 2) {
+					dirArr[y + 1][x]  = 0;
+				}
+				else {
+					deleteMapCount++;
+				}
 				break;
 			case 2:
-				if (CellSearch(x, y - 1)) {
+				CellSearchResult = CellSearch(x, y - 1);
+				if (CellSearchResult == 1) {
 					dirArr[y][x] += DIRUP;
 					dirArr[y - 1][x] += DIRDOWN;
 				}
+				else if (CellSearchResult == 2) {
+					dirArr[y - 1][x] += 0;
+				}
+				else {
+					deleteMapCount++;
+				}
 				break;
 			case 3:
-				if (CellSearch(x - 1, y)) {
+				CellSearchResult = CellSearch(x - 1, y);
+				if (CellSearchResult == 1) {
 					dirArr[y][x] += DIRLEFT;
 					dirArr[y][x - 1] += DIRRIGHT;
 				}
+				else if (CellSearchResult == 2) {
+					dirArr[y][x - 1] += 0;
+				}
+				else {
+					deleteMapCount++;
+				}
 				break;
 			case 4:
-				if (CellSearch(x + 1, y)) {
+				CellSearchResult = CellSearch(x + 1, y);
+				if (CellSearchResult == 1) {
 					dirArr[y][x] += DIRRIGHT;
 					dirArr[y][x + 1] += DIRLEFT;
+				}
+				else if (CellSearchResult == 2) {
+					dirArr[y][x + 1] += 0;
+				}
+				else {
+					deleteMapCount++;
 				}
 				break;
 			default:
 				break;
 			}
 		}
-		return true;
+		if (deleteMapCount == 4) {
+			return 2;
+		}
+		return 1;
 	}
 	else {
-		return false;
+		return 0;
 	}
 }
 
