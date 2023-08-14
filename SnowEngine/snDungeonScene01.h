@@ -17,7 +17,6 @@ namespace sn {
 
 	private:
 		std::vector<std::vector<int>>	arr;
-		std::pair<int, int>				playerMapPos;
 	};
 }
 

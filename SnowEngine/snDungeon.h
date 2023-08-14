@@ -16,8 +16,12 @@ namespace sn
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
 
-	private:
+	public:
+		void SetPlayerMapPos(std::pair<int, int> _playerMapPos) { playerMapPos = _playerMapPos; }
+		std::pair<int, int> GetPlayerMapPos() { return playerMapPos; }
 
+	private:
+		std::pair<int, int>				playerMapPos;
 
 	};
 }

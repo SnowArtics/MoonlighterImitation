@@ -26,6 +26,7 @@
 #include "snRenderer.h"
 
 #include "MazeMaker.h"
+#include "snDungeonCamera.h"
 
 namespace sn {
 	DungeonScene01::DungeonScene01()
@@ -41,7 +42,7 @@ namespace sn {
 		MazeMaker::GetInst()->Init();
 		MazeMaker::GetInst()->BackTracking(4, 4);
 		arr = MazeMaker::GetInst()->GetDirArr();
-		playerMapPos = MazeMaker::GetInst()->GetStartPos();
+		SetPlayerMapPos(MazeMaker::GetInst()->GetStartPos());
 
 		std::vector<std::wstring> DungeonName;
 		DungeonName.push_back(L"DungeonBackgroundMaterial0-0");
@@ -71,7 +72,7 @@ namespace sn {
 					AddGameObject(eLayerType::Background, Background);
 					MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 					mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-					if (playerMapPos.second == j && playerMapPos.first == i) {
+					if (GetPlayerMapPos().second == j && GetPlayerMapPos().first == i) {
 						mr->SetMaterial(Resources::Find<Material>(L"DungeonBackgroundMaterial0"));
 					}
 					else {
@@ -153,7 +154,7 @@ namespace sn {
 
 			at->PlayAnimation(L"BOW_DOWN", true);
 
-			Player->GetComponent<Transform>()->SetPosition(Vector3(playerMapPos.second * 9.72f, playerMapPos.first * -5.45f, 0.0f));
+			Player->GetComponent<Transform>()->SetPosition(Vector3(GetPlayerMapPos().second * 9.72f, GetPlayerMapPos().first * -5.45f, 0.0f));
 			Player->GetComponent<Transform>()->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 
 			PlayerFSM* playerFSM = Player->AddComponent<PlayerFSM>();
@@ -270,6 +271,7 @@ namespace sn {
 			cameraComp->EnableLayerMasks();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
+			camera->AddComponent<DungeonCamera>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 			SetMainCamera(cameraComp);

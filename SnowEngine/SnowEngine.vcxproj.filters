@@ -71,7 +71,7 @@
     <ClCompile Include="snCameraScript.cpp">
       <Filter>Script\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="snDungoneCamera.cpp">
+    <ClCompile Include="snDungeonCamera.cpp">
       <Filter>Script\Camera</Filter>
     </ClCompile>
   </ItemGroup>
@@ -149,7 +149,7 @@
     <ClInclude Include="snCameraScript.h">
       <Filter>Script\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="snDungoneCamera.h">
+    <ClInclude Include="snDungeonCamera.h">
       <Filter>Script\Camera</Filter>
     </ClInclude>
   </ItemGroup>
