@@ -17,11 +17,11 @@ namespace sn
 		virtual void OnExit() override;
 
 	public:
+		void SetPlayerMapPos(int x, int y) { playerMapPos.first = y, playerMapPos.second = x; }
 		void SetPlayerMapPos(std::pair<int, int> _playerMapPos) { playerMapPos = _playerMapPos; }
 		std::pair<int, int> GetPlayerMapPos() { return playerMapPos; }
 
 	private:
 		std::pair<int, int>				playerMapPos;
-
 	};
 }

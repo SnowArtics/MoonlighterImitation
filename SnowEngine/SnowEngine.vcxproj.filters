@@ -74,6 +74,18 @@
     <ClCompile Include="snDungeonCamera.cpp">
       <Filter>Script\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="snDungeonDoor.cpp">
+      <Filter>Script\Dungeon\Door</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterIdle.cpp">
+      <Filter>AI\State\Idle</Filter>
+    </ClCompile>
+    <ClCompile Include="MonsterTrace.cpp">
+      <Filter>AI\State\Trace</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -152,6 +164,18 @@
     <ClInclude Include="snDungeonCamera.h">
       <Filter>Script\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="snDungeonDoor.h">
+      <Filter>Script\Dungeon\Door</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterIdle.h">
+      <Filter>AI\State\Idle</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterTrace.h">
+      <Filter>AI\State\Trace</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -219,6 +243,33 @@
     </Filter>
     <Filter Include="Script\Camera">
       <UniqueIdentifier>{3af212a9-c3be-44db-905a-39b0d25646d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Dungeon">
+      <UniqueIdentifier>{65894676-0e83-4501-9c02-9052af2bb608}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Dungeon\Door">
+      <UniqueIdentifier>{a00dca06-573e-4319-8b83-78b1e314c791}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{84161598-0c3b-47d8-92d4-36639409fcc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\State">
+      <UniqueIdentifier>{585ca59d-655c-4d3b-804c-8f0706d0ddf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monster">
+      <UniqueIdentifier>{6d1a328a-03a5-4d26-bf74-5213e2e913f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\State\Attack">
+      <UniqueIdentifier>{7da6288f-2dd1-49d5-9560-4559e2ba5fe9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\State\Dead">
+      <UniqueIdentifier>{a7d762b4-97b0-43c4-a75b-c3b23da16033}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\State\Idle">
+      <UniqueIdentifier>{21feabe3-86cb-4884-abc8-df85a0a3667f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\State\Trace">
+      <UniqueIdentifier>{b7edc937-d920-474b-b57e-1535cbf204eb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

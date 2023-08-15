@@ -18,6 +18,7 @@
 #include "snBowState.h"
 
 #include "snSceneManager.h"
+#include "snCollisionManager.h"
 
 #include "snResources.h"
 #include "snInput.h"
@@ -27,6 +28,7 @@
 
 #include "MazeMaker.h"
 #include "snDungeonCamera.h"
+#include "snDungeonDoor.h"
 
 namespace sn {
 	DungeonScene01::DungeonScene01()
@@ -39,8 +41,10 @@ namespace sn {
 
 	void DungeonScene01::Initialize()
 	{
+		CollisionManager::SetLayer(eLayerType::Background, eLayerType::Door, false);
+
 		MazeMaker::GetInst()->Init();
-		MazeMaker::GetInst()->BackTracking(4, 4);
+		MazeMaker::GetInst()->BackTracking(2, 2);
 		arr = MazeMaker::GetInst()->GetDirArr();
 		SetPlayerMapPos(MazeMaker::GetInst()->GetStartPos());
 
@@ -64,11 +68,12 @@ namespace sn {
 
 #pragma region DungeonBackground
 		int k = 0;
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
+		for (int i = 0; i < arr.size(); i++) {
+			for (int j = 0; j <arr[i].size(); j++) {
 				//던전 배경 로딩 //1.593406
 				if (arr[i][j] != 0) {
 					GameObject* Background = new GameObject();
+					Background->SetName(DungeonName[k]);
 					AddGameObject(eLayerType::Background, Background);
 					MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 					mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -81,7 +86,127 @@ namespace sn {
 					}
 					Background->GetComponent<Transform>()->SetPosition(Vector3((float)j * 9.72f, -((float)i * 5.45f), 0.0f));
 					//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
-					Background->GetComponent<Transform>()->SetScale(Vector3(9.777778f, 5.5f, 0.0f));				
+					Background->GetComponent<Transform>()->SetScale(Vector3(9.777778f, 5.5f, 0.0f));
+					Collider2D* cdUP = Background->AddComponent<Collider2D>();
+					cdUP->SetSize(Vector2(cdUP->GetSize().x-0.1f, 0.1f));
+					cdUP->SetCenter(Vector2(0.0f, -2.3f));
+					Collider2D* cdDOWN = Background->AddComponent<Collider2D>();
+					cdDOWN->SetSize(Vector2(cdUP->GetSize().x - 0.1f, 0.1f));
+					cdDOWN->SetCenter(Vector2(0.0f, +2.3f));
+					Collider2D* cdLEFT = Background->AddComponent<Collider2D>();
+					cdLEFT->SetSize(Vector2(0.1f, cdUP->GetSize().y - 1.f));
+					cdLEFT->SetCenter(Vector2(-4.18f, 0.0f));
+					Collider2D* cdRIGHT = Background->AddComponent<Collider2D>();
+					cdRIGHT->SetSize(Vector2(0.1f, cdUP->GetSize().y - 1.f));
+					cdRIGHT->SetCenter(Vector2(4.15f, 0.0f));
+
+					//문의 위치에 맞게 문 생성
+					int doorCount = arr[i][j];
+					if (doorCount / DIRRIGHT == 1) {
+						{
+							GameObject* door = new GameObject();
+							AddGameObject(eLayerType::Door, door);
+							MeshRenderer* mr = door->AddComponent<MeshRenderer>();
+							mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+							mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+							std::shared_ptr<Texture> atlas
+								= Resources::Load<Texture>(L"Golem_Basic_Door_Left", L"..\\Resources\\Texture\\Dungeon\\Door\\Golem_Basic_Door_Left.png");
+							Animator* at = door->AddComponent<Animator>();
+							at->Create(L"CLOSE_DOOR", atlas, Vector2(0.0f, 0.0f), Vector2(48.0f, 78.0f), 7);
+							at->Create(L"OPEN_DOOR", atlas, Vector2(288.0f, 0.0f), Vector2(48.0f, 78.0f), 5);
+							at->PlayAnimation(L"OPEN_DOOR", false);
+							door->GetComponent<Transform>()->SetPosition(Vector3(((float)j * 9.72f) + 3.95f, (-((float)i * 5.45f)), 0.0f));
+							door->GetComponent<Transform>()->SetScale(Vector3(1.7f, 1.7f, 0.0f));
+
+							Collider2D* cd = door->AddComponent<Collider2D>();
+							cd->SetSize(Vector2(0.4f, 0.3f));
+
+							std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
+							door->AddComponent<DungeonDoor>(DoorType::RIGHT, doorPos);
+						}
+
+						doorCount -= DIRRIGHT;
+					}if (doorCount / DIRLEFT == 1) {
+						{
+							GameObject* door = new GameObject();
+							AddGameObject(eLayerType::Door, door);
+							MeshRenderer* mr = door->AddComponent<MeshRenderer>();
+							mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+							mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+							std::shared_ptr<Texture> atlas
+								= Resources::Load<Texture>(L"Golem_Basic_Door_Right", L"..\\Resources\\Texture\\Dungeon\\Door\\Golem_Basic_Door_Right.png");
+							Animator* at = door->AddComponent<Animator>();
+							at->Create(L"CLOSE_DOOR", atlas, Vector2(0.0f, 0.0f), Vector2(48.0f, 78.0f), 7);
+							at->Create(L"OPEN_DOOR", atlas, Vector2(288.0f, 0.0f), Vector2(48.0f, 78.0f), 5);
+							at->PlayAnimation(L"OPEN_DOOR", false);
+							door->GetComponent<Transform>()->SetPosition(Vector3(((float)j * 9.72f)-3.95f, (-((float)i * 5.45f)), 0.0f));
+
+							door->GetComponent<Transform>()->SetScale(Vector3(1.7f, 1.7f, 0.0f));
+
+							Collider2D* cd = door->AddComponent<Collider2D>();
+							cd->SetSize(Vector2(0.4f, 0.3f));
+
+							std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
+							door->AddComponent<DungeonDoor>(DoorType::LEFT, doorPos);
+						}
+
+						doorCount -= DIRLEFT;
+					}
+					if (doorCount / DIRDOWN == 1) {
+						{
+							GameObject* door = new GameObject();
+							AddGameObject(eLayerType::Door, door);
+							MeshRenderer* mr = door->AddComponent<MeshRenderer>();
+							mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+							mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+							std::shared_ptr<Texture> atlas
+								= Resources::Load<Texture>(L"Golem_Basic_Door_Up", L"..\\Resources\\Texture\\Dungeon\\Door\\Golem_Basic_Door_Up.png");
+							Animator* at = door->AddComponent<Animator>();
+							at->Create(L"CLOSE_DOOR", atlas, Vector2(0.0f, 0.0f), Vector2(78.0f, 48.0f), 7);
+							at->Create(L"OPEN_DOOR", atlas, Vector2(468.0f, 0.0f), Vector2(78.0f, 48.0f), 5);
+							at->PlayAnimation(L"OPEN_DOOR", false);
+							door->GetComponent<Transform>()->SetPosition(Vector3(((float)j * 9.72f), (-((float)i * 5.45f)) - 2.3f, 0.0f));
+
+							door->GetComponent<Transform>()->SetScale(Vector3(1.7f, 1.7f, 0.0f));
+
+							Collider2D* cd = door->AddComponent<Collider2D>();
+							cd->SetSize(Vector2(0.3f, 0.4f));
+
+							std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
+							door->AddComponent<DungeonDoor>(DoorType::DOWN, doorPos);
+						}
+
+						doorCount -= DIRDOWN;
+					}
+					if (doorCount / DIRUP == 1) {  
+						{
+							GameObject* door = new GameObject();
+							AddGameObject(eLayerType::Door, door);
+							MeshRenderer* mr = door->AddComponent<MeshRenderer>();
+							mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+							mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+							std::shared_ptr<Texture> atlas
+								= Resources::Load<Texture>(L"Golem_Basic_Door_Down", L"..\\Resources\\Texture\\Dungeon\\Door\\Golem_Basic_Door_Down.png");
+							Animator* at = door->AddComponent<Animator>();
+							at->Create(L"CLOSE_DOOR", atlas, Vector2(0.0f, 0.0f), Vector2(78.0f, 48.0f), 7);
+							at->Create(L"OPEN_DOOR", atlas, Vector2(468.0f, 0.0f), Vector2(78.0f, 48.0f), 5);
+							at->PlayAnimation(L"OPEN_DOOR", false);
+							door->GetComponent<Transform>()->SetPosition(Vector3(((float)j * 9.72f), (-((float)i * 5.45f)) + 2.3f, 0.0f));
+
+							door->GetComponent<Transform>()->SetScale(Vector3(1.7f, 1.7f, 0.0f));
+							Collider2D* cd = door->AddComponent<Collider2D>();
+							cd->SetSize(Vector2(0.3f, 0.4f));
+
+							std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
+							door->AddComponent<DungeonDoor>(DoorType::UP, doorPos);
+						}
+
+						doorCount -= DIRUP;
+					}
 				}
 			}
 		}
@@ -93,7 +218,7 @@ namespace sn {
 			AddGameObject(eLayerType::Player, Player);
 			Player->SetName(L"Player");
 			Collider2D* cd = Player->AddComponent<Collider2D>();
-			cd->SetSize(Vector2(0.5f, 0.5f));
+			cd->SetSize(Vector2(0.3f, 0.3f));
 			cd->SetName(L"FisrtCollider");
 			cd->SetEnable(true);
 			Collider2D* cd2 = Player->AddComponent<Collider2D>();

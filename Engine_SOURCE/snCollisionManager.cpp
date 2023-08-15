@@ -26,6 +26,9 @@ namespace sn
 				{
 					LayerCollision((eLayerType)column, (eLayerType)row);
 				}
+				else{
+					int a = 0;
+				}
 			}
 		}
 	}
@@ -185,13 +188,13 @@ namespace sn
 
 		if (iLeft <= iRight)
 		{
-			row = iLeft;
-			col = iRight;
+			row = iRight;
+			col = iLeft;
 		}
 		else
 		{
-			row = iRight;
-			col = iLeft;
+			row = iLeft;
+			col = iRight;
 		}
 
 		mMatrix[col][row] = enable;
