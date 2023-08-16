@@ -46,7 +46,7 @@ namespace sn {
 		CollisionManager::SetLayer(eLayerType::Background, eLayerType::Door, false);
 
 		MazeMaker::GetInst()->Init();
-		MazeMaker::GetInst()->BackTracking(2, 2);
+		MazeMaker::GetInst()->BackTracking(4, 4);
 		arr = MazeMaker::GetInst()->GetDirArr();
 		SetPlayerMapPos(MazeMaker::GetInst()->GetStartPos());
 

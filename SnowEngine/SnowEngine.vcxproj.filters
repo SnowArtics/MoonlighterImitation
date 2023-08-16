@@ -92,6 +92,9 @@
     <ClCompile Include="Golem.cpp">
       <Filter>Script\Monster\Golem</Filter>
     </ClCompile>
+    <ClCompile Include="MonsterAttack.cpp">
+      <Filter>Script\Monster\AI\State\Attack</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -187,6 +190,9 @@
     </ClInclude>
     <ClInclude Include="Golem.h">
       <Filter>Script\Monster\Golem</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterAttack.h">
+      <Filter>Script\Monster\AI\State\Attack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

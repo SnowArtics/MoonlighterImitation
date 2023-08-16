@@ -10,6 +10,7 @@
 #include "AI.h"
 #include "MonsterIdle.h"
 #include "MonsterTrace.h"
+#include "MonsterAttack.h"
 
 #include "Golem.h"
 
@@ -66,6 +67,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		AI* ai = pMon->AddComponent<AI>(pMon);
 		ai->AddState(new MonsterIdle);
 		ai->AddState(new MonsterTrace);
+		ai->AddState(new MonsterAttack);
 		ai->SetCurState(MON_STATE::IDLE);
 	}
 		break;
