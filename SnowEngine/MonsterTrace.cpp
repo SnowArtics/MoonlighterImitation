@@ -28,10 +28,6 @@ void MonsterTrace::Update()
 	Vector3 monPos = monTr->GetPosition();
 
 	Vector3 moveDir = playerPos - monPos;
-	if (abs(moveDir.x) < mon->GetMonsterInfo().fAttRange && abs(moveDir.y) < mon->GetMonsterInfo().fAttRange) {
-		SceneManager::ChangeMonsterState(GetAI(), MON_STATE::ATT);
-	}
-
 	moveDir.Normalize();
 
 	bool upDown = true;
