@@ -161,6 +161,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Golem.h" />
+    <ClInclude Include="MonFactory.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterIdle.h" />
     <ClInclude Include="MonsterTrace.h" />
@@ -228,6 +230,8 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Golem.cpp" />
+    <ClCompile Include="MonFactory.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterIdle.cpp" />
     <ClCompile Include="MonsterTrace.cpp" />

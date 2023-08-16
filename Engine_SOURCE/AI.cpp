@@ -2,9 +2,11 @@
 
 #include "State.h"
 
-AI::AI()
+AI::AI(Monster* _owner)
 	: m_pCurState(nullptr)
-	, m_pOwner(nullptr)
+	, m_pOwner(_owner)
+	, prevDir(MonDir::DOWN)
+	,curDir(MonDir::DOWN)
 {
 }
 
@@ -18,7 +20,10 @@ AI::~AI()
 
 void AI::Update()
 {
+
 	m_pCurState->Update();
+
+	prevDir = curDir;
 }
 
 void AI::AddState(State* _pState)
@@ -44,6 +49,7 @@ void AI::SetCurState(MON_STATE _eState)
 {
 	m_pCurState = GetState(_eState);
 	assert(m_pCurState);
+	curStateName = _eState;
 }
 
 void AI::ChangeState(MON_STATE _eNextState)
@@ -54,5 +60,6 @@ void AI::ChangeState(MON_STATE _eNextState)
 
 	m_pCurState->Exit();
 	m_pCurState = pNextState;
+	curStateName = _eNextState;
 	m_pCurState->Enter();
 }

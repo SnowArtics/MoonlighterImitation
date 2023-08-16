@@ -77,14 +77,20 @@
     <ClCompile Include="snDungeonDoor.cpp">
       <Filter>Script\Dungeon\Door</Filter>
     </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Monster</Filter>
-    </ClCompile>
     <ClCompile Include="MonsterIdle.cpp">
-      <Filter>AI\State\Idle</Filter>
+      <Filter>Script\Monster\AI\State\Idle</Filter>
     </ClCompile>
     <ClCompile Include="MonsterTrace.cpp">
-      <Filter>AI\State\Trace</Filter>
+      <Filter>Script\Monster\AI\State\Trace</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Script\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="MonFactory.cpp">
+      <Filter>Script\Monster\MonFactory</Filter>
+    </ClCompile>
+    <ClCompile Include="Golem.cpp">
+      <Filter>Script\Monster\Golem</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -167,14 +173,20 @@
     <ClInclude Include="snDungeonDoor.h">
       <Filter>Script\Dungeon\Door</Filter>
     </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Monster</Filter>
-    </ClInclude>
     <ClInclude Include="MonsterIdle.h">
-      <Filter>AI\State\Idle</Filter>
+      <Filter>Script\Monster\AI\State\Idle</Filter>
     </ClInclude>
     <ClInclude Include="MonsterTrace.h">
-      <Filter>AI\State\Trace</Filter>
+      <Filter>Script\Monster\AI\State\Trace</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Script\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="MonFactory.h">
+      <Filter>Script\Monster\MonFactory</Filter>
+    </ClInclude>
+    <ClInclude Include="Golem.h">
+      <Filter>Script\Monster\Golem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -250,26 +262,32 @@
     <Filter Include="Script\Dungeon\Door">
       <UniqueIdentifier>{a00dca06-573e-4319-8b83-78b1e314c791}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AI">
+    <Filter Include="Script\Monster">
+      <UniqueIdentifier>{4cd6dd08-4f83-422d-bc54-c01e1b7c0c89}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI">
       <UniqueIdentifier>{84161598-0c3b-47d8-92d4-36639409fcc0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AI\State">
+    <Filter Include="Script\Monster\AI\State">
       <UniqueIdentifier>{585ca59d-655c-4d3b-804c-8f0706d0ddf9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Monster">
-      <UniqueIdentifier>{6d1a328a-03a5-4d26-bf74-5213e2e913f2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="AI\State\Attack">
+    <Filter Include="Script\Monster\AI\State\Attack">
       <UniqueIdentifier>{7da6288f-2dd1-49d5-9560-4559e2ba5fe9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AI\State\Dead">
+    <Filter Include="Script\Monster\AI\State\Dead">
       <UniqueIdentifier>{a7d762b4-97b0-43c4-a75b-c3b23da16033}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AI\State\Idle">
+    <Filter Include="Script\Monster\AI\State\Idle">
       <UniqueIdentifier>{21feabe3-86cb-4884-abc8-df85a0a3667f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AI\State\Trace">
+    <Filter Include="Script\Monster\AI\State\Trace">
       <UniqueIdentifier>{b7edc937-d920-474b-b57e-1535cbf204eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\MonFactory">
+      <UniqueIdentifier>{3420fedb-b472-443e-b667-90eafcd9b026}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\Golem">
+      <UniqueIdentifier>{5e1c7593-ab38-4f53-b622-1fe5003cfb34}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

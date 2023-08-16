@@ -11,13 +11,20 @@ enum class MON_STATE {
 	END,
 };
 
+enum class MonDir {
+	UP,
+	DOWN,
+	RIGHT,
+	LEFT,
+};
+
 class Monster;
 class State;
 
 class AI : public sn::Script
 {
 public:
-	AI();
+	AI(Monster* _owner);
 	~AI();
 
 public:
@@ -25,17 +32,24 @@ public:
 
 public:
 	void AddState(State* _pState);
-	State* GetState(MON_STATE _eState);
-	void SetCurState(MON_STATE _eState);
-
 	void ChangeState(MON_STATE _eNextState);
 
+	void SetCurState(MON_STATE _eState);
+	void SetDir(MonDir _monDir) { curDir = _monDir; }
+
+	State* GetState(MON_STATE _eState);
 	Monster* GetOwner() { return m_pOwner; }
+	MonDir GetDir() { return curDir; }
+	MON_STATE GetStateName() { return curStateName; }
 
 private:
 	std::map<MON_STATE, State*>	m_mapState;
 	State* m_pCurState;
 	Monster* m_pOwner;
+	MON_STATE curStateName;
+
+	MonDir			prevDir;
+	MonDir			curDir;
 
 	friend class Monster;
 };

@@ -31,18 +31,30 @@ namespace sn {
 		Dungeon* dungeonScene = static_cast<Dungeon*>(SceneManager::GetActiveScene());
 		prevPlayerMapPos = curPlayerMapPos;
 		curPlayerMapPos = dungeonScene->GetPlayerMapPos();
+		std::vector<std::vector<RoomInfo>> vecRoomInfo = dungeonScene->GetRoomInfoArr();
 
 		Collider2D* collider = GetOwner()->GetComponent<Collider2D>();
 
 		Animator* animator = GetOwner()->GetComponent <Animator>();
 
-		if (prevPlayerMapPos != curPlayerMapPos) {
+
+
+		if (prevPlayerMapPos != curPlayerMapPos && vecRoomInfo[curPlayerMapPos.first][curPlayerMapPos.second].clear == false) {
 			collider->SetEnable(false);
 			animator->PlayAnimation(L"CLOSE_DOOR", false);
+			dungeonScene->SetDungeonClear(false);
 		}
+
+		if (dungeonScene->GetDungeonClear() == true) {
+			if (collider->GetEnable() == false) {
+				doorOpen = true;
+			}
+		}
+
 		if (doorOpen == true) {
-			collider->SetEnable(true);
+			
 			animator->PlayAnimation(L"OPEN_DOOR", false);
+			collider->SetEnable(true);
 			doorOpen = false;
 		}
 	}
