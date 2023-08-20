@@ -10,6 +10,7 @@
 #include "AI.h"
 #include "MonsterIdle.h"
 #include "MonsterTrace.h"
+#include "MonsterAttack.h"
 
 #include "Golem.h"
 
@@ -29,10 +30,11 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		tMonInfo info = {};
 		info.fAtt = 20.f;
-		info.fAttRange = 2.f;
+		info.fAttRange = 0.75f;
 		info.fRecogRange = 300.f;
 		info.fHP = 100.f;
 		info.fSpeed = 0.5f;
+		info.fAttTime = 1.3f;
 
 		pMon->SetMonInfo(info);
 
@@ -52,10 +54,10 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		atlas
 			= Resources::Load<Texture>(L"Monster_Golem_Attack", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemAttack.png");
 
-		at->Create(L"GOLEM_ATTACK_LEFT", atlas, Vector2(0.0f, 190.0f), Vector2(190.0f, 190.0f), 13);
-		at->Create(L"GOLEM_ATTACK_RIGHT", atlas, Vector2(0.0f, 190.0f), Vector2(190.0f, 190.0f), 13);
-		at->Create(L"GOLEM_ATTACK_UP", atlas, Vector2(0.0f, 380.0f), Vector2(190.0f, 190.0f), 13);
-		at->Create(L"GOLEM_ATTACK_DOWN", atlas, Vector2(0.0f, 570.0f), Vector2(190.0f, 190.0f), 13);
+		at->Create(L"GOLEM_ATTACK_LEFT", atlas, Vector2(0.0f, 0.0f), Vector2(190.0f, 190.0f), 13, 180.f, 0.1f, Vector2(0.0f,0.01f));
+		at->Create(L"GOLEM_ATTACK_RIGHT", atlas, Vector2(0.0f, 190.0f), Vector2(190.0f, 190.0f), 13, 180.f, 0.1f, Vector2(0.0f, 0.01f));
+		at->Create(L"GOLEM_ATTACK_UP", atlas, Vector2(0.0f, 380.0f), Vector2(190.0f, 190.0f), 13, 180.f, 0.1f, Vector2(0.0f, 0.01f));
+		at->Create(L"GOLEM_ATTACK_DOWN", atlas, Vector2(0.0f, 570.0f), Vector2(190.0f, 190.0f), 13, 180.f, 0.1f, Vector2(0.0f, 0.01f));
 
 		at->PlayAnimation(L"GOLEM_MOVE_UP", true);
 
@@ -66,6 +68,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		AI* ai = pMon->AddComponent<AI>(pMon);
 		ai->AddState(new MonsterIdle);
 		ai->AddState(new MonsterTrace);
+		ai->AddState(new MonsterAttack);
 		ai->SetCurState(MON_STATE::IDLE);
 	}
 		break;

@@ -8,6 +8,7 @@ struct tMonInfo
     float      fRecogRange;      // 인지 범위
     float      fAttRange;        // 공격 범위
     float      fAtt;             // 공격력
+    float      fAttTime;         // 공격속도
 };
 
 class AI;
@@ -46,6 +47,7 @@ private:
 protected:
     tMonInfo    m_tInfo;
     std::pair<int, int>				monsterMapPos;
+    float time;
 
     friend class MonFactory;
 };

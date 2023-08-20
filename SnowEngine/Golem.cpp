@@ -20,56 +20,80 @@ void Golem::Initialize()
 
 void Golem::Update()
 {
-	Monster::Update();
-}
-
-void Golem::LateUpdate()
-{
 	AI* ai = GetComponent<AI>();
-	MonDir monDir = ai->GetDir();
-	MON_STATE monState = ai->GetStateName();
+	MonDir monDir = ai->GetCurDir();
+	MON_STATE monState = ai->GetCurStateName();
 
 	Animator* animator = GetComponent<Animator>();
-	
-	switch (monState)
-	{
-	case MON_STATE::IDLE:
-		break;
-	case MON_STATE::WALK:
-		break;
-	case MON_STATE::TRACE:
-	{
-		switch (monDir)
+
+	if (monState != ai->GetPrevStateName())
+		int a = 0;
+
+	if (monDir != ai->GetPrevDir() || monState != ai->GetPrevStateName()) {
+		switch (monState)
 		{
-		case MonDir::UP:
-			animator->PlayAnimation(L"GOLEM_MOVE_UP", true);
+		case MON_STATE::IDLE:
 			break;
-		case MonDir::DOWN:
-			animator->PlayAnimation(L"GOLEM_MOVE_DOWN", true);
+		case MON_STATE::WALK:
 			break;
-		case MonDir::RIGHT:
-			animator->PlayAnimation(L"GOLEM_MOVE_RIGHT", true);
+		case MON_STATE::TRACE:
+		{
+			switch (monDir)
+			{
+			case MonDir::UP:
+				animator->PlayAnimation(L"GOLEM_MOVE_UP", true);
+				break;
+			case MonDir::DOWN:
+				animator->PlayAnimation(L"GOLEM_MOVE_DOWN", true);
+				break;
+			case MonDir::RIGHT:
+				animator->PlayAnimation(L"GOLEM_MOVE_RIGHT", true);
+				break;
+			case MonDir::LEFT:
+				animator->PlayAnimation(L"GOLEM_MOVE_LEFT", true);
+				break;
+			default:
+				break;
+			}
+		}
+		break;
+		case MON_STATE::ATT:
+		{
+			switch (monDir)
+			{
+			case MonDir::UP:
+				animator->PlayAnimation(L"GOLEM_ATTACK_UP", true);
+				break;
+			case MonDir::DOWN:
+				animator->PlayAnimation(L"GOLEM_ATTACK_DOWN", true);
+				break;
+			case MonDir::RIGHT:
+				animator->PlayAnimation(L"GOLEM_ATTACK_RIGHT", true);
+				break;
+			case MonDir::LEFT:
+				animator->PlayAnimation(L"GOLEM_ATTACK_LEFT", true);
+				break;
+			default:
+				break;
+			}
+		}
+		break;
+		case MON_STATE::TARGET_ATT:
 			break;
-		case MonDir::LEFT:
-			animator->PlayAnimation(L"GOLEM_MOVE_LEFT", true);
+		case MON_STATE::DEAD:
+			break;
+		case MON_STATE::END:
 			break;
 		default:
 			break;
 		}
 	}
-		break;
-	case MON_STATE::ATT:
-		break;
-	case MON_STATE::TARGET_ATT:
-		break;
-	case MON_STATE::DEAD:
-		break;
-	case MON_STATE::END:
-		break;
-	default:
-		break;
-	}
 
+	Monster::Update();
+}
+
+void Golem::LateUpdate()
+{
 	Monster::LateUpdate();
 }
 

@@ -6,7 +6,8 @@ using namespace sn;
 
 Monster::Monster()
 	:m_tInfo{}
-	,monsterMapPos({-1,-1})
+	, monsterMapPos({ -1,-1 })
+	, time(0.f)
 {
 }
 

@@ -1,11 +1,11 @@
 #pragma once
 #include "../Engine_SOURCE/State.h"
-class MonsterTrace :
-    public State
+
+class MonsterAttack : public State
 {
 public:
-	MonsterTrace();
-	~MonsterTrace();
+	MonsterAttack();
+	~MonsterAttack();
 
 public:
 	virtual void Update();

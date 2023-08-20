@@ -27,6 +27,7 @@
 #include "snRenderer.h"
 
 #include "MazeMaker.h"
+#include "DungeonMapManager.h"
 #include "snDungeonCamera.h"
 #include "snDungeonDoor.h"
 #include "MonFactory.h"
@@ -51,20 +52,20 @@ namespace sn {
 		SetPlayerMapPos(MazeMaker::GetInst()->GetStartPos());
 
 		std::vector<std::wstring> DungeonName;
-		DungeonName.push_back(L"DungeonBackgroundMaterial0-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial1-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial2-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial3-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial4-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial5-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial6-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial7-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial8-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial9-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial10-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial11-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial12-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial13-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial00-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial01-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial02-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial03-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial04-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial05-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial06-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial07-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial08-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial09-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial10-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial11-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial12-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial13-0");
 
 		std::shuffle(DungeonName.begin(), DungeonName.end(), std::default_random_engine());
 
@@ -79,35 +80,33 @@ namespace sn {
 				roomInfoArr[i].push_back(tempRoomInfo);
 				//던전 배경 로딩 //1.593406
 				if (arr[i][j] != 0) {
+					std::wstring subStr = L"";
+
 					GameObject* Background = new GameObject();
-					Background->SetName(DungeonName[k]);
 					AddGameObject(eLayerType::Background, Background);
 					MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 					mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 					if (GetPlayerMapPos().second == j && GetPlayerMapPos().first == i) {
-						mr->SetMaterial(Resources::Find<Material>(L"DungeonBackgroundMaterial0"));
+						std::wstring originStr = L"DungeonBackgroundMaterial0";
+						Background->SetName(originStr);
+						mr->SetMaterial(Resources::Find<Material>(originStr));
 						roomInfoArr[i][j].clear = true;
+						DungeonMapManager::GetInst()->MakeCliffCollider(-1, Background);
 					}
 					else {
-						mr->SetMaterial(Resources::Find<Material>(DungeonName[k]));
+						std::wstring originStr = DungeonName[k];
+						mr->SetMaterial(Resources::Find<Material>(originStr));
+						Background->SetName(originStr);
 						k++;
 						roomInfoArr[i][j].clear = false;
+						subStr = originStr.substr(25, 2);
+						int strToNum = std::stoll(subStr);
+						DungeonMapManager::GetInst()->MakeCliffCollider(strToNum, Background);
 					}
+					
 					Background->GetComponent<Transform>()->SetPosition(Vector3((float)j * 9.72f, -((float)i * 5.45f), 0.0f));
 					//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
 					Background->GetComponent<Transform>()->SetScale(Vector3(9.777778f, 5.5f, 0.0f));
-					Collider2D* cdUP = Background->AddComponent<Collider2D>();
-					cdUP->SetSize(Vector2(cdUP->GetSize().x-0.1f, 0.1f));
-					cdUP->SetCenter(Vector2(0.0f, -2.3f));
-					Collider2D* cdDOWN = Background->AddComponent<Collider2D>();
-					cdDOWN->SetSize(Vector2(cdUP->GetSize().x - 0.1f, 0.1f));
-					cdDOWN->SetCenter(Vector2(0.0f, +2.3f));
-					Collider2D* cdLEFT = Background->AddComponent<Collider2D>();
-					cdLEFT->SetSize(Vector2(0.1f, cdUP->GetSize().y - 1.f));
-					cdLEFT->SetCenter(Vector2(-4.18f, 0.0f));
-					Collider2D* cdRIGHT = Background->AddComponent<Collider2D>();
-					cdRIGHT->SetSize(Vector2(0.1f, cdUP->GetSize().y - 1.f));
-					cdRIGHT->SetCenter(Vector2(4.15f, 0.0f));
 
 					//문의 위치에 맞게 문 생성
 					int doorCount = arr[i][j];

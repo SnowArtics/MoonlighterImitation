@@ -92,6 +92,10 @@
     <ClCompile Include="Golem.cpp">
       <Filter>Script\Monster\Golem</Filter>
     </ClCompile>
+    <ClCompile Include="MonsterAttack.cpp">
+      <Filter>Script\Monster\AI\State\Attack</Filter>
+    </ClCompile>
+    <ClCompile Include="DungeonMapManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -188,6 +192,10 @@
     <ClInclude Include="Golem.h">
       <Filter>Script\Monster\Golem</Filter>
     </ClInclude>
+    <ClInclude Include="MonsterAttack.h">
+      <Filter>Script\Monster\AI\State\Attack</Filter>
+    </ClInclude>
+    <ClInclude Include="DungeonMapManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -288,6 +296,9 @@
     </Filter>
     <Filter Include="Script\Monster\Golem">
       <UniqueIdentifier>{5e1c7593-ab38-4f53-b622-1fe5003cfb34}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Dungeon\Map">
+      <UniqueIdentifier>{7143b149-6d21-4734-b357-855fef2d1d29}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

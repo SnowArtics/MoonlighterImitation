@@ -421,7 +421,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial0-0", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial00-0", spriteMaterial);
 		}
 		{
 			//带傈 硅版 1-0积己
@@ -430,7 +430,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial1-0", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial01-0", spriteMaterial);
 		}
 		{
 			//带傈 硅版 2-0积己
@@ -439,7 +439,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial2-0", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial02-0", spriteMaterial);
 		}
 		{
 			//带傈 硅版 3-0积己
@@ -448,7 +448,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial3-0", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial03-0", spriteMaterial);
 		}
 		{
 			//带傈 硅版 4-0积己
@@ -457,7 +457,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial4-0", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial04-0", spriteMaterial);
 		}
 		{
 			//带傈 硅版 5-0积己
@@ -466,7 +466,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial5-0", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial05-0", spriteMaterial);
 		}
 		{
 			//带傈 硅版 6-0积己
@@ -475,7 +475,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial6-0", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial06-0", spriteMaterial);
 		}
 		{
 			//带傈 硅版 7-0积己
@@ -484,7 +484,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial7-0", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial07-0", spriteMaterial);
 		}
 		{
 			//带傈 硅版 8-0积己
@@ -493,7 +493,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial8-0", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial08-0", spriteMaterial);
 		}
 		{
 			//带傈 硅版 9-0积己
@@ -502,7 +502,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial9-0", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial09-0", spriteMaterial);
 		}
 		{
 			//带傈 硅版 10-0积己
@@ -549,7 +549,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial0-1", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial00-1", spriteMaterial);
 		}
 		{
 			//带傈 硅版 1-1积己
@@ -558,7 +558,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial1-1", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial01-1", spriteMaterial);
 		}
 		{
 			//带傈 硅版 2-1积己
@@ -567,7 +567,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial2-1", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial02-1", spriteMaterial);
 		}
 		{
 			//带傈 硅版 3-1积己
@@ -576,7 +576,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial3-1", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial03-1", spriteMaterial);
 		}
 		{
 			//带傈 硅版 4-1积己
@@ -585,7 +585,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial4-1", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial04-1", spriteMaterial);
 		}
 		{
 			//带傈 硅版 5-1积己
@@ -594,7 +594,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial5-1", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial05-1", spriteMaterial);
 		}
 		{
 			//带傈 硅版 6-1积己
@@ -603,7 +603,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial6-1", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial06-1", spriteMaterial);
 		}
 		{
 			//带傈 硅版 7-1积己
@@ -612,7 +612,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial7-1", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial07-1", spriteMaterial);
 		}
 		{
 			//带傈 硅版 8-1积己
@@ -621,7 +621,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial8-1", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial08-1", spriteMaterial);
 		}
 		{
 			//带傈 硅版 9-1积己
@@ -630,7 +630,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial9-1", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial09-1", spriteMaterial);
 		}
 		{
 			//带傈 硅版 10-1积己
@@ -677,7 +677,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial0-2", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial00-2", spriteMaterial);
 		}
 		{
 			//带傈 硅版 1-2积己
@@ -686,7 +686,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial1-2", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial01-2", spriteMaterial);
 		}
 		{
 			//带傈 硅版 2-2积己
@@ -695,7 +695,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial2-2", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial02-2", spriteMaterial);
 		}
 		{
 			//带傈 硅版 3-2积己
@@ -704,7 +704,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial3-2", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial03-2", spriteMaterial);
 		}
 		{
 			//带傈 硅版 4-2积己
@@ -713,7 +713,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial4-2", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial04-2", spriteMaterial);
 		}
 		{
 			//带傈 硅版 5-2积己
@@ -722,7 +722,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial5-2", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial05-2", spriteMaterial);
 		}
 		{
 			//带傈 硅版 6-2积己
@@ -731,7 +731,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial6-2", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial06-2", spriteMaterial);
 		}
 		{
 			//带傈 硅版 7-2积己
@@ -740,7 +740,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial7-2", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial07-2", spriteMaterial);
 		}
 		{
 			//带傈 硅版 8-2积己
@@ -749,7 +749,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial8-2", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial08-2", spriteMaterial);
 		}
 		{
 			//带傈 硅版 9-2积己
@@ -758,7 +758,7 @@ namespace renderer {
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
-			Resources::Insert(L"DungeonBackgroundMaterial9-2", spriteMaterial);
+			Resources::Insert(L"DungeonBackgroundMaterial09-2", spriteMaterial);
 		}
 		{
 			//带傈 硅版 10-2积己
