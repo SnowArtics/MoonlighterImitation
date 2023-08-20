@@ -4,6 +4,8 @@
 #include "snRenderer.h"
 #include "snSceneManager.h"
 #include "snCollisionManager.h"
+#include "snFmod.h"
+#include "snFontWrapper.h"
 
 namespace sn
 {
@@ -34,6 +36,8 @@ namespace sn
 	{
 		Time::Initiailize();
 		Input::Initialize();
+		Fmod::Initialize();
+		FontWrapper::Initialize();
 
 		renderer::Initialize();
 		SceneManager::Initialize();
@@ -59,8 +63,11 @@ namespace sn
 
 		graphicDevice->ClearTarget();
 		graphicDevice->UpdateViewPort();
+		Time::Render();
+		//FontWrapper::DrawFont(L"TEXT", 10.f, 30.f, 20, FONT_RGBA(255, 0, 255, 255));
 		//SceneManager::Render();
 		renderer::Render();
+		//graphicDevice->Draw();
 	}
 
 	void Application::Destroy()

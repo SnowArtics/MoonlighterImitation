@@ -6,6 +6,8 @@
 #include "..\Engine_SOURCE\snApplication.h"
 #include "..\Engine_SOURCE\snRenderer.h"
 #include "..\Engine_SOURCE\snResources.h"
+#include "..\Engine_SOURCE\snFmod.h"
+#include "..\Engine_SOURCE\snFontWrapper.h"
 #include "LoadScenes.h"
 #include "guiEditor.h"
 
@@ -45,7 +47,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     //메모리릭(누수) 찾기
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(1607);
+    //_CrtSetBreakAlloc(3230);
     _CrtDumpMemoryLeaks();
 
     SetProcessDPIAware();
@@ -91,6 +93,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     renderer::Release();
     sn::SceneManager::Release();
+    sn::Fmod::Release();
+    sn::FontWrapper::Release();
     gui::Editor::Release();
 
     return (int) msg.wParam;
