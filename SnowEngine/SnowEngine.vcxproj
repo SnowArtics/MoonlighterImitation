@@ -168,6 +168,7 @@
     <ClInclude Include="DungeonMapManager.h" />
     <ClInclude Include="FylingRepairGolem.h" />
     <ClInclude Include="Golem.h" />
+    <ClInclude Include="GolemTurretBroken.h" />
     <ClInclude Include="MiniSlime.h" />
     <ClInclude Include="MonFactory.h" />
     <ClInclude Include="Monster.h" />
@@ -177,6 +178,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="MazeMaker.h" />
+    <ClInclude Include="Projectile.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="SlimeAttack.h" />
     <ClInclude Include="snBowState.h" />
@@ -238,11 +240,13 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="TurretAttack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonMapManager.cpp" />
     <ClCompile Include="FylingRepairGolem.cpp" />
     <ClCompile Include="Golem.cpp" />
+    <ClCompile Include="GolemTurretBroken.cpp" />
     <ClCompile Include="MiniSlime.cpp" />
     <ClCompile Include="MonFactory.cpp" />
     <ClCompile Include="Monster.cpp" />
@@ -250,6 +254,7 @@
     <ClCompile Include="MonsterIdle.cpp" />
     <ClCompile Include="MonsterTrace.cpp" />
     <ClCompile Include="MazeMaker.cpp" />
+    <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="SlimeAttack.cpp" />
     <ClCompile Include="snBowState.cpp" />
@@ -312,6 +317,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="TurretAttack.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -44,55 +44,36 @@ namespace sn
 
 		for (GameObject* leftObj : lefts)
 		{
-			//Collider2D* leftCol = leftObj->GetComponent<Collider2D>();
-			//if (leftCol == nullptr)
-			//	continue;
-			//if (leftObj->GetState()
-			//	!= GameObject::eState::Active)
-			//	continue;
-			//if (leftCol->GetEnable() == false)
-			//	continue;
-
-			//for (GameObject* rightObj : rights)
-			//{
-			//	Collider2D* rightCol = rightObj->GetComponent<Collider2D>();
-			//	if (rightCol == nullptr)
-			//		continue;
-			//	if (leftObj == rightObj)
-			//		continue;
-			//	if (rightObj->GetState()
-			//		!= GameObject::eState::Active)
-			//		continue;
-			//	if (rightCol->GetEnable() == false)
-			//		continue;
-
-			//	ColliderCollision(leftCol, rightCol);
-			//}
 			std::vector<Collider2D*> leftCols = leftObj->GetComponents<Collider2D>();
 			for (Collider2D* leftCol : leftCols) {
 				if (leftCol == nullptr)
 					continue;
-				if (leftObj->GetState()
-					!= GameObject::eState::Active)
+				if (leftObj->GetState() != GameObject::eState::Active && leftObj->GetState() != GameObject::eState::Dead)
 					continue;
 				//if (leftCol->GetEnable() == false)
 				//	continue;
 
 				for (GameObject* rightObj : rights)
 				{
-					std::vector<Collider2D*> rightCols = rightObj->GetComponents<Collider2D>();
+					std::vector<Collider2D*> rightCols = rightObj->GetComponents<Collider2D>();			
+					//일반적인 상황
 					for (Collider2D* rightCol : rightCols) {
 						if (rightCol == nullptr)
 							continue;
 						if (leftObj == rightObj)
 							continue;
-						if (rightObj->GetState()
-							!= GameObject::eState::Active)
+						if (rightObj->GetState() != GameObject::eState::Active && rightObj->GetState() != GameObject::eState::Dead)
 							continue;
 						//if (rightCol->GetEnable() == false)
-						//	continue;
-
+						//	continue;						
 						ColliderCollision(leftCol, rightCol);
+						//충돌중 오브젝트가 죽어버렸을 경우
+						if ((leftObj->GetState() == GameObject::eState::Dead || rightObj->GetState() == GameObject::eState::Dead)) {
+							leftObj->OnCollisionExit(rightCol);
+							rightObj->OnCollisionExit(leftCol);
+							leftCol->OnCollisionExit(rightCol);
+							rightCol->OnCollisionExit(leftCol);
+						}
 					}					
 				}
 			}
@@ -154,7 +135,7 @@ namespace sn
 				right->GetOwner()->OnCollisionExit(left);
 				iter->second = false;
 			}
-		}
+		}		
 	}
 
 	bool CollisionManager::Intersect(Collider2D* left, Collider2D* right)

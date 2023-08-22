@@ -30,6 +30,7 @@ namespace sn::enums
 		DesObstacle,
 		Door,
 		Monster,
+		Projectile,
 		Player,
 		Light,
 		UI,

@@ -34,7 +34,7 @@ void MonsterTrace::Update()
 	Vector3 moveDir = playerPos - monPos;
 
 	if (abs(moveDir.x) < mon->GetMonsterInfo().fAttRange && abs(moveDir.y) < mon->GetMonsterInfo().fAttRange) {		
-		moveDir = Vector3(0.0f, 0.0f, 0.0f);
+		//moveDir = Vector3(0.0f, 0.0f, 0.0f);
 		delayTime += Time::DeltaTime();
 	}
 	else {

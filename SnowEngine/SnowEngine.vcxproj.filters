@@ -108,6 +108,15 @@
     <ClCompile Include="FylingRepairGolem.cpp">
       <Filter>Script\Monster\FylingRepairGolem</Filter>
     </ClCompile>
+    <ClCompile Include="GolemTurretBroken.cpp">
+      <Filter>Script\Monster\GolemTurretBroken</Filter>
+    </ClCompile>
+    <ClCompile Include="TurretAttack.cpp">
+      <Filter>Script\Monster\AI\State\Attack\TurretAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>Script\Projectile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -219,6 +228,15 @@
     </ClInclude>
     <ClInclude Include="FylingRepairGolem.h">
       <Filter>Script\Monster\FylingRepairGolem</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemTurretBroken.h">
+      <Filter>Script\Monster\GolemTurretBroken</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretAttack.h">
+      <Filter>Script\Monster\AI\State\Attack\TurretAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>Script\Projectile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -335,6 +353,15 @@
     </Filter>
     <Filter Include="Script\Monster\FylingRepairGolem">
       <UniqueIdentifier>{0b5fb69a-c09b-4612-a9cc-afe88ff8f759}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\GolemTurretBroken">
+      <UniqueIdentifier>{12514402-4594-48f6-b510-6f4687fa44c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\Attack\TurretAttack">
+      <UniqueIdentifier>{be7f7ba2-962b-45f5-a941-201e7199c5f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Projectile">
+      <UniqueIdentifier>{db86c0e8-8cc1-4ffb-a2cf-09b385e48350}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
