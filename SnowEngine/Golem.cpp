@@ -3,7 +3,7 @@
 #include "AI.h"
 #include "snAnimator.h"
 #include "snSceneManager.h"
-#include "snDungeon.h"
+#include "DungeonMapManager.h"
 
 Golem::Golem()
 {
@@ -24,10 +24,10 @@ void Golem::Update()
 	MonDir monDir = ai->GetCurDir();
 	MON_STATE monState = ai->GetCurStateName();
 
-	Animator* animator = GetComponent<Animator>();
+	Transform* monTr = this->GetComponent <Transform>();
+	sn::Collider2D* collider = this->GetComponent<sn::Collider2D>();
 
-	if (monState != ai->GetPrevStateName())
-		int a = 0;
+	Animator* animator = GetComponent<Animator>();
 
 	if (monDir != ai->GetPrevDir() || monState != ai->GetPrevStateName()) {
 		switch (monState)
@@ -38,6 +38,8 @@ void Golem::Update()
 			break;
 		case MON_STATE::TRACE:
 		{
+			monTr->SetScale(1.0f, 1.0f, 1.0f);
+			collider->SetSize(Vector2(0.4f, 0.4f));
 			switch (monDir)
 			{
 			case MonDir::UP:
@@ -59,6 +61,8 @@ void Golem::Update()
 		break;
 		case MON_STATE::ATT:
 		{
+			monTr->SetScale(1.5f, 1.5f, 1.0f);
+			collider->SetSize(Vector2(0.275f, 0.275f));
 			switch (monDir)
 			{
 			case MonDir::UP:
@@ -109,16 +113,15 @@ void Golem::OnCollisionEnter(sn::Collider2D* other)
 		monInfo.fHP -= 30.f;
 		SetMonsterInfo(monInfo);
 
-		Dungeon* dungeonScene = static_cast<Dungeon*>(SceneManager::GetActiveScene());
-		std::vector<std::vector<RoomInfo>> vecRoomInfo = dungeonScene->GetRoomInfoArr();
+		std::vector<std::vector<RoomInfo>> vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
 
 		if (monInfo.fHP <= 0.f) {
 			vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum -= 1;
 
 			if (vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum <= 0) {
 				vecRoomInfo[monsterMapPos.first][monsterMapPos.second].clear = true;
-				dungeonScene->SetRoomInfoArr(vecRoomInfo);
-				dungeonScene->SetDungeonClear(true);
+				DungeonMapManager::GetInst()->SetRoomInfoArr(vecRoomInfo);
+				DungeonMapManager::GetInst()->SetDungeonClear(true);
 			}
 		}
 	}

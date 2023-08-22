@@ -166,7 +166,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="DungeonMapManager.h" />
+    <ClInclude Include="FylingRepairGolem.h" />
     <ClInclude Include="Golem.h" />
+    <ClInclude Include="MiniSlime.h" />
     <ClInclude Include="MonFactory.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAttack.h" />
@@ -175,6 +177,8 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="MazeMaker.h" />
+    <ClInclude Include="Slime.h" />
+    <ClInclude Include="SlimeAttack.h" />
     <ClInclude Include="snBowState.h" />
     <ClInclude Include="snCameraScript.h" />
     <ClInclude Include="snDungeon.h">
@@ -237,13 +241,17 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonMapManager.cpp" />
+    <ClCompile Include="FylingRepairGolem.cpp" />
     <ClCompile Include="Golem.cpp" />
+    <ClCompile Include="MiniSlime.cpp" />
     <ClCompile Include="MonFactory.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAttack.cpp" />
     <ClCompile Include="MonsterIdle.cpp" />
     <ClCompile Include="MonsterTrace.cpp" />
     <ClCompile Include="MazeMaker.cpp" />
+    <ClCompile Include="Slime.cpp" />
+    <ClCompile Include="SlimeAttack.cpp" />
     <ClCompile Include="snBowState.cpp" />
     <ClCompile Include="snCameraScript.cpp" />
     <ClCompile Include="snDungeon.cpp">

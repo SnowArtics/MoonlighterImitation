@@ -6,6 +6,8 @@ class Monster;
 enum class MonType {
 	GOLEM,
 	SLIME,
+	BABYSLIME,
+	FYLINGREPAIRGOLEM,
 };
 
 class MonFactory

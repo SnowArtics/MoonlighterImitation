@@ -29,11 +29,7 @@ void MonsterAttack::Update()
 
 	Monster* mon = GetMonster();
 	Transform* monTr = mon->GetComponent <Transform>();
-	monTr->SetScale(1.5f, 1.5f, 1.0f);
 	Vector3 monPos = monTr->GetPosition();
-
-	sn::Collider2D* collider = mon->GetComponent<sn::Collider2D>();
-	collider->SetSize(Vector2(0.275f, 0.275f));
 
 	Vector3 moveDir = playerPos - monPos;
 
@@ -41,8 +37,6 @@ void MonsterAttack::Update()
 
 	if ((abs(moveDir.x) >= mon->GetMonsterInfo().fAttRange || abs(moveDir.y) >= mon->GetMonsterInfo().fAttRange)&& time>= monInfo.fAttTime-0.1f) {
 		SceneManager::ChangeMonsterState(GetAI(), MON_STATE::TRACE);
-		monTr->SetScale(1.0f, 1.0f, 1.0f);
-		collider->SetSize(Vector2(0.4f, 0.4f));
 		time = 0.f;
 	}
 	moveDir.Normalize();

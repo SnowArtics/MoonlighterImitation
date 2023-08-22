@@ -9,6 +9,7 @@ struct tMonInfo
     float      fAttRange;        // 공격 범위
     float      fAtt;             // 공격력
     float      fAttTime;         // 공격속도
+    float      fAttDelay;        // 공격 딜레이
 };
 
 class AI;

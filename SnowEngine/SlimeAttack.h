@@ -1,11 +1,13 @@
 #pragma once
 #include "../Engine_SOURCE/State.h"
-class MonsterTrace :
-    public State
+
+using namespace sn;
+
+class SlimeAttack : public State
 {
 public:
-	MonsterTrace();
-	~MonsterTrace();
+	SlimeAttack();
+	~SlimeAttack();
 
 public:
 	virtual void Update();
@@ -14,6 +16,6 @@ public:
 
 private:
 	float time;
-	float delayTime;
+	Vector3 targetPos;
 };
 

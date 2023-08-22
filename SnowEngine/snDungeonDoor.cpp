@@ -6,6 +6,7 @@
 #include "snDungeon.h"
 #include "snCollider2D.h"
 #include "snAnimator.h"
+#include "DungeonMapManager.h"
 
 namespace sn {
 	sn::DungeonDoor::DungeonDoor(DoorType _doorType, std::pair<int, int> _doorMapPos)
@@ -30,8 +31,8 @@ namespace sn {
 	{
 		Dungeon* dungeonScene = static_cast<Dungeon*>(SceneManager::GetActiveScene());
 		prevPlayerMapPos = curPlayerMapPos;
-		curPlayerMapPos = dungeonScene->GetPlayerMapPos();
-		std::vector<std::vector<RoomInfo>> vecRoomInfo = dungeonScene->GetRoomInfoArr();
+		curPlayerMapPos = DungeonMapManager::GetInst()->GetPlayerMapPos();
+		std::vector<std::vector<RoomInfo>> vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
 
 		Collider2D* collider = GetOwner()->GetComponent<Collider2D>();
 
@@ -42,10 +43,10 @@ namespace sn {
 		if (prevPlayerMapPos != curPlayerMapPos && vecRoomInfo[curPlayerMapPos.first][curPlayerMapPos.second].clear == false) {
 			collider->SetEnable(false);
 			animator->PlayAnimation(L"CLOSE_DOOR", false);
-			dungeonScene->SetDungeonClear(false);
+			DungeonMapManager::GetInst()->SetDungeonClear(false);
 		}
 
-		if (dungeonScene->GetDungeonClear() == true) {
+		if (DungeonMapManager::GetInst()->GetDungeonClear() == true) {
 			if (collider->GetEnable() == false) {
 				doorOpen = true;
 			}
@@ -75,25 +76,25 @@ namespace sn {
 			Transform* tr = otherObject->GetComponent<Transform>();
 			Vector3 playerPos = tr->GetPosition();
 			Dungeon* curScene = static_cast<Dungeon*>(SceneManager::GetActiveScene());
-			std::pair<int, int> playerMapPos = curScene->GetPlayerMapPos();
+			std::pair<int, int> playerMapPos = DungeonMapManager::GetInst()->GetPlayerMapPos();
 
 			switch (doorType)
 			{
 			case DoorType::UP:
 				tr->SetPosition(Vector3(playerPos.x, playerPos.y + 2.f, playerPos.z));
-				curScene->SetPlayerMapPos(playerMapPos.second, playerMapPos.first -1);
+				DungeonMapManager::GetInst()->SetPlayerMapPos(playerMapPos.second, playerMapPos.first -1);
 				break;
 			case DoorType::DOWN:
 				tr->SetPosition(Vector3(playerPos.x, playerPos.y - 2.f, playerPos.z));
-				curScene->SetPlayerMapPos(playerMapPos.second, playerMapPos.first + 1);
+				DungeonMapManager::GetInst()->SetPlayerMapPos(playerMapPos.second, playerMapPos.first + 1);
 				break;
 			case DoorType::LEFT:
 				tr->SetPosition(Vector3(playerPos.x-3.0f, playerPos.y, playerPos.z));
-				curScene->SetPlayerMapPos(playerMapPos.second -1 , playerMapPos.first);
+				DungeonMapManager::GetInst()->SetPlayerMapPos(playerMapPos.second -1 , playerMapPos.first);
 				break;
 			case DoorType::RIGHT:
 				tr->SetPosition(Vector3(playerPos.x + 3.0f, playerPos.y, playerPos.z));
-				curScene->SetPlayerMapPos(playerMapPos.second + 1, playerMapPos.first);
+				DungeonMapManager::GetInst()->SetPlayerMapPos(playerMapPos.second + 1, playerMapPos.first);
 				break;
 			default:
 				break;

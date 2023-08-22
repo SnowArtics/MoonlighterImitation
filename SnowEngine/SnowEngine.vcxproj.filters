@@ -96,6 +96,18 @@
       <Filter>Script\Monster\AI\State\Attack</Filter>
     </ClCompile>
     <ClCompile Include="DungeonMapManager.cpp" />
+    <ClCompile Include="MiniSlime.cpp">
+      <Filter>Script\Monster\MiniSlime</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Script\Monster\Slime</Filter>
+    </ClCompile>
+    <ClCompile Include="SlimeAttack.cpp">
+      <Filter>Script\Monster\AI\State\Attack\SlimeAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="FylingRepairGolem.cpp">
+      <Filter>Script\Monster\FylingRepairGolem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -196,6 +208,18 @@
       <Filter>Script\Monster\AI\State\Attack</Filter>
     </ClInclude>
     <ClInclude Include="DungeonMapManager.h" />
+    <ClInclude Include="MiniSlime.h">
+      <Filter>Script\Monster\MiniSlime</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>Script\Monster\Slime</Filter>
+    </ClInclude>
+    <ClInclude Include="SlimeAttack.h">
+      <Filter>Script\Monster\AI\State\Attack\SlimeAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="FylingRepairGolem.h">
+      <Filter>Script\Monster\FylingRepairGolem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -299,6 +323,18 @@
     </Filter>
     <Filter Include="Script\Dungeon\Map">
       <UniqueIdentifier>{7143b149-6d21-4734-b357-855fef2d1d29}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\MiniSlime">
+      <UniqueIdentifier>{75f36a86-7ef0-46c7-a3fe-c63e111a7d6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\Slime">
+      <UniqueIdentifier>{0dba7386-2d50-4daf-9f99-8ccdde390c52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\Attack\SlimeAttack">
+      <UniqueIdentifier>{cf8de651-4f23-42b3-a5ec-9af9c6ee1a43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\FylingRepairGolem">
+      <UniqueIdentifier>{0b5fb69a-c09b-4612-a9cc-afe88ff8f759}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

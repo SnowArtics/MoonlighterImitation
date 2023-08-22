@@ -11,6 +11,7 @@ using namespace sn;
 MonsterTrace::MonsterTrace()
 	: State(MON_STATE::TRACE)
 	, time(0.f)
+	, delayTime(0.f)
 {
 }
 
@@ -32,8 +33,16 @@ void MonsterTrace::Update()
 
 	Vector3 moveDir = playerPos - monPos;
 
-	if (abs(moveDir.x) < mon->GetMonsterInfo().fAttRange && abs(moveDir.y) < mon->GetMonsterInfo().fAttRange) {
+	if (abs(moveDir.x) < mon->GetMonsterInfo().fAttRange && abs(moveDir.y) < mon->GetMonsterInfo().fAttRange) {		
+		moveDir = Vector3(0.0f, 0.0f, 0.0f);
+		delayTime += Time::DeltaTime();
+	}
+	else {
+		delayTime = 0.f;
+	}
+	if (delayTime >= mon->GetMonsterInfo().fAttDelay && mon->GetMonsterInfo().fAttDelay >0.f) {
 		SceneManager::ChangeMonsterState(GetAI(), MON_STATE::ATT);
+		delayTime = 0.f;
 	}
 	moveDir.Normalize();
 
