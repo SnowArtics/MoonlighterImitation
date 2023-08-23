@@ -42,8 +42,8 @@ cbuffer Noise : register(b6)
 }
 
 cbuffer Monster : register(b7) {
-    float4  color;
-    int		state;
+    float4  monsterColor;
+    int		monsterState; // 0 is normal, 1 is hit, 2 is dead
     float3  pad1;
 }
 

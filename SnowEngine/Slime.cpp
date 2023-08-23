@@ -78,6 +78,7 @@ void Slime::Render()
 
 void Slime::OnCollisionEnter(sn::Collider2D* other)
 {
+	Monster::OnCollisionEnter(other);
 	if (other->GetName() == L"SecondCollider") {
 		tMonInfo monInfo = GetMonsterInfo();
 		monInfo.fHP -= 30.f;

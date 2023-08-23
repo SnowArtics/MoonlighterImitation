@@ -40,6 +40,7 @@ void SlimeHermit::Update()
 		{
 			monTr->SetScale(1.5f, 1.5f, 1.5f);
 			collider->SetSize(Vector2(0.4f, 0.4f));
+			collider->SetCenter(Vector2(0.0f, +0.0f));
 			switch (monDir)
 			{
 			case MonDir::UP:
@@ -66,19 +67,23 @@ void SlimeHermit::Update()
 			switch (monDir)
 			{
 			case MonDir::UP:
-				collider->SetSize(Vector2(0.2f, 0.4f));
+				collider->SetSize(Vector2(0.2f, 0.3f));
+				collider->SetCenter(Vector2(0.0f, +0.2f));
 				animator->PlayAnimation(L"SLIME_HERMIT_ATT_UP", true);
 				break;
 			case MonDir::DOWN:
 				collider->SetSize(Vector2(0.2f, 0.4f));
+				collider->SetCenter(Vector2(0.0f, -0.5f));
 				animator->PlayAnimation(L"SLIME_HERMIT_ATT_DOWN", true);
 				break;
 			case MonDir::RIGHT:
-				collider->SetSize(Vector2(0.4f, 0.2f));
+				collider->SetSize(Vector2(0.25f, 0.15f));
+				collider->SetCenter(Vector2(0.25f, -0.1f));
 				animator->PlayAnimation(L"SLIME_HERMIT_ATT_RIGHT", true);
 				break;
 			case MonDir::LEFT:
-				collider->SetSize(Vector2(0.4f, 0.2f));
+				collider->SetSize(Vector2(0.25f, 0.15f));
+				collider->SetCenter(Vector2(-0.25f, -0.1f));
 				animator->PlayAnimation(L"SLIME_HERMIT_ATT_LEFT", true);
 				break;
 			default:
@@ -112,6 +117,8 @@ void SlimeHermit::Render()
 
 void SlimeHermit::OnCollisionEnter(sn::Collider2D* other)
 {
+	Monster::OnCollisionEnter(other);
+
 	if (other->GetName() == L"SecondCollider") {
 		tMonInfo monInfo = GetMonsterInfo();
 		monInfo.fHP -= 30.f;
@@ -137,4 +144,5 @@ void SlimeHermit::OnCollisionStay(sn::Collider2D* other)
 
 void SlimeHermit::OnCollisionExit(sn::Collider2D* other)
 {
+	Monster::OnCollisionExit(other);
 }

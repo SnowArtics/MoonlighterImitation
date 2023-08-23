@@ -123,6 +123,7 @@ void GolemTurret::Render()
 
 void GolemTurret::OnCollisionEnter(sn::Collider2D* other)
 {
+	Monster::OnCollisionEnter(other);
 }
 
 void GolemTurret::OnCollisionStay(sn::Collider2D* other)

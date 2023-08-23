@@ -1,5 +1,6 @@
 #pragma once
 #include "../Engine_SOURCE/snGameObject.h"
+#include "snRenderer.h"
 
 struct tMonInfo
 {
@@ -49,6 +50,8 @@ protected:
     tMonInfo    m_tInfo;
     std::pair<int, int>				monsterMapPos;
     float time;
+    float hitTime;
+    float deadTime;
 
     friend class MonFactory;
 };

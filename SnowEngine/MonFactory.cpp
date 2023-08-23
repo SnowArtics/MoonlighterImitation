@@ -363,7 +363,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		AI* ai = pMon->AddComponent<AI>(pMon);
 		ai->AddState(new MonsterIdle);
 		ai->AddState(new MonsterTrace);
-		ai->AddState(new MonsterAttack);
+		ai->AddState(new TurretBrokenAttack);
 		ai->SetCurState(MON_STATE::IDLE);
 	}
 	break;
