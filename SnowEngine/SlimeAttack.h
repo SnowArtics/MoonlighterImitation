@@ -17,5 +17,7 @@ public:
 private:
 	float time;
 	Vector3 targetPos;
+	Vector3 moveDir;
+	bool attackFlag;
 };
 

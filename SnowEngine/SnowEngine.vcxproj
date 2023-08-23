@@ -168,6 +168,7 @@
     <ClInclude Include="DungeonMapManager.h" />
     <ClInclude Include="FylingRepairGolem.h" />
     <ClInclude Include="Golem.h" />
+    <ClInclude Include="GolemTurret.h" />
     <ClInclude Include="GolemTurretBroken.h" />
     <ClInclude Include="MiniSlime.h" />
     <ClInclude Include="MonFactory.h" />
@@ -181,6 +182,7 @@
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="SlimeAttack.h" />
+    <ClInclude Include="SlimeHermit.h" />
     <ClInclude Include="snBowState.h" />
     <ClInclude Include="snCameraScript.h" />
     <ClInclude Include="snDungeon.h">
@@ -241,11 +243,13 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="TurretAttack.h" />
+    <ClInclude Include="TurretBrokenAttack.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DungeonMapManager.cpp" />
     <ClCompile Include="FylingRepairGolem.cpp" />
     <ClCompile Include="Golem.cpp" />
+    <ClCompile Include="GolemTurret.cpp" />
     <ClCompile Include="GolemTurretBroken.cpp" />
     <ClCompile Include="MiniSlime.cpp" />
     <ClCompile Include="MonFactory.cpp" />
@@ -257,6 +261,7 @@
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="SlimeAttack.cpp" />
+    <ClCompile Include="SlimeHermit.cpp" />
     <ClCompile Include="snBowState.cpp" />
     <ClCompile Include="snCameraScript.cpp" />
     <ClCompile Include="snDungeon.cpp">
@@ -318,6 +323,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="TurretAttack.cpp" />
+    <ClCompile Include="TurretBrokenAttack.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

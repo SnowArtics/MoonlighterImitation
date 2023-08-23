@@ -71,8 +71,6 @@ void DungeonMapManager::MakeDungeonBackground(std::vector<std::wstring> _Dungeon
 				Background->GetComponent<Transform>()->SetPosition(Vector3((float)j * 9.72f, -((float)i * 5.45f), 0.0f));
 				//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
 				Background->GetComponent<Transform>()->SetScale(Vector3(9.777778f, 5.5f, 0.0f));
-
-
 			}
 		}
 	}
@@ -274,7 +272,7 @@ void DungeonMapManager::MonsterSpawn()
 			if (arr[i][j] == 0) {
 				continue;
 			}
-			Monster* pMon = MonFactory::CreateMonster(MonType::GOLEMTURRETBROKEN, Vector2(j * 9.72f, i * -5.45f));
+			Monster* pMon = MonFactory::CreateMonster(MonType::SLIMEHERMIT, Vector2(j * 9.72f, i * -5.45f));
 			
 			pMon->SetMonsterMapPos(i, j);
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));

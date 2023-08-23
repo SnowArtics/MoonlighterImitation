@@ -13,12 +13,15 @@
 #include "MonsterAttack.h"
 #include "SlimeAttack.h"
 #include "TurretAttack.h"
+#include "TurretBrokenAttack.h"
 
 #include "Golem.h"
 #include "Slime.h"
 #include "MiniSlime.h"
 #include "FylingRepairGolem.h"
+#include "GolemTurret.h"
 #include "GolemTurretBroken.h"
+#include "SlimeHermit.h"
 
 using namespace sn;
 
@@ -88,7 +91,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		tMonInfo info = {};
 		info.fAtt = 15.f;
-		info.fAttRange = 1.5f; //-1이면 Trace상태에서 벗어나지 않음.
+		info.fAttRange = 2.5f; //-1이면 Trace상태에서 벗어나지 않음.
 		info.fRecogRange = 300.f;
 		info.fHP = 100.f;
 		info.fSpeed = 0.75f;
@@ -213,7 +216,52 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		break;
 	case MonType::GOLEMTURRET:
 	{
+		pMon = new GolemTurret;
+		Transform* tr = pMon->GetComponent<Transform>();
+		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
+		tr->SetScale(Vector3(1.7f, 1.7f, 2.0f));
 
+		tMonInfo info = {};
+		info.fAtt = 15.f;
+		info.fAttRange = 2.f; //-1이면 Trace상태에서 벗어나지 않음.
+		info.fRecogRange = 300.f;
+		info.fHP = 100.f;
+		info.fSpeed = 1.f;
+		info.fAttTime = 2.16f;
+		info.fAttDelay = 1.5f;
+
+		pMon->SetMonInfo(info);
+
+		MeshRenderer* mr = pMon->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		std::shared_ptr<Texture> atlas
+			= Resources::Load<Texture>(L"GolemTurretWalk", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemTurret\\golemturret_walk.png");
+		Animator* at = pMon->AddComponent<Animator>();
+
+		at->Create(L"GOLEM_TURRET_WALK_DOWN", atlas, Vector2(0.0f, 0.0f), Vector2(64.f, 64.f), 6, 120.f, 0.1f);
+		at->Create(L"GOLEM_TURRET_WALK_LEFT", atlas, Vector2(0.0f, 64.f), Vector2(64.f, 64.f), 6, 120.f, 0.1f);
+		at->Create(L"GOLEM_TURRET_WALK_RIGHT", atlas, Vector2(0.0f, 128.f), Vector2(64.f, 64.f), 6, 120.f, 0.1f);
+		at->Create(L"GOLEM_TURRET_WALK_UP", atlas, Vector2(0.0f, 192.f), Vector2(64.f, 64.f), 6, 120.f, 0.1f);
+
+		atlas = Resources::Load<Texture>(L"GolemTurretShoot", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemTurret\\golemturret_shot.png");
+
+		at->Create(L"GOLEM_TURRET_SHOT_DOWN", atlas, Vector2(0.0f, 0.0f), Vector2(64.f, 64.f), 18, 120.f, 0.12f);
+		at->Create(L"GOLEM_TURRET_SHOT_LEFT", atlas, Vector2(0.0f, 64.f), Vector2(64.f, 64.f), 18, 120.f, 0.12f);
+		at->Create(L"GOLEM_TURRET_SHOT_RIGHT", atlas, Vector2(0.0f, 128.f), Vector2(64.f, 64.f), 18, 120.f, 0.12f);
+		at->Create(L"GOLEM_TURRET_SHOT_UP", atlas, Vector2(0.0f, 192.f), Vector2(64.f, 64.f), 18, 120.f, 0.12f);
+
+		at->PlayAnimation(L"GOLEM_TURRET_WALK_DOWN", true);
+
+		sn::Collider2D* collider = pMon->AddComponent<sn::Collider2D>();
+		collider->SetSize(Vector2(0.2f, 0.2f));
+
+		AI* ai = pMon->AddComponent<AI>(pMon);
+		ai->AddState(new MonsterTrace);
+		ai->AddState(new MonsterIdle);
+		ai->AddState(new TurretAttack);
+		ai->SetCurState(MON_STATE::IDLE);
 	}
 		break;
 	case MonType::GOLEMTURRETBROKEN:
@@ -229,7 +277,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fRecogRange = 300.f;
 		info.fHP = 100.f;
 		info.fSpeed = 0.f;
-		info.fAttTime = 2.4f;
+		info.fAttTime = 1.8f;
 		info.fAttDelay = 1.f;
 
 		pMon->SetMonInfo(info);
@@ -247,10 +295,10 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		at->Create(L"GOLEM_TURRET_BROKEN_RIGHT", atlas, Vector2(0.0f, 80.0f), Vector2(33.0f, 40.0f), 1, 120.f, 0.1f);
 		at->Create(L"GOLEM_TURRET_BROKEN_UP", atlas, Vector2(0.0f, 120.0f), Vector2(33.0f, 40.0f), 1, 120.f, 0.1f);
 
-		at->Create(L"GOLEM_TURRET_BROKEN_SHOT_DOWN",atlas, Vector2(33.0f, 0.0f), Vector2(33.0f, 40.0f), 10, 120.f, 0.08f);
-		at->Create(L"GOLEM_TURRET_BROKEN_SHOT_LEFT", atlas, Vector2(33.0f, 40.0f), Vector2(33.0f, 40.0f), 10, 120.f, 0.08f);
-		at->Create(L"GOLEM_TURRET_BROKEN_SHOT_RIGHT", atlas, Vector2(33.0f, 80.0f), Vector2(33.0f, 40.0f), 10, 120.f, 0.08f);
-		at->Create(L"GOLEM_TURRET_BROKEN_SHOT_UP", atlas, Vector2(33.0f, 120.0f), Vector2(33.0f, 40.0f), 10, 120.f, 0.08f);
+		at->Create(L"GOLEM_TURRET_BROKEN_SHOT_DOWN",atlas, Vector2(33.0f, 0.0f), Vector2(33.0f, 40.0f), 10, 120.f, 0.06f);
+		at->Create(L"GOLEM_TURRET_BROKEN_SHOT_LEFT", atlas, Vector2(33.0f, 40.0f), Vector2(33.0f, 40.0f), 10, 120.f, 0.06f);
+		at->Create(L"GOLEM_TURRET_BROKEN_SHOT_RIGHT", atlas, Vector2(33.0f, 80.0f), Vector2(33.0f, 40.0f), 10, 120.f, 0.06f);
+		at->Create(L"GOLEM_TURRET_BROKEN_SHOT_UP", atlas, Vector2(33.0f, 120.0f), Vector2(33.0f, 40.0f), 10, 120.f, 0.06f);
 
 		at->PlayAnimation(L"GOLEM_TURRET_BROKEN_SHOT_LEFT", true);
 
@@ -260,7 +308,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		AI* ai = pMon->AddComponent<AI>(pMon);
 		ai->AddState(new MonsterTrace);
 		ai->AddState(new MonsterIdle);
-		ai->AddState(new TurretAttack);
+		ai->AddState(new TurretBrokenAttack);
 		ai->SetCurState(MON_STATE::IDLE);
 	}
 	break;
@@ -276,7 +324,47 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 	break;
 	case MonType::SLIMEHERMIT:
 	{
+		pMon = new SlimeHermit;
+		Transform* tr = pMon->GetComponent<Transform>();
+		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
 
+		tMonInfo info = {};
+		info.fAtt = 20.f;
+		info.fAttRange = 0.75f;
+		info.fRecogRange = 300.f;
+		info.fHP = 100.f;
+		info.fSpeed = 0.5f;
+		info.fAttTime = 7.8f;
+		info.fAttDelay = 0.f;
+
+		pMon->SetMonInfo(info);
+
+		MeshRenderer* mr = pMon->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		std::shared_ptr<Texture> atlas
+			= Resources::Load<Texture>(L"Monster_Golem_Move", L"..\\Resources\\Texture\\Dungeon\\Enemy\\SlimeHermit\\Slime_Hermit.png");
+		Animator* at = pMon->AddComponent<Animator>();
+
+		at->Create(L"SLIME_HERMIT_WALK_UP", atlas, Vector2(0.0f, 0.0f), Vector2(200.f, 220.0f), 11);
+		at->Create(L"SLIME_HERMIT_WALK_RIGHT", atlas, Vector2(0.0f, 220.0f), Vector2(200.f, 220.0f), 11);
+		at->Create(L"SLIME_HERMIT_WALK_LEFT", atlas, Vector2(0.0f, 440.0f), Vector2(200.f, 220.0f), 11);
+		at->Create(L"SLIME_HERMIT_WALK_DOWN", atlas, Vector2(0.0f, 660.0f), Vector2(200.f, 220.0f), 11);
+
+		at->Create(L"SLIME_HERMIT_ATT_UP", atlas, Vector2(0.0f, 880.0f), Vector2(200.f, 220.0f), 52, 240.f,0.15f);
+		at->Create(L"SLIME_HERMIT_ATT_RIGHT", atlas, Vector2(0.0f, 1100.0f), Vector2(200.f, 220.0f), 52, 240.f, 0.15f);
+		at->Create(L"SLIME_HERMIT_ATT_LEFT", atlas, Vector2(0.0f, 1320.0f), Vector2(200.f, 220.0f), 52, 240.f, 0.15f);
+		at->Create(L"SLIME_HERMIT_ATT_DOWN", atlas, Vector2(0.0f, 1540.0f), Vector2(200.f, 220.0f), 52, 240.f, 0.15f);
+
+		sn::Collider2D* collider = pMon->AddComponent<sn::Collider2D>();
+		collider->SetSize(Vector2(0.4f, 0.4f));
+
+		AI* ai = pMon->AddComponent<AI>(pMon);
+		ai->AddState(new MonsterIdle);
+		ai->AddState(new MonsterTrace);
+		ai->AddState(new MonsterAttack);
+		ai->SetCurState(MON_STATE::IDLE);
 	}
 	break;
 	default:

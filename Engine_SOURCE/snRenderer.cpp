@@ -150,6 +150,8 @@ namespace renderer {
 		constantBuffer[(UINT)eCBType::Noise] = new ConstantBuffer(eCBType::Noise);
 		constantBuffer[(UINT)eCBType::Noise]->Create(sizeof(NoiseCB));
 
+		//MonsterCB
+
 		// light structed buffer
 		lightsBuffer = new StructedBuffer();
 		lightsBuffer->Create(sizeof(LightAttribute), 2, eViewType::SRV, nullptr, true);

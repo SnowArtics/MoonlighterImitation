@@ -1,4 +1,4 @@
-#include "GolemTurretBroken.h"
+#include "GolemTurret.h"
 
 #include "AI.h"
 #include "snAnimator.h"
@@ -13,21 +13,20 @@
 
 using namespace sn;
 
-GolemTurretBroken::GolemTurretBroken()
-	:shootTime(0.f)
+GolemTurret::GolemTurret()
 {
 }
 
-GolemTurretBroken::~GolemTurretBroken()
+GolemTurret::~GolemTurret()
 {
 }
 
-void GolemTurretBroken::Initialize()
+void GolemTurret::Initialize()
 {
 	Monster::Initialize();
 }
 
-void GolemTurretBroken::Update()
+void GolemTurret::Update()
 {
 	AI* ai = GetComponent<AI>();
 	MonDir monDir = ai->GetCurDir();
@@ -51,20 +50,19 @@ void GolemTurretBroken::Update()
 			break;
 		case MON_STATE::TRACE:
 		{
-			shootTime = 0.f;
 			switch (monDir)
 			{
 			case MonDir::UP:
-				animator->PlayAnimation(L"GOLEM_TURRET_BROKEN_UP", true);
+				animator->PlayAnimation(L"GOLEM_TURRET_WALK_UP", true);
 				break;
 			case MonDir::DOWN:
-				animator->PlayAnimation(L"GOLEM_TURRET_BROKEN_DOWN", true);
+				animator->PlayAnimation(L"GOLEM_TURRET_WALK_DOWN", true);
 				break;
 			case MonDir::RIGHT:
-				animator->PlayAnimation(L"GOLEM_TURRET_BROKEN_RIGHT", true);
+				animator->PlayAnimation(L"GOLEM_TURRET_WALK_RIGHT", true);
 				break;
 			case MonDir::LEFT:
-				animator->PlayAnimation(L"GOLEM_TURRET_BROKEN_LEFT", true);
+				animator->PlayAnimation(L"GOLEM_TURRET_WALK_LEFT", true);
 				break;
 			default:
 				break;
@@ -73,24 +71,24 @@ void GolemTurretBroken::Update()
 		break;
 		case MON_STATE::ATT:
 		{
-			
+			shootTime = 0.f;
 			switch (monDir)
 			{
 			case MonDir::UP:
-				animator->PlayAnimation(L"GOLEM_TURRET_BROKEN_SHOT_UP", true);
+				animator->PlayAnimation(L"GOLEM_TURRET_SHOT_UP", true);
 				break;
 			case MonDir::DOWN:
-				animator->PlayAnimation(L"GOLEM_TURRET_BROKEN_SHOT_DOWN", true);
+				animator->PlayAnimation(L"GOLEM_TURRET_SHOT_DOWN", true);
 				break;
 			case MonDir::RIGHT:
-				animator->PlayAnimation(L"GOLEM_TURRET_BROKEN_SHOT_RIGHT", true);
+				animator->PlayAnimation(L"GOLEM_TURRET_SHOT_RIGHT", true);
 				break;
 			case MonDir::LEFT:
-				animator->PlayAnimation(L"GOLEM_TURRET_BROKEN_SHOT_LEFT", true);
+				animator->PlayAnimation(L"GOLEM_TURRET_SHOT_LEFT", true);
 				break;
 			default:
 				break;
-			}			
+			}
 		}
 		break;
 		case MON_STATE::TARGET_ATT:
@@ -102,66 +100,51 @@ void GolemTurretBroken::Update()
 		default:
 			break;
 		}
-	}	
 
-	if (shootTime >= 0.5f) {
+	}
+
+	if (shootTime >= 0.05f) {
 		CreateProjectile();
-		shootTime -= 0.5f;
+		shootTime -= 0.05f;
 	}
 
 	Monster::Update();
 }
 
-void GolemTurretBroken::LateUpdate()
+void GolemTurret::LateUpdate()
 {
 	Monster::LateUpdate();
 }
 
-void GolemTurretBroken::Render()
+void GolemTurret::Render()
 {
 	Monster::Render();
 }
 
-void GolemTurretBroken::OnCollisionEnter(sn::Collider2D* other)
-{
-	if (other->GetName() == L"SecondCollider") {
-		tMonInfo monInfo = GetMonsterInfo();
-		monInfo.fHP -= 30.f;
-		SetMonsterInfo(monInfo);
-
-		std::vector<std::vector<RoomInfo>> vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
-
-		if (monInfo.fHP <= 0.f) {
-			vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum -= 1;
-
-			if (vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum <= 0) {
-				vecRoomInfo[monsterMapPos.first][monsterMapPos.second].clear = true;
-				DungeonMapManager::GetInst()->SetRoomInfoArr(vecRoomInfo);
-				DungeonMapManager::GetInst()->SetDungeonClear(true);
-			}
-		}
-	}
-}
-
-void GolemTurretBroken::OnCollisionStay(sn::Collider2D* other)
+void GolemTurret::OnCollisionEnter(sn::Collider2D* other)
 {
 }
 
-void GolemTurretBroken::OnCollisionExit(sn::Collider2D* other)
+void GolemTurret::OnCollisionStay(sn::Collider2D* other)
 {
 }
 
-void GolemTurretBroken::CreateProjectile()
+void GolemTurret::OnCollisionExit(sn::Collider2D* other)
+{
+}
+
+void GolemTurret::CreateProjectile()
 {
 	AI* ai = GetComponent<AI>();
-	MonDir monDir = ai->GetCurDir();	
-	
+	MonDir monDir = ai->GetCurDir();
+
 	Projectile* projectile = new Projectile();
 	projectile->SetName(L"BrokenTurretProjectile");
 	Transform* tr = projectile->GetComponent<Transform>();
 	SceneManager::GetActiveScene()->AddGameObject(eLayerType::Projectile, static_cast<GameObject*>(projectile));
 
 	sn::Collider2D* collider = projectile->AddComponent<sn::Collider2D>();
+	collider->SetName(L"ProjectileCollider");
 	collider->SetSize(Vector2(0.1f, 0.1f));
 
 	MeshRenderer* mr = projectile->AddComponent<MeshRenderer>();
@@ -181,7 +164,7 @@ void GolemTurretBroken::CreateProjectile()
 	at->Create(L"GOLEM_TURRET_PROJECTILE_LEFT", atlas, Vector2(0.0f, 110.0f), Vector2(22.0f, 22.0f), 6);
 	at->Create(L"GOLEM_TURRET_PROJECTILE_RIGHT", atlas, Vector2(0.0f, 132.0f), Vector2(22.0f, 22.0f), 6);
 	at->Create(L"GOLEM_TURRET_PROJECTILE_UP", atlas, Vector2(0.0f, 154.0f), Vector2(22.0f, 22.0f), 6);
-	
+
 	projectile->SetSpeed(2.5f);
 
 
@@ -192,21 +175,25 @@ void GolemTurretBroken::CreateProjectile()
 	case MonDir::UP:
 		at->PlayAnimation(L"GOLEM_TURRET_PROJECTILE_UP", true);
 		projectile->SetDir(MonDir::UP);
+		tr->SetScale(Vector3(1.0f, 2.0f, 0.0f));
 		projectilePos.y += 0.3f;
 		break;
 	case MonDir::DOWN:
 		at->PlayAnimation(L"GOLEM_TURRET_PROJECTILE_DOWN", true);
 		projectile->SetDir(MonDir::DOWN);
+		tr->SetScale(Vector3(1.0f, 2.0f, 0.0f));
 		projectilePos.y -= 0.3f;
 		break;
 	case MonDir::RIGHT:
 		at->PlayAnimation(L"GOLEM_TURRET_PROJECTILE_RIGHT", true);
 		projectile->SetDir(MonDir::RIGHT);
+		tr->SetScale(Vector3(2.0f, 1.0f, 0.0f));
 		projectilePos.x += 0.3f;
 		break;
 	case MonDir::LEFT:
 		at->PlayAnimation(L"GOLEM_TURRET_PROJECTILE_LEFT", true);
 		projectile->SetDir(MonDir::LEFT);
+		tr->SetScale(Vector3(2.0f, 1.0f, 0.0f));
 		projectilePos.x -= 0.3f;
 		break;
 	default:

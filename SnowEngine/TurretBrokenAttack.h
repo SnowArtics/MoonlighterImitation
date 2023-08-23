@@ -3,11 +3,12 @@
 
 using namespace sn;
 
-class TurretAttack : public State
+class TurretBrokenAttack :
+    public State
 {
 public:
-	TurretAttack();
-	~TurretAttack();
+	TurretBrokenAttack();
+	~TurretBrokenAttack();
 
 public:
 	virtual void Update();

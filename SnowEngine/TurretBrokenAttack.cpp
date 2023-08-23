@@ -1,4 +1,4 @@
-#include "TurretAttack.h"
+#include "TurretBrokenAttack.h"
 #include "Monster.h"
 #include "snSceneManager.h"
 #include "snDungeon.h"
@@ -7,17 +7,17 @@
 #include "snTime.h"
 #include "snCollider2D.h"
 
-TurretAttack::TurretAttack()
+TurretBrokenAttack::TurretBrokenAttack()
 	: State(MON_STATE::ATT)
 	, time(0.f)
 {
 }
 
-TurretAttack::~TurretAttack()
+TurretBrokenAttack::~TurretBrokenAttack()
 {
 }
 
-void TurretAttack::Update()
+void TurretBrokenAttack::Update()
 {
 	time += Time::DeltaTime();
 
@@ -37,18 +37,12 @@ void TurretAttack::Update()
 		SceneManager::ChangeMonsterState(GetAI(), MON_STATE::TRACE);
 		time = 0.f;
 	}
-
-	moveDir.Normalize();
-
-	monPos += Time::DeltaTime() * moveDir * GetMonster()->GetInfo().fSpeed;
-
-	monTr->SetPosition(monPos);
 }
 
-void TurretAttack::Enter()
+void TurretBrokenAttack::Enter()
 {
 }
 
-void TurretAttack::Exit()
+void TurretBrokenAttack::Exit()
 {
 }

@@ -35,7 +35,7 @@ void MonsterAttack::Update()
 
 	tMonInfo monInfo = GetMonster()->GetMonsterInfo();
 
-	if ((abs(moveDir.x) >= mon->GetMonsterInfo().fAttRange || abs(moveDir.y) >= mon->GetMonsterInfo().fAttRange)&& time>= monInfo.fAttTime-0.1f) {
+	if ((abs(moveDir.x) >= mon->GetMonsterInfo().fAttRange || abs(moveDir.y) >= mon->GetMonsterInfo().fAttRange)&& time>= monInfo.fAttTime) {
 		SceneManager::ChangeMonsterState(GetAI(), MON_STATE::TRACE);
 		time = 0.f;
 	}

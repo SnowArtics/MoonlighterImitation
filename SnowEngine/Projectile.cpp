@@ -92,8 +92,10 @@ void Projectile::Render()
 void Projectile::OnCollisionEnter(sn::Collider2D* other)
 {
 	/*if(other->GetOwner() != this->GetComponent<Transform>()->GetParent()->GetOwner())*/
+	if (other->GetName() != L"ProjectileCollider") {
 		dead = true;
 		this->SetState(eState::Dead);
+	}		
 }
 
 void Projectile::OnCollisionStay(sn::Collider2D* other)

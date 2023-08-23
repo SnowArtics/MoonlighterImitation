@@ -36,14 +36,16 @@ void MonsterTrace::Update()
 	if (abs(moveDir.x) < mon->GetMonsterInfo().fAttRange && abs(moveDir.y) < mon->GetMonsterInfo().fAttRange) {		
 		//moveDir = Vector3(0.0f, 0.0f, 0.0f);
 		delayTime += Time::DeltaTime();
+
+		if (delayTime >= mon->GetMonsterInfo().fAttDelay && mon->GetMonsterInfo().fAttDelay >= 0.f) {
+			SceneManager::ChangeMonsterState(GetAI(), MON_STATE::ATT);
+			delayTime = 0.f;
+		}
 	}
 	else {
 		delayTime = 0.f;
 	}
-	if (delayTime >= mon->GetMonsterInfo().fAttDelay && mon->GetMonsterInfo().fAttDelay >0.f) {
-		SceneManager::ChangeMonsterState(GetAI(), MON_STATE::ATT);
-		delayTime = 0.f;
-	}
+	
 	moveDir.Normalize();
 
 	bool upDown = true;
