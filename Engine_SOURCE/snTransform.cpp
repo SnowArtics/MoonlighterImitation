@@ -52,7 +52,7 @@ namespace sn
 			if (mParent->GetOwner()->GetEnable() == false) {
 				mOwner->SetEnable(false);
 			}
-			else {
+			else if(mParent->GetOwner()->GetEnable() == true&&mOwner->GetEnable()==true){
 				mOwner->SetEnable(true);
 			}
 		}

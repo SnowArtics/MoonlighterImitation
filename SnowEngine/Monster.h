@@ -16,6 +16,7 @@ struct tMonInfo
 
 class AI;
 class Collider2D;
+class HitEffect;
 
 class Monster : public sn::GameObject
 {
@@ -56,6 +57,9 @@ protected:
     float time;
     float hitTime;
     float deadTime;
+
+    HitEffect* hitEffect;
+    GameObject* HPBar;
 
     friend class MonFactory;
 };

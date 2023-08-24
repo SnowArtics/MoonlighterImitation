@@ -32,6 +32,7 @@ namespace sn::enums
 		Door,
 		Monster,
 		Projectile,
+		HitEffect,
 		Player,
 		Light,
 		UI,

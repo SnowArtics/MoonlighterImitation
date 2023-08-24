@@ -29,6 +29,10 @@ HitEffect::HitEffect()
 	atlas
 		= Resources::Load<Texture>(L"bow_Effect01", L"..\\Resources\\Texture\\Dungeon\\HitEffect\\bowEffect1.png");
 	at->Create(L"BOW_EFFECT01", atlas, Vector2(0.0f, 0.0f), Vector2(128.f, 128.f), 3);
+
+	at->PlayAnimation(L"SWORD_EFFECT01", false);
+
+	this->SetEnable(false);
 }
 
 HitEffect::~HitEffect()

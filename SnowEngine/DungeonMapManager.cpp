@@ -272,7 +272,7 @@ void DungeonMapManager::MonsterSpawn()
 			if (arr[i][j] == 0) {
 				continue;
 			}
-			Monster* pMon = MonFactory::CreateMonster(MonType::GOLEM, Vector2(j * 9.72f, i * -5.45f));
+			Monster* pMon = MonFactory::CreateMonster(MonType::SLIMEHERMIT, Vector2(j * 9.72f, i * -5.45f));
 			
 			pMon->SetMonsterMapPos(i, j);
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));

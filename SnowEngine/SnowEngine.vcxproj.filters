@@ -127,6 +127,9 @@
       <Filter>Script\Monster\SlimeHermit</Filter>
     </ClCompile>
     <ClCompile Include="snPlayer.cpp" />
+    <ClCompile Include="HitEffect.cpp">
+      <Filter>Script\Monster\HitEffect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -258,6 +261,9 @@
       <Filter>Script\Monster\SlimeHermit</Filter>
     </ClInclude>
     <ClInclude Include="snPlayer.h" />
+    <ClInclude Include="HitEffect.h">
+      <Filter>Script\Monster\HitEffect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -391,6 +397,9 @@
     </Filter>
     <Filter Include="Script\Monster\SlimeHermit">
       <UniqueIdentifier>{51934dbc-49c0-479e-a08d-a35522905d79}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\HitEffect">
+      <UniqueIdentifier>{bec1e048-c301-4cf7-9e3e-773e67cde09f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
