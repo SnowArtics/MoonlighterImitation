@@ -7,6 +7,7 @@
 #include "snMesh.h"
 #include "snMeshRenderer.h"
 #include "snMaterial.h"
+#include "snRigidBody.h"
 #include "AI.h"
 #include "MonsterIdle.h"
 #include "MonsterTrace.h"
@@ -45,6 +46,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fSpeed = 0.5f;
 		info.fAttTime = 1.3f;
 		info.fAttDelay = 0.f;
+		info.fUnStiffness = 10.f;
 
 		pMon->SetMonInfo(info);
 
@@ -75,6 +77,8 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		collider->SetSize(Vector2(0.4f,0.4f));
 		collider->SetCenter(Vector2(0.0f, -0.1f));
 
+		RigidBody* rigidBody = pMon->AddComponent<RigidBody>();
+
 		AI* ai = pMon->AddComponent<AI>(pMon);
 		ai->AddState(new MonsterIdle);
 		ai->AddState(new MonsterTrace);
@@ -97,12 +101,15 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fSpeed = 0.75f;
 		info.fAttTime = 1.2f;
 		info.fAttDelay = 1.f;
+		info.fUnStiffness = 10.f;
 
 		pMon->SetMonInfo(info);
 
 		MeshRenderer* mr = pMon->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		RigidBody* rigidBody = pMon->AddComponent<RigidBody>();
 
 		std::shared_ptr<Texture> atlas
 			= Resources::Load<Texture>(L"Slime_Attack", L"..\\Resources\\Texture\\Dungeon\\Enemy\\Slime\\slimeAttack.png");
@@ -139,6 +146,8 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
 		tr->SetScale(Vector3(0.5f, 0.5f,0.0f));
 
+		RigidBody* rigidBody = pMon->AddComponent<RigidBody>();
+
 		tMonInfo info = {};
 		info.fAtt = 15.f;
 		info.fAttRange = -1.f; //-1이면 Trace상태에서 벗어나지 않음.
@@ -147,6 +156,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fSpeed = 0.75f;
 		info.fAttTime = -1.f;
 		info.fAttDelay = 0.f;
+		info.fUnStiffness = 10.f;
 
 		pMon->SetMonInfo(info);
 

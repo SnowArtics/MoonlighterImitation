@@ -56,7 +56,10 @@ float4 main(VSOut In) : SV_TARGET
     }
     else if (monsterState == 2)
     {
-        
+        if (color.a > 0.0f)
+        {
+            color = monsterColor;
+        }
     }
     
         if (color.a <= 0.0f)

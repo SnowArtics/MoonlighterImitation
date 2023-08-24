@@ -12,6 +12,7 @@ namespace sn::enums
 		Particle,
 		MeshRenderer,
 		Animator,
+		RigidBody,
 		Script,
 		Light,
 		Camera,

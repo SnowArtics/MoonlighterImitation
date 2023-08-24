@@ -179,6 +179,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="MazeMaker.h" />
+    <ClInclude Include="snPlayer.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Slime.h" />
     <ClInclude Include="SlimeAttack.h" />
@@ -258,6 +259,7 @@
     <ClCompile Include="MonsterIdle.cpp" />
     <ClCompile Include="MonsterTrace.cpp" />
     <ClCompile Include="MazeMaker.cpp" />
+    <ClCompile Include="snPlayer.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Slime.cpp" />
     <ClCompile Include="SlimeAttack.cpp" />

@@ -52,15 +52,15 @@ namespace sn
 
 	void MeshRenderer::BindConstantBuffers()
 	{
-		if (monsterCB.state == 1) {
-			monsterCB.color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-		}
-		else if (monsterCB.state == 2) {
-			monsterCB.color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
-		}
-		else {
-			monsterCB.color = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
-		}
+		//if (monsterCB.state == 1) {
+		//	monsterCB.color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		//}
+		//else if (monsterCB.state == 2) {
+		//	monsterCB.color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		//}
+		//else {
+		//	monsterCB.color = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
+		//}
 
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Monster];
 		cb->SetData(&monsterCB);

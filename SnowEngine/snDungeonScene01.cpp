@@ -33,6 +33,8 @@
 #include "MonFactory.h"
 #include "Monster.h"
 
+#include "snPlayer.h"
+
 namespace sn {
 	DungeonScene01::DungeonScene01()
 	{
@@ -81,8 +83,8 @@ namespace sn {
 #pragma region Player
 		{
 			//플레이어 생성
-			GameObject* Player = new GameObject();
-			AddGameObject(eLayerType::Player, Player);
+			GameObject* Player = new snPlayer();
+			AddGameObject(eLayerType::Player, static_cast<GameObject*>(Player));
 			Player->SetName(L"Player");
 			Collider2D* cd = Player->AddComponent<Collider2D>();
 			cd->SetSize(Vector2(0.3f, 0.3f));

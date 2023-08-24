@@ -11,6 +11,7 @@ struct tMonInfo
     float      fAtt;             // 공격력
     float      fAttTime;         // 공격속도
     float      fAttDelay;        // 공격 딜레이
+    float      fUnStiffness;       // 강인함 높을수록 잘밀림
 };
 
 class AI;
@@ -32,6 +33,9 @@ public:
     virtual void OnCollisionEnter(sn::Collider2D* other);
     virtual void OnCollisionStay(sn::Collider2D* other);
     virtual void OnCollisionExit(sn::Collider2D* other);
+
+public:
+    void AddHitEffect(Vector3 size);
 
 public:
     float GetSpeed() { return m_tInfo.fSpeed; }

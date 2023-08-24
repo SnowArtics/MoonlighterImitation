@@ -3,6 +3,7 @@
 #include "../Engine_SOURCE/snCollider2D.h"
 #include <snMeshRenderer.h>
 #include "snTime.h"
+#include "snRigidBody.h"
 
 using namespace sn;
 
@@ -26,28 +27,66 @@ void Monster::Initialize()
 
 void Monster::Update()
 {
+	int monsterState = this->GetComponent<MeshRenderer>()->GetMonsterCB().state;
+
 	if (m_tInfo.fHP <= 0.f) {
-		SetState(eState::Dead);
-		return;
+		monsterState = 2;
 	}
 
 	//0 is normal, 1 is hit, 2 is dead
-	int monsterState = this->GetComponent<MeshRenderer>()->GetMonsterCB().state;
 
 	if (monsterState == 1) {
 		hitTime += Time::DeltaTime();
-		if (hitTime > 0.3f) {
+		MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
+		renderer::MonsterCB monsterCB = {};
+		monsterCB.state = 1;
+		monsterCB.color = Vector4(0.8f,0.0f,0.0f,1.0f);
+		meshRenderer->SetMonsterCB(monsterCB);
+
+		if (hitTime > 0.1f) {
+			MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
+			renderer::MonsterCB monsterCB = {};
+			monsterCB.state = 1;
+			monsterCB.color = Vector4(0.8f, 0.8f, 0.8f, 1.0f);
+			meshRenderer->SetMonsterCB(monsterCB);
+		}
+
+		if (hitTime > 0.2f) {
 			hitTime = 0.f;
 			MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
 			renderer::MonsterCB monsterCB = {};
 			monsterCB.state = 0;
+			monsterCB.color = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
 			meshRenderer->SetMonsterCB(monsterCB);
 		}
 	}
 	else if (monsterState == 2) {
 		deadTime += Time::DeltaTime();
+		MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
+		renderer::MonsterCB monsterCB = {};
+		monsterCB.state = 2;
+		monsterCB.color = Vector4(0.8f, 0.0f, 0.0f, 1.0f);
+		meshRenderer->SetMonsterCB(monsterCB);
+
+		if (deadTime > 0.2f) {
+			MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
+			renderer::MonsterCB monsterCB = {};
+			monsterCB.state = 2;
+			monsterCB.color = Vector4(0.8f, 0.4f, 0.4f, 1.0f);
+			meshRenderer->SetMonsterCB(monsterCB);
+		}
+
+		if (deadTime > 0.4f) {
+			MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
+			renderer::MonsterCB monsterCB = {};
+			monsterCB.state = 2;
+			monsterCB.color = Vector4(0.8f, 0.8f, 0.8f, 1.0f);
+			meshRenderer->SetMonsterCB(monsterCB);
+		}
+
 		if (deadTime > 1.f) {
 			deadTime = 0.f;
+			this->SetState(eState::Dead);
 		}
 	}
 
@@ -71,6 +110,25 @@ void Monster::OnCollisionEnter(sn::Collider2D* other)
 		renderer::MonsterCB monsterCB = {};
 		monsterCB.state = 1;
 		meshRenderer->SetMonsterCB(monsterCB);
+
+		Monster* monster = this;
+
+		if (monster) {
+			RigidBody* rigidBody = monster->GetComponent<RigidBody>();
+			if (rigidBody) {
+				Transform* playerTr = other->GetOwner()->GetComponent<Transform>();
+				Vector3 playerPos = playerTr->GetPosition();
+
+				Transform* monTr = monster->GetComponent<Transform>();
+				Vector3 monPos = monTr->GetPosition();
+
+				Vector3 dir = monPos - playerPos;
+				float stiffness = monster->GetMonsterInfo().fUnStiffness;
+
+				RigidBody* rigidBody = monster->GetComponent<RigidBody>();
+				rigidBody->SetVelocity(dir * stiffness);
+			}
+		}
 	}
 }
 

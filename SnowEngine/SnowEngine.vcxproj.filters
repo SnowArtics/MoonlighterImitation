@@ -126,6 +126,7 @@
     <ClCompile Include="SlimeHermit.cpp">
       <Filter>Script\Monster\SlimeHermit</Filter>
     </ClCompile>
+    <ClCompile Include="snPlayer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -256,6 +257,7 @@
     <ClInclude Include="SlimeHermit.h">
       <Filter>Script\Monster\SlimeHermit</Filter>
     </ClInclude>
+    <ClInclude Include="snPlayer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
