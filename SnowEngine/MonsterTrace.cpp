@@ -23,7 +23,7 @@ void MonsterTrace::Update()
 {
 	time += Time::DeltaTime();
 
-	GameObject* player = SceneManager::GetActiveScene()->GetPlayer();
+	sn::GameObject* player = SceneManager::GetActiveScene()->GetPlayer();
 	Transform* playerTr = player->GetComponent<Transform>();
 	Vector3 playerPos = playerTr->GetPosition();
 

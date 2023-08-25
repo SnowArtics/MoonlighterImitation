@@ -22,7 +22,7 @@ class Monster : public sn::GameObject
 {
 public:
     Monster();
-    ~Monster();
+    virtual ~Monster();
 
 public:
     virtual void Initialize();
@@ -59,7 +59,6 @@ protected:
     float deadTime;
 
     HitEffect* hitEffect;
-    GameObject* HPBar;
 
     friend class MonFactory;
 };

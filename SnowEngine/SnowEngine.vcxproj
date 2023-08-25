@@ -175,6 +175,7 @@
     <ClInclude Include="MonFactory.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAttack.h" />
+    <ClInclude Include="MonsterHPBar.h" />
     <ClInclude Include="MonsterIdle.h" />
     <ClInclude Include="MonsterTrace.h" />
     <ClInclude Include="framework.h" />
@@ -258,6 +259,7 @@
     <ClCompile Include="MonFactory.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAttack.cpp" />
+    <ClCompile Include="MonsterHPBar.cpp" />
     <ClCompile Include="MonsterIdle.cpp" />
     <ClCompile Include="MonsterTrace.cpp" />
     <ClCompile Include="MazeMaker.cpp" />

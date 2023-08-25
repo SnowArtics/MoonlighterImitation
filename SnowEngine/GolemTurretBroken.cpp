@@ -10,6 +10,7 @@
 #include "snMesh.h"
 #include "snMeshRenderer.h"
 #include "snMaterial.h"
+#include "MonsterHPBar.h"
 
 using namespace sn;
 
@@ -128,6 +129,8 @@ void GolemTurretBroken::OnCollisionEnter(sn::Collider2D* other)
 	if (other->GetName() == L"SecondCollider") {
 		tMonInfo monInfo = GetMonsterInfo();
 		monInfo.fHP -= 30.f;
+		this->GetComponent<MonsterHPBar>()->PlayDamage(30.f);
+		this->GetComponent<MonsterHPBar>()->SetEnable(true);
 		SetMonsterInfo(monInfo);
 
 		std::vector<std::vector<RoomInfo>> vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();

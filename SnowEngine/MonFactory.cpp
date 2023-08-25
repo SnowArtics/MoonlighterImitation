@@ -23,6 +23,7 @@
 #include "GolemTurret.h"
 #include "GolemTurretBroken.h"
 #include "SlimeHermit.h"
+#include "MonsterHPBar.h"
 
 using namespace sn;
 
@@ -35,6 +36,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 	case MonType::GOLEM:
 	{
 		pMon = new Golem;
+		pMon->SetName(L"GOLEM");
 		Transform* tr = pMon->GetComponent<Transform>();
 		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
 
@@ -84,6 +86,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterTrace);
 		ai->AddState(new MonsterAttack);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 		break;
 	case MonType::SLIME:
@@ -136,6 +141,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterIdle);
 		ai->AddState(new SlimeAttack);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 		break;
 
@@ -180,6 +188,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterTrace);
 		ai->AddState(new MonsterIdle);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 	break;
 	case MonType::FYLINGREPAIRGOLEM:
@@ -222,6 +233,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterTrace);
 		ai->AddState(new MonsterIdle);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 		break;
 	case MonType::GOLEMTURRET:
@@ -272,6 +286,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterIdle);
 		ai->AddState(new TurretAttack);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 		break;
 	case MonType::GOLEMTURRETBROKEN:
@@ -320,6 +337,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterIdle);
 		ai->AddState(new TurretBrokenAttack);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 	break;
 	case MonType::GOLEMMINIBOSS:
@@ -375,6 +395,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterTrace);
 		ai->AddState(new TurretBrokenAttack);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 	break;
 	default:

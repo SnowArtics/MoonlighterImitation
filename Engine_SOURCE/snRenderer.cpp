@@ -980,6 +980,33 @@ namespace renderer {
 			spriteMaterial->SetTexture(texture);
 			Resources::Insert(L"UIInventoryBaseMaterial01", spriteMaterial);
 		}
+		{
+			//MonsterHP UI1 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Monster_HP_BackBar", L"..\\Resources\\Texture\\Dungeon\\HPBar\\backBar.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"MonsterHPBackBar", spriteMaterial);
+		}
+		{
+			//MonsterHP UI2 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Monster_HP_MiddleBar", L"..\\Resources\\Texture\\Dungeon\\HPBar\\middleBar.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"MonsterHPMiddleBar", spriteMaterial);
+		}
+		{
+			//MonsterHP UI3 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Monster_HP_FrontBar", L"..\\Resources\\Texture\\Dungeon\\HPBar\\frontBar.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"MonsterHPFrontBar", spriteMaterial);
+		}
 #pragma endregion
 #pragma region Player
 

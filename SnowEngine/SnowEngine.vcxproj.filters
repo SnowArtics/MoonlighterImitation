@@ -130,6 +130,9 @@
     <ClCompile Include="HitEffect.cpp">
       <Filter>Script\Monster\HitEffect</Filter>
     </ClCompile>
+    <ClCompile Include="MonsterHPBar.cpp">
+      <Filter>Script\Component\HPBar</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -263,6 +266,9 @@
     <ClInclude Include="snPlayer.h" />
     <ClInclude Include="HitEffect.h">
       <Filter>Script\Monster\HitEffect</Filter>
+    </ClInclude>
+    <ClInclude Include="MonsterHPBar.h">
+      <Filter>Script\Component\HPBar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -400,6 +406,12 @@
     </Filter>
     <Filter Include="Script\Monster\HitEffect">
       <UniqueIdentifier>{bec1e048-c301-4cf7-9e3e-773e67cde09f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Component">
+      <UniqueIdentifier>{faf46cde-71cf-4d06-a8ee-7dfbd7e86cde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Component\HPBar">
+      <UniqueIdentifier>{42bcd175-7a48-4b76-b8b7-93798403a39d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
