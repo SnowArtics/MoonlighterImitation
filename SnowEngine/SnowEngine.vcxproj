@@ -168,6 +168,7 @@
     <ClInclude Include="DungeonMapManager.h" />
     <ClInclude Include="FylingRepairGolem.h" />
     <ClInclude Include="Golem.h" />
+    <ClInclude Include="GolemMiniBoss.h" />
     <ClInclude Include="GolemTurret.h" />
     <ClInclude Include="GolemTurretBroken.h" />
     <ClInclude Include="HitEffect.h" />
@@ -252,6 +253,7 @@
     <ClCompile Include="DungeonMapManager.cpp" />
     <ClCompile Include="FylingRepairGolem.cpp" />
     <ClCompile Include="Golem.cpp" />
+    <ClCompile Include="GolemMiniBoss.cpp" />
     <ClCompile Include="GolemTurret.cpp" />
     <ClCompile Include="GolemTurretBroken.cpp" />
     <ClCompile Include="HitEffect.cpp" />

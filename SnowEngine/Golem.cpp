@@ -5,8 +5,11 @@
 #include "snSceneManager.h"
 #include "DungeonMapManager.h"
 #include "MonsterHPBar.h"
+#include "snCollider2D.h"
+#include "snTime.h"
 
 Golem::Golem()
+	:attTime(0.f)
 {
 }
 
@@ -26,9 +29,17 @@ void Golem::Update()
 	MON_STATE monState = ai->GetCurStateName();
 
 	Transform* monTr = this->GetComponent <Transform>();
+	sn::Collider2D* secondCollider = this->GetComponents<sn::Collider2D>()[1];
 	sn::Collider2D* collider = this->GetComponent<sn::Collider2D>();
 
 	Animator* animator = GetComponent<Animator>();
+
+	if (attTime >= 0.1f)
+		attTime += Time::DeltaTime();
+
+	if (attTime > 0.8f) {
+		secondCollider->SetEnable(true);
+	}
 
 	if (monDir != ai->GetPrevDir() || monState != ai->GetPrevStateName()) {
 		switch (monState)
@@ -39,8 +50,11 @@ void Golem::Update()
 			break;
 		case MON_STATE::TRACE:
 		{
+			attTime = 0.f;
 			monTr->SetScale(1.0f, 1.0f, 1.0f);
 			collider->SetSize(Vector2(0.4f, 0.4f));
+			secondCollider->SetSize(Vector2(0.4f, 0.4f));
+			secondCollider->SetEnable(false);
 			switch (monDir)
 			{
 			case MonDir::UP:
@@ -62,20 +76,28 @@ void Golem::Update()
 		break;
 		case MON_STATE::ATT:
 		{
+			if (attTime == 0.f) {
+				attTime = 0.1f;
+			}
 			monTr->SetScale(1.5f, 1.5f, 1.0f);
 			collider->SetSize(Vector2(0.275f, 0.275f));
+			secondCollider->SetSize(Vector2(0.275f, 0.275f));
 			switch (monDir)
 			{
 			case MonDir::UP:
+				secondCollider->SetCenter(Vector2(0.0f, 0.3f));
 				animator->PlayAnimation(L"GOLEM_ATTACK_UP", true);
 				break;
 			case MonDir::DOWN:
+				secondCollider->SetCenter(Vector2(0.0f, -0.5f));
 				animator->PlayAnimation(L"GOLEM_ATTACK_DOWN", true);
 				break;
 			case MonDir::RIGHT:
+				secondCollider->SetCenter(Vector2(+0.5f, -0.1f));
 				animator->PlayAnimation(L"GOLEM_ATTACK_RIGHT", true);
 				break;
 			case MonDir::LEFT:
+				secondCollider->SetCenter(Vector2(-0.5f, -0.1f));
 				animator->PlayAnimation(L"GOLEM_ATTACK_LEFT", true);
 				break;
 			default:
