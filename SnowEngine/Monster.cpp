@@ -21,11 +21,6 @@ Monster::Monster()
 
 Monster::~Monster()
 {
-	if(hitEffect != nullptr)
-		hitEffect->SetState(eState::Dead);
-	
-	if(HPBar != nullptr)
-		HPBar->SetState(eState::Dead);
 }
 
 void Monster::Initialize()
@@ -39,6 +34,10 @@ void Monster::Update()
 
 	if (m_tInfo.fHP <= 0.f) {
 		this->GetComponent<sn::Collider2D>()->SetEnable(false);
+		if (hitEffect != nullptr) {
+			//delete hitEffect;
+			hitEffect->SetState(eState::Dead);
+		}
 		monsterState = 2;
 	}
 
@@ -164,6 +163,7 @@ void Monster::AddHitEffect(Vector3 size)
 	if (hitEffect != nullptr)
 		return;
 	hitEffect = new HitEffect;
+	hitEffect->SetName(L"HitEffect");
 	SceneManager::GetActiveScene()->AddGameObject(eLayerType::HitEffect, static_cast<GameObject*>(hitEffect));
 	Transform* hitEffectTr = hitEffect->GetComponent<Transform>();
 	Transform* monTr = this->GetComponent<Transform>();

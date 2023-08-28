@@ -23,6 +23,8 @@
 #include "GolemTurret.h"
 #include "GolemTurretBroken.h"
 #include "SlimeHermit.h"
+#include "MonsterHPBar.h"
+#include "GolemMiniBoss.h"
 
 using namespace sn;
 
@@ -35,6 +37,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 	case MonType::GOLEM:
 	{
 		pMon = new Golem;
+		pMon->SetName(L"GOLEM");
 		Transform* tr = pMon->GetComponent<Transform>();
 		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
 
@@ -77,13 +80,20 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		collider->SetSize(Vector2(0.4f,0.4f));
 		collider->SetCenter(Vector2(0.0f, -0.1f));
 
+		sn::Collider2D* collider2 = pMon->AddComponent<sn::Collider2D>();
+		collider2->SetEnable(false);
+
 		RigidBody* rigidBody = pMon->AddComponent<RigidBody>();
 
 		AI* ai = pMon->AddComponent<AI>(pMon);
 		ai->AddState(new MonsterIdle);
 		ai->AddState(new MonsterTrace);
-		ai->AddState(new MonsterAttack);
+		ai->AddState(new TurretBrokenAttack);
+		//ai->AddState(new MonsterAttack);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 		break;
 	case MonType::SLIME:
@@ -136,6 +146,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterIdle);
 		ai->AddState(new SlimeAttack);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 		break;
 
@@ -180,6 +193,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterTrace);
 		ai->AddState(new MonsterIdle);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 	break;
 	case MonType::FYLINGREPAIRGOLEM:
@@ -222,6 +238,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterTrace);
 		ai->AddState(new MonsterIdle);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 		break;
 	case MonType::GOLEMTURRET:
@@ -272,6 +291,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterIdle);
 		ai->AddState(new TurretAttack);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 		break;
 	case MonType::GOLEMTURRETBROKEN:
@@ -320,11 +342,64 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterIdle);
 		ai->AddState(new TurretBrokenAttack);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 	break;
 	case MonType::GOLEMMINIBOSS:
 	{
+		pMon = new GolemMiniBoss;
+		pMon->SetName(L"GOLEM");
+		Transform* tr = pMon->GetComponent<Transform>();
+		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
+		tr->SetScale(3.0f, 3.0f, 3.0f);
 
+		tMonInfo info = {};
+		info.fAtt = 20.f;
+		info.fAttRange = 0.75f;
+		info.fRecogRange = 300.f;
+		info.fHP = 300.f;
+		info.fSpeed = 0.5f;
+		info.fAttTime = 1.5f;
+		info.fAttDelay = 1.f;
+
+		pMon->SetMonInfo(info);
+
+		MeshRenderer* mr = pMon->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		std::shared_ptr<Texture> atlas
+			= Resources::Load<Texture>(L"Golem_Mini_Boss", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemMiniBoss\\Golem_MiniBoss.png");
+		Animator* at = pMon->AddComponent<Animator>();
+
+		at->Create(L"GOLEM_MOVE_DOWN", atlas, Vector2(0.0f, 0.0f), Vector2(248.f, 225.f), 8,240.f);
+		at->Create(L"GOLEM_MOVE_LEFT", atlas, Vector2(0.0f, 225.f), Vector2(248.f, 225.f), 8, 240.f);
+		at->Create(L"GOLEM_MOVE_RIGHT", atlas, Vector2(0.0f, 450.f), Vector2(248.f, 225.f), 8, 240.f);
+		at->Create(L"GOLEM_MOVE_UP", atlas, Vector2(0.0f, 675.0f), Vector2(248.f, 225.f), 8, 240.f);
+
+		at->Create(L"GOLEM_SMASH_DOWN", atlas, Vector2(0.0f, 900.f), Vector2(248.f, 225.f), 15, 240.f,0.1f);
+		at->Create(L"GOLEM_SMASH_LEFT", atlas, Vector2(0.0f, 1125.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		at->Create(L"GOLEM_SMASH_RIGHT", atlas, Vector2(0.0f, 1350.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		at->Create(L"GOLEM_SMASH_UP", atlas, Vector2(0.0f, 1575.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+
+		at->Create(L"GOLEM_ATTACK_DOWN", atlas, Vector2(0.0f, 1800.f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		at->Create(L"GOLEM_ATTACK_LEFT", atlas, Vector2(0.0f, 2025.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		at->Create(L"GOLEM_ATTACK_RIGHT", atlas, Vector2(0.0f, 2250.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		at->Create(L"GOLEM_ATTACK_UP", atlas, Vector2(0.0f, 2475.f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+
+		at->PlayAnimation(L"GOLEM_MOVE_UP", true);
+
+		sn::Collider2D* collider = pMon->AddComponent<sn::Collider2D>();
+		collider->SetSize(Vector2(0.4f, 0.4f));
+		collider->SetCenter(Vector2(0.0f, -0.1f));
+
+		AI* ai = pMon->AddComponent<AI>(pMon);
+		ai->AddState(new MonsterIdle);
+		ai->AddState(new MonsterTrace);
+		ai->AddState(new TurretBrokenAttack);
+		ai->SetCurState(MON_STATE::IDLE);
 	}
 	break;
 	case MonType::GOLEMCORRUPTMINIBOSS:
@@ -375,6 +450,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new MonsterTrace);
 		ai->AddState(new TurretBrokenAttack);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
+		monsterHPBar->CreateHpBar();
 	}
 	break;
 	default:

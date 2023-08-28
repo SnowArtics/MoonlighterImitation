@@ -11,6 +11,7 @@ namespace sn
 		, mPosition(Vector3::Zero)
 		, mRotation(Vector3::Zero)
 		, mScale(Vector3::One)
+		, mParent(nullptr)
 	{
 	}
 

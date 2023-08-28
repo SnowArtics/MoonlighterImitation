@@ -4,7 +4,7 @@
 using namespace sn;
 
 class snPlayer :
-    public GameObject
+    public sn::GameObject
 {
 public:
     snPlayer();

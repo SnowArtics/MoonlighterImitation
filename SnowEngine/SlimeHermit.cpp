@@ -4,6 +4,7 @@
 #include "snAnimator.h"
 #include "snSceneManager.h"
 #include "DungeonMapManager.h"
+#include "MonsterHPBar.h"
 
 SlimeHermit::SlimeHermit()
 {
@@ -122,6 +123,8 @@ void SlimeHermit::OnCollisionEnter(sn::Collider2D* other)
 	if (other->GetName() == L"SecondCollider") {
 		tMonInfo monInfo = GetMonsterInfo();
 		monInfo.fHP -= 30.f;
+		this->GetComponent<MonsterHPBar>()->PlayDamage(30.f);
+		this->GetComponent<MonsterHPBar>()->SetEnable(true);
 		SetMonsterInfo(monInfo);
 
 		std::vector<std::vector<RoomInfo>> vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();

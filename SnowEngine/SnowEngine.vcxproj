@@ -168,6 +168,7 @@
     <ClInclude Include="DungeonMapManager.h" />
     <ClInclude Include="FylingRepairGolem.h" />
     <ClInclude Include="Golem.h" />
+    <ClInclude Include="GolemMiniBoss.h" />
     <ClInclude Include="GolemTurret.h" />
     <ClInclude Include="GolemTurretBroken.h" />
     <ClInclude Include="HitEffect.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="MonFactory.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="MonsterAttack.h" />
+    <ClInclude Include="MonsterHPBar.h" />
     <ClInclude Include="MonsterIdle.h" />
     <ClInclude Include="MonsterTrace.h" />
     <ClInclude Include="framework.h" />
@@ -251,6 +253,7 @@
     <ClCompile Include="DungeonMapManager.cpp" />
     <ClCompile Include="FylingRepairGolem.cpp" />
     <ClCompile Include="Golem.cpp" />
+    <ClCompile Include="GolemMiniBoss.cpp" />
     <ClCompile Include="GolemTurret.cpp" />
     <ClCompile Include="GolemTurretBroken.cpp" />
     <ClCompile Include="HitEffect.cpp" />
@@ -258,6 +261,7 @@
     <ClCompile Include="MonFactory.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="MonsterAttack.cpp" />
+    <ClCompile Include="MonsterHPBar.cpp" />
     <ClCompile Include="MonsterIdle.cpp" />
     <ClCompile Include="MonsterTrace.cpp" />
     <ClCompile Include="MazeMaker.cpp" />

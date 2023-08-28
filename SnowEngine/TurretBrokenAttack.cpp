@@ -34,8 +34,8 @@ void TurretBrokenAttack::Update()
 	tMonInfo monInfo = GetMonster()->GetMonsterInfo();
 
 	if (time >= monInfo.fAttTime - 0.1f) {
-		SceneManager::ChangeMonsterState(GetAI(), MON_STATE::TRACE);
 		time = 0.f;
+		SceneManager::ChangeMonsterState(GetAI(), MON_STATE::TRACE);
 	}
 }
 

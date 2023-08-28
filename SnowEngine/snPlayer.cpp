@@ -16,22 +16,22 @@ snPlayer::~snPlayer()
 
 void snPlayer::Initialize()
 {
-	GameObject::Initialize();
+	sn::GameObject::Initialize();
 }
 
 void snPlayer::Update()
 {
-	GameObject::Update();
+	sn::GameObject::Update();
 }
 
 void snPlayer::LateUpdate()
 {
-	GameObject::LateUpdate();
+	sn::GameObject::LateUpdate();
 }
 
 void snPlayer::Render()
 {
-	GameObject::Render();
+	sn::GameObject::Render();
 }
 
 void snPlayer::OnCollisionEnter(sn::Collider2D* other)

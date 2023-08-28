@@ -9,7 +9,7 @@ enum class HitState {
 };
 
 class HitEffect :
-    public GameObject
+    public sn::GameObject
 {
 public:
     HitEffect();
