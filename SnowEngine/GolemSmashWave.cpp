@@ -40,6 +40,9 @@ void GolemSmashWave::Update()
 	Transform* playerTr = SceneManager::GetActiveScene()->GetPlayer()->GetComponent<Transform>();
 	Vector3 playerPos = playerTr->GetPosition();
 
+	Vector3 playerDir = playerPos - pos;
+
+
 	GameObject::Update();
 }
 

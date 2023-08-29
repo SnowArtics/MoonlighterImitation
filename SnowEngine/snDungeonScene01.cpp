@@ -53,7 +53,7 @@ namespace sn {
 		CollisionManager::SetLayer(eLayerType::Background, eLayerType::Door, false);
 
 		MazeMaker::GetInst()->Init();
-		MazeMaker::GetInst()->BackTracking(4, 4);
+		MazeMaker::GetInst()->BackTracking(2, 2);
 		arr = MazeMaker::GetInst()->GetDirArr();
 		DungeonMapManager::GetInst()->SetDungeonArr(arr);
 		DungeonMapManager::GetInst()->SetPlayerMapPos(MazeMaker::GetInst()->GetStartPos());
@@ -79,8 +79,6 @@ namespace sn {
 		DungeonMapManager::GetInst()->MakeDungeonBackground(DungeonName);
 		
 		DungeonMapManager::GetInst()->MakeDoor();
-
-		//DungeonMapManager::GetInst()->MonsterSpawn();
 
 #pragma region Object
 		//오브젝트를 랜덤으로 생성

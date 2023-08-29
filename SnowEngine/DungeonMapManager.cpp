@@ -58,6 +58,7 @@ void DungeonMapManager::MakeDungeonBackground(std::vector<std::wstring> _Dungeon
 					mr->SetMaterial(Resources::Find<Material>(originStr));
 					roomInfoArr[i][j].clear = true;
 					DungeonMapManager::GetInst()->MakeCliffCollider(-1, Background);
+					roomInfoArr[i][j].roomNum = -1;
 				}
 				else if (arr[i][j] >= 128) {
 					std::wstring originStr = L"DungeonBackgroundMaterial0";
@@ -66,6 +67,7 @@ void DungeonMapManager::MakeDungeonBackground(std::vector<std::wstring> _Dungeon
 					roomInfoArr[i][j].clear = true;
 					DungeonMapManager::GetInst()->MakeCliffCollider(-1, Background);
 					MonsterSpawn(128, i, j);
+					roomInfoArr[i][j].roomNum = 128;
 				}
 				else {
 					std::wstring originStr = _DungeonName[k];
@@ -77,6 +79,7 @@ void DungeonMapManager::MakeDungeonBackground(std::vector<std::wstring> _Dungeon
 					int strToNum = std::stoll(subStr);
 					DungeonMapManager::GetInst()->MakeCliffCollider(strToNum, Background);
 					MonsterSpawn(strToNum, i, j);
+					roomInfoArr[i][j].roomNum = strToNum;
 				}
 
 				Background->GetComponent<Transform>()->SetPosition(Vector3((float)j * 9.72f, -((float)i * 5.45f), 0.0f));
