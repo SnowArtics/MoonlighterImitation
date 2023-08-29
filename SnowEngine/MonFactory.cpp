@@ -82,6 +82,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		collider->SetCenter(Vector2(0.0f, -0.1f));
 
 		sn::Collider2D* collider2 = pMon->AddComponent<sn::Collider2D>();
+		collider2->SetName(L"Second_Collider");
 		collider2->SetEnable(false);
 
 		RigidBody* rigidBody = pMon->AddComponent<RigidBody>();

@@ -21,6 +21,7 @@ PlayerHP::PlayerHP()
 	, realHP(0.0f)
 	, fullHP(0.0f)
 	, hitTime(0.0f)
+	, absoluteTime(0.f)
 {
 }
 
@@ -54,6 +55,16 @@ void PlayerHP::Update()
 
 	if (playerHitScreen->GetEnable() == true && hitTime > 0.05f) {
 		playerHitScreen->SetEnable(false);
+	}
+
+	if (absoluteTime >= 0.1f) {
+		absoluteTime += Time::DeltaTime();
+	}
+
+	if (absoluteTime >= 1.f) {
+		sn::Collider2D* playerCol = GetOwner()->GetComponent<sn::Collider2D>();
+		playerCol->SetEnable(true);
+		absoluteTime = 0.f;
 	}
 
 	float realHPGauge = realHP / fullHP;
@@ -140,6 +151,11 @@ void PlayerHP::PlayDamage(float _damage)
 	realHP -= _damage;
 
 	playerHitScreen->SetEnable(true);
+
+	sn::Collider2D* playerCol = GetOwner()->GetComponent<sn::Collider2D>();
+	playerCol->SetEnable(false);
+
+	absoluteTime = 0.1f;
 
 	if (realHP < 1.f)
 		realHP = 1.f;

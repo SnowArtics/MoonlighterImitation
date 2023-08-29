@@ -4,6 +4,8 @@
 #include "snTransform.h"
 #include "snTime.h"
 #include "snAnimator.h"
+#include "snPlayer.h"
+#include "PlayerHP.h"
 
 Projectile::Projectile()
 	:dir(MonDir::UP)
@@ -92,10 +94,21 @@ void Projectile::Render()
 void Projectile::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
 	/*if(other->GetOwner() != this->GetComponent<Transform>()->GetParent()->GetOwner())*/
-	if (other->GetName() != L"ProjectileCollider") {
+	if (other->GetName() == L"FisrtCollider") {
+		snPlayer* player = static_cast<snPlayer*>(other->GetOwner());
+		float playerHP = player->GetHP();
+		playerHP -= 30.f;
+		player->SetHP(playerHP);
+		PlayerHP* playerHPComponent = player->GetComponent<PlayerHP>();
+		playerHPComponent->PlayDamage(30.f);
+
 		dead = true;
 		this->SetState(eState::Dead);
-	}		
+	}
+	else if (other->GetName() != L"ProjectileCollider") {
+		dead = true;
+		this->SetState(eState::Dead);
+	}
 }
 
 void Projectile::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)

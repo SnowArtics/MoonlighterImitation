@@ -11,6 +11,8 @@
 #include "snMeshRenderer.h"
 #include "snMaterial.h"
 #include "MonsterHPBar.h"
+#include "snPlayer.h"
+#include "PlayerHP.h"
 
 using namespace sn;
 
@@ -144,6 +146,15 @@ void GolemTurret::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 				DungeonMapManager::GetInst()->SetDungeonClear(true);
 			}
 		}
+	}
+
+	if (other->GetName() == L"FisrtCollider") {
+		snPlayer* player = static_cast<snPlayer*>(other->GetOwner());
+		float playerHP = player->GetHP();
+		playerHP -= 30.f;
+		player->SetHP(playerHP);
+		PlayerHP* playerHPComponent = player->GetComponent<PlayerHP>();
+		playerHPComponent->PlayDamage(30.f);
 	}
 }
 

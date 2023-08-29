@@ -24,7 +24,7 @@ class DungeonMapManager
 public:
 	void Init();
 	void MakeDungeonBackground(std::vector<std::wstring> _DungeonName);
-	void MakeCliffCollider(int _num, GameObject* _background);
+	void MakeCliffCollider(int _num, sn::GameObject* _background);
 	void MakeDoor();
 	void MonsterSpawn();
 	void MonsterSpawn(int _num, int i, int j);

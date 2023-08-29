@@ -31,5 +31,6 @@ private:
 	float fullHP;
 
 	float hitTime;
+	float absoluteTime;
 };
 
