@@ -77,9 +77,9 @@ void Slime::Render()
 	Monster::Render();
 }
 
-void Slime::OnCollisionEnter(sn::Collider2D* other)
+void Slime::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
-	Monster::OnCollisionEnter(other);
+	Monster::OnCollisionEnter(other, me);
 	if (other->GetName() == L"SecondCollider") {
 		tMonInfo monInfo = GetMonsterInfo();
 		monInfo.fHP -= 30.f;
@@ -87,9 +87,9 @@ void Slime::OnCollisionEnter(sn::Collider2D* other)
 		this->GetComponent<MonsterHPBar>()->SetEnable(true);
 		SetMonsterInfo(monInfo);
 
-		std::vector<std::vector<RoomInfo>> vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
 
 		if (monInfo.fHP <= 0.f) {
+			std::vector<std::vector<RoomInfo>>& vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
 			vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum -= 1;
 
 			if (vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum <= 0) {
@@ -101,10 +101,10 @@ void Slime::OnCollisionEnter(sn::Collider2D* other)
 	}
 }
 
-void Slime::OnCollisionStay(sn::Collider2D* other)
+void Slime::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
 {
 }
 
-void Slime::OnCollisionExit(sn::Collider2D* other)
+void Slime::OnCollisionExit(sn::Collider2D* other, sn::Collider2D* me)
 {
 }

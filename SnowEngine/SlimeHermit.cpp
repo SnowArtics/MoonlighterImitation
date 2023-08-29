@@ -116,9 +116,9 @@ void SlimeHermit::Render()
 	Monster::Render();
 }
 
-void SlimeHermit::OnCollisionEnter(sn::Collider2D* other)
+void SlimeHermit::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
-	Monster::OnCollisionEnter(other);
+	Monster::OnCollisionEnter(other, me);
 
 	if (other->GetName() == L"SecondCollider") {
 		tMonInfo monInfo = GetMonsterInfo();
@@ -127,9 +127,9 @@ void SlimeHermit::OnCollisionEnter(sn::Collider2D* other)
 		this->GetComponent<MonsterHPBar>()->SetEnable(true);
 		SetMonsterInfo(monInfo);
 
-		std::vector<std::vector<RoomInfo>> vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
 
 		if (monInfo.fHP <= 0.f) {
+			std::vector<std::vector<RoomInfo>>& vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
 			vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum -= 1;
 
 			if (vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum <= 0) {
@@ -141,11 +141,11 @@ void SlimeHermit::OnCollisionEnter(sn::Collider2D* other)
 	}
 }
 
-void SlimeHermit::OnCollisionStay(sn::Collider2D* other)
+void SlimeHermit::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
 {
 }
 
-void SlimeHermit::OnCollisionExit(sn::Collider2D* other)
+void SlimeHermit::OnCollisionExit(sn::Collider2D* other, sn::Collider2D* me)
 {
-	Monster::OnCollisionExit(other);
+	Monster::OnCollisionExit(other, me);
 }

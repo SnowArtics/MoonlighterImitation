@@ -1,14 +1,14 @@
 #pragma once
-#include "snGameObject.h"
+#include "Monster.h"
 
 using namespace sn;
 
-class snPlayer :
+class GolemSmashWave :
     public sn::GameObject
 {
 public:
-    snPlayer();
-    ~snPlayer();
+    GolemSmashWave();
+    ~GolemSmashWave();
 
 public:
     virtual void Initialize();
@@ -21,15 +21,7 @@ public:
     virtual void OnCollisionStay(sn::Collider2D* other);
     virtual void OnCollisionExit(sn::Collider2D* other);
 
-public:
-    float GetHP() { return HP; }
-    float GetUnStiffness() { return UnStiffness; }
-
-    void SetHP(float _HP) { HP = _HP; }
-    void SetUnStiffness(float _UnStiffness) { UnStiffness = _UnStiffness; }
-
 private:
-    float HP;
-    float UnStiffness;
+    float time;
 };
 

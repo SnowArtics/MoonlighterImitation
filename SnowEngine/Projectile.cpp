@@ -89,7 +89,7 @@ void Projectile::Render()
 	GameObject::Render();
 }
 
-void Projectile::OnCollisionEnter(sn::Collider2D* other)
+void Projectile::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
 	/*if(other->GetOwner() != this->GetComponent<Transform>()->GetParent()->GetOwner())*/
 	if (other->GetName() != L"ProjectileCollider") {
@@ -98,11 +98,11 @@ void Projectile::OnCollisionEnter(sn::Collider2D* other)
 	}		
 }
 
-void Projectile::OnCollisionStay(sn::Collider2D* other)
+void Projectile::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
 {
 }
 
-void Projectile::OnCollisionExit(sn::Collider2D* other)
+void Projectile::OnCollisionExit(sn::Collider2D* other, sn::Collider2D* me)
 {
 	std::wstring name = other->GetOwner()->GetName();
 }

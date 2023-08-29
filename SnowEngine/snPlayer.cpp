@@ -7,6 +7,8 @@
 using namespace sn;
 
 snPlayer::snPlayer()
+	: HP(100.f)
+	, UnStiffness(10.f)
 {
 }
 

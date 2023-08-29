@@ -169,9 +169,11 @@
     <ClInclude Include="FylingRepairGolem.h" />
     <ClInclude Include="Golem.h" />
     <ClInclude Include="GolemMiniBoss.h" />
+    <ClInclude Include="GolemSmashWave.h" />
     <ClInclude Include="GolemTurret.h" />
     <ClInclude Include="GolemTurretBroken.h" />
     <ClInclude Include="HitEffect.h" />
+    <ClInclude Include="MiniBossHPBar.h" />
     <ClInclude Include="MiniSlime.h" />
     <ClInclude Include="MonFactory.h" />
     <ClInclude Include="Monster.h" />
@@ -182,6 +184,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="MazeMaker.h" />
+    <ClInclude Include="PlayerHP.h" />
     <ClInclude Include="snPlayer.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Slime.h" />
@@ -254,9 +257,11 @@
     <ClCompile Include="FylingRepairGolem.cpp" />
     <ClCompile Include="Golem.cpp" />
     <ClCompile Include="GolemMiniBoss.cpp" />
+    <ClCompile Include="GolemSmashWave.cpp" />
     <ClCompile Include="GolemTurret.cpp" />
     <ClCompile Include="GolemTurretBroken.cpp" />
     <ClCompile Include="HitEffect.cpp" />
+    <ClCompile Include="MiniBossHPBar.cpp" />
     <ClCompile Include="MiniSlime.cpp" />
     <ClCompile Include="MonFactory.cpp" />
     <ClCompile Include="Monster.cpp" />
@@ -265,6 +270,7 @@
     <ClCompile Include="MonsterIdle.cpp" />
     <ClCompile Include="MonsterTrace.cpp" />
     <ClCompile Include="MazeMaker.cpp" />
+    <ClCompile Include="PlayerHP.cpp" />
     <ClCompile Include="snPlayer.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Slime.cpp" />

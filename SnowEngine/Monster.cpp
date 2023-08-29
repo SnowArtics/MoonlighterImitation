@@ -33,7 +33,9 @@ void Monster::Update()
 	int monsterState = this->GetComponent<MeshRenderer>()->GetMonsterCB().state;
 
 	if (m_tInfo.fHP <= 0.f) {
-		this->GetComponent<sn::Collider2D>()->SetEnable(false);
+		for (int i = 0; i < GetComponents<sn::Collider2D>().size(); i++) {
+			GetComponents<sn::Collider2D>()[i]->SetEnable(false);
+		}
 		if (hitEffect != nullptr) {
 			//delete hitEffect;
 			hitEffect->SetState(eState::Dead);
@@ -111,7 +113,7 @@ void Monster::Render()
 	GameObject::Render();
 }
 
-void Monster::OnCollisionEnter(sn::Collider2D* other)
+void Monster::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
 	if (other->GetName() == L"SecondCollider") {
 		MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
@@ -144,11 +146,11 @@ void Monster::OnCollisionEnter(sn::Collider2D* other)
 	}
 }
 
-void Monster::OnCollisionStay(sn::Collider2D* other)
+void Monster::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
 {
 }
 
-void Monster::OnCollisionExit(sn::Collider2D* other)
+void Monster::OnCollisionExit(sn::Collider2D* other, sn::Collider2D* me)
 {
 	//if (other->GetName() == L"SecondCollider") {		
 	//	MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();

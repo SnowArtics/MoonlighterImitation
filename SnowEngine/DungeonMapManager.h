@@ -27,11 +27,12 @@ public:
 	void MakeCliffCollider(int _num, GameObject* _background);
 	void MakeDoor();
 	void MonsterSpawn();
+	void MonsterSpawn(int _num, int i, int j);
 
 public: //Get(), Set()
 	std::vector<std::vector<int>> GetDungeonArr() { return arr; }
 	std::pair<int, int> GetPlayerMapPos() { return playerMapPos; }
-	std::vector<std::vector<RoomInfo>> GetRoomInfoArr() { return roomInfoArr; }
+	std::vector<std::vector<RoomInfo>>& GetRoomInfoArr() { return roomInfoArr; }
 	bool GetDungeonClear() { return dungeonClear; }
 
 	void SetDungeonArr(std::vector<std::vector<int>> _arr) { arr = _arr; }

@@ -69,10 +69,10 @@ namespace sn
 						ColliderCollision(leftCol, rightCol);
 						//충돌중 오브젝트가 죽어버렸을 경우
 						if ((leftObj->GetState() == GameObject::eState::Dead || rightObj->GetState() == GameObject::eState::Dead)) {
-							leftObj->OnCollisionExit(rightCol);
-							rightObj->OnCollisionExit(leftCol);
-							leftCol->OnCollisionExit(rightCol);
-							rightCol->OnCollisionExit(leftCol);
+							leftObj->OnCollisionExit(rightCol, leftCol);
+							rightObj->OnCollisionExit(leftCol, rightCol);
+							leftCol->OnCollisionExit(rightCol, leftCol);
+							rightCol->OnCollisionExit(leftCol, rightCol);
 						}
 					}					
 				}
@@ -108,19 +108,19 @@ namespace sn
 			if (iter->second == false)
 			{
 				//최초 충돌
-				left->OnCollisionEnter(right);
-				right->OnCollisionEnter(left);
-				left->GetOwner()->OnCollisionEnter(right);
-				right->GetOwner()->OnCollisionEnter(left);
+				left->OnCollisionEnter(right, left);
+				right->OnCollisionEnter(left, right);
+				left->GetOwner()->OnCollisionEnter(right, left);
+				right->GetOwner()->OnCollisionEnter(left, right);
 				iter->second = true;
 			}
 			else
 			{
 				// 충돌 중
-				left->OnCollisionStay(right);
-				right->OnCollisionStay(left);
-				left->GetOwner()->OnCollisionStay(right);
-				right->GetOwner()->OnCollisionStay(left);
+				left->OnCollisionStay(right, left);
+				right->OnCollisionStay(left, right);
+				left->GetOwner()->OnCollisionStay(right, left);
+				right->GetOwner()->OnCollisionStay(left, right);
 			}
 		}
 		else
@@ -129,10 +129,10 @@ namespace sn
 			if (iter->second == true)
 			{
 				// 충돌하고 있다가 나갈떄
-				left->OnCollisionExit(right);
-				right->OnCollisionExit(left);
-				left->GetOwner()->OnCollisionExit(right);
-				right->GetOwner()->OnCollisionExit(left);
+				left->OnCollisionExit(right, left);
+				right->OnCollisionExit(left, right);
+				left->GetOwner()->OnCollisionExit(right, left);
+				right->GetOwner()->OnCollisionExit(left, right);
 				iter->second = false;
 			}
 		}		

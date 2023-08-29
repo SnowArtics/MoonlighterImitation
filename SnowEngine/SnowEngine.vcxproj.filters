@@ -136,6 +136,15 @@
     <ClCompile Include="GolemMiniBoss.cpp">
       <Filter>Script\Monster\Monster\GolemMiniBoss</Filter>
     </ClCompile>
+    <ClCompile Include="MiniBossHPBar.cpp">
+      <Filter>Script\Component\MiniBossHPBar</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemSmashWave.cpp">
+      <Filter>Script\Monster\Monster\GolemMiniBoss\GolemSmashWave</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHP.cpp">
+      <Filter>Script\Player\PlayerHP</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -275,6 +284,15 @@
     </ClInclude>
     <ClInclude Include="GolemMiniBoss.h">
       <Filter>Script\Monster\Monster\GolemMiniBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniBossHPBar.h">
+      <Filter>Script\Component\MiniBossHPBar</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemSmashWave.h">
+      <Filter>Script\Monster\Monster\GolemMiniBoss\GolemSmashWave</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHP.h">
+      <Filter>Script\Player\PlayerHP</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -424,6 +442,15 @@
     </Filter>
     <Filter Include="Script\Monster\Monster\FylingRepairGolem">
       <UniqueIdentifier>{0b5fb69a-c09b-4612-a9cc-afe88ff8f759}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Component\MiniBossHPBar">
+      <UniqueIdentifier>{85a3cfb6-de10-444f-a095-99fa3f57f5aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\Monster\GolemMiniBoss\GolemSmashWave">
+      <UniqueIdentifier>{34437b92-884e-44ce-84ac-8f5c2d6d4a81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\PlayerHP">
+      <UniqueIdentifier>{24643315-ce80-4297-8591-2f71e6d9e58f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

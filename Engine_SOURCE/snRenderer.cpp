@@ -1007,10 +1007,53 @@ namespace renderer {
 			spriteMaterial->SetTexture(texture);
 			Resources::Insert(L"MonsterHPFrontBar", spriteMaterial);
 		}
+		{
+			//BossMonsterHP Basket 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"BOSS_Monster_HP_Bracket", L"..\\Resources\\Texture\\Dungeon\\BossHPBar\\Boss_bar.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"BossMonsterHPBracket", spriteMaterial);
+		}
+		{
+			//BossMonster Wave 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"BOSS_Monster_Wave", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemMiniBoss\\Smash_Wave.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"BossMonsterWave", spriteMaterial);
+		}
 #pragma endregion
 #pragma region Player
-
-
+		{
+			//PlayerHPBar Red 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Player_HP_Bar_Red", L"..\\Resources\\Texture\\Player\\Player_HPBar_Red.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"PlayerHPBarRed", spriteMaterial);
+		}
+		{
+			//PlayerHPBar White 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Player_HP_Bar_White", L"..\\Resources\\Texture\\Player\\Player_HPBar_White.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"PlayerHPBarWhite", spriteMaterial);
+		}
+		{
+			//PlayerHPBar White 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Player_Hit_Screen_Red", L"..\\Resources\\Texture\\Player\\player_hit_screen.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"PlayerHitScreen", spriteMaterial);
+		}
 #pragma endregion
 	}
 

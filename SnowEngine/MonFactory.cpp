@@ -25,6 +25,7 @@
 #include "SlimeHermit.h"
 #include "MonsterHPBar.h"
 #include "GolemMiniBoss.h"
+#include "MiniBossHPBar.h"
 
 using namespace sn;
 
@@ -111,7 +112,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fSpeed = 0.75f;
 		info.fAttTime = 1.2f;
 		info.fAttDelay = 1.f;
-		info.fUnStiffness = 10.f;
+		info.fUnStiffness = 25.f;
 
 		pMon->SetMonInfo(info);
 
@@ -169,7 +170,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fSpeed = 0.75f;
 		info.fAttTime = -1.f;
 		info.fAttDelay = 0.f;
-		info.fUnStiffness = 10.f;
+		info.fUnStiffness = 25.f;
 
 		pMon->SetMonInfo(info);
 
@@ -205,6 +206,8 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
 		tr->SetScale(Vector3(2.5f, 2.5f, 2.5f));
 
+		RigidBody* rigidBody = pMon->AddComponent<RigidBody>();
+
 		tMonInfo info = {};
 		info.fAtt = 15.f;
 		info.fAttRange = -1.f; //-1이면 Trace상태에서 벗어나지 않음.
@@ -213,6 +216,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fSpeed = 0.75f;
 		info.fAttTime = -1.f;
 		info.fAttDelay = 0.f;
+		info.fUnStiffness = 25.f;
 
 		pMon->SetMonInfo(info);
 
@@ -250,6 +254,8 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
 		tr->SetScale(Vector3(1.7f, 1.7f, 2.0f));
 
+		RigidBody* rigidBody = pMon->AddComponent<RigidBody>();
+
 		tMonInfo info = {};
 		info.fAtt = 15.f;
 		info.fAttRange = 2.f; //-1이면 Trace상태에서 벗어나지 않음.
@@ -258,6 +264,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fSpeed = 1.f;
 		info.fAttTime = 2.16f;
 		info.fAttDelay = 1.5f;
+		info.fUnStiffness = 25.f;
 
 		pMon->SetMonInfo(info);
 
@@ -357,7 +364,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		tMonInfo info = {};
 		info.fAtt = 20.f;
-		info.fAttRange = 0.75f;
+		info.fAttRange = 1.5f;
 		info.fRecogRange = 300.f;
 		info.fHP = 300.f;
 		info.fSpeed = 0.5f;
@@ -392,14 +399,24 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		at->PlayAnimation(L"GOLEM_MOVE_UP", true);
 
 		sn::Collider2D* collider = pMon->AddComponent<sn::Collider2D>();
-		collider->SetSize(Vector2(0.4f, 0.4f));
+		collider->SetSize(Vector2(0.2f, 0.25f));
 		collider->SetCenter(Vector2(0.0f, -0.1f));
+		
+		sn::Collider2D* collider2 = pMon->AddComponent<sn::Collider2D>();
+		collider2->SetEnable(false);
+		collider2->SetName(L"Mini_Boss_Second_Collider");
+
+		sn::Collider2D* collider3 = pMon->AddComponent<sn::Collider2D>();
+		collider3->SetEnable(false);
+		collider3->SetName(L"Mini_Boss_Third_Collider");
 
 		AI* ai = pMon->AddComponent<AI>(pMon);
 		ai->AddState(new MonsterIdle);
 		ai->AddState(new MonsterTrace);
 		ai->AddState(new TurretBrokenAttack);
 		ai->SetCurState(MON_STATE::IDLE);
+
+		pMon->AddComponent<MiniBossHPBar>();
 	}
 	break;
 	case MonType::GOLEMCORRUPTMINIBOSS:
@@ -429,7 +446,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
 		std::shared_ptr<Texture> atlas
-			= Resources::Load<Texture>(L"Monster_Golem_Move", L"..\\Resources\\Texture\\Dungeon\\Enemy\\SlimeHermit\\Slime_Hermit.png");
+			= Resources::Load<Texture>(L"Slime_Hermit_Move", L"..\\Resources\\Texture\\Dungeon\\Enemy\\SlimeHermit\\Slime_Hermit.png");
 		Animator* at = pMon->AddComponent<Animator>();
 
 		at->Create(L"SLIME_HERMIT_WALK_UP", atlas, Vector2(0.0f, 0.0f), Vector2(200.f, 220.0f), 11);

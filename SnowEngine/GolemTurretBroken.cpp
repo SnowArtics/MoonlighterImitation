@@ -123,9 +123,9 @@ void GolemTurretBroken::Render()
 	Monster::Render();
 }
 
-void GolemTurretBroken::OnCollisionEnter(sn::Collider2D* other)
+void GolemTurretBroken::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
-	Monster::OnCollisionEnter(other);
+	Monster::OnCollisionEnter(other, me);
 	if (other->GetName() == L"SecondCollider") {
 		tMonInfo monInfo = GetMonsterInfo();
 		monInfo.fHP -= 30.f;
@@ -133,9 +133,9 @@ void GolemTurretBroken::OnCollisionEnter(sn::Collider2D* other)
 		this->GetComponent<MonsterHPBar>()->SetEnable(true);
 		SetMonsterInfo(monInfo);
 
-		std::vector<std::vector<RoomInfo>> vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
 
 		if (monInfo.fHP <= 0.f) {
+			std::vector<std::vector<RoomInfo>>& vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
 			vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum -= 1;
 
 			if (vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum <= 0) {
@@ -147,11 +147,11 @@ void GolemTurretBroken::OnCollisionEnter(sn::Collider2D* other)
 	}
 }
 
-void GolemTurretBroken::OnCollisionStay(sn::Collider2D* other)
+void GolemTurretBroken::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
 {
 }
 
-void GolemTurretBroken::OnCollisionExit(sn::Collider2D* other)
+void GolemTurretBroken::OnCollisionExit(sn::Collider2D* other, sn::Collider2D* me)
 {
 }
 
