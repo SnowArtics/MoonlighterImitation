@@ -8,13 +8,15 @@
 #include "snAnimator.h"
 #include "DungeonMapManager.h"
 
+bool DungeonDoor::monsterSpawnFlag = true;
+
 namespace sn {
 	sn::DungeonDoor::DungeonDoor(DoorType _doorType, std::pair<int, int> _doorMapPos)
 		: doorType(_doorType)
 		, doorMapPos(_doorMapPos)
 		, prevPlayerMapPos({ -1,-1 })
 		, curPlayerMapPos({ -1,-1 })
-		, doorOpen(true)
+		, doorOpen(false)
 	{
 	}
 
@@ -38,12 +40,14 @@ namespace sn {
 
 		Animator* animator = GetOwner()->GetComponent <Animator>();
 
-
-
 		if (prevPlayerMapPos != curPlayerMapPos && vecRoomInfo[curPlayerMapPos.first][curPlayerMapPos.second].clear == false) {
 			collider->SetEnable(false);
 			animator->PlayAnimation(L"CLOSE_DOOR", false);
 			DungeonMapManager::GetInst()->SetDungeonClear(false);
+			if (monsterSpawnFlag) {
+				DungeonMapManager::GetInst()->MonsterSpawn(vecRoomInfo[curPlayerMapPos.first][curPlayerMapPos.second].roomNum, curPlayerMapPos.first, curPlayerMapPos.second);
+				monsterSpawnFlag = false;
+			}
 		}
 
 		if (DungeonMapManager::GetInst()->GetDungeonClear() == true) {
@@ -52,11 +56,11 @@ namespace sn {
 			}
 		}
 
-		if (doorOpen == true) {
-			
+		if (doorOpen == true) {			
 			animator->PlayAnimation(L"OPEN_DOOR", false);
 			collider->SetEnable(true);
 			doorOpen = false;
+			monsterSpawnFlag = true;
 		}
 	}
 

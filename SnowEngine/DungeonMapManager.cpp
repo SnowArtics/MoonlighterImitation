@@ -42,7 +42,7 @@ void DungeonMapManager::MakeDungeonBackground(std::vector<std::wstring> _Dungeon
 		for (int j = 0; j < arr[i].size(); j++) {
 			RoomInfo tempRoomInfo;
 			tempRoomInfo.monsterNum = 0;
-			tempRoomInfo.clear = true;
+			tempRoomInfo.clear = false;
 			roomInfoArr[i].push_back(tempRoomInfo);
 			//던전 배경 로딩 //1.593406
 			if (arr[i][j] != 0) {
@@ -64,9 +64,9 @@ void DungeonMapManager::MakeDungeonBackground(std::vector<std::wstring> _Dungeon
 					std::wstring originStr = L"DungeonBackgroundMaterial0";
 					Background->SetName(originStr);
 					mr->SetMaterial(Resources::Find<Material>(originStr));
-					roomInfoArr[i][j].clear = true;
+					roomInfoArr[i][j].clear = false;
 					DungeonMapManager::GetInst()->MakeCliffCollider(-1, Background);
-					MonsterSpawn(128, i, j);
+					//MonsterSpawn(128, i, j);
 					roomInfoArr[i][j].roomNum = 128;
 				}
 				else {
@@ -78,7 +78,7 @@ void DungeonMapManager::MakeDungeonBackground(std::vector<std::wstring> _Dungeon
 					subStr = originStr.substr(25, 2);
 					int strToNum = std::stoll(subStr);
 					DungeonMapManager::GetInst()->MakeCliffCollider(strToNum, Background);
-					MonsterSpawn(strToNum, i, j);
+					//MonsterSpawn(strToNum, i, j);
 					roomInfoArr[i][j].roomNum = strToNum;
 				}
 
@@ -291,6 +291,7 @@ void DungeonMapManager::MonsterSpawn()
 			pMon->SetMonsterMapPos(i, j);
 			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
 			DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
+			//DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].clear = false;
 		}
 	}
 }
@@ -299,9 +300,9 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 {
 	DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum = 0;
 
-	if (DungeonMapManager::GetInst()->GetPlayerMapPos().second == j && DungeonMapManager::GetInst()->GetPlayerMapPos().first == i) {
-		return;
-	}
+	//if (DungeonMapManager::GetInst()->GetPlayerMapPos().second == j && DungeonMapManager::GetInst()->GetPlayerMapPos().first == i) {
+	//	return;
+	//}
 	if (arr[i][j] == 0) {
 		return;
 	}

@@ -15,7 +15,6 @@ struct RoomInfo {
 	int		monsterNum;
 	bool	clear;
 	int		roomNum;
-	std::pair<int, int> roomIndex;
 };
 
 using namespace sn;
