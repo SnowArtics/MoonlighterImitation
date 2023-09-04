@@ -15,6 +15,8 @@ using namespace sn;
 
 DungeonMapManager::DungeonMapManager()
 	:arr{ {} }
+	, dungeonCount(0)
+	, dungeonClear(false)
 {
 }
 
@@ -30,9 +32,12 @@ void DungeonMapManager::Init()
 	roomInfoArr.clear();
 	roomInfoArr.shrink_to_fit();
 	dungeonClear = false;
+	dungeonCount = 0;
+	dungeonName.clear();
+	dungeonName.shrink_to_fit();
 }
 
-void DungeonMapManager::MakeDungeonBackground(std::vector<std::wstring> _DungeonName)
+void DungeonMapManager::MakeDungeonBackgrounds(std::vector<std::wstring> _DungeonName)
 {
 	int k = 0;
 	for (int i = 0; i < arr.size(); i++) {
@@ -48,7 +53,7 @@ void DungeonMapManager::MakeDungeonBackground(std::vector<std::wstring> _Dungeon
 			if (arr[i][j] != 0) {
 				std::wstring subStr = L"";
 
-				GameObject* Background = new GameObject();
+				sn::GameObject* Background = new sn::GameObject();
 				SceneManager::GetActiveScene()->AddGameObject(eLayerType::Background, Background);
 				MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -90,7 +95,78 @@ void DungeonMapManager::MakeDungeonBackground(std::vector<std::wstring> _Dungeon
 	}
 }
 
-void DungeonMapManager::MakeCliffCollider(int _num, GameObject* _background)
+void DungeonMapManager::MakeDungeonBackground(int i, int j)
+{
+	if (roomInfoArr.empty()) {
+		for (int i = 0; i < arr.size(); i++) {
+			std::vector<RoomInfo> tempVectorRoomInfo;
+			roomInfoArr.push_back(tempVectorRoomInfo);
+			for (int j = 0; j < arr[i].size(); j++) {
+				RoomInfo tempRoomInfo;
+				tempRoomInfo.monsterNum = 0;
+				tempRoomInfo.clear = false;
+				roomInfoArr[i].push_back(tempRoomInfo);
+			}
+		}
+	}
+
+	//던전 배경 로딩 //1.593406
+	if (arr[i][j] != 0) {
+		std::wstring subStr = L"";
+
+		sn::GameObject* Background = new sn::GameObject();
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Background, Background);
+		MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		if (playerMapSpawnPos.second == j && playerMapSpawnPos.first == i) {
+			std::wstring originStr = L"DungeonBackgroundMaterial0";
+			Background->SetName(originStr);
+			mr->SetMaterial(Resources::Find<Material>(originStr));
+			roomInfoArr[i][j].clear = true;
+			DungeonMapManager::GetInst()->MakeCliffCollider(-1, Background);
+			roomInfoArr[i][j].roomNum = -1;
+			roomInfoArr[i][j].backgroundName = originStr;
+		}
+		else if (arr[i][j] >= 128) {
+			std::wstring originStr = L"DungeonBackgroundMaterial128";
+			Background->SetName(originStr);
+			mr->SetMaterial(Resources::Find<Material>(originStr));
+			roomInfoArr[i][j].clear = false;
+			DungeonMapManager::GetInst()->MakeCliffCollider(-1, Background);
+			//MonsterSpawn(128, i, j);
+			roomInfoArr[i][j].roomNum = 128;
+			roomInfoArr[i][j].backgroundName = originStr;
+		}
+		else {
+			std::wstring originStr = dungeonName[dungeonCount];
+			mr->SetMaterial(Resources::Find<Material>(originStr));
+			Background->SetName(originStr);
+			dungeonCount++;
+			if (dungeonCount >= dungeonName.size())
+				dungeonCount = 0;
+			roomInfoArr[i][j].clear = false;
+			subStr = originStr.substr(25, 2);
+			int strToNum = std::stoll(subStr);
+			DungeonMapManager::GetInst()->MakeCliffCollider(strToNum, Background);
+			//MonsterSpawn(strToNum, i, j);
+			roomInfoArr[i][j].roomNum = strToNum;
+			roomInfoArr[i][j].backgroundName = originStr;
+		}
+
+		Background->GetComponent<Transform>()->SetPosition(Vector3((float)j * 9.72f, -((float)i * 5.45f), 0.0f));
+		//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
+		Background->GetComponent<Transform>()->SetScale(Vector3(9.777778f, 5.5f, 0.0f));
+	}
+}
+
+void DungeonMapManager::DeleteDungeonBackground(int i, int j)
+{
+	Scene* scene = SceneManager::GetActiveScene();
+	sn::GameObject* background = SceneManager::GetActiveScene()->Find(roomInfoArr[i][j].backgroundName);
+	background->SetState(sn::GameObject::eState::Dead);
+}
+
+void DungeonMapManager::MakeCliffCollider(int _num, sn::GameObject* _background)
 {	
 	sn::Collider2D* cdUP = _background->AddComponent<sn::Collider2D>();
 	cdUP->SetSize(Vector2(cdUP->GetSize().x - 0.1f, 0.1f));
@@ -161,7 +237,7 @@ void DungeonMapManager::MakeCliffCollider(int _num, GameObject* _background)
 	}
 }
 
-void DungeonMapManager::MakeDoor()
+void DungeonMapManager::MakeDoors()
 {
 	//문의 위치에 맞게 문 생성
 	for (int i = 0; i < arr.size(); i++) {
@@ -169,7 +245,7 @@ void DungeonMapManager::MakeDoor()
 			int doorCount = arr[i][j];
 			if (doorCount / DIRRIGHT == 1) {
 				{
-					GameObject* door = new GameObject();
+					sn::GameObject* door = new sn::GameObject();
 					SceneManager::GetActiveScene()->AddGameObject(eLayerType::Door, door);
 					MeshRenderer* mr = door->AddComponent<MeshRenderer>();
 					mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -194,7 +270,7 @@ void DungeonMapManager::MakeDoor()
 				doorCount -= DIRRIGHT;
 			}if (doorCount / DIRLEFT == 1) {
 				{
-					GameObject* door = new GameObject();
+					sn::GameObject* door = new sn::GameObject();
 					SceneManager::GetActiveScene()->AddGameObject(eLayerType::Door, door);
 					MeshRenderer* mr = door->AddComponent<MeshRenderer>();
 					mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -221,7 +297,7 @@ void DungeonMapManager::MakeDoor()
 			}
 			if (doorCount / DIRDOWN == 1) {
 				{
-					GameObject* door = new GameObject();
+					sn::GameObject* door = new sn::GameObject();
 					SceneManager::GetActiveScene()->AddGameObject(eLayerType::Door, door);
 					MeshRenderer* mr = door->AddComponent<MeshRenderer>();
 					mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -248,7 +324,7 @@ void DungeonMapManager::MakeDoor()
 			}
 			if (doorCount / DIRUP == 1) {
 				{
-					GameObject* door = new GameObject();
+					sn::GameObject* door = new sn::GameObject();
 					SceneManager::GetActiveScene()->AddGameObject(eLayerType::Door, door);
 					MeshRenderer* mr = door->AddComponent<MeshRenderer>();
 					mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -276,6 +352,116 @@ void DungeonMapManager::MakeDoor()
 	}
 }
 
+void DungeonMapManager::MakeDoor(int i, int j)
+{
+	int doorCount = arr[i][j];
+	if (doorCount / DIRRIGHT == 1) {
+		{
+			sn::GameObject* door = new sn::GameObject();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Door, door);
+			MeshRenderer* mr = door->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			std::shared_ptr<Texture> atlas
+				= Resources::Load<Texture>(L"Golem_Basic_Door_Left", L"..\\Resources\\Texture\\Dungeon\\Door\\Golem_Basic_Door_Left.png");
+			Animator* at = door->AddComponent<Animator>();
+			at->Create(L"CLOSE_DOOR", atlas, Vector2(0.0f, 0.0f), Vector2(48.0f, 78.0f), 7);
+			at->Create(L"OPEN_DOOR", atlas, Vector2(288.0f, 0.0f), Vector2(48.0f, 78.0f), 5);
+			at->PlayAnimation(L"OPEN_DOOR", false);
+			door->GetComponent<Transform>()->SetPosition(Vector3(((float)j * 9.72f) + 3.95f, (-((float)i * 5.45f)), 0.0f));
+			door->GetComponent<Transform>()->SetScale(Vector3(1.7f, 1.7f, 0.0f));
+
+			sn::Collider2D* cd = door->AddComponent<sn::Collider2D>();
+			cd->SetSize(Vector2(0.4f, 0.3f));
+
+			std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
+			door->AddComponent<DungeonDoor>(DoorType::RIGHT, doorPos);
+		}
+
+		doorCount -= DIRRIGHT;
+	}if (doorCount / DIRLEFT == 1) {
+		{
+			sn::GameObject* door = new sn::GameObject();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Door, door);
+			MeshRenderer* mr = door->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			std::shared_ptr<Texture> atlas
+				= Resources::Load<Texture>(L"Golem_Basic_Door_Right", L"..\\Resources\\Texture\\Dungeon\\Door\\Golem_Basic_Door_Right.png");
+			Animator* at = door->AddComponent<Animator>();
+			at->Create(L"CLOSE_DOOR", atlas, Vector2(0.0f, 0.0f), Vector2(48.0f, 78.0f), 7);
+			at->Create(L"OPEN_DOOR", atlas, Vector2(288.0f, 0.0f), Vector2(48.0f, 78.0f), 5);
+			at->PlayAnimation(L"OPEN_DOOR", false);
+			door->GetComponent<Transform>()->SetPosition(Vector3(((float)j * 9.72f) - 3.95f, (-((float)i * 5.45f)), 0.0f));
+
+			door->GetComponent<Transform>()->SetScale(Vector3(1.7f, 1.7f, 0.0f));
+
+			sn::Collider2D* cd = door->AddComponent<sn::Collider2D>();
+			cd->SetSize(Vector2(0.4f, 0.3f));
+
+			std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
+			door->AddComponent<DungeonDoor>(DoorType::LEFT, doorPos);
+		}
+
+		doorCount -= DIRLEFT;
+	}
+	if (doorCount / DIRDOWN == 1) {
+		{
+			sn::GameObject* door = new sn::GameObject();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Door, door);
+			MeshRenderer* mr = door->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			std::shared_ptr<Texture> atlas
+				= Resources::Load<Texture>(L"Golem_Basic_Door_Up", L"..\\Resources\\Texture\\Dungeon\\Door\\Golem_Basic_Door_Up.png");
+			Animator* at = door->AddComponent<Animator>();
+			at->Create(L"CLOSE_DOOR", atlas, Vector2(0.0f, 0.0f), Vector2(78.0f, 48.0f), 7);
+			at->Create(L"OPEN_DOOR", atlas, Vector2(468.0f, 0.0f), Vector2(78.0f, 48.0f), 5);
+			at->PlayAnimation(L"OPEN_DOOR", false);
+			door->GetComponent<Transform>()->SetPosition(Vector3(((float)j * 9.72f), (-((float)i * 5.45f)) - 2.3f, 0.0f));
+
+			door->GetComponent<Transform>()->SetScale(Vector3(1.7f, 1.7f, 0.0f));
+
+			sn::Collider2D* cd = door->AddComponent<sn::Collider2D>();
+			cd->SetSize(Vector2(0.3f, 0.4f));
+
+			std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
+			door->AddComponent<DungeonDoor>(DoorType::DOWN, doorPos);
+		}
+
+		doorCount -= DIRDOWN;
+	}
+	if (doorCount / DIRUP == 1) {
+		{
+			sn::GameObject* door = new sn::GameObject();
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Door, door);
+			MeshRenderer* mr = door->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			std::shared_ptr<Texture> atlas
+				= Resources::Load<Texture>(L"Golem_Basic_Door_Down", L"..\\Resources\\Texture\\Dungeon\\Door\\Golem_Basic_Door_Down.png");
+			Animator* at = door->AddComponent<Animator>();
+			at->Create(L"CLOSE_DOOR", atlas, Vector2(0.0f, 0.0f), Vector2(78.0f, 48.0f), 7);
+			at->Create(L"OPEN_DOOR", atlas, Vector2(468.0f, 0.0f), Vector2(78.0f, 48.0f), 5);
+			at->PlayAnimation(L"OPEN_DOOR", false);
+			door->GetComponent<Transform>()->SetPosition(Vector3(((float)j * 9.72f), (-((float)i * 5.45f)) + 2.3f, 0.0f));
+
+			door->GetComponent<Transform>()->SetScale(Vector3(1.7f, 1.7f, 0.0f));
+			sn::Collider2D* cd = door->AddComponent<sn::Collider2D>();
+			cd->SetSize(Vector2(0.3f, 0.4f));
+
+			std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
+			door->AddComponent<DungeonDoor>(DoorType::UP, doorPos);
+		}
+
+		doorCount -= DIRUP;
+	}
+}
+
 void DungeonMapManager::MonsterSpawn()
 {
 	for (int i = 0; i < arr.size(); i++) {
@@ -289,7 +475,7 @@ void DungeonMapManager::MonsterSpawn()
 			Monster* pMon = MonFactory::CreateMonster(MonType::GOLEMMINIBOSS, Vector2(j * 9.72f, i * -5.45f));
 			
 			pMon->SetMonsterMapPos(i, j);
-			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+			SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 			DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 			//DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].clear = false;
 		}
@@ -314,31 +500,31 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::SLIME, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 2.0f, i * -5.45f+1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 2.0f, i * -5.45f - 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 2.0f, i * -5.45f + 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 2.0f, i * -5.45f - 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 		break;
@@ -347,31 +533,31 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::SLIME, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 2.0f, i * -5.45f + 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 2.0f, i * -5.45f - 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 2.0f, i * -5.45f + 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 2.0f, i * -5.45f - 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -380,19 +566,19 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::GOLEM, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRETBROKEN, Vector2(j * 9.72f - 2.f, i * -5.45f + 1.f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRETBROKEN, Vector2(j * 9.72f - 3.5f, i * -5.45f - 1.f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -401,19 +587,19 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::GOLEM, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRETBROKEN, Vector2(j * 9.72f + 2.f, i * -5.45f - 1.f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRETBROKEN, Vector2(j * 9.72f + 3.5f, i * -5.45f + 1.f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -422,19 +608,19 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::GOLEM, Vector2(j * 9.72f, i * -5.45f + 1.f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEM, Vector2(j * 9.72f, i * -5.45f - 1.f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRETBROKEN, Vector2(j * 9.72f + 2.5f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -443,25 +629,25 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::SLIME, Vector2(j * 9.72f-2.f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::SLIMEHERMIT, Vector2(j * 9.72f+2.f, i * -5.45f - 1.f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 2.f, i * -5.45f + 1.f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 2.f, i * -5.45f - 1.f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -470,19 +656,19 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::GOLEM, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRET, Vector2(j * 9.72f + 1.5f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRET, Vector2(j * 9.72f - 1.5f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -491,43 +677,43 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::GOLEM, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 1.5f, i * -5.45f - 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 2.f, i * -5.45f - 1.5f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 2.f, i * -5.45f - 0.5f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 1.5f, i * -5.45f + 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 2.f, i * -5.45f + 1.5f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 2.f, i * -5.45f + 0.5f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -536,19 +722,19 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::FYLINGREPAIRGOLEM, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRETBROKEN, Vector2(j * 9.72f + 1.5f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRETBROKEN, Vector2(j * 9.72f - 1.5f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -557,19 +743,19 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::GOLEM, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRETBROKEN, Vector2(j * 9.72f + 1.5f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRETBROKEN, Vector2(j * 9.72f - 1.5f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -578,43 +764,43 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::SLIMEHERMIT, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 1.5f, i * -5.45f - 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 2.f, i * -5.45f - 1.5f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 2.f, i * -5.45f - 0.5f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 1.5f, i * -5.45f + 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 2.f, i * -5.45f + 1.5f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 2.f, i * -5.45f + 0.5f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -623,43 +809,43 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::GOLEM, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 1.5f, i * -5.45f - 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 2.f, i * -5.45f - 1.5f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f + 2.f, i * -5.45f - 0.5f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 1.5f, i * -5.45f + 1.0f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 2.f, i * -5.45f + 1.5f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::BABYSLIME, Vector2(j * 9.72f - 2.f, i * -5.45f + 0.5f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -668,19 +854,19 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::GOLEM, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::SLIMEHERMIT, Vector2(j * 9.72f + 1.5f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::SLIME, Vector2(j * 9.72f - 1.5f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -689,19 +875,19 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::GOLEMTURRET, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRETBROKEN, Vector2(j * 9.72f + 1.5f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 
 		pMon = MonFactory::CreateMonster(MonType::GOLEMTURRETBROKEN, Vector2(j * 9.72f - 1.5f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	break;
@@ -710,7 +896,7 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 		Monster* pMon = MonFactory::CreateMonster(MonType::GOLEMMINIBOSS, Vector2(j * 9.72f, i * -5.45f));
 
 		pMon->SetMonsterMapPos(i, j);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<GameObject*>(pMon));
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		DungeonMapManager::GetInst()->GetRoomInfoArr()[i][j].monsterNum++;
 	}
 	default:

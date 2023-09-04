@@ -152,14 +152,14 @@ namespace sn
 		// To do... (숙제)
 		// 분리축이 어렵다 하시는분들은
 		// 원 - 원 충돌
-		if (leftType == eColliderType::Circle && rightType == eColliderType::Circle)
+/*		if (leftType == eColliderType::Circle && rightType == eColliderType::Circle)
 			return CircleToCircleCollision(left, right);
-		else if (leftType == eColliderType::Rect && rightType == eColliderType::Rect)
+		else*/ if (leftType == eColliderType::Rect && rightType == eColliderType::Rect)
 			return RectToRectCollision(left, right);
-		else if ((leftType == eColliderType::Rect && rightType == eColliderType::Circle))
-			return CircleToRectCollision(left, right);
-		else if ((leftType == eColliderType::Circle && rightType == eColliderType::Rect))
-			return CircleToRectCollision(right, left);
+		//else if ((leftType == eColliderType::Rect && rightType == eColliderType::Circle))
+		//	return CircleToRectCollision(left, right);
+		//else if ((leftType == eColliderType::Circle && rightType == eColliderType::Rect))
+		//	return CircleToRectCollision(right, left);
 		return false;
 	}
 

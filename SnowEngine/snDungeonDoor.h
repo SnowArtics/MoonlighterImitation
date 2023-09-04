@@ -34,6 +34,7 @@ namespace sn
 
 		bool									doorOpen;
 		static bool						monsterSpawnFlag;
+		static bool						dungeonBackgroundSpawnFlag;
 	};
 }
 

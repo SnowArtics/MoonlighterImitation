@@ -9,6 +9,7 @@
 #include "DungeonMapManager.h"
 
 bool DungeonDoor::monsterSpawnFlag = true;
+bool DungeonDoor::dungeonBackgroundSpawnFlag = true;
 
 namespace sn {
 	sn::DungeonDoor::DungeonDoor(DoorType _doorType, std::pair<int, int> _doorMapPos)
@@ -45,9 +46,21 @@ namespace sn {
 			animator->PlayAnimation(L"CLOSE_DOOR", false);
 			DungeonMapManager::GetInst()->SetDungeonClear(false);
 			if (monsterSpawnFlag) {
+				
 				DungeonMapManager::GetInst()->MonsterSpawn(vecRoomInfo[curPlayerMapPos.first][curPlayerMapPos.second].roomNum, curPlayerMapPos.first, curPlayerMapPos.second);
 				monsterSpawnFlag = false;
 			}
+		}
+
+		if (prevPlayerMapPos != curPlayerMapPos && dungeonBackgroundSpawnFlag) {
+			dungeonBackgroundSpawnFlag = false;
+			if (!(prevPlayerMapPos.first == -1 || prevPlayerMapPos.second == -1)) {
+				DungeonMapManager::GetInst()->MakeDungeonBackground(curPlayerMapPos.first, curPlayerMapPos.second);
+				DungeonMapManager::GetInst()->DeleteDungeonBackground(prevPlayerMapPos.first, prevPlayerMapPos.second);
+			}
+		}
+		else if (prevPlayerMapPos == curPlayerMapPos) {
+			dungeonBackgroundSpawnFlag = true;
 		}
 
 		if (DungeonMapManager::GetInst()->GetDungeonClear() == true) {

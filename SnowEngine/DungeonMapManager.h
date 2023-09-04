@@ -11,10 +11,13 @@
 						type();\
 						~type();\
 
+class GameObject;
+
 struct RoomInfo {
 	int		monsterNum;
 	bool	clear;
 	int		roomNum;
+	std::wstring backgroundName;
 };
 
 using namespace sn;
@@ -24,9 +27,12 @@ class DungeonMapManager
 	SINGLE(DungeonMapManager);
 public:
 	void Init();
-	void MakeDungeonBackground(std::vector<std::wstring> _DungeonName);
+	void MakeDungeonBackgrounds(std::vector<std::wstring> _DungeonName);
+	void MakeDungeonBackground(int i, int j);
+	void DeleteDungeonBackground(int i, int j);
 	void MakeCliffCollider(int _num, sn::GameObject* _background);
-	void MakeDoor();
+	void MakeDoors();
+	void MakeDoor(int i, int j);
 	void MonsterSpawn();
 	void MonsterSpawn(int _num, int i, int j);
 
@@ -40,12 +46,18 @@ public: //Get(), Set()
 	void SetRoomInfoArr(std::vector<std::vector<RoomInfo>> _roomInfoArr) { roomInfoArr = _roomInfoArr; }
 	void SetPlayerMapPos(int x, int y) { playerMapPos.first = y, playerMapPos.second = x; }
 	void SetPlayerMapPos(std::pair<int, int> _playerMapPos) { playerMapPos = _playerMapPos; }
+	void SetPlayerMapSpawnPos(int x, int y) { playerMapSpawnPos.first = y, playerMapSpawnPos.second = x; }
+	void SetPlayerMapSpawnPos(std::pair<int, int> _playerMapPos) { playerMapSpawnPos = _playerMapPos; }
 	void SetDungeonClear(bool _dungeonClear) { dungeonClear = _dungeonClear; }
+	void SetDungeonName(std::vector < std::wstring> _dungeonName) { dungeonName = _dungeonName; }
 
 private:
-	std::vector<std::vector<int>> arr;
-	std::pair<int, int>				playerMapPos;
-	std::vector<std::vector<RoomInfo>> roomInfoArr;
-	bool							dungeonClear;
+	std::vector<std::vector<int>>		arr;
+	std::pair<int, int>					playerMapPos;
+	std::pair<int, int>					playerMapSpawnPos;
+	std::vector<std::vector<RoomInfo>>	roomInfoArr;
+	std::vector<std::wstring>			dungeonName;
+	bool								dungeonClear;
+	int									dungeonCount;
 };
 
