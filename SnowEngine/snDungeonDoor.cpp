@@ -35,22 +35,10 @@ namespace sn {
 		Dungeon* dungeonScene = static_cast<Dungeon*>(SceneManager::GetActiveScene());
 		prevPlayerMapPos = curPlayerMapPos;
 		curPlayerMapPos = DungeonMapManager::GetInst()->GetPlayerMapPos();
-		std::vector<std::vector<RoomInfo>> vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
 
 		Collider2D* collider = GetOwner()->GetComponent<Collider2D>();
 
 		Animator* animator = GetOwner()->GetComponent <Animator>();
-
-		if (prevPlayerMapPos != curPlayerMapPos && vecRoomInfo[curPlayerMapPos.first][curPlayerMapPos.second].clear == false) {
-			collider->SetEnable(false);
-			animator->PlayAnimation(L"CLOSE_DOOR", false);
-			DungeonMapManager::GetInst()->SetDungeonClear(false);
-			if (monsterSpawnFlag) {
-				
-				DungeonMapManager::GetInst()->MonsterSpawn(vecRoomInfo[curPlayerMapPos.first][curPlayerMapPos.second].roomNum, curPlayerMapPos.first, curPlayerMapPos.second);
-				monsterSpawnFlag = false;
-			}
-		}
 
 		if (prevPlayerMapPos != curPlayerMapPos && dungeonBackgroundSpawnFlag) {
 			dungeonBackgroundSpawnFlag = false;
@@ -62,6 +50,18 @@ namespace sn {
 		else if (prevPlayerMapPos == curPlayerMapPos) {
 			dungeonBackgroundSpawnFlag = true;
 		}
+
+		std::vector<std::vector<RoomInfo>>& vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
+
+		if (prevPlayerMapPos != curPlayerMapPos && vecRoomInfo[curPlayerMapPos.first][curPlayerMapPos.second].clear == false) {
+			collider->SetEnable(false);
+			animator->PlayAnimation(L"CLOSE_DOOR", false);
+			DungeonMapManager::GetInst()->SetDungeonClear(false);
+			if (monsterSpawnFlag) {				
+				DungeonMapManager::GetInst()->MonsterSpawn(vecRoomInfo[curPlayerMapPos.first][curPlayerMapPos.second].roomNum, curPlayerMapPos.first, curPlayerMapPos.second);
+				monsterSpawnFlag = false;
+			}
+		}		
 
 		if (DungeonMapManager::GetInst()->GetDungeonClear() == true) {
 			if (collider->GetEnable() == false) {

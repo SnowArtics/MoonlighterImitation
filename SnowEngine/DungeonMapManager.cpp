@@ -106,6 +106,7 @@ void DungeonMapManager::MakeDungeonBackground(int i, int j)
 				tempRoomInfo.monsterNum = 0;
 				tempRoomInfo.clear = false;
 				roomInfoArr[i].push_back(tempRoomInfo);
+				roomInfoArr[i][j].roomNum = -999;
 			}
 		}
 	}
@@ -130,8 +131,8 @@ void DungeonMapManager::MakeDungeonBackground(int i, int j)
 		else if (arr[i][j] >= 128) {
 			std::wstring originStr = L"DungeonBackgroundMaterial128";
 			Background->SetName(originStr);
-			mr->SetMaterial(Resources::Find<Material>(originStr));
-			roomInfoArr[i][j].clear = false;
+			mr->SetMaterial(Resources::Find<Material>(L"DungeonBackgroundMaterial0"));
+			//roomInfoArr[i][j].clear = false;
 			DungeonMapManager::GetInst()->MakeCliffCollider(-1, Background);
 			//MonsterSpawn(128, i, j);
 			roomInfoArr[i][j].roomNum = 128;
@@ -144,7 +145,7 @@ void DungeonMapManager::MakeDungeonBackground(int i, int j)
 			dungeonCount++;
 			if (dungeonCount >= dungeonName.size())
 				dungeonCount = 0;
-			roomInfoArr[i][j].clear = false;
+			//roomInfoArr[i][j].clear = false;
 			subStr = originStr.substr(25, 2);
 			int strToNum = std::stoll(subStr);
 			DungeonMapManager::GetInst()->MakeCliffCollider(strToNum, Background);
@@ -243,6 +244,10 @@ void DungeonMapManager::MakeDoors()
 	for (int i = 0; i < arr.size(); i++) {
 		for (int j = 0; j < arr[i].size(); j++) {
 			int doorCount = arr[i][j];
+
+			if (doorCount >= 128)
+				doorCount -= 128;
+
 			if (doorCount / DIRRIGHT == 1) {
 				{
 					sn::GameObject* door = new sn::GameObject();
