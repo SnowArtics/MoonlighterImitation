@@ -45,6 +45,8 @@ namespace sn {
 			if (!(prevPlayerMapPos.first == -1 || prevPlayerMapPos.second == -1)) {
 				DungeonMapManager::GetInst()->MakeDungeonBackground(curPlayerMapPos.first, curPlayerMapPos.second);
 				DungeonMapManager::GetInst()->DeleteDungeonBackground(prevPlayerMapPos.first, prevPlayerMapPos.second);
+				DungeonMapManager::GetInst()->MakeDoor(curPlayerMapPos.first, curPlayerMapPos.second);
+				DungeonMapManager::GetInst()->DeleteDoor(prevPlayerMapPos.first, prevPlayerMapPos.second);
 			}
 		}
 		else if (prevPlayerMapPos == curPlayerMapPos) {

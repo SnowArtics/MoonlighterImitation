@@ -26,6 +26,7 @@ namespace sn {
 	{
 		for (Layer& layer : mLayers)
 		{
+			int a = layer.GetGameObjects().size();
 			layer.Update();
 		}
 	}

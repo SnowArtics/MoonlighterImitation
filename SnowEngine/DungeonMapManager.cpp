@@ -382,6 +382,8 @@ void DungeonMapManager::MakeDoor(int i, int j)
 
 			std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
 			door->AddComponent<DungeonDoor>(DoorType::RIGHT, doorPos);
+
+			roomInfoArr[i][j].doors.push_back(door);
 		}
 
 		doorCount -= DIRRIGHT;
@@ -408,6 +410,8 @@ void DungeonMapManager::MakeDoor(int i, int j)
 
 			std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
 			door->AddComponent<DungeonDoor>(DoorType::LEFT, doorPos);
+
+			roomInfoArr[i][j].doors.push_back(door);
 		}
 
 		doorCount -= DIRLEFT;
@@ -435,6 +439,8 @@ void DungeonMapManager::MakeDoor(int i, int j)
 
 			std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
 			door->AddComponent<DungeonDoor>(DoorType::DOWN, doorPos);
+
+			roomInfoArr[i][j].doors.push_back(door);
 		}
 
 		doorCount -= DIRDOWN;
@@ -461,10 +467,21 @@ void DungeonMapManager::MakeDoor(int i, int j)
 
 			std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
 			door->AddComponent<DungeonDoor>(DoorType::UP, doorPos);
+
+			roomInfoArr[i][j].doors.push_back(door);
 		}
 
 		doorCount -= DIRUP;
 	}
+}
+
+void DungeonMapManager::DeleteDoor(int i, int j)
+{
+	for (int k = 0; k < roomInfoArr[i][j].doors.size(); k++) {
+		roomInfoArr[i][j].doors[k]->SetState(sn::GameObject::eState::Dead);
+	}
+	roomInfoArr[i][j].doors.clear();
+	//roomInfoArr[i][j].doors.shrink_to_fit();
 }
 
 void DungeonMapManager::MonsterSpawn()

@@ -18,6 +18,7 @@ struct RoomInfo {
 	bool	clear;
 	int		roomNum;
 	std::wstring backgroundName;
+	std::vector<sn::GameObject*> doors;
 };
 
 using namespace sn;
@@ -33,6 +34,7 @@ public:
 	void MakeCliffCollider(int _num, sn::GameObject* _background);
 	void MakeDoors();
 	void MakeDoor(int i, int j);
+	void DeleteDoor(int i, int j);
 	void MonsterSpawn();
 	void MonsterSpawn(int _num, int i, int j);
 

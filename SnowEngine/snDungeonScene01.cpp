@@ -53,7 +53,7 @@ namespace sn {
 		CollisionManager::SetLayer(eLayerType::Background, eLayerType::Door, false);
 
 		MazeMaker::GetInst()->Init();
-		MazeMaker::GetInst()->BackTracking(2, 2);
+		MazeMaker::GetInst()->BackTracking(4, 4);
 		arr = MazeMaker::GetInst()->GetDirArr();
 		DungeonMapManager::GetInst()->SetDungeonArr(arr);
 		std::pair<int, int> firstPlayerPos = MazeMaker::GetInst()->GetStartPos();
@@ -63,18 +63,18 @@ namespace sn {
 		std::vector<std::wstring> DungeonName;
 		DungeonName.push_back(L"DungeonBackgroundMaterial00-0");
 		DungeonName.push_back(L"DungeonBackgroundMaterial01-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial02-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial03-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial04-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial05-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial06-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial07-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial08-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial09-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial10-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial11-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial12-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial13-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial02-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial03-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial04-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial05-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial06-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial07-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial08-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial09-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial10-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial11-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial12-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial13-0");
 
 		std::shuffle(DungeonName.begin(), DungeonName.end(), std::default_random_engine());
 
@@ -82,9 +82,11 @@ namespace sn {
 
 		DungeonMapManager::GetInst()->MakeDungeonBackground(DungeonMapManager::GetInst()->GetPlayerMapPos().first, DungeonMapManager::GetInst()->GetPlayerMapPos().second);
 
+		DungeonMapManager::GetInst()->MakeDoor(DungeonMapManager::GetInst()->GetPlayerMapPos().first, DungeonMapManager::GetInst()->GetPlayerMapPos().second);
+
 		//DungeonMapManager::GetInst()->MakeDungeonBackgrounds(DungeonName);
 		
-		DungeonMapManager::GetInst()->MakeDoors();
+		//DungeonMapManager::GetInst()->MakeDoors();
 
 #pragma region Object
 		//오브젝트를 랜덤으로 생성
