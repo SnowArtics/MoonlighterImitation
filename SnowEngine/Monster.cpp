@@ -133,6 +133,7 @@ void Monster::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 				Vector3 monPos = monTr->GetPosition();
 
 				Vector3 dir = monPos - playerPos;
+				dir.Normalize();
 				float stiffness = monster->GetMonsterInfo().fUnStiffness;
 
 				RigidBody* rigidBody = monster->GetComponent<RigidBody>();

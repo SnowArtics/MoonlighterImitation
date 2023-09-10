@@ -50,7 +50,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fSpeed = 0.5f;
 		info.fAttTime = 1.3f;
 		info.fAttDelay = 0.f;
-		info.fUnStiffness = 10.f;
+		info.fUnStiffness = 5.f;
 
 		pMon->SetMonInfo(info);
 
@@ -113,7 +113,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fSpeed = 0.75f;
 		info.fAttTime = 1.2f;
 		info.fAttDelay = 1.f;
-		info.fUnStiffness = 25.f;
+		info.fUnStiffness = 10.f;
 
 		pMon->SetMonInfo(info);
 
@@ -171,7 +171,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fSpeed = 0.75f;
 		info.fAttTime = -1.f;
 		info.fAttDelay = 0.f;
-		info.fUnStiffness = 25.f;
+		info.fUnStiffness = 10.f;
 
 		pMon->SetMonInfo(info);
 
@@ -217,7 +217,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fSpeed = 0.75f;
 		info.fAttTime = -1.f;
 		info.fAttDelay = 0.f;
-		info.fUnStiffness = 25.f;
+		info.fUnStiffness = 10.f;
 
 		pMon->SetMonInfo(info);
 
@@ -265,7 +265,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fSpeed = 1.f;
 		info.fAttTime = 2.16f;
 		info.fAttDelay = 1.5f;
-		info.fUnStiffness = 25.f;
+		info.fUnStiffness = 10.f;
 
 		pMon->SetMonInfo(info);
 
