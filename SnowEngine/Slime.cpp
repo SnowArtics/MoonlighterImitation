@@ -7,6 +7,7 @@
 #include "MonsterHPBar.h"
 #include "snPlayer.h"
 #include "PlayerHP.h"
+#include "AI.h"
 
 using namespace sn;
 
@@ -89,6 +90,7 @@ void Slime::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 		this->GetComponent<MonsterHPBar>()->SetEnable(true);
 		SetMonsterInfo(monInfo);
 
+		GetComponent<AI>()->ChangeState(MON_STATE::TRACE);
 
 		if (monInfo.fHP <= 0.f) {
 			std::vector<std::vector<RoomInfo>>& vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
