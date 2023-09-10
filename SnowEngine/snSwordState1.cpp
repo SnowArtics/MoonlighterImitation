@@ -73,7 +73,7 @@ void SwordState1::Update()
 		cd[1]->SetCenter(Vector2(0.2f, -0.1f));
 	}
 
-	if (time >= 0.1f && time < (attTime - 0.1f)) {
+	if (time >= 0.1f && time < (attTime - 0.3f)) {
 		cd[1]->SetEnable(true);
 	}
 	else {
