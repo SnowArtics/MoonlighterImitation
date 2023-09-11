@@ -170,15 +170,19 @@ void DungeonMapManager::DeleteDungeonBackground(int i, int j)
 void DungeonMapManager::MakeCliffCollider(int _num, sn::GameObject* _background)
 {	
 	sn::Collider2D* cdUP = _background->AddComponent<sn::Collider2D>();
+	cdUP->SetName(L"WallCollider");
 	cdUP->SetSize(Vector2(cdUP->GetSize().x - 0.1f, 0.1f));
 	cdUP->SetCenter(Vector2(0.0f, -2.3f));
 	sn::Collider2D* cdDOWN = _background->AddComponent<sn::Collider2D>();
+	cdDOWN->SetName(L"WallCollider");
 	cdDOWN->SetSize(Vector2(cdUP->GetSize().x - 0.1f, 0.1f));
 	cdDOWN->SetCenter(Vector2(0.0f, +2.3f));
 	sn::Collider2D* cdLEFT = _background->AddComponent<sn::Collider2D>();
+	cdLEFT->SetName(L"WallCollider");
 	cdLEFT->SetSize(Vector2(0.1f, cdUP->GetSize().y - 1.f));
 	cdLEFT->SetCenter(Vector2(-4.18f, 0.0f));
 	sn::Collider2D* cdRIGHT = _background->AddComponent<sn::Collider2D>();
+	cdRIGHT->SetName(L"WallCollider");
 	cdRIGHT->SetSize(Vector2(0.1f, cdUP->GetSize().y - 1.f));
 	cdRIGHT->SetCenter(Vector2(4.15f, 0.0f));
 
