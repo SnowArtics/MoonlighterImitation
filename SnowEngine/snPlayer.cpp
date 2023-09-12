@@ -38,7 +38,7 @@ void snPlayer::Render()
 
 void snPlayer::OnCollisionEnter(sn::Collider2D* other)
 {
-	
+
 }
 
 void snPlayer::OnCollisionStay(sn::Collider2D* other)
@@ -47,4 +47,5 @@ void snPlayer::OnCollisionStay(sn::Collider2D* other)
 
 void snPlayer::OnCollisionExit(sn::Collider2D* other)
 {
+
 }

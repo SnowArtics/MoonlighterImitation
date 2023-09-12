@@ -47,12 +47,14 @@ public:
 	void SetOwner(sn::GameObject* _m_pOwner) { m_pOwner = _m_pOwner; }
 	void SetDirection(PLAYER_DIR _dir) { curDir = _dir; }
 	void SetWeaponType(WEAPON_TYPE _weaponType) { weaponType = _weaponType; }
+	void SetCanMove(PLAYER_DIR _playerDir, bool _canMove);
 
 	PlayerState* GetState(PLAYER_STATE _state);
 	sn::GameObject* GetOwner() { return m_pOwner; }
 	PLAYER_DIR GetDirection() { return curDir; }
 	std::vector<PLAYER_DIR>& GetActionDir() { return actionDir; }
 	WEAPON_TYPE GetWeaponType() { return weaponType; }
+	bool GetCanMove(PLAYER_DIR _playerDir);
 
 private:
 	std::map<PLAYER_STATE, PlayerState*>	m_mapeState;
@@ -70,5 +72,7 @@ private:
 	WEAPON_TYPE								weaponType;
 
 	std::vector<PLAYER_DIR>			actionDir;
+
+	std::bitset<4> canMove;
 };
 

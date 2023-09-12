@@ -17,6 +17,7 @@
 #include "snSwordState2.h"
 #include "snSwordState3.h"
 #include "snBowState.h"
+#include "snPlayerCollision.h"
 
 #include "snSceneManager.h"
 #include "snCollisionManager.h"
@@ -202,6 +203,7 @@ namespace sn {
 			snPlayer* Player = new snPlayer();
 			AddGameObject(eLayerType::Player, static_cast<GameObject*>(Player));
 			Player->SetName(L"Player");
+			Player->AddComponent<PlayerCollision>();
 			Collider2D* cd = Player->AddComponent<Collider2D>();
 			cd->SetSize(Vector2(0.3f, 0.3f));
 			cd->SetName(L"FisrtCollider");

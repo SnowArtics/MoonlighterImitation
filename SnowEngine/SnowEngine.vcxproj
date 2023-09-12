@@ -233,6 +233,7 @@
     <ClInclude Include="snGridScript.h" />
     <ClInclude Include="snIdleState.h" />
     <ClInclude Include="snMoveState.h" />
+    <ClInclude Include="snPlayerCollision.h" />
     <ClInclude Include="snPlayerFSM.h" />
     <ClInclude Include="snPlayerMove.h" />
     <ClInclude Include="snPlayerState.h" />
@@ -320,6 +321,7 @@
     <ClCompile Include="snIdleState.cpp" />
     <ClCompile Include="snMoveState.cpp" />
     <ClCompile Include="SnowEngine.cpp" />
+    <ClCompile Include="snPlayerCollision.cpp" />
     <ClCompile Include="snPlayerFSM.cpp" />
     <ClCompile Include="snPlayerMove.cpp" />
     <ClCompile Include="snPlayerState.cpp" />

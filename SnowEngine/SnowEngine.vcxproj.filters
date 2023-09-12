@@ -145,6 +145,9 @@
     <ClCompile Include="PlayerHP.cpp">
       <Filter>Script\Player\PlayerHP</Filter>
     </ClCompile>
+    <ClCompile Include="snPlayerCollision.cpp">
+      <Filter>Script\Player\PlayerCollision</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -293,6 +296,9 @@
     </ClInclude>
     <ClInclude Include="PlayerHP.h">
       <Filter>Script\Player\PlayerHP</Filter>
+    </ClInclude>
+    <ClInclude Include="snPlayerCollision.h">
+      <Filter>Script\Player\PlayerCollision</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -451,6 +457,9 @@
     </Filter>
     <Filter Include="Script\Player\PlayerHP">
       <UniqueIdentifier>{24643315-ce80-4297-8591-2f71e6d9e58f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Player\PlayerCollision">
+      <UniqueIdentifier>{622ee8bd-98fb-42d3-947b-178f9ec476c3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

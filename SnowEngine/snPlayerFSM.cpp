@@ -7,7 +7,7 @@
 #include "..\Engine_SOURCE\snInput.h"
 
 PlayerFSM::PlayerFSM()
-    :Component(eComponentType::FSM)
+	:Component(eComponentType::FSM)
 	, m_pOwner(nullptr)
 	, curState(nullptr)
 	, eCurState(PLAYER_STATE::END)
@@ -18,6 +18,7 @@ PlayerFSM::PlayerFSM()
 	, prevAttState(0)
 	, weaponType(WEAPON_TYPE::SHORT_SWORD)
 {
+	canMove.set();
 }
 
 PlayerFSM::~PlayerFSM()
@@ -210,6 +211,29 @@ void PlayerFSM::AddState(PlayerState* _pState)
 	curDir = PLAYER_DIR::DOWN;
 }
 
+void PlayerFSM::SetCanMove(PLAYER_DIR _playerDir, bool _canMove)
+{
+	switch (_playerDir)
+	{
+	case PLAYER_DIR::UP:
+		canMove[0] = _canMove;
+		break;
+	case PLAYER_DIR::DOWN:
+		canMove[1] = _canMove;
+		break;
+	case PLAYER_DIR::RIGHT:
+		canMove[2] = _canMove;
+		break;
+	case PLAYER_DIR::LEFT:
+		canMove[3] = _canMove;
+		break;
+	case PLAYER_DIR::END:
+		break;
+	default:
+		break;
+	}
+}
+
 PlayerState* PlayerFSM::GetState(PLAYER_STATE _state)
 {
 	std::map<PLAYER_STATE, PlayerState*>::iterator state = m_mapeState.find(_state);
@@ -217,4 +241,31 @@ PlayerState* PlayerFSM::GetState(PLAYER_STATE _state)
 		return nullptr;
 
 	return state->second;
+}
+
+bool PlayerFSM::GetCanMove(PLAYER_DIR _playerDir)
+{
+	bool result = false;
+
+	switch (_playerDir)
+	{
+	case PLAYER_DIR::UP:
+		result = canMove.test(0);
+		break;
+	case PLAYER_DIR::DOWN:
+		result = canMove.test(1);
+		break;
+	case PLAYER_DIR::RIGHT:
+		result = canMove.test(2);
+		break;
+	case PLAYER_DIR::LEFT:
+		result = canMove.test(3);
+		break;
+	case PLAYER_DIR::END:
+		break;
+	default:
+		break;
+	}
+
+	return result;
 }

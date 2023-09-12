@@ -30,7 +30,7 @@ void MoveState::Update()
 
 	Vector2 move = Vector2(0.f, 0.f);
 
-	if (Input::GetKey(eKeyCode::A))
+	if (Input::GetKey(eKeyCode::A)&&GetPlayerFSM()->GetCanMove(PLAYER_DIR::LEFT))
 	{
 		//pos.x -= 2.3f * Time::DeltaTime();
 		//tr->SetPosition(pos);
@@ -39,7 +39,7 @@ void MoveState::Update()
 		actionDir.push_back(PLAYER_DIR::LEFT);
 
 	}
-	if (Input::GetKey(eKeyCode::D))
+	if (Input::GetKey(eKeyCode::D) && GetPlayerFSM()->GetCanMove(PLAYER_DIR::RIGHT))
 	{
 		//pos.x += 2.3f * Time::DeltaTime();
 		//tr->SetPosition(pos);
@@ -47,7 +47,7 @@ void MoveState::Update()
 		GetPlayerFSM()->SetDirection(PLAYER_DIR::RIGHT);
 		actionDir.push_back(PLAYER_DIR::RIGHT);
 	}
-	if (Input::GetKey(eKeyCode::S))
+	if (Input::GetKey(eKeyCode::S) && GetPlayerFSM()->GetCanMove(PLAYER_DIR::DOWN))
 	{
 		//pos.y -= 2.3f * Time::DeltaTime();
 		//tr->SetPosition(pos);
@@ -55,7 +55,7 @@ void MoveState::Update()
 		GetPlayerFSM()->SetDirection(PLAYER_DIR::DOWN);
 		actionDir.push_back(PLAYER_DIR::DOWN);		
 	}
-	if (Input::GetKey(eKeyCode::W))
+	if (Input::GetKey(eKeyCode::W) && GetPlayerFSM()->GetCanMove(PLAYER_DIR::UP))
 	{
 		//pos.y += 2.3f * Time::DeltaTime();
 		//tr->SetPosition(pos);
