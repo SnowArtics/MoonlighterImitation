@@ -31,18 +31,22 @@ void RollState::Update()
 		{
 		case PLAYER_DIR::UP:
 			pos.y += 2.0f * Time::DeltaTime();
+			GetPlayerFSM()->SetDirection(PLAYER_DIR::UP);
 			tr->SetPosition(pos);
 			break;
 		case PLAYER_DIR::DOWN:
 			pos.y -= 2.0f * Time::DeltaTime();
+			GetPlayerFSM()->SetDirection(PLAYER_DIR::DOWN);
 			tr->SetPosition(pos);
 			break;
 		case PLAYER_DIR::RIGHT:
 			pos.x += 2.0f * Time::DeltaTime();
+			GetPlayerFSM()->SetDirection(PLAYER_DIR::RIGHT);
 			tr->SetPosition(pos);
 			break;
 		case PLAYER_DIR::LEFT:
 			pos.x -= 2.0f * Time::DeltaTime();
+			GetPlayerFSM()->SetDirection(PLAYER_DIR::LEFT);
 			tr->SetPosition(pos);
 			break;
 		default:
@@ -55,18 +59,22 @@ void RollState::Update()
 		{
 		case PLAYER_DIR::UP:
 			pos.y += 2.0f * Time::DeltaTime();
+			GetPlayerFSM()->SetDirection(PLAYER_DIR::UP);
 			tr->SetPosition(pos);
 			break;
 		case PLAYER_DIR::DOWN:
 			pos.y -= 2.0f * Time::DeltaTime();
+			GetPlayerFSM()->SetDirection(PLAYER_DIR::DOWN);
 			tr->SetPosition(pos);
 			break;
 		case PLAYER_DIR::RIGHT:
 			pos.x += 2.0f * Time::DeltaTime();
+			GetPlayerFSM()->SetDirection(PLAYER_DIR::RIGHT);
 			tr->SetPosition(pos);
 			break;
 		case PLAYER_DIR::LEFT:
 			pos.x -= 2.0f * Time::DeltaTime();
+			GetPlayerFSM()->SetDirection(PLAYER_DIR::LEFT);
 			tr->SetPosition(pos);
 			break;
 		default:

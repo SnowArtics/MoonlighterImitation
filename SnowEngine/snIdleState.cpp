@@ -41,7 +41,7 @@ void IdleState::Update()
 		GetPlayerFSM()->SetDirection(PLAYER_DIR::UP);
 	}
 
-	if (Input::GetKey(eKeyCode::SPACE))
+	if (Input::GetKeyDown(eKeyCode::SPACE))
 		GetPlayerFSM()->ChangeState(PLAYER_STATE::ROLL);
 
 	if (Input::GetKeyDown(eKeyCode::J) && GetPlayerFSM()->GetWeaponType() == WEAPON_TYPE::SHORT_SWORD)

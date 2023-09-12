@@ -68,7 +68,7 @@ void MoveState::Update()
 	pos.x += move.x * 2.3f * Time::DeltaTime();
 	pos.y += move.y * 2.3f * Time::DeltaTime();
 
-	tr->SetPosition(pos);	
+	tr->SetPosition(pos);
 
 	if (!(Input::GetKey(eKeyCode::A))
 		&& !(Input::GetKey(eKeyCode::D))
@@ -77,7 +77,7 @@ void MoveState::Update()
 		GetPlayerFSM()->ChangeState(PLAYER_STATE::IDLE);
 	}
 
-	if (Input::GetKey(eKeyCode::SPACE)) {
+	if (Input::GetKeyDown(eKeyCode::SPACE)) {
 		GetPlayerFSM()->ChangeState(PLAYER_STATE::ROLL);
 		return;
 	}
