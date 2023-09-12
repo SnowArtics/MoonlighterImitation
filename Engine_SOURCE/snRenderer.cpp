@@ -904,6 +904,15 @@ namespace renderer {
 			spriteMaterial->SetTexture(texture);
 			Resources::Insert(L"DungeonEntranceMaterial01", spriteMaterial);
 		}
+		{
+			//带傈 涝备 啪 积己
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"DungeonEntranceTop01", L"..\\Resources\\Texture\\DungeonEntrance\\DungeonsEntrance_Top.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"DungeonEntranceTopMaterial01", spriteMaterial);
+		}
 #pragma endregion
 #pragma region shop
 		{

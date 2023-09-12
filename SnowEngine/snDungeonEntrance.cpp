@@ -35,6 +35,18 @@ namespace sn {
 		}
 
 		{
+			//던전 TOP 배경 로딩 //0.71995708154
+			GameObject* Background = new GameObject();
+			AddGameObject(eLayerType::InteractionUI, Background);
+			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"DungeonEntranceTopMaterial01"));
+			Background->GetComponent<Transform>()->SetPosition(Vector3(0.08f, -0.30f, 0.0f));
+			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(7.1995708154f, 10.f, 2.0f));
+		}
+
+		{
 			//인벤토리 UI 생성
 			GameObject* UI = new GameObject();
 			UI->SetName(L"InventoryBase");
@@ -126,6 +138,15 @@ namespace sn {
 			cameraComp->DisableLayerMasks();
 			cameraComp->TurnLayerMask(eLayerType::UI, true);
 			//camera->AddComponent<CameraScript>();
+		}
+		// Light
+		{
+			GameObject* light = new GameObject();
+			light->SetName(L"DirectionalLight01");
+			AddGameObject(eLayerType::Light, light);
+			Light* lightComp = light->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
 		}
 		Scene::Initialize();
 	}

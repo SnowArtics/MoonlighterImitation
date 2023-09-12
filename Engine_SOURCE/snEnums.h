@@ -36,6 +36,7 @@ namespace sn::enums
 		Projectile,
 		HitEffect,
 		Player,
+		InteractionUI,
 		Light,
 		UI,
 
