@@ -30,8 +30,8 @@ namespace sn {
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"DungeonEntranceMaterial01"));
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
 			Background->GetComponent<Transform>()->SetScale(Vector3(11.1714f, 10.f, 2.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(23.42857142857142f, 20.f, 2.0f));
 		}
 
 		{
@@ -42,8 +42,7 @@ namespace sn {
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"DungeonEntranceTopMaterial01"));
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.08f, -0.30f, 0.0f));
-			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
-			Background->GetComponent<Transform>()->SetScale(Vector3(7.1995708154f, 10.f, 2.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(14.3991416308f, 20.f, 2.0f));
 		}
 
 		{
