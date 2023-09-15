@@ -1034,6 +1034,15 @@ namespace renderer {
 			spriteMaterial->SetTexture(texture);
 			Resources::Insert(L"BossMonsterWave", spriteMaterial);
 		}
+		{
+			//상호작용 J 키 UI 생성
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"InteractionJKey", L"..\\Resources\\Texture\\UI\\Interaction1.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"InteractionJKeyMaterial", spriteMaterial);
+		}
 #pragma endregion
 #pragma region Player
 		{

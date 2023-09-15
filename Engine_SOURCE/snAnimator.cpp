@@ -112,7 +112,6 @@ namespace sn
 		Events* events;
 		if (prevAnimation != nullptr)
 		{
-
 			events = FindEvents(prevAnimation->GetKey());
 			if (events)
 				events->endEvent();
@@ -123,6 +122,9 @@ namespace sn
 		{
 			mActiveAnimation = animation;
 		}
+
+		if (prevAnimation == mActiveAnimation)
+			return;
 
 		events = FindEvents(mActiveAnimation->GetKey());
 		if (events)

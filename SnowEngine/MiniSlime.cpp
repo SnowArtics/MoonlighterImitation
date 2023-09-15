@@ -3,6 +3,7 @@
 #include "DungeonMapManager.h"
 #include "snPlayer.h"
 #include "PlayerHP.h"
+#include "MonsterHPBar.h"
 
 MiniSlime::MiniSlime()
 {

@@ -35,6 +35,7 @@ namespace sn::enums
 		MonsterHPBar,
 		Projectile,
 		HitEffect,
+		InteractionDoor,
 		Player,
 		InteractionUI,
 		Light,

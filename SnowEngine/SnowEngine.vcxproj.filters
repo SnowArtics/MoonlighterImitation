@@ -148,6 +148,9 @@
     <ClCompile Include="snPlayerCollision.cpp">
       <Filter>Script\Player\PlayerCollision</Filter>
     </ClCompile>
+    <ClCompile Include="EntranceDoor.cpp">
+      <Filter>Script\DungeonEntrance</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -299,6 +302,9 @@
     </ClInclude>
     <ClInclude Include="snPlayerCollision.h">
       <Filter>Script\Player\PlayerCollision</Filter>
+    </ClInclude>
+    <ClInclude Include="EntranceDoor.h">
+      <Filter>Script\DungeonEntrance</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -460,6 +466,9 @@
     </Filter>
     <Filter Include="Script\Player\PlayerCollision">
       <UniqueIdentifier>{622ee8bd-98fb-42d3-947b-178f9ec476c3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\DungeonEntrance">
+      <UniqueIdentifier>{456bd109-0ba0-4c91-b1fb-58767321bfca}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
