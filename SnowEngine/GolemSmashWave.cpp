@@ -35,7 +35,10 @@ void GolemSmashWave::Update()
 	Vector3 pos = tr->GetPosition();
 	Vector3 scale = tr->GetScale();
 
+
 	tr->SetScale(scale + scaleIncrease);
+
+	float cycleDistance = (scale.x + scaleIncrease.x) / 2.f;
 
 	Transform* playerTr = SceneManager::GetActiveScene()->GetPlayer()->GetComponent<Transform>();
 	Vector3 playerPos = playerTr->GetPosition();
