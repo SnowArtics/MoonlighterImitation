@@ -255,9 +255,10 @@ void GolemMiniBoss::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 		Vector3 monPos = monTr->GetPosition();
 
 		Vector3 dir = playerPos - monPos;
+		dir.Normalize();
 		float UnStiffness = player->GetUnStiffness();
 
-		playerRigidBody->SetVelocity(dir * UnStiffness*1.3f);
+		playerRigidBody->SetVelocity(dir * UnStiffness);
 	}
 }
 
