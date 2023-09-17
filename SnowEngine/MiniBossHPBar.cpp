@@ -116,7 +116,7 @@ void MiniBossHPBar::CreateHpBar()
 	SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, bossEnterUI);
 	Transform* bossEnterUITr = bossEnterUI->GetComponent<Transform>();
 	bossEnterUITr->SetPosition(Vector3(0.f, -1.5f, 0.f));
-	bossEnterUITr->SetScale(Vector3(5.625f, 1.5f, 0.0f));
+	bossEnterUITr->SetScale(Vector3(5.625f, 3.f, 0.0f));
 
 	MeshRenderer* barMeshRenderer03 = bossEnterUI->AddComponent<MeshRenderer>();
 	barMeshRenderer03->SetMesh(Resources::Find<Mesh>(L"RectMesh"));

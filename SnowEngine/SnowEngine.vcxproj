@@ -169,6 +169,7 @@
     <ClInclude Include="EntranceDoor.h" />
     <ClInclude Include="FylingRepairGolem.h" />
     <ClInclude Include="Golem.h" />
+    <ClInclude Include="GolemCorruptedMiniBoss.h" />
     <ClInclude Include="GolemMiniBoss.h" />
     <ClInclude Include="GolemSmashWave.h" />
     <ClInclude Include="GolemTurret.h" />
@@ -251,6 +252,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="TeleportSmash.h" />
     <ClInclude Include="TurretAttack.h" />
     <ClInclude Include="TurretBrokenAttack.h" />
   </ItemGroup>
@@ -259,6 +261,7 @@
     <ClCompile Include="EntranceDoor.cpp" />
     <ClCompile Include="FylingRepairGolem.cpp" />
     <ClCompile Include="Golem.cpp" />
+    <ClCompile Include="GolemCorruptedMiniBoss.cpp" />
     <ClCompile Include="GolemMiniBoss.cpp" />
     <ClCompile Include="GolemSmashWave.cpp" />
     <ClCompile Include="GolemTurret.cpp" />
@@ -340,6 +343,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="TeleportSmash.cpp" />
     <ClCompile Include="TurretAttack.cpp" />
     <ClCompile Include="TurretBrokenAttack.cpp" />
   </ItemGroup>

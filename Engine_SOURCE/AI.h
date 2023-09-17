@@ -7,6 +7,7 @@ enum class MON_STATE {
 	TRACE,//쫓기
 	ATT,	//가까운 상대 공격
 	TARGET_ATT,// 지정한 타겟공격
+	TELEPORT_ATT, //미니보스의 텔레포트 공격(스매시)
 	DEAD,//사망
 	END,
 };

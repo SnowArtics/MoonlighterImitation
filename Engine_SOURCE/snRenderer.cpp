@@ -176,6 +176,11 @@ namespace renderer {
 		spriteAniShader->Create(eShaderStage::PS, L"SpriteAnimationPS.hlsl", "main");
 		sn::Resources::Insert(L"SpriteAnimationShader", spriteAniShader);
 
+		std::shared_ptr<Shader> spriteTeleportAniShader = std::make_shared<Shader>();
+		spriteTeleportAniShader->Create(eShaderStage::VS, L"SpriteAnimationVS.hlsl", "main");
+		spriteTeleportAniShader->Create(eShaderStage::PS, L"SpriteTeleportAnimationPS.hlsl", "main");
+		sn::Resources::Insert(L"SpriteTeleportAnimationShader", spriteTeleportAniShader);
+
 		std::shared_ptr<Shader> gridShader = std::make_shared<Shader>();
 		gridShader->Create(eShaderStage::VS, L"GridVS.hlsl", "main");
 		gridShader->Create(eShaderStage::PS, L"GridPS.hlsl", "main");
@@ -252,6 +257,13 @@ namespace renderer {
 		material->SetShader(animSpriteShader);
 		material->SetRenderingMode(eRenderingMode::Transparent);
 		Resources::Insert(L"SpriteAnimaionMaterial", material);
+
+		std::shared_ptr<Shader> animTeleportSpriteShader
+			= Resources::Find<Shader>(L"SpriteTeleportAnimationShader");
+		material = std::make_shared<Material>();
+		material->SetShader(animTeleportSpriteShader);
+		material->SetRenderingMode(eRenderingMode::Transparent);
+		Resources::Insert(L"SpriteTeleportAnimaionMaterial", material);
 		
 		std::shared_ptr<Shader> gridShader
 			= Resources::Find<Shader>(L"GridShader");
@@ -1132,6 +1144,11 @@ namespace renderer {
 			, shader->GetInputLayoutAddressOf());
 
 		shader = sn::Resources::Find<Shader>(L"SpriteAnimationShader");
+		sn::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
+			, shader->GetVSCode()
+			, shader->GetInputLayoutAddressOf());
+
+		shader = sn::Resources::Find<Shader>(L"SpriteTeleportAnimationShader");
 		sn::graphics::GetDevice()->CreateInputLayout(arrLayout, 3
 			, shader->GetVSCode()
 			, shader->GetInputLayoutAddressOf());

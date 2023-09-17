@@ -151,6 +151,12 @@
     <ClCompile Include="EntranceDoor.cpp">
       <Filter>Script\DungeonEntrance</Filter>
     </ClCompile>
+    <ClCompile Include="GolemCorruptedMiniBoss.cpp">
+      <Filter>Script\Monster\Monster\GolemCorruptedMiniBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="TeleportSmash.cpp">
+      <Filter>Script\Monster\AI\State\TeleportSmash</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -305,6 +311,12 @@
     </ClInclude>
     <ClInclude Include="EntranceDoor.h">
       <Filter>Script\DungeonEntrance</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemCorruptedMiniBoss.h">
+      <Filter>Script\Monster\Monster\GolemCorruptedMiniBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="TeleportSmash.h">
+      <Filter>Script\Monster\AI\State\TeleportSmash</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -469,6 +481,12 @@
     </Filter>
     <Filter Include="Script\DungeonEntrance">
       <UniqueIdentifier>{456bd109-0ba0-4c91-b1fb-58767321bfca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\Monster\GolemCorruptedMiniBoss">
+      <UniqueIdentifier>{f070ffb5-c165-4a94-93d2-037321163b15}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\TeleportSmash">
+      <UniqueIdentifier>{af48ebb2-6b7d-4855-9ab0-7e9732df48ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

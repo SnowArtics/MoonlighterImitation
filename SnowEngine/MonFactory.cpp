@@ -26,6 +26,7 @@
 #include "MonsterHPBar.h"
 #include "GolemMiniBoss.h"
 #include "MiniBossHPBar.h"
+#include "GolemCorruptedMiniBoss.h"
 
 using namespace sn;
 
@@ -422,7 +423,77 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 	break;
 	case MonType::GOLEMCORRUPTMINIBOSS:
 	{
+		pMon = new GolemCorruptedMiniBoss;
+		pMon->SetName(L"GOLEM");
+		Transform* tr = pMon->GetComponent<Transform>();
+		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
+		tr->SetScale(3.0f, 3.0f, 3.0f);
 
+		tMonInfo info = {};
+		info.fAtt = 20.f;
+		info.fAttRange = 1.5f;
+		info.fRecogRange = 300.f;
+		info.fHP = 300.f;
+		info.fSpeed = 0.5f;
+		info.fAttTime = 1.5f;
+		info.fAttDelay = 1.f;
+
+		pMon->SetMonInfo(info);
+
+		MeshRenderer* mr = pMon->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteTeleportAnimaionMaterial"));
+
+		std::shared_ptr<Texture> atlas
+			= Resources::Load<Texture>(L"Golem_Mini_Boss", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemMiniBoss\\Golem_MiniBoss.png");
+		Animator* at = pMon->AddComponent<Animator>();
+
+		at->Create(L"GOLEM_MOVE_DOWN", atlas, Vector2(0.0f, 0.0f), Vector2(248.f, 225.f), 8, 240.f);
+		at->Create(L"GOLEM_MOVE_LEFT", atlas, Vector2(0.0f, 225.f), Vector2(248.f, 225.f), 8, 240.f);
+		at->Create(L"GOLEM_MOVE_RIGHT", atlas, Vector2(0.0f, 450.f), Vector2(248.f, 225.f), 8, 240.f);
+		at->Create(L"GOLEM_MOVE_UP", atlas, Vector2(0.0f, 675.0f), Vector2(248.f, 225.f), 8, 240.f);
+
+		at->Create(L"GOLEM_SMASH_DOWN", atlas, Vector2(0.0f, 900.f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		at->Create(L"GOLEM_SMASH_LEFT", atlas, Vector2(0.0f, 1125.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		at->Create(L"GOLEM_SMASH_RIGHT", atlas, Vector2(0.0f, 1350.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		at->Create(L"GOLEM_SMASH_UP", atlas, Vector2(0.0f, 1575.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+
+		//at->Create(L"GOLEM_TELEPORT_SMASH_PREV_DOWN", atlas, Vector2(0.0f, 900.f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		//at->Create(L"GOLEM_TELEPORT_SMASH_PREV_LEFT", atlas, Vector2(0.0f, 1125.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		//at->Create(L"GOLEM_TELEPORT_SMASH_PREV_RIGHT", atlas, Vector2(0.0f, 1350.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		//at->Create(L"GOLEM_TELEPORT_SMASH_PREV_UP", atlas, Vector2(0.0f, 1575.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		//
+		//at->Create(L"GOLEM_TELEPORT_SMASH_DOWN", atlas, Vector2(0.0f, 900.f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		//at->Create(L"GOLEM_TELEPORT_SMASH_LEFT", atlas, Vector2(0.0f, 1125.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		//at->Create(L"GOLEM_TELEPORT_SMASH_RIGHT", atlas, Vector2(0.0f, 1350.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		//at->Create(L"GOLEM_TELEPORT_SMASH_UP", atlas, Vector2(0.0f, 1575.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+
+		at->Create(L"GOLEM_ATTACK_DOWN", atlas, Vector2(0.0f, 1800.f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		at->Create(L"GOLEM_ATTACK_LEFT", atlas, Vector2(0.0f, 2025.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		at->Create(L"GOLEM_ATTACK_RIGHT", atlas, Vector2(0.0f, 2250.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		at->Create(L"GOLEM_ATTACK_UP", atlas, Vector2(0.0f, 2475.f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+
+		at->PlayAnimation(L"GOLEM_MOVE_UP", true);
+
+		sn::Collider2D* collider = pMon->AddComponent<sn::Collider2D>();
+		collider->SetSize(Vector2(0.2f, 0.25f));
+		collider->SetCenter(Vector2(0.0f, -0.1f));
+
+		sn::Collider2D* collider2 = pMon->AddComponent<sn::Collider2D>();
+		collider2->SetEnable(false);
+		collider2->SetName(L"Mini_Boss_Second_Collider");
+
+		sn::Collider2D* collider3 = pMon->AddComponent<sn::Collider2D>();
+		collider3->SetEnable(false);
+		collider3->SetName(L"Mini_Boss_Third_Collider");
+
+		AI* ai = pMon->AddComponent<AI>(pMon);
+		ai->AddState(new MonsterIdle);
+		ai->AddState(new MonsterTrace);
+		ai->AddState(new TurretBrokenAttack);
+		ai->SetCurState(MON_STATE::IDLE);
+
+		pMon->AddComponent<MiniBossHPBar>();
 	}
 	break;
 	case MonType::SLIMEHERMIT:

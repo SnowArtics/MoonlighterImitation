@@ -936,7 +936,13 @@ void DungeonMapManager::MonsterSpawn(int _num, int i, int j)
 	break;
 	case 128:
 	{
-		Monster* pMon = MonFactory::CreateMonster(MonType::GOLEMMINIBOSS, Vector2(j * 9.72f, i * -5.45f));
+		Monster* pMon = nullptr;
+		if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene01") {
+			pMon = MonFactory::CreateMonster(MonType::GOLEMMINIBOSS, Vector2(j * 9.72f, i * -5.45f));
+		}
+		else if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene02") {
+			pMon = MonFactory::CreateMonster(MonType::GOLEMCORRUPTMINIBOSS, Vector2(j * 9.72f, i * -5.45f));
+		}
 
 		pMon->SetMonsterMapPos(i, j);
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
