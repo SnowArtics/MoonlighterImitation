@@ -157,6 +157,9 @@
     <ClCompile Include="TeleportSmash.cpp">
       <Filter>Script\Monster\AI\State\TeleportSmash</Filter>
     </ClCompile>
+    <ClCompile Include="MiniBossAttack.cpp">
+      <Filter>Script\Monster\AI\State\Attack\MiniBossAttack</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -317,6 +320,9 @@
     </ClInclude>
     <ClInclude Include="TeleportSmash.h">
       <Filter>Script\Monster\AI\State\TeleportSmash</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniBossAttack.h">
+      <Filter>Script\Monster\AI\State\Attack\MiniBossAttack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -487,6 +493,9 @@
     </Filter>
     <Filter Include="Script\Monster\AI\State\TeleportSmash">
       <UniqueIdentifier>{af48ebb2-6b7d-4855-9ab0-7e9732df48ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\Attack\MiniBossAttack">
+      <UniqueIdentifier>{8cbf0b31-e6ba-4b8f-a1fc-35ae7862c1ec}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -24,7 +24,7 @@ namespace sn
 		void SetMonsterCB(renderer::MonsterCB _monsterCB) { monsterCB = _monsterCB; }
 		std::shared_ptr<Material> GetMaterial() { return mMaterial; }
 		std::shared_ptr<Mesh> GetMesh() { return mMesh; }
-		renderer::MonsterCB GetMonsterCB() { return monsterCB; }
+		renderer::MonsterCB& GetMonsterCB() { return monsterCB; }
 
 	private:
 		std::shared_ptr<Mesh> mMesh;

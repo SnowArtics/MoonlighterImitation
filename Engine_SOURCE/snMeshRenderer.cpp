@@ -11,6 +11,9 @@ namespace sn
 		, monsterCB{}
 	{
 		monsterCB.state = 0;
+		monsterCB.color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		monsterCB.teleportState = 0;
+		monsterCB.teleportDeltaTime = 0.f;
 	}
 
 	MeshRenderer::~MeshRenderer()
@@ -67,5 +70,10 @@ namespace sn
 
 		cb->Bind(eShaderStage::VS);
 		cb->Bind(eShaderStage::PS);
+
+		//monsterCB.state = 0;
+		//monsterCB.color = Vector4(1.0f, 1.0f, 1.0f, 1.0f);
+		//monsterCB.teleportState = 0;
+		//monsterCB.teleportDeltaTime = 0.f;
 	}
 }

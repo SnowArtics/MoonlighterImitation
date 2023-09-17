@@ -62,7 +62,9 @@ namespace renderer {
 	CBUFFER(MonsterCB, CBSLOT_MONSTER) {
 		Vector4 color;
 		int		state;
-		Vector3 pad1;
+		int		teleportState;
+		float	teleportDeltaTime;
+		float pad1;
 	};
 
 	extern sn::graphics::ConstantBuffer* constantBuffer[(UINT)eCBType::End];

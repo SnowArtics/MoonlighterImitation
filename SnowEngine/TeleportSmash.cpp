@@ -11,6 +11,7 @@ TeleportSmash::~TeleportSmash()
 
 void TeleportSmash::Update()
 {
+
 }
 
 void TeleportSmash::Enter()

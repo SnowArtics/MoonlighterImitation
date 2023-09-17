@@ -16,7 +16,7 @@
 #include <random>
 
 GolemCorruptedMiniBoss::GolemCorruptedMiniBoss()
-	: randomNum(3)
+	: randomNum(1)
 	, firstColliderAttTime(-0.1f)
 	, secondColliderAttTime(0.f)
 	, waveCreateTime(0.f)
@@ -68,12 +68,12 @@ void GolemCorruptedMiniBoss::Update()
 
 	Animator* animator = GetComponent<Animator>();
 
-	std::random_device rd;
-	std::mt19937 gen(rd());
-
-	std::uniform_int_distribution<> distribution(1, 2);
-
-	randomNum = distribution(gen);
+	//std::random_device rd;
+	//std::mt19937 gen(rd());
+	//
+	//std::uniform_int_distribution<> distribution(1, 2);
+	//
+	//randomNum = distribution(gen); // randomNums이 1일때 휘두르기 공격, 2일때 충격파 공격
 
 	if (monDir != ai->GetPrevDir() || monState != ai->GetPrevStateName()) {
 		switch (monState)
@@ -127,22 +127,22 @@ void GolemCorruptedMiniBoss::Update()
 				case MonDir::UP:
 					secondCollider->SetSize(Vector2(0.6f, 0.4f));
 					secondCollider->SetCenter(Vector2(0.0f, 0.3f));
-					animator->PlayAnimation(L"GOLEM_ATTACK_UP", true);
+					animator->PlayAnimation(L"GOLEM_TELEPORT_ATTACK_PREV_UP", false);
 					break;
 				case MonDir::DOWN:
 					secondCollider->SetSize(Vector2(0.6f, 0.4f));
 					secondCollider->SetCenter(Vector2(0.0f, -0.5f));
-					animator->PlayAnimation(L"GOLEM_ATTACK_DOWN", true);
+					animator->PlayAnimation(L"GOLEM_TELEPORT_ATTACK_PREV_DOWN", false);
 					break;
 				case MonDir::RIGHT:
 					secondCollider->SetSize(Vector2(0.4f, 0.6f));
 					secondCollider->SetCenter(Vector2(+0.4f, -0.1f));
-					animator->PlayAnimation(L"GOLEM_ATTACK_RIGHT", true);
+					animator->PlayAnimation(L"GOLEM_TELEPORT_ATTACK_PREV_RIGHT", false);
 					break;
 				case MonDir::LEFT:
 					secondCollider->SetSize(Vector2(0.4f, 0.6f));
 					secondCollider->SetCenter(Vector2(-0.4f, -0.1f));
-					animator->PlayAnimation(L"GOLEM_ATTACK_LEFT", true);
+					animator->PlayAnimation(L"GOLEM_TELEPORT_ATTACK_PREV_LEFT", false);
 					break;
 				default:
 					break;

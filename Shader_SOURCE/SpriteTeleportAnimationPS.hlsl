@@ -62,6 +62,10 @@ float4 main(VSOut In) : SV_TARGET
         }
     }
 
+    if (teleportState == 1) {
+
+    }
+
     if (color.a <= 0.0f)
        discard;
 
