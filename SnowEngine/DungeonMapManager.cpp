@@ -59,6 +59,9 @@ void DungeonMapManager::MakeDungeonBackgrounds(std::vector<std::wstring> _Dungeo
 				mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 				if (playerMapPos.second == j && playerMapPos.first == i) {
 					std::wstring originStr = L"DungeonBackgroundMaterial0";
+					if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene02") {
+						originStr = L"DungeonBackgroundMaterial1";
+					}
 					Background->SetName(originStr);
 					mr->SetMaterial(Resources::Find<Material>(originStr));
 					roomInfoArr[i][j].clear = true;
@@ -67,6 +70,9 @@ void DungeonMapManager::MakeDungeonBackgrounds(std::vector<std::wstring> _Dungeo
 				}
 				else if (arr[i][j] >= 128) {
 					std::wstring originStr = L"DungeonBackgroundMaterial0";
+					if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene02") {
+						originStr = L"DungeonBackgroundMaterial1";
+					}
 					Background->SetName(originStr);
 					mr->SetMaterial(Resources::Find<Material>(originStr));
 					roomInfoArr[i][j].clear = false;
@@ -121,6 +127,9 @@ void DungeonMapManager::MakeDungeonBackground(int i, int j)
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		if (playerMapSpawnPos.second == j && playerMapSpawnPos.first == i) {
 			std::wstring originStr = L"DungeonBackgroundMaterial0";
+			if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene02") {
+				originStr = L"DungeonBackgroundMaterial1";
+			}
 			Background->SetName(originStr);
 			mr->SetMaterial(Resources::Find<Material>(originStr));
 			roomInfoArr[i][j].clear = true;
@@ -131,7 +140,12 @@ void DungeonMapManager::MakeDungeonBackground(int i, int j)
 		else if (arr[i][j] >= 128) {
 			std::wstring originStr = L"DungeonBackgroundMaterial128";
 			Background->SetName(originStr);
-			mr->SetMaterial(Resources::Find<Material>(L"DungeonBackgroundMaterial0"));
+			if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene01") {
+				mr->SetMaterial(Resources::Find<Material>(L"DungeonBackgroundMaterial0"));
+			}
+			else if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene02") {
+				mr->SetMaterial(Resources::Find<Material>(L"DungeonBackgroundMaterial1"));
+			}			
 			//roomInfoArr[i][j].clear = false;
 			DungeonMapManager::GetInst()->MakeCliffCollider(-1, Background);
 			//MonsterSpawn(128, i, j);
@@ -364,6 +378,9 @@ void DungeonMapManager::MakeDoors()
 void DungeonMapManager::MakeDoor(int i, int j)
 {
 	int doorCount = arr[i][j];
+	if (doorCount >= 128) {
+		doorCount -= 128;
+	}
 	if (doorCount / DIRRIGHT == 1) {
 		{
 			sn::GameObject* door = new sn::GameObject();

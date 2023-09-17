@@ -26,7 +26,7 @@ void snPlayer::Update()
 	sn::GameObject::Update();
 }
 
-void snPlayer::LateUpdate()
+void snPlayer::LateUpdate() 
 {
 	sn::GameObject::LateUpdate();
 }
@@ -38,7 +38,6 @@ void snPlayer::Render()
 
 void snPlayer::OnCollisionEnter(sn::Collider2D* other)
 {
-
 }
 
 void snPlayer::OnCollisionStay(sn::Collider2D* other)

@@ -410,7 +410,7 @@ namespace renderer {
 		}
 #pragma region dungeonBackground1
 		{
-			//带傈 硅版 0-0积己
+			//带傈 硅版 0积己
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"dungeon_background0", L"..\\Resources\\Texture\\Dungeon\\Background\\dungeon_background0.png");
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
@@ -546,6 +546,15 @@ namespace renderer {
 		}
 #pragma endregion
 #pragma region dungeonBackground2
+		{
+			//带傈 硅版 0积己
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"dungeon_background1", L"..\\Resources\\Texture\\Dungeon\\Background\\dungeon_background1.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"DungeonBackgroundMaterial1", spriteMaterial);
+		}
 		{
 			//带傈 硅版 0-1积己
 			std::shared_ptr<Texture> texture

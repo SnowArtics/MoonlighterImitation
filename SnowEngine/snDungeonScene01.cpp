@@ -49,6 +49,8 @@ namespace sn {
 
 	void DungeonScene01::Initialize()
 	{
+		SceneManager::GetActiveScene()->SetName(L"DungeonScene01");
+
 		DungeonMapManager::GetInst()->Init();
 
 		CollisionManager::SetLayer(eLayerType::Background, eLayerType::Door, false);
