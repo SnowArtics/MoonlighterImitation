@@ -3,16 +3,20 @@
 
 using namespace sn;
 
-class TeleportSmash :
-    public State
+class MiniBossTrace :
+	public State
 {
 public:
-	TeleportSmash();
-	~TeleportSmash();
+	MiniBossTrace();
+	~MiniBossTrace();
 
 public:
 	virtual void Update();
 	virtual void Enter();
 	virtual void Exit();
+
+private:
+	float time;
+	float delayTime;
 };
 

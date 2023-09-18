@@ -45,53 +45,50 @@ void Monster::Update()
 
 	//0 is normal, 1 is hit, 2 is dead
 
+	MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
+	renderer::MonsterCB& monsterCB = meshRenderer->GetMonsterCB();
+
 	if (monsterState == 1) {
 		hitTime += Time::DeltaTime();
 		MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
-		renderer::MonsterCB monsterCB = {};
+		renderer::MonsterCB& monsterCB = meshRenderer->GetMonsterCB();
 		monsterCB.state = 1;
 		monsterCB.color = Vector4(0.8f,0.0f,0.0f,1.0f);
-		meshRenderer->SetMonsterCB(monsterCB);
 
 		if (hitTime > 0.1f) {
 			MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
-			renderer::MonsterCB monsterCB = {};
+			renderer::MonsterCB& monsterCB = meshRenderer->GetMonsterCB();
 			monsterCB.state = 1;
 			monsterCB.color = Vector4(0.8f, 0.8f, 0.8f, 1.0f);
-			meshRenderer->SetMonsterCB(monsterCB);
 		}
 
 		if (hitTime > 0.2f) {
 			hitTime = 0.f;
 			MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
-			renderer::MonsterCB monsterCB = {};
+			renderer::MonsterCB& monsterCB = meshRenderer->GetMonsterCB();
 			monsterCB.state = 0;
 			monsterCB.color = Vector4(0.0f, 0.0f, 0.0f, 1.0f);
-			meshRenderer->SetMonsterCB(monsterCB);
 		}
 	}
 	else if (monsterState == 2) {
 		deadTime += Time::DeltaTime();
 		MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
-		renderer::MonsterCB monsterCB = {};
+		renderer::MonsterCB& monsterCB = meshRenderer->GetMonsterCB();
 		monsterCB.state = 2;
 		monsterCB.color = Vector4(0.8f, 0.0f, 0.0f, 1.0f);
-		meshRenderer->SetMonsterCB(monsterCB);
 
 		if (deadTime > 0.2f) {
 			MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
-			renderer::MonsterCB monsterCB = {};
+			renderer::MonsterCB& monsterCB = meshRenderer->GetMonsterCB();
 			monsterCB.state = 2;
 			monsterCB.color = Vector4(0.8f, 0.4f, 0.4f, 1.0f);
-			meshRenderer->SetMonsterCB(monsterCB);
 		}
 
 		if (deadTime > 0.4f) {
 			MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
-			renderer::MonsterCB monsterCB = {};
+			renderer::MonsterCB& monsterCB = meshRenderer->GetMonsterCB();
 			monsterCB.state = 2;
 			monsterCB.color = Vector4(0.8f, 0.8f, 0.8f, 1.0f);
-			meshRenderer->SetMonsterCB(monsterCB);
 		}
 
 		if (deadTime > 1.f) {
@@ -117,9 +114,8 @@ void Monster::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
 	if (other->GetName() == L"SecondCollider") {
 		MeshRenderer* meshRenderer = this->GetComponent<MeshRenderer>();
-		renderer::MonsterCB monsterCB = {};
+		renderer::MonsterCB& monsterCB = meshRenderer->GetMonsterCB();
 		monsterCB.state = 1;
-		meshRenderer->SetMonsterCB(monsterCB);
 
 		Monster* monster = this;
 

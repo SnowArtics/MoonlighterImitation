@@ -23,7 +23,7 @@ void MonsterIdle::Update()
 	if (monMapPos != playerMapPos)
 		return;
 
-	SceneManager::ChangeMonsterState(GetAI(), MON_STATE::TRACE);
+	SceneManager::ChangeMonsterState(GetAI(), MON_STATE::MINIBOSS_TRACE);
 	//GetAI()->ChangeState(MON_STATE::TRACE);
 }
 

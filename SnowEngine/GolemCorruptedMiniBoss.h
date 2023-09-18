@@ -24,7 +24,6 @@ public:
     void CreateWave(Vector3 _transform);
 
 private:
-    int randomNum;
     float firstColliderAttTime;
     float secondColliderAttTime;
     float waveCreateTime;

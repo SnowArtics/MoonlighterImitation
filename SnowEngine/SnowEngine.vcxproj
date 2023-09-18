@@ -175,7 +175,11 @@
     <ClInclude Include="GolemTurret.h" />
     <ClInclude Include="GolemTurretBroken.h" />
     <ClInclude Include="HitEffect.h" />
+    <ClInclude Include="MiniBossAttack.h" />
     <ClInclude Include="MiniBossHPBar.h" />
+    <ClInclude Include="MiniBossSmash.h" />
+    <ClInclude Include="MiniBossTeleportAttack.h" />
+    <ClInclude Include="MiniBossTrace.h" />
     <ClInclude Include="MiniSlime.h" />
     <ClInclude Include="MonFactory.h" />
     <ClInclude Include="Monster.h" />
@@ -252,7 +256,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="TeleportSmash.h" />
     <ClInclude Include="TurretAttack.h" />
     <ClInclude Include="TurretBrokenAttack.h" />
   </ItemGroup>
@@ -267,7 +270,11 @@
     <ClCompile Include="GolemTurret.cpp" />
     <ClCompile Include="GolemTurretBroken.cpp" />
     <ClCompile Include="HitEffect.cpp" />
+    <ClCompile Include="MiniBossAttack.cpp" />
     <ClCompile Include="MiniBossHPBar.cpp" />
+    <ClCompile Include="MiniBossSmash.cpp" />
+    <ClCompile Include="MiniBossTeleportAttack.cpp" />
+    <ClCompile Include="MiniBossTrace.cpp" />
     <ClCompile Include="MiniSlime.cpp" />
     <ClCompile Include="MonFactory.cpp" />
     <ClCompile Include="Monster.cpp" />
@@ -343,7 +350,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="TeleportSmash.cpp" />
     <ClCompile Include="TurretAttack.cpp" />
     <ClCompile Include="TurretBrokenAttack.cpp" />
   </ItemGroup>

@@ -44,7 +44,9 @@ cbuffer Noise : register(b6)
 cbuffer Monster : register(b7) {
     float4  monsterColor;
     int		monsterState; // 0 is normal, 1 is hit, 2 is dead
-    float3  pad1;
+    int     teleportState; // 0 is notTeleport, 1 is Do Teleport
+    float   teleportDeltaTime;
+    float  pad1;
 }
 
 Texture2D albedoTexture : register(t0);

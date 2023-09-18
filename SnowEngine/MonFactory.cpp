@@ -27,6 +27,10 @@
 #include "GolemMiniBoss.h"
 #include "MiniBossHPBar.h"
 #include "GolemCorruptedMiniBoss.h"
+#include "MiniBossAttack.h"
+#include "MiniBossTrace.h"
+#include "MiniBossSmash.h"
+#include "MiniBossTeleportAttack.h"
 
 using namespace sn;
 
@@ -458,15 +462,15 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		at->Create(L"GOLEM_SMASH_RIGHT", atlas, Vector2(0.0f, 1350.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
 		at->Create(L"GOLEM_SMASH_UP", atlas, Vector2(0.0f, 1575.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
 
-		//at->Create(L"GOLEM_TELEPORT_SMASH_PREV_DOWN", atlas, Vector2(0.0f, 900.f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
-		//at->Create(L"GOLEM_TELEPORT_SMASH_PREV_LEFT", atlas, Vector2(0.0f, 1125.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
-		//at->Create(L"GOLEM_TELEPORT_SMASH_PREV_RIGHT", atlas, Vector2(0.0f, 1350.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
-		//at->Create(L"GOLEM_TELEPORT_SMASH_PREV_UP", atlas, Vector2(0.0f, 1575.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
-		//
-		//at->Create(L"GOLEM_TELEPORT_SMASH_DOWN", atlas, Vector2(0.0f, 900.f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
-		//at->Create(L"GOLEM_TELEPORT_SMASH_LEFT", atlas, Vector2(0.0f, 1125.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
-		//at->Create(L"GOLEM_TELEPORT_SMASH_RIGHT", atlas, Vector2(0.0f, 1350.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
-		//at->Create(L"GOLEM_TELEPORT_SMASH_UP", atlas, Vector2(0.0f, 1575.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
+		at->Create(L"GOLEM_TELEPORT_ATTACK_PREV_DOWN", atlas, Vector2(0.0f, 1800.f), Vector2(248.f, 225.f), 5, 240.f, 0.1f);
+		at->Create(L"GOLEM_TELEPORT_ATTACK_PREV_LEFT", atlas, Vector2(0.0f, 2025.0f), Vector2(248.f, 225.f), 5, 240.f, 0.1f);
+		at->Create(L"GOLEM_TELEPORT_ATTACK_PREV_RIGHT", atlas, Vector2(0.0f, 2250.0f), Vector2(248.f, 225.f), 5, 240.f, 0.1f);
+		at->Create(L"GOLEM_TELEPORT_ATTACK_PREV_UP", atlas, Vector2(0.0f, 2475.f), Vector2(248.f, 225.f), 5, 240.f, 0.1f);
+		
+		at->Create(L"GOLEM_TELEPORT_ATTACK_DOWN", atlas, Vector2(992.f, 1800.f), Vector2(248.f, 225.f), 10, 240.f, 0.1f);
+		at->Create(L"GOLEM_TELEPORT_ATTACK_LEFT", atlas, Vector2(992.f, 2025.0f), Vector2(248.f, 225.f), 10, 240.f, 0.1f);
+		at->Create(L"GOLEM_TELEPORT_ATTACK_RIGHT", atlas, Vector2(992.f, 2250.0f), Vector2(248.f, 225.f), 10, 240.f, 0.1f);
+		at->Create(L"GOLEM_TELEPORT_ATTACK_UP", atlas, Vector2(992.f, 2475.f), Vector2(248.f, 225.f), 10, 240.f, 0.1f);
 
 		at->Create(L"GOLEM_ATTACK_DOWN", atlas, Vector2(0.0f, 1800.f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
 		at->Create(L"GOLEM_ATTACK_LEFT", atlas, Vector2(0.0f, 2025.0f), Vector2(248.f, 225.f), 15, 240.f, 0.1f);
@@ -489,8 +493,10 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		AI* ai = pMon->AddComponent<AI>(pMon);
 		ai->AddState(new MonsterIdle);
-		ai->AddState(new MonsterTrace);
-		ai->AddState(new TurretBrokenAttack);
+		ai->AddState(new MiniBossTrace);
+		ai->AddState(new MiniBossAttack);
+		ai->AddState(new MiniBossSmash);
+		ai->AddState(new MiniBossTeleportAttack);
 		ai->SetCurState(MON_STATE::IDLE);
 
 		pMon->AddComponent<MiniBossHPBar>();
