@@ -17,6 +17,7 @@
 
 GolemCorruptedMiniBoss::GolemCorruptedMiniBoss()
 	: randomNum(1)
+	, prevRandomNum(1)
 	, firstColliderAttTime(-0.1f)
 	, secondColliderAttTime(0.f)
 	, waveCreateTime(0.f)
@@ -44,8 +45,9 @@ void GolemCorruptedMiniBoss::Update()
 	sn::Collider2D* secondCollider = this->GetComponents<sn::Collider2D>()[1];
 	sn::Collider2D* thirdCollider = this->GetComponents<sn::Collider2D>()[2];
 
-	if (firstColliderAttTime >= 0.1f)
+	if (firstColliderAttTime >= 0.1f) {
 		firstColliderAttTime += Time::DeltaTime();
+	}		
 
 	if (firstColliderAttTime > 0.5f) {
 		secondCollider->SetEnable(true);
@@ -202,6 +204,9 @@ void GolemCorruptedMiniBoss::Update()
 		}
 
 	}
+
+	prevRandomNum = randomNum;
+
 	Monster::Update();
 }
 

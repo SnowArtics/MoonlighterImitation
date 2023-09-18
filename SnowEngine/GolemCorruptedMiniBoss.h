@@ -29,6 +29,7 @@ public:
     int GetRandomNum() { return randomNum; }
 
 private:
+    int prevRandomNum;
     int randomNum;
     float firstColliderAttTime;
     float secondColliderAttTime;

@@ -17,5 +17,7 @@ public:
 
 private:
 	float time;
+	bool enterFlag;
+	float randomNum;
 };
 
