@@ -71,7 +71,7 @@ void GolemCorruptedMiniBoss::Update()
 	if (monDir != ai->GetPrevDir() || monState != ai->GetPrevStateName()) {
 		switch (monState)
 		{
-		case MON_STATE::IDLE:
+		case MON_STATE::MINIBOSS_IDLE:
 			break;
 		case MON_STATE::MINIBOSS_TRACE:
 		{

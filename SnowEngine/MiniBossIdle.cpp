@@ -1,21 +1,19 @@
-#include "MonsterIdle.h"
+#include "MiniBossIdle.h"
 #include "Monster.h"
 #include "snSceneManager.h"
 #include "snDungeon.h"
 #include "DungeonMapManager.h"
 
-using namespace sn;
-
-MonsterIdle::MonsterIdle()
-	:State(MON_STATE::IDLE)
+MiniBossIdle::MiniBossIdle()
+	:State(MON_STATE::MINIBOSS_IDLE)
 {
 }
 
-MonsterIdle::~MonsterIdle()
+MiniBossIdle::~MiniBossIdle()
 {
 }
 
-void MonsterIdle::Update()
+void MiniBossIdle::Update()
 {
 	std::pair<int, int> monMapPos = GetMonster()->GetMonsterMapPos();
 	std::pair<int, int> playerMapPos = DungeonMapManager::GetInst()->GetPlayerMapPos();
@@ -23,14 +21,13 @@ void MonsterIdle::Update()
 	if (monMapPos != playerMapPos)
 		return;
 
-	SceneManager::ChangeMonsterState(GetAI(), MON_STATE::TRACE);
-	//GetAI()->ChangeState(MON_STATE::TRACE);
+	SceneManager::ChangeMonsterState(GetAI(), MON_STATE::MINIBOSS_TRACE);
 }
 
-void MonsterIdle::Enter()
+void MiniBossIdle::Enter()
 {
 }
 
-void MonsterIdle::Exit()
+void MiniBossIdle::Exit()
 {
 }

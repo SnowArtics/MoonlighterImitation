@@ -45,7 +45,17 @@ namespace sn {
 			if (!(prevPlayerMapPos.first == -1 || prevPlayerMapPos.second == -1)) {
 				DungeonMapManager::GetInst()->MakeDungeonBackground(curPlayerMapPos.first, curPlayerMapPos.second);
 				DungeonMapManager::GetInst()->DeleteDungeonBackground(prevPlayerMapPos.first, prevPlayerMapPos.second);
-				DungeonMapManager::GetInst()->MakeDoor(curPlayerMapPos.first, curPlayerMapPos.second);
+				
+				int prevPlayerPos = 0;
+				if (prevPlayerMapPos.first < curPlayerMapPos.first)
+					prevPlayerPos = 0x02;
+				else if(prevPlayerMapPos.first > curPlayerMapPos.first)
+					prevPlayerPos = 0x01;
+				else if (prevPlayerMapPos.second < curPlayerMapPos.second)
+					prevPlayerPos = 0x08;
+				else if (prevPlayerMapPos.second > curPlayerMapPos.second)
+					prevPlayerPos = 0x04;
+				DungeonMapManager::GetInst()->MakeDoor(curPlayerMapPos.first, curPlayerMapPos.second, prevPlayerPos);
 				DungeonMapManager::GetInst()->DeleteDoor(prevPlayerMapPos.first, prevPlayerMapPos.second);
 			}
 		}
@@ -91,7 +101,14 @@ namespace sn {
 	{
 		GameObject* otherObject = other->GetOwner();
 
-		if (otherObject->GetName() == L"Player") {
+		if (GetOwner()->GetName() == L"NextDungeonDoor") {
+			if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene01") {
+				SceneManager::SetChangeScene(L"DungeonScene02");
+			}
+			else if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene02") {
+				SceneManager::SetChangeScene(L"DungeonScene03");
+			}
+		}else if (otherObject->GetName() == L"Player") {
 			Transform* tr = otherObject->GetComponent<Transform>();
 			Vector3 playerPos = tr->GetPosition();
 			Dungeon* curScene = static_cast<Dungeon*>(SceneManager::GetActiveScene());

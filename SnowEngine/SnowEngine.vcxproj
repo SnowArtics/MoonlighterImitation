@@ -177,6 +177,7 @@
     <ClInclude Include="HitEffect.h" />
     <ClInclude Include="MiniBossAttack.h" />
     <ClInclude Include="MiniBossHPBar.h" />
+    <ClInclude Include="MiniBossIdle.h" />
     <ClInclude Include="MiniBossSmash.h" />
     <ClInclude Include="MiniBossTeleportAttack.h" />
     <ClInclude Include="MiniBossTrace.h" />
@@ -272,6 +273,7 @@
     <ClCompile Include="HitEffect.cpp" />
     <ClCompile Include="MiniBossAttack.cpp" />
     <ClCompile Include="MiniBossHPBar.cpp" />
+    <ClCompile Include="MiniBossIdle.cpp" />
     <ClCompile Include="MiniBossSmash.cpp" />
     <ClCompile Include="MiniBossTeleportAttack.cpp" />
     <ClCompile Include="MiniBossTrace.cpp" />

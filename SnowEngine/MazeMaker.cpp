@@ -86,6 +86,7 @@ int MazeMaker::CellSearch(int x, int y)
 					dirArr[y][x] += DIRDOWN;
 					dirArr[y + 1][x] += DIRUP;
 					dirArr[y + 1][x] += 128;
+					dirArr[y + 1][x] += DIRDOWN;
 					//dirArr[y + 1][x]  = 0;
 				}
 				else {
@@ -102,6 +103,7 @@ int MazeMaker::CellSearch(int x, int y)
 					dirArr[y][x] += DIRUP;
 					dirArr[y - 1][x] += DIRDOWN;
 					dirArr[y - 1][x] += 128;
+					dirArr[y - 1][x] += DIRUP;
 					//dirArr[y - 1][x] = 0;
 				}
 				else {
@@ -118,6 +120,7 @@ int MazeMaker::CellSearch(int x, int y)
 					dirArr[y][x] += DIRLEFT;
 					dirArr[y][x - 1] += DIRRIGHT;
 					dirArr[y][x - 1] += 128;
+					dirArr[y][x - 1] += DIRLEFT;
 					//dirArr[y][x - 1] = 0;
 				}
 				else {
@@ -134,6 +137,7 @@ int MazeMaker::CellSearch(int x, int y)
 					dirArr[y][x] += DIRRIGHT;
 					dirArr[y][x + 1] += DIRLEFT;
 					dirArr[y][x + 1] += 128;
+					dirArr[y][x + 1] += DIRRIGHT;
 					//dirArr[y][x + 1] = 0;
 				}
 				else {

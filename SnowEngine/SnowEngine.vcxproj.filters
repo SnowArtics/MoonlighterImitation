@@ -161,10 +161,13 @@
       <Filter>Script\Monster\AI\State\Attack\MiniBossSmash</Filter>
     </ClCompile>
     <ClCompile Include="MiniBossTrace.cpp">
-      <Filter>Script\Monster\AI\State\Attack\MiniBossTrace</Filter>
+      <Filter>Script\Monster\AI\State\Trace\MiniBossTrace</Filter>
     </ClCompile>
     <ClCompile Include="MiniBossTeleportAttack.cpp">
       <Filter>Script\Monster\AI\State\Attack\MiniBossTeleportAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniBossIdle.cpp">
+      <Filter>Script\Monster\AI\State\Idle\MiniBossIdle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -331,10 +334,13 @@
       <Filter>Script\Monster\AI\State\Attack\MiniBossSmash</Filter>
     </ClInclude>
     <ClInclude Include="MiniBossTrace.h">
-      <Filter>Script\Monster\AI\State\Attack\MiniBossTrace</Filter>
+      <Filter>Script\Monster\AI\State\Trace\MiniBossTrace</Filter>
     </ClInclude>
     <ClInclude Include="MiniBossTeleportAttack.h">
       <Filter>Script\Monster\AI\State\Attack\MiniBossTeleportAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniBossIdle.h">
+      <Filter>Script\Monster\AI\State\Idle\MiniBossIdle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -509,11 +515,14 @@
     <Filter Include="Script\Monster\AI\State\Attack\MiniBossSmash">
       <UniqueIdentifier>{a6e5046e-0036-48b1-a782-87dc448dde1d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Script\Monster\AI\State\Attack\MiniBossTrace">
-      <UniqueIdentifier>{53bec08b-0a25-4e88-b5dd-4cb8d5d63f39}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Script\Monster\AI\State\Attack\MiniBossTeleportAttack">
       <UniqueIdentifier>{9e05f582-27d1-42f3-80f9-c4e4737ad343}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\Trace\MiniBossTrace">
+      <UniqueIdentifier>{53bec08b-0a25-4e88-b5dd-4cb8d5d63f39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\Idle\MiniBossIdle">
+      <UniqueIdentifier>{6705c7e1-4a6d-4faf-9ffd-ddf9c9c60903}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

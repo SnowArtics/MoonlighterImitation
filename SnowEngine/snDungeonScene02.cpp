@@ -83,7 +83,7 @@ namespace sn {
 
 		DungeonMapManager::GetInst()->MakeDungeonBackground(DungeonMapManager::GetInst()->GetPlayerMapPos().first, DungeonMapManager::GetInst()->GetPlayerMapPos().second);
 
-		DungeonMapManager::GetInst()->MakeDoor(DungeonMapManager::GetInst()->GetPlayerMapPos().first, DungeonMapManager::GetInst()->GetPlayerMapPos().second);
+		DungeonMapManager::GetInst()->MakeDoor(DungeonMapManager::GetInst()->GetPlayerMapPos().first, DungeonMapManager::GetInst()->GetPlayerMapPos().second, -1);
 
 		//DungeonMapManager::GetInst()->MakeDungeonBackgrounds(DungeonName);
 

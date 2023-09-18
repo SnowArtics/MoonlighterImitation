@@ -375,11 +375,14 @@ void DungeonMapManager::MakeDoors()
 	}
 }
 
-void DungeonMapManager::MakeDoor(int i, int j)
+void DungeonMapManager::MakeDoor(int i, int j, int nextDungeonPos)
 {
+	int bossDoorFlag = false;
+	int bossDoorNum = 0;
 	int doorCount = arr[i][j];
 	if (doorCount >= 128) {
 		doorCount -= 128;
+		bossDoorFlag = true;
 	}
 	if (doorCount / DIRRIGHT == 1) {
 		{
@@ -401,12 +404,15 @@ void DungeonMapManager::MakeDoor(int i, int j)
 			sn::Collider2D* cd = door->AddComponent<sn::Collider2D>();
 			cd->SetSize(Vector2(0.4f, 0.3f));
 
+			if (bossDoorFlag == true && nextDungeonPos == DIRRIGHT) {
+				door->SetName(L"NextDungeonDoor");
+			}
+
 			std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
 			door->AddComponent<DungeonDoor>(DoorType::RIGHT, doorPos);
 
 			roomInfoArr[i][j].doors.push_back(door);
 		}
-
 		doorCount -= DIRRIGHT;
 	}if (doorCount / DIRLEFT == 1) {
 		{
@@ -428,6 +434,10 @@ void DungeonMapManager::MakeDoor(int i, int j)
 
 			sn::Collider2D* cd = door->AddComponent<sn::Collider2D>();
 			cd->SetSize(Vector2(0.4f, 0.3f));
+
+			if (bossDoorFlag == true && nextDungeonPos == DIRLEFT) {
+				door->SetName(L"NextDungeonDoor");
+			}
 
 			std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
 			door->AddComponent<DungeonDoor>(DoorType::LEFT, doorPos);
@@ -458,6 +468,10 @@ void DungeonMapManager::MakeDoor(int i, int j)
 			sn::Collider2D* cd = door->AddComponent<sn::Collider2D>();
 			cd->SetSize(Vector2(0.3f, 0.4f));
 
+			if (bossDoorFlag == true && nextDungeonPos == DIRDOWN) {
+				door->SetName(L"NextDungeonDoor");
+			}
+
 			std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
 			door->AddComponent<DungeonDoor>(DoorType::DOWN, doorPos);
 
@@ -485,6 +499,10 @@ void DungeonMapManager::MakeDoor(int i, int j)
 			door->GetComponent<Transform>()->SetScale(Vector3(1.7f, 1.7f, 0.0f));
 			sn::Collider2D* cd = door->AddComponent<sn::Collider2D>();
 			cd->SetSize(Vector2(0.3f, 0.4f));
+
+			if (bossDoorFlag == true && nextDungeonPos == DIRUP) {
+				door->SetName(L"NextDungeonDoor");
+			}
 
 			std::pair<int, int> doorPos = std::make_pair<int, int>((int)j, (int)i);
 			door->AddComponent<DungeonDoor>(DoorType::UP, doorPos);

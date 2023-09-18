@@ -31,6 +31,7 @@
 #include "MiniBossTrace.h"
 #include "MiniBossSmash.h"
 #include "MiniBossTeleportAttack.h"
+#include "MiniBossIdle.h"
 
 using namespace sn;
 
@@ -492,12 +493,12 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		collider3->SetName(L"Mini_Boss_Third_Collider");
 
 		AI* ai = pMon->AddComponent<AI>(pMon);
-		ai->AddState(new MonsterIdle);
+		ai->AddState(new MiniBossIdle);
 		ai->AddState(new MiniBossTrace);
 		ai->AddState(new MiniBossAttack);
 		ai->AddState(new MiniBossSmash);
 		ai->AddState(new MiniBossTeleportAttack);
-		ai->SetCurState(MON_STATE::IDLE);
+		ai->SetCurState(MON_STATE::MINIBOSS_IDLE);
 
 		pMon->AddComponent<MiniBossHPBar>();
 	}

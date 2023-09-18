@@ -33,7 +33,7 @@ public:
 	void DeleteDungeonBackground(int i, int j);
 	void MakeCliffCollider(int _num, sn::GameObject* _background);
 	void MakeDoors();
-	void MakeDoor(int i, int j);
+	void MakeDoor(int i, int j, int nextDungeonPos);
 	void DeleteDoor(int i, int j);
 	void MonsterSpawn();
 	void MonsterSpawn(int _num, int i, int j);
