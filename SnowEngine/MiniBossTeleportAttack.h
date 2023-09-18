@@ -3,12 +3,12 @@
 
 using namespace sn;
 
-class MiniBossAttack :
+class MiniBossTeleportAttack :
     public State
 {
 public:
-	MiniBossAttack();
-	~MiniBossAttack();
+	MiniBossTeleportAttack();
+	~MiniBossTeleportAttack();
 
 public:
 	virtual void Update();

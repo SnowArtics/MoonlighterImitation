@@ -28,6 +28,9 @@
 #include "MiniBossHPBar.h"
 #include "GolemCorruptedMiniBoss.h"
 #include "MiniBossAttack.h"
+#include "MiniBossTrace.h"
+#include "MiniBossSmash.h"
+#include "MiniBossTeleportAttack.h"
 
 using namespace sn;
 
@@ -490,8 +493,10 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		AI* ai = pMon->AddComponent<AI>(pMon);
 		ai->AddState(new MonsterIdle);
-		ai->AddState(new MonsterTrace);
+		ai->AddState(new MiniBossTrace);
 		ai->AddState(new MiniBossAttack);
+		ai->AddState(new MiniBossSmash);
+		ai->AddState(new MiniBossTeleportAttack);
 		ai->SetCurState(MON_STATE::IDLE);
 
 		pMon->AddComponent<MiniBossHPBar>();

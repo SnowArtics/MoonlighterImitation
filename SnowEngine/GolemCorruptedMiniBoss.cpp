@@ -16,9 +16,7 @@
 #include <random>
 
 GolemCorruptedMiniBoss::GolemCorruptedMiniBoss()
-	: randomNum(1)
-	, prevRandomNum(1)
-	, firstColliderAttTime(-0.1f)
+	: firstColliderAttTime(-0.1f)
 	, secondColliderAttTime(0.f)
 	, waveCreateTime(0.f)
 	, waveCreatePos(Vector3(0.0f, 0.0f, 0.f))
@@ -49,7 +47,7 @@ void GolemCorruptedMiniBoss::Update()
 		firstColliderAttTime += Time::DeltaTime();
 	}		
 
-	if (firstColliderAttTime > 0.5f) {
+	if (firstColliderAttTime > 0.1f) {
 		secondCollider->SetEnable(true);
 	}
 
@@ -70,21 +68,12 @@ void GolemCorruptedMiniBoss::Update()
 
 	Animator* animator = GetComponent<Animator>();
 
-	//std::random_device rd;
-	//std::mt19937 gen(rd());
-	//
-	//std::uniform_int_distribution<> distribution(1, 2);
-	//
-	//randomNum = distribution(gen); // randomNums이 1일때 휘두르기 공격, 2일때 충격파 공격
-
 	if (monDir != ai->GetPrevDir() || monState != ai->GetPrevStateName()) {
 		switch (monState)
 		{
 		case MON_STATE::IDLE:
 			break;
-		case MON_STATE::WALK:
-			break;
-		case MON_STATE::TRACE:
+		case MON_STATE::MINIBOSS_TRACE:
 		{
 			if (firstColliderAttTime == -0.1f) {
 				MiniBossHPBar* miniBossHPBar = GetComponent<MiniBossHPBar>();
@@ -115,42 +104,34 @@ void GolemCorruptedMiniBoss::Update()
 			}
 		}
 		break;
-		case MON_STATE::ATT:
-		{
-			if (randomNum == 1) {
+		case MON_STATE::MINIBOSS_ATT:
+		{			
 				secondColliderAttTime = 0.f;
 				waveCreateTime = 0.f;
-				if (firstColliderAttTime == 0.f) {
-					firstColliderAttTime = 0.1f;
-				}
+				firstColliderAttTime = 0.f;
 				thirdCollider->SetEnable(false);
 				switch (monDir)
 				{
 				case MonDir::UP:
-					secondCollider->SetSize(Vector2(0.6f, 0.4f));
-					secondCollider->SetCenter(Vector2(0.0f, 0.3f));
 					animator->PlayAnimation(L"GOLEM_TELEPORT_ATTACK_PREV_UP", false);
 					break;
 				case MonDir::DOWN:
-					secondCollider->SetSize(Vector2(0.6f, 0.4f));
-					secondCollider->SetCenter(Vector2(0.0f, -0.5f));
 					animator->PlayAnimation(L"GOLEM_TELEPORT_ATTACK_PREV_DOWN", false);
 					break;
 				case MonDir::RIGHT:
-					secondCollider->SetSize(Vector2(0.4f, 0.6f));
-					secondCollider->SetCenter(Vector2(+0.4f, -0.1f));
 					animator->PlayAnimation(L"GOLEM_TELEPORT_ATTACK_PREV_RIGHT", false);
 					break;
 				case MonDir::LEFT:
-					secondCollider->SetSize(Vector2(0.4f, 0.6f));
-					secondCollider->SetCenter(Vector2(-0.4f, -0.1f));
 					animator->PlayAnimation(L"GOLEM_TELEPORT_ATTACK_PREV_LEFT", false);
 					break;
 				default:
 					break;
 				}
-			}
-			else if (randomNum == 2) {
+		}
+			break;
+
+		case MON_STATE::MINIBOSS_SMASH:
+		{			
 				firstColliderAttTime = 0.f;
 				if (secondColliderAttTime == 0.f) {
 					secondColliderAttTime = 0.1f;
@@ -196,16 +177,49 @@ void GolemCorruptedMiniBoss::Update()
 				default:
 					break;
 				}
+			
+		}
+			break;
+		case MON_STATE::MINIBOSS_TELEPORT_ATTACK:
+		{
+			secondColliderAttTime = 0.f;
+			waveCreateTime = 0.f;
+			if (firstColliderAttTime == 0.f) {
+				firstColliderAttTime = 0.1f;
+			}
+			thirdCollider->SetEnable(false);
+			switch (monDir)
+			{
+			case MonDir::UP:
+				secondCollider->SetSize(Vector2(0.6f, 0.4f));
+				secondCollider->SetCenter(Vector2(0.0f, 0.3f));
+				animator->PlayAnimation(L"GOLEM_TELEPORT_ATTACK_UP", false);
+				break;
+			case MonDir::DOWN:
+				secondCollider->SetSize(Vector2(0.6f, 0.4f));
+				secondCollider->SetCenter(Vector2(0.0f, -0.5f));
+				animator->PlayAnimation(L"GOLEM_TELEPORT_ATTACK_DOWN", false);
+				break;
+			case MonDir::RIGHT:
+				secondCollider->SetSize(Vector2(0.4f, 0.6f));
+				secondCollider->SetCenter(Vector2(+0.4f, -0.1f));
+				animator->PlayAnimation(L"GOLEM_TELEPORT_ATTACK_RIGHT", false);
+				break;
+			case MonDir::LEFT:
+				secondCollider->SetSize(Vector2(0.4f, 0.6f));
+				secondCollider->SetCenter(Vector2(-0.4f, -0.1f));
+				animator->PlayAnimation(L"GOLEM_TELEPORT_ATTACK_LEFT", false);
+				break;
+			default:
+				break;
 			}
 		}
-		break;
+			break;
 		default:
 			break;
 		}
 
 	}
-
-	prevRandomNum = randomNum;
 
 	Monster::Update();
 }

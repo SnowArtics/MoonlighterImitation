@@ -23,14 +23,7 @@ public:
 public:
     void CreateWave(Vector3 _transform);
 
-public:
-    void SetRandomNum(int _randomNum) { randomNum = _randomNum; }
-
-    int GetRandomNum() { return randomNum; }
-
 private:
-    int prevRandomNum;
-    int randomNum;
     float firstColliderAttTime;
     float secondColliderAttTime;
     float waveCreateTime;
