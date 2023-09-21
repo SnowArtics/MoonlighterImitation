@@ -56,7 +56,7 @@ namespace sn {
 		CollisionManager::SetLayer(eLayerType::Background, eLayerType::Door, false);
 
 		MazeMaker::GetInst()->Init();
-		MazeMaker::GetInst()->BackTracking(2, 1);
+		MazeMaker::GetInst()->BackTracking(3, 2);
 		arr = MazeMaker::GetInst()->GetDirArr();
 		DungeonMapManager::GetInst()->SetDungeonArr(arr);
 		std::pair<int, int> firstPlayerPos = MazeMaker::GetInst()->GetStartPos();
@@ -79,7 +79,9 @@ namespace sn {
 		DungeonName.push_back(L"DungeonBackgroundMaterial12-0");
 		DungeonName.push_back(L"DungeonBackgroundMaterial13-0");
 
-		std::shuffle(DungeonName.begin(), DungeonName.end(), std::default_random_engine());
+		std::default_random_engine engine(static_cast<unsigned int>(std::time(nullptr)));
+
+		std::shuffle(DungeonName.begin(), DungeonName.end(), engine);
 
 		DungeonMapManager::GetInst()->SetDungeonName(DungeonName);
 

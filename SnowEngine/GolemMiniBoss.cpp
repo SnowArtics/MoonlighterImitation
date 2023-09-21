@@ -52,6 +52,10 @@ void GolemMiniBoss::Update()
 		secondCollider->SetEnable(true);
 	}
 
+	if (firstColliderAttTime > 0.8f) {
+		secondCollider->SetEnable(false);
+	}
+
 	if (secondColliderAttTime >= 0.1f)
 		secondColliderAttTime += Time::DeltaTime();
 

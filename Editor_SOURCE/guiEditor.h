@@ -25,5 +25,6 @@ namespace gui
 		static std::vector<Widget*> mWidgets;
 		static std::vector<EditorObject*> mEditorObjects;
 		static std::vector<DebugObject*> mDebugObjects;
+		static bool colliderViewActive;
 	};
 }

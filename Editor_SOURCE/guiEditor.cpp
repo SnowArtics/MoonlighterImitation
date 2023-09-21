@@ -6,6 +6,7 @@
 #include "../Engine_SOURCE/snMaterial.h"
 #include "../SnowEngine/snGridScript.h"
 #include "../Engine_SOURCE/snRenderer.h"
+#include "../Engine_SOURCE/snInput.h"
 
 namespace gui
 {
@@ -13,6 +14,7 @@ namespace gui
 	std::vector<Widget*> Editor::mWidgets = {};
 	std::vector<EditorObject*> Editor::mEditorObjects = {};
 	std::vector<DebugObject*> Editor::mDebugObjects = {};
+	bool Editor::colliderViewActive = true;
 
 	void Editor::Initialize()
 	{
@@ -86,6 +88,13 @@ namespace gui
 			obj->Render();
 		}
 
+		if (sn::Input::GetKeyDown(sn::eKeyCode::B)) {
+			if (colliderViewActive == true)
+				colliderViewActive = false;
+			else if (colliderViewActive == false)
+				colliderViewActive = true;
+		}
+
 		for (const sn::graphics::DebugMesh& mesh
 			: renderer::debugMeshs)
 		{
@@ -137,13 +146,17 @@ namespace gui
 		sn::Camera* mainCamara = renderer::mainCamera;
 
 		//밑의 두 문장의 주석을 해제하면 충돌체가 Camera를 따라다님. 주석을 치면 충돌체가 오브젝트에 붙어 있음. 필요할 때 알아서 할 것.
-			sn::Camera::SetGpuViewMatrix(mainCamara->GetViewMatrix());
-			sn::Camera::SetGpuProjectionMatrix(mainCamara->GetProjectionMatrix());
+		sn::Camera::SetGpuViewMatrix(mainCamara->GetViewMatrix());
+		sn::Camera::SetGpuProjectionMatrix(mainCamara->GetProjectionMatrix());
 
 		//충돌체 색깔 렌더링
 		renderer::EditorCB editorCB = {};
 		ConstantBuffer* cb = renderer::constantBuffer[(UINT)eCBType::Editor];
-		if (mesh.hit == true) {
+		if (colliderViewActive == false) {
+			editorCB.ColliderColor = Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+			cb->SetData(&editorCB);
+		}
+		else if (mesh.hit == true) {
 			editorCB.ColliderColor = Vector4(1.0f, 0.0f, 0.0f, 1.0f);
 			cb->SetData(&editorCB);
 		}
@@ -155,6 +168,5 @@ namespace gui
 		cb->Bind(eShaderStage::PS);
 		
 		debugObj->Render();
-
 	}
 }
