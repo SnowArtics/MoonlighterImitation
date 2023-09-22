@@ -13,6 +13,9 @@
 #include "snInput.h"
 #include "snRenderer.h"
 
+#include "MonFactory.h"
+#include "GolemKing.h"
+
 namespace sn
 {
 	DungeonBoss::DungeonBoss()
@@ -24,7 +27,7 @@ namespace sn
 	void DungeonBoss::Initialize()
 	{
 		{
-			//던전 배경 로딩
+			//던전 배경 로딩 //1.7777777777777
 			GameObject* Background = new GameObject();
 			AddGameObject(eLayerType::Background, Background);
 			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
@@ -32,7 +35,13 @@ namespace sn
 			mr->SetMaterial(Resources::Find<Material>(L"DungeonBossRoom01"));
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
-			Background->GetComponent<Transform>()->SetScale(Vector3(9.77777735f, 5.5f, 2.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(17.73399014778f, 12.f, 1.0f));
+		}
+
+		{
+			//보스몹 생성
+			GolemKing* pMon = static_cast<GolemKing*>(MonFactory::CreateMonster(MonType::GOLEMKING, Vector2(0.39f, 2.8f)));
+			AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		}
 
 		{
@@ -105,19 +114,20 @@ namespace sn
 				UI->GetComponent<Transform>()->SetScale(Vector3(9.599958f, 5.4f, 2.0f));
 			}
 		}
+
 		{
 			//Main Camera
 			GameObject* camera = new GameObject();
 			AddGameObject(eLayerType::Player, camera);
-			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
+			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 1.0f, -10.0f));
 			Camera* cameraComp = camera->AddComponent<Camera>();
+			cameraComp->EnableLayerMasks();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 			SetMainCamera(cameraComp);
 		}
-
 		//UI Camera
 		{
 			GameObject* camera = new GameObject();
@@ -127,6 +137,15 @@ namespace sn
 			cameraComp->DisableLayerMasks();
 			cameraComp->TurnLayerMask(eLayerType::UI, true);
 			//camera->AddComponent<CameraScript>();
+		}
+		// Light
+		{
+			GameObject* light = new GameObject();
+			light->SetName(L"DirectionalLight01");
+			AddGameObject(eLayerType::Light, light);
+			Light* lightComp = light->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
 		}
 		Scene::Initialize();
 	}

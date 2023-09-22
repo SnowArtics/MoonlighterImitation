@@ -13,6 +13,7 @@ enum class MonType {
 	GOLEMMINIBOSS,
 	GOLEMCORRUPTMINIBOSS,
 	SLIMEHERMIT,
+	GOLEMKING,
 };
 
 class MonFactory

@@ -32,6 +32,9 @@
 #include "MiniBossSmash.h"
 #include "MiniBossTeleportAttack.h"
 #include "MiniBossIdle.h"
+#include "GolemKing.h"
+#include "GolemKingUp.h"
+#include "GolemKingIdle.h"
 
 using namespace sn;
 
@@ -549,6 +552,67 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
 		monsterHPBar->CreateHpBar();
+	}
+	break;
+
+	case MonType::GOLEMKING:
+	{
+		pMon = new GolemKing;
+		pMon->SetName(L"GOLEMKING");
+		Transform* tr = pMon->GetComponent<Transform>();
+		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
+		tr->SetScale(5.5f, 5.5f, 3.0f);
+
+		tMonInfo info = {};
+		info.fAtt = 30.f;
+		info.fAttRange = 1.5f;
+		info.fRecogRange = 300.f;
+		info.fHP = 1000.f;
+		info.fSpeed = 0.5f;
+		info.fAttTime = 1.5f;
+		info.fAttDelay = 1.f;
+
+		pMon->SetMonInfo(info);
+
+		MeshRenderer* mr = pMon->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+		std::shared_ptr<Texture> atlas
+			= Resources::Load<Texture>(L"GolemKing", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemKing\\Boss1.png");
+		Animator* at = pMon->AddComponent<Animator>();
+
+		at->Create(L"GOLEMKING_UP", atlas, Vector2(0.0f, 0.0f), Vector2(350.f, 350.f), 32, 360.f);
+		at->Create(L"GOLEMKING_IDLE", atlas, Vector2(0.0f, 350.f), Vector2(350.f, 350.f), 16, 360.f);
+		at->Create(L"GOLEMKING_ROCK_ATTACK", atlas, Vector2(0.0f, 700.f), Vector2(350.f, 350.f), 43, 360.f);
+		at->Create(L"GOLEMKING_ARM_LAUNCH", atlas, Vector2(0.0f, 1050.f), Vector2(350.f, 350.f), 20, 360.f);
+		at->Create(L"GOLEMKING_NO_ARM_IDLE", atlas, Vector2(0.0f, 1400.f), Vector2(350.f, 350.f), 16, 360.f);
+		at->Create(L"GOLEMKING_ARM_RECOVER", atlas, Vector2(0.0f, 1750.f), Vector2(350.f, 350.f), 11, 360.f);
+		at->Create(L"GOLEMKING_AIM_PREPARE", atlas, Vector2(0.0f, 2100.f), Vector2(350.f, 350.f), 16, 360.f);
+		at->Create(L"GOLEMKING_AIM_CYCLE_1", atlas, Vector2(0.0f, 2450.f), Vector2(350.f, 350.f), 16, 360.f);
+		at->Create(L"GOLEMKING_AIM_CYCLE_2", atlas, Vector2(0.0f, 2450.f), Vector2(350.f, 350.f), 16, 360.f);
+		at->Create(L"GOLEMKING_AIM_END", atlas, Vector2(0.0f, 2800.f), Vector2(350.f, 350.f), 32, 360.f);
+
+		atlas = Resources::Load<Texture>(L"GolemKing_Shoot", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemKing\\FistShoot.png");
+
+		at->Create(L"GOLEMKING_AIM_SHOOT", atlas, Vector2(0.0f, 700.f), Vector2(350.f, 350.f), 16);
+
+		atlas = Resources::Load<Texture>(L"GolemKing_Shoot", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemKing\\FistShoot.png");
+
+		at->Create(L"GOLEMKING_DEATH", atlas, Vector2(0.0f, 0.f), Vector2(350.f, 350.f), 41);
+
+		at->PlayAnimation(L"GOLEMKING_IDLE", true);
+
+		sn::Collider2D* collider = pMon->AddComponent<sn::Collider2D>();
+		collider->SetSize(Vector2(0.2f, 0.25f));
+		collider->SetCenter(Vector2(0.0f, -0.1f));
+
+		AI* ai = pMon->AddComponent<AI>(pMon);
+		ai->AddState(new GolemKingUp);
+		ai->AddState(new GolemKingIdle);
+		ai->SetCurState(MON_STATE::GOLEMKING_UP);
+
+		pMon->AddComponent<MiniBossHPBar>();
 	}
 	break;
 	default:

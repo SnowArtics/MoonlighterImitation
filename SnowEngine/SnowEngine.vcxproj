@@ -170,6 +170,9 @@
     <ClInclude Include="FylingRepairGolem.h" />
     <ClInclude Include="Golem.h" />
     <ClInclude Include="GolemCorruptedMiniBoss.h" />
+    <ClInclude Include="GolemKing.h" />
+    <ClInclude Include="GolemKingIdle.h" />
+    <ClInclude Include="GolemKingUp.h" />
     <ClInclude Include="GolemMiniBoss.h" />
     <ClInclude Include="GolemSmashWave.h" />
     <ClInclude Include="GolemTurret.h" />
@@ -266,6 +269,9 @@
     <ClCompile Include="FylingRepairGolem.cpp" />
     <ClCompile Include="Golem.cpp" />
     <ClCompile Include="GolemCorruptedMiniBoss.cpp" />
+    <ClCompile Include="GolemKing.cpp" />
+    <ClCompile Include="GolemKingIdle.cpp" />
+    <ClCompile Include="GolemKingUp.cpp" />
     <ClCompile Include="GolemMiniBoss.cpp" />
     <ClCompile Include="GolemSmashWave.cpp" />
     <ClCompile Include="GolemTurret.cpp" />

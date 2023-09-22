@@ -169,6 +169,15 @@
     <ClCompile Include="MiniBossIdle.cpp">
       <Filter>Script\Monster\AI\State\Idle\MiniBossIdle</Filter>
     </ClCompile>
+    <ClCompile Include="GolemKing.cpp">
+      <Filter>Script\Monster\Monster\GolemKing</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemKingUp.cpp">
+      <Filter>Script\Monster\AI\State\GolemKingUp</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemKingIdle.cpp">
+      <Filter>Script\Monster\AI\State\GolemKingIdle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -341,6 +350,15 @@
     </ClInclude>
     <ClInclude Include="MiniBossIdle.h">
       <Filter>Script\Monster\AI\State\Idle\MiniBossIdle</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKing.h">
+      <Filter>Script\Monster\Monster\GolemKing</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingUp.h">
+      <Filter>Script\Monster\AI\State\GolemKingUp</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingIdle.h">
+      <Filter>Script\Monster\AI\State\GolemKingIdle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -523,6 +541,15 @@
     </Filter>
     <Filter Include="Script\Monster\AI\State\Idle\MiniBossIdle">
       <UniqueIdentifier>{6705c7e1-4a6d-4faf-9ffd-ddf9c9c60903}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\Monster\GolemKing">
+      <UniqueIdentifier>{1d1970d9-021d-46e4-838c-275c5b7e77bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\GolemKingUp">
+      <UniqueIdentifier>{af13c6e3-464a-488a-8b67-ed4aa4350d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\GolemKingIdle">
+      <UniqueIdentifier>{58050573-c043-465a-a9ca-37cec2a4687c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

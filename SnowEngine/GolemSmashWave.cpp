@@ -37,7 +37,6 @@ void GolemSmashWave::Update()
 	Vector3 pos = tr->GetPosition();
 	Vector3 scale = tr->GetScale();
 
-
 	tr->SetScale(scale + scaleIncrease);
 
 	float cycleDistance = (scale.x + scaleIncrease.x) / 2.f;
