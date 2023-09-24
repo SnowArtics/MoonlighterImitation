@@ -3,12 +3,12 @@
 
 using namespace sn;
 
-class GolemKingIdle :
+class GolemKingRockAttack :
     public State
 {
 public:
-	GolemKingIdle();
-	~GolemKingIdle();
+	GolemKingRockAttack();
+	~GolemKingRockAttack();
 
 public:
 	virtual void Update();

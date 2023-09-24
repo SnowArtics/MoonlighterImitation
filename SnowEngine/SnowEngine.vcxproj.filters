@@ -178,6 +178,21 @@
     <ClCompile Include="GolemKingIdle.cpp">
       <Filter>Script\Monster\AI\State\GolemKingIdle</Filter>
     </ClCompile>
+    <ClCompile Include="GolemKingRockAttack.cpp">
+      <Filter>Script\Monster\AI\State\GolemKingRockAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemKingArmAttack.cpp">
+      <Filter>Script\Monster\AI\State\GolemKingArmAttack</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemKingWave.cpp">
+      <Filter>Script\Monster\AI\State\GolemkingWave</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemKingDeath.cpp">
+      <Filter>Script\Monster\AI\State\GolemKingDeath</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemKingAimAttack.cpp">
+      <Filter>Script\Monster\AI\State\GolemKingAimAttack</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -359,6 +374,21 @@
     </ClInclude>
     <ClInclude Include="GolemKingIdle.h">
       <Filter>Script\Monster\AI\State\GolemKingIdle</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingRockAttack.h">
+      <Filter>Script\Monster\AI\State\GolemKingRockAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingArmAttack.h">
+      <Filter>Script\Monster\AI\State\GolemKingArmAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingWave.h">
+      <Filter>Script\Monster\AI\State\GolemkingWave</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingDeath.h">
+      <Filter>Script\Monster\AI\State\GolemKingDeath</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingAimAttack.h">
+      <Filter>Script\Monster\AI\State\GolemKingAimAttack</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -550,6 +580,21 @@
     </Filter>
     <Filter Include="Script\Monster\AI\State\GolemKingIdle">
       <UniqueIdentifier>{58050573-c043-465a-a9ca-37cec2a4687c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\GolemKingRockAttack">
+      <UniqueIdentifier>{11461889-fd2b-4843-8aff-46341cf1a679}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\GolemKingArmAttack">
+      <UniqueIdentifier>{b9a0a94b-0909-495a-9ab9-c6a39a095160}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\GolemkingWave">
+      <UniqueIdentifier>{452f6e44-b8c3-440e-a8ab-7642add01eb7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\GolemKingAimAttack">
+      <UniqueIdentifier>{30921e99-db60-4b0d-a9ad-2159db1b7cab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\GolemKingDeath">
+      <UniqueIdentifier>{635d02c2-5a33-4104-95f4-dbb5e837db13}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

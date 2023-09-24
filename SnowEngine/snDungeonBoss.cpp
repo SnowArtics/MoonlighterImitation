@@ -40,7 +40,7 @@ namespace sn
 
 		{
 			//º¸½º¸÷ »ý¼º
-			GolemKing* pMon = static_cast<GolemKing*>(MonFactory::CreateMonster(MonType::GOLEMKING, Vector2(0.39f, 2.8f)));
+			GolemKing* pMon = static_cast<GolemKing*>(MonFactory::CreateMonster(MonType::GOLEMKING, Vector2(0.42f, 2.76f)));
 			AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		}
 

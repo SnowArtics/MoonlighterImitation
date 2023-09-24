@@ -171,8 +171,13 @@
     <ClInclude Include="Golem.h" />
     <ClInclude Include="GolemCorruptedMiniBoss.h" />
     <ClInclude Include="GolemKing.h" />
+    <ClInclude Include="GolemKingAimAttack.h" />
+    <ClInclude Include="GolemKingArmAttack.h" />
+    <ClInclude Include="GolemKingDeath.h" />
     <ClInclude Include="GolemKingIdle.h" />
+    <ClInclude Include="GolemKingRockAttack.h" />
     <ClInclude Include="GolemKingUp.h" />
+    <ClInclude Include="GolemKingWave.h" />
     <ClInclude Include="GolemMiniBoss.h" />
     <ClInclude Include="GolemSmashWave.h" />
     <ClInclude Include="GolemTurret.h" />
@@ -270,8 +275,13 @@
     <ClCompile Include="Golem.cpp" />
     <ClCompile Include="GolemCorruptedMiniBoss.cpp" />
     <ClCompile Include="GolemKing.cpp" />
+    <ClCompile Include="GolemKingAimAttack.cpp" />
+    <ClCompile Include="GolemKingArmAttack.cpp" />
+    <ClCompile Include="GolemKingDeath.cpp" />
     <ClCompile Include="GolemKingIdle.cpp" />
+    <ClCompile Include="GolemKingRockAttack.cpp" />
     <ClCompile Include="GolemKingUp.cpp" />
+    <ClCompile Include="GolemKingWave.cpp" />
     <ClCompile Include="GolemMiniBoss.cpp" />
     <ClCompile Include="GolemSmashWave.cpp" />
     <ClCompile Include="GolemTurret.cpp" />

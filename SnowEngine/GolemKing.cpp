@@ -36,6 +36,21 @@ void GolemKing::Update()
 			animator->PlayAnimation(L"GOLEMKING_IDLE", true);
 		}
 			break;
+		case MON_STATE::GOLEMKING_ROCK_ATTACK:
+		{
+			animator->PlayAnimation(L"GOLEMKING_ROCK_ATTACK", false);
+		}
+		break;
+		case MON_STATE::GOLEMKING_ARM_ATTACK:
+		{
+			animator->PlayAnimation(L"GOLEMKING_ARM_LAUNCH", false);
+		}
+		break;
+		case MON_STATE::GOLEMKING_AIM_ATTACK:
+		{
+			animator->PlayAnimation(L"GOLEMKING_AIM_PREPARE", false);
+		}
+		break;
 		case MON_STATE::DEAD:
 			break;
 		default:

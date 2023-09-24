@@ -19,6 +19,7 @@ void GolemKingUp::Update()
 	executionTime += Time::DeltaTime();
 
 	if (executionTime >= endTime) {
+		executionTime = 0.f;
 		SceneManager::ChangeMonsterState(GetAI(), MON_STATE::GOLEMKING_IDLE);
 	}
 }
