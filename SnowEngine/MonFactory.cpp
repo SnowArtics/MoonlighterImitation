@@ -611,12 +611,12 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		collider->SetCenter(Vector2(0.0f, -0.1f));
 
 		sn::Collider2D* collider2 = pMon->AddComponent<sn::Collider2D>();
-		collider2->SetEnable(false);
 		collider2->SetName(L"GolemKing_Rock_Attack_Collider");
+		collider2->SetSize(Vector2(0.3f, 0.1f));
+		collider2->SetCenter(Vector2(0.3f, -1.9f));
 		collider2->SetEnable(false);
 
 		sn::Collider2D* collider3 = pMon->AddComponent<sn::Collider2D>();
-		collider3->SetEnable(false);
 		collider3->SetName(L"GolemKing_wave_Collider");
 		collider3->SetEnable(false);
 

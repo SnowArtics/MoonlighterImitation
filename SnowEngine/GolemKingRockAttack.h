@@ -18,5 +18,6 @@ public:
 private:
 	float endTime;
 	float executionTime;
+	bool colliderTrigger;
 };
 

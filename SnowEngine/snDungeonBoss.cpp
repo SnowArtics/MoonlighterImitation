@@ -35,7 +35,7 @@ namespace sn
 			mr->SetMaterial(Resources::Find<Material>(L"DungeonBossRoom01"));
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
-			Background->GetComponent<Transform>()->SetScale(Vector3(17.73399014778f, 12.f, 1.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(17.73399014778f, 12.f, 0.0f));
 		}
 
 		{

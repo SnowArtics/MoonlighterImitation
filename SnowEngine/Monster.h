@@ -48,7 +48,7 @@ public:
     void SetMonsterMapPos(int x, int y) { monsterMapPos.second = y, monsterMapPos.first = x; }
     void SetMonsterInfo(tMonInfo _MonInfo) { m_tInfo = _MonInfo; }
 
-private:
+protected:
     void SetMonInfo(const tMonInfo& _info) { m_tInfo = _info; }
 
 protected:

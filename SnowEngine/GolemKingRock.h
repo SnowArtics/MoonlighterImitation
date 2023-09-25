@@ -1,14 +1,14 @@
 #pragma once
-#include "Monster.h"
+#include "snGameObject.h"
 
 using namespace sn;
 
-class GolemKing :
-    public Monster
+class GolemKingRock :
+    public sn::GameObject
 {
 public:
-    GolemKing();
-    ~GolemKing();
+    GolemKingRock();
+    virtual ~GolemKingRock();
 
 public:
     virtual void Initialize();
@@ -17,14 +17,21 @@ public:
     virtual void Render();
 
 public:
-    void CreateRocks();
-
-public:
     virtual void OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me);
     virtual void OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me);
     virtual void OnCollisionExit(sn::Collider2D* other, sn::Collider2D* me);
 
-private:
-    std::vector<Vector3> rockPoses;
-};
+public:
+    void SetDestinationPos(Vector3 _des) { desPos = _des; curPos = desPos; curPos.y = desPos.y + 3.f; }
 
+    Vector3 GetDestinationPos() { return desPos; }
+
+private:
+    float endTime;
+    float executionTime;
+
+    Vector3 curPos;
+    Vector3 desPos;
+
+    bool rockTrigger;
+};

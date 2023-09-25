@@ -193,6 +193,9 @@
     <ClCompile Include="GolemKingAimAttack.cpp">
       <Filter>Script\Monster\AI\State\GolemKingAimAttack</Filter>
     </ClCompile>
+    <ClCompile Include="GolemKingRock.cpp">
+      <Filter>Script\Monster\Monster\GolemKing\GolemKingRock</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -389,6 +392,9 @@
     </ClInclude>
     <ClInclude Include="GolemKingAimAttack.h">
       <Filter>Script\Monster\AI\State\GolemKingAimAttack</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingRock.h">
+      <Filter>Script\Monster\Monster\GolemKing\GolemKingRock</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -595,6 +601,9 @@
     </Filter>
     <Filter Include="Script\Monster\AI\State\GolemKingDeath">
       <UniqueIdentifier>{635d02c2-5a33-4104-95f4-dbb5e837db13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\Monster\GolemKing\GolemKingRock">
+      <UniqueIdentifier>{e3b22662-9ba6-4701-87b6-cec8891ff0db}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
