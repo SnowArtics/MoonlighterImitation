@@ -607,8 +607,8 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		at->PlayAnimation(L"GOLEMKING_IDLE", true);
 
 		sn::Collider2D* collider = pMon->AddComponent<sn::Collider2D>();
-		collider->SetSize(Vector2(0.2f, 0.25f));
-		collider->SetCenter(Vector2(0.0f, -0.1f));
+		collider->SetSize(Vector2(0.4f, 0.4f));
+		collider->SetCenter(Vector2(-0.1f, -0.3f));
 
 		sn::Collider2D* collider2 = pMon->AddComponent<sn::Collider2D>();
 		collider2->SetName(L"GolemKing_Rock_Attack_Collider");

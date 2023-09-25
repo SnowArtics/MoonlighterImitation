@@ -30,7 +30,7 @@ GolemKing::GolemKing()
 			Vector3 rockPos;
 			rockPos.x = monPos.x + (3.5f + j*1.25f) * cos(XMConvertToRadians(-i * 7.5f - 15.f));
 			rockPos.y = monPos.y + (4.f+j*1.75f) * sin(XMConvertToRadians(-i * 7.5f - 15.f));
-			rockPos.z = -1.0f;
+			rockPos.z = 0.0f;
 
 			rockPoses.push_back(rockPos);
 		}
@@ -48,6 +48,10 @@ void GolemKing::Initialize()
 
 void GolemKing::Update()
 {
+	if (GetMonsterInfo().fHP <= 0.f) {
+		GetComponent<AI>()->ChangeState(MON_STATE::GOLEMKING_DEATH);
+	}
+
 	curTime += Time::DeltaTime();
 	if (curTime > 3.2f && bossHPBarTrigger) { // 3.2檬饶 UI 积己(BossUp Animation 场唱绊 UI 积己)
 		GetComponent<MiniBossHPBar>()->CreateHpBar();
@@ -126,6 +130,13 @@ void GolemKing::CreateRocks()
 
 void GolemKing::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
+	Monster::OnCollisionEnter(other, me);
+	if (other->GetName() == L"SecondCollider") {
+		tMonInfo monInfo = GetMonsterInfo();
+		monInfo.fHP -= 30.f;
+		this->GetComponent<MiniBossHPBar>()->PlayDamage(30.f);
+		SetMonsterInfo(monInfo);
+	}
 }
 
 void GolemKing::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
