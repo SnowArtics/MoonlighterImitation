@@ -626,7 +626,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new GolemKingRockAttack);
 		ai->AddState(new GolemKingAimAttack);
 		ai->AddState(new GolemKingArmAttack);
-		ai->SetCurState(MON_STATE::GOLEMKING_IDLE);
+		ai->SetCurState(MON_STATE::GOLEMKING_UP);
 
 		pMon->AddComponent<MiniBossHPBar>();
 	}

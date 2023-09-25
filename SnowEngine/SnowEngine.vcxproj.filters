@@ -196,6 +196,9 @@
     <ClCompile Include="GolemKingRock.cpp">
       <Filter>Script\Monster\Monster\GolemKing\GolemKingRock</Filter>
     </ClCompile>
+    <ClCompile Include="BossCamera.cpp">
+      <Filter>Script\Camera</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -395,6 +398,9 @@
     </ClInclude>
     <ClInclude Include="GolemKingRock.h">
       <Filter>Script\Monster\Monster\GolemKing\GolemKingRock</Filter>
+    </ClInclude>
+    <ClInclude Include="BossCamera.h">
+      <Filter>Script\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -7,6 +7,8 @@
 #include "GolemKingRock.h"
 #include "snTransform.h"
 #include "Monster.h"
+#include "snTime.h"
+#include "MiniBossHPBar.h"
 
 #include "snMeshRenderer.h"
 #include "snCollider2D.h"
@@ -16,6 +18,8 @@
 #include <random>
 
 GolemKing::GolemKing()
+	:curTime(0.0f)
+	, bossHPBarTrigger(true)
 {
 	//rockPoses.push_back(Vector3(0.4f, -1.0f, -1.0f));
 	//rockPoses.push_back(Vector3(-0.1f, -0.5f, -1.0f));
@@ -24,8 +28,8 @@ GolemKing::GolemKing()
 	for (int j = 0; j < 3; j++) {
 		for (int i = 0; i < 21; i++) {
 			Vector3 rockPos;
-			rockPos.x = monPos.x + (3.5f + j*1.5f) * cos(XMConvertToRadians(-i * 7.5f - 15.f));
-			rockPos.y = monPos.y + (4.f+j*2.f) * sin(XMConvertToRadians(-i * 7.5f - 15.f));
+			rockPos.x = monPos.x + (3.5f + j*1.25f) * cos(XMConvertToRadians(-i * 7.5f - 15.f));
+			rockPos.y = monPos.y + (4.f+j*1.75f) * sin(XMConvertToRadians(-i * 7.5f - 15.f));
 			rockPos.z = -1.0f;
 
 			rockPoses.push_back(rockPos);
@@ -44,6 +48,12 @@ void GolemKing::Initialize()
 
 void GolemKing::Update()
 {
+	curTime += Time::DeltaTime();
+	if (curTime > 3.2f && bossHPBarTrigger) { // 3.2檬饶 UI 积己(BossUp Animation 场唱绊 UI 积己)
+		GetComponent<MiniBossHPBar>()->CreateHpBar();
+		bossHPBarTrigger = false;
+	}
+
 	AI* ai = GetComponent<AI>();
 	MON_STATE monState = ai->GetCurStateName();
 

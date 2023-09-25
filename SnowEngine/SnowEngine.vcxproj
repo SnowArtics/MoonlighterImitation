@@ -165,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BossCamera.h" />
     <ClInclude Include="DungeonMapManager.h" />
     <ClInclude Include="EntranceDoor.h" />
     <ClInclude Include="FylingRepairGolem.h" />
@@ -270,6 +271,7 @@
     <ClInclude Include="TurretBrokenAttack.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BossCamera.cpp" />
     <ClCompile Include="DungeonMapManager.cpp" />
     <ClCompile Include="EntranceDoor.cpp" />
     <ClCompile Include="FylingRepairGolem.cpp" />

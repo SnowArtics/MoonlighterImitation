@@ -26,5 +26,8 @@ public:
 
 private:
     std::vector<Vector3> rockPoses;
+    float curTime;
+
+    bool bossHPBarTrigger;
 };
 
