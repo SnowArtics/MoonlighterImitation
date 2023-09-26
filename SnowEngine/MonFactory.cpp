@@ -38,6 +38,7 @@
 #include "GolemKingRockAttack.h"
 #include "GolemKingAimAttack.h"
 #include "GolemKingArmAttack.h"
+#include "GolemKingWave.h"
 
 using namespace sn;
 
@@ -617,7 +618,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		collider2->SetEnable(false);
 
 		sn::Collider2D* collider3 = pMon->AddComponent<sn::Collider2D>();
-		collider3->SetName(L"GolemKing_wave_Collider");
+		collider3->SetName(L"GolemKing_Wave_Collider");
+		collider3->SetSize(Vector2(0.5f, 0.4f));
+		collider3->SetCenter(Vector2(-0.5f, -1.3f));
 		collider3->SetEnable(false);
 
 		AI* ai = pMon->AddComponent<AI>(pMon);
@@ -626,7 +629,8 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new GolemKingRockAttack);
 		ai->AddState(new GolemKingAimAttack);
 		ai->AddState(new GolemKingArmAttack);
-		ai->SetCurState(MON_STATE::GOLEMKING_UP);
+		ai->AddState(new GolemKingWave);
+		ai->SetCurState(MON_STATE::GOLEMKING_IDLE);
 
 		pMon->AddComponent<MiniBossHPBar>();
 	}

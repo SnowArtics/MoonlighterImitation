@@ -199,6 +199,9 @@
     <ClCompile Include="BossCamera.cpp">
       <Filter>Script\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="GolemKingWaveObject.cpp">
+      <Filter>Script\Monster\Monster\GolemKing\GolemKingWaveObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -401,6 +404,9 @@
     </ClInclude>
     <ClInclude Include="BossCamera.h">
       <Filter>Script\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingWaveObject.h">
+      <Filter>Script\Monster\Monster\GolemKing\GolemKingWaveObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -610,6 +616,9 @@
     </Filter>
     <Filter Include="Script\Monster\Monster\GolemKing\GolemKingRock">
       <UniqueIdentifier>{e3b22662-9ba6-4701-87b6-cec8891ff0db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\Monster\GolemKing\GolemKingWaveObject">
+      <UniqueIdentifier>{b6b791b4-e66b-4356-a22b-4488e7b74473}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

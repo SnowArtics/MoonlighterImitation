@@ -18,6 +18,8 @@ public:
 
 public:
     void CreateRocks();
+    void CreateWave();
+    void CreateArm();
 
 public:
     virtual void OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me);

@@ -5,7 +5,7 @@
 #include <random>
 
 GolemKingArmAttack::GolemKingArmAttack()
-	:State(MON_STATE::GOLEMKING_ARM_ATTACK)
+	:State(MON_STATE::GOLEMKING_ARM_LAUNCH)
 	, endTime(2.0f)
 	, executionTime(0.f)
 {
@@ -21,7 +21,7 @@ void GolemKingArmAttack::Update()
 
 	if (executionTime >= endTime) {
 		executionTime = 0.f;
-		SceneManager::ChangeMonsterState(GetAI(), MON_STATE::GOLEMKING_IDLE);
+		SceneManager::ChangeMonsterState(GetAI(), MON_STATE::GOLEMKING_ARM_IDLE);
 	}
 }
 

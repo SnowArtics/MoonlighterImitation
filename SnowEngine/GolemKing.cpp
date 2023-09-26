@@ -9,6 +9,8 @@
 #include "Monster.h"
 #include "snTime.h"
 #include "MiniBossHPBar.h"
+#include "GolemKingWaveObject.h"
+#include "GolemKingArm.h"
 
 #include "snMeshRenderer.h"
 #include "snCollider2D.h"
@@ -16,6 +18,8 @@
 #include "snResources.h"
 #include "snTexture.h"
 #include <random>
+#include "snPlayer.h"
+#include <snRigidBody.h>
 
 GolemKing::GolemKing()
 	:curTime(0.0f)
@@ -81,9 +85,19 @@ void GolemKing::Update()
 			animator->PlayAnimation(L"GOLEMKING_ROCK_ATTACK", false);
 		}
 		break;
-		case MON_STATE::GOLEMKING_ARM_ATTACK:
+		case MON_STATE::GOLEMKING_ARM_LAUNCH:
 		{
 			animator->PlayAnimation(L"GOLEMKING_ARM_LAUNCH", false);
+		}
+		break;
+		case MON_STATE::GOLEMKING_ARM_IDLE:
+		{
+			animator->PlayAnimation(L"GOLEMKING_NO_ARM_IDLE", true);
+		}
+		break;
+		case MON_STATE::GOLEMKING_ARM_RECOVER:
+		{
+			animator->PlayAnimation(L"GOLEMKING_ARM_RECOVER", false);
 		}
 		break;
 		case MON_STATE::GOLEMKING_AIM_ATTACK:
@@ -128,6 +142,25 @@ void GolemKing::CreateRocks()
 	}
 }
 
+void GolemKing::CreateWave()
+{
+	GolemKingWaveObject* golemKingWaveObject = new GolemKingWaveObject;
+	Transform* tr = golemKingWaveObject->GetComponent<Transform>();
+	tr->SetPosition(Vector3(0.f, 1.4f, 0.0f));
+	tr->SetScale(Vector3(4.0f, 4.0f, 0.0f));
+
+	SceneManager::GetActiveScene()->AddGameObject(eLayerType::Projectile, static_cast<GameObject*>(golemKingWaveObject));
+}
+
+void GolemKing::CreateArm()
+{
+	GolemKingArm* golemKingArm = new GolemKingArm;
+	Transform* tr = golemKingArm->GetComponent<Transform>();
+	tr->SetScale(0.1f, 0.1f, 0.0f);
+
+	SceneManager::GetActiveScene()->AddGameObject(eLayerType::Projectile, static_cast<GameObject*>(golemKingArm));
+}
+
 void GolemKing::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
 	Monster::OnCollisionEnter(other, me);
@@ -136,6 +169,22 @@ void GolemKing::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 		monInfo.fHP -= 30.f;
 		this->GetComponent<MiniBossHPBar>()->PlayDamage(30.f);
 		SetMonsterInfo(monInfo);
+	}
+
+	if (other->GetName() == L"FisrtCollider" && me->GetName() == L"GolemKing_Wave_Collider") {
+		snPlayer* player = static_cast<snPlayer*>(other->GetOwner());
+		RigidBody* playerRigidBody = player->GetComponent<RigidBody>();
+		Transform* playerTr = player->GetComponent<Transform>();
+		Vector3 playerPos = playerTr->GetPosition();
+
+		Transform* monTr = GetComponent<Transform>();
+		Vector3 monPos = monTr->GetPosition();
+
+		Vector3 dir = playerPos - monPos;
+		dir.Normalize();
+		float UnStiffness = player->GetUnStiffness()*1.5f;
+
+		playerRigidBody->SetVelocity(dir * UnStiffness);
 	}
 }
 

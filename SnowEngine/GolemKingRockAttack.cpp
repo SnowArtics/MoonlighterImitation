@@ -39,6 +39,7 @@ void GolemKingRockAttack::Update()
 	}
 
 	if (executionTime >= endTime) {
+		colliderTrigger = true;
 		executionTime = 0.f;
 		SceneManager::ChangeMonsterState(GetAI(), MON_STATE::GOLEMKING_IDLE);
 	}

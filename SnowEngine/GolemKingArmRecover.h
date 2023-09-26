@@ -3,12 +3,12 @@
 
 using namespace sn;
 
-class GolemKingWave :
+class GolemKingArmRecover :
     public State
 {
 public:
-	GolemKingWave();
-	~GolemKingWave();
+	GolemKingArmRecover();
+	~GolemKingArmRecover();
 
 public:
 	virtual void Update();
@@ -18,6 +18,5 @@ public:
 private:
 	float endTime;
 	float executionTime;
-	bool colliderTrigger;
 };
 
