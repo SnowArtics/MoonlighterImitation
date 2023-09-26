@@ -14,7 +14,11 @@
 GolemKingArm::GolemKingArm()
 	: curTime(0.f)
 	, endTime(15.f)
-	, changeAnimTrigger(true)
+	, changeAnimTrigger(false)
+	, armAttackCount(0)
+	, armDownTrigger(false)
+	, desPos(Vector3(0.0f, 0.0f, 0.0f))
+	, curPos(Vector3(0.0f, 0.0f, 0.0f))
 {
 	MeshRenderer* mr = AddComponent<MeshRenderer>();
 	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -50,6 +54,7 @@ GolemKingArm::~GolemKingArm()
 
 void GolemKingArm::Initialize()
 {
+	GameObject::Initialize();
 }
 
 void GolemKingArm::Update()
@@ -60,37 +65,68 @@ void GolemKingArm::Update()
 
 	int intTime = curTime;
 	if ((intTime % 3) == 0 && !changeAnimTrigger) {
-		Animator* at = AddComponent<Animator>();
+		Animator* at = GetComponent<Animator>();
 		at->PlayAnimation(L"Rock_Shadow", true);
 		tr->SetScale(Vector3(0.1f, 0.1f, 0.0f));
 		changeAnimTrigger = true;
+		armDownTrigger = false;
 		Transform* playerTr = SceneManager::GetActiveScene()->GetPlayer()->GetComponent<Transform>();
 		tr->SetPosition(playerTr->GetPosition());
 	}
-	else if((curTime - intTime)<1.4f){
+	else if((curTime - /*((curTime - intTime)+(armAttackCount*3))*/ (armAttackCount *3))<1.4f&&changeAnimTrigger){
 		Vector3 scale = tr->GetScale();
 		scale.x += Time::DeltaTime();
 		scale.y += Time::DeltaTime();
 		tr->SetScale(Vector3(scale.x, scale.y, scale.z));
 
 		Transform* playerTr = SceneManager::GetActiveScene()->GetPlayer()->GetComponent<Transform>();
-		tr->SetPosition(playerTr->GetPosition());
+		tr->SetPosition(Vector3(playerTr->GetPosition().x, playerTr->GetPosition().y-0.2f, playerTr->GetPosition().z));
+		desPos = Vector3(playerTr->GetPosition().x, playerTr->GetPosition().y - 0.2f, playerTr->GetPosition().z);
+		curPos = desPos;
+		curPos.y += 3.f;
 	}
-	else if ((curTime - intTime) >= 1.4f && changeAnimTrigger) {
-		Animator* at = AddComponent<Animator>();
-		at->PlayAnimation(L"GolemKingArm", true);
-		changeAnimTrigger = false;
+	else if ((curTime - (armAttackCount * 3)) >= 1.4f && changeAnimTrigger) {
+		if (armDownTrigger == false) {
+			Animator* at = GetComponent<Animator>();
+			at->PlayAnimation(L"GolemKingArm", true);
+			armDownTrigger = true;
+		}
+
+		curPos.y -= Time::DeltaTime() * 20.f;
+		if (curPos.y <= desPos.y) {
+			curPos = desPos;
+			armAttackCount++;
+			changeAnimTrigger = false;
+		}
+		tr->SetPosition(curPos);
 	}
 
 	if (curTime >= endTime) {
 		SetState(eState::Dead);
 	}
+
+	GameObject::Update();
 }
 
 void GolemKingArm::LateUpdate()
 {
+	GameObject::LateUpdate();
 }
 
 void GolemKingArm::Render()
+{
+	GameObject::Render();
+}
+
+void GolemKingArm::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
+{
+	GameObject::OnCollisionEnter(other, me);
+}
+
+void GolemKingArm::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
+{
+}
+
+void GolemKingArm::OnCollisionExit(sn::Collider2D* other, sn::Collider2D* me)
 {
 }

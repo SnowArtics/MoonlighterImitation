@@ -229,7 +229,7 @@ namespace sn
 			cameraComp->EnableLayerMasks();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
-			//camera->AddComponent<BossCamera>();
+			camera->AddComponent<BossCamera>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 			SetMainCamera(cameraComp);

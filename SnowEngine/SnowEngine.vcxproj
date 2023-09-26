@@ -173,7 +173,10 @@
     <ClInclude Include="GolemCorruptedMiniBoss.h" />
     <ClInclude Include="GolemKing.h" />
     <ClInclude Include="GolemKingAimAttack.h" />
+    <ClInclude Include="GolemKingArm.h" />
     <ClInclude Include="GolemKingArmAttack.h" />
+    <ClInclude Include="GolemKingArmIdle.h" />
+    <ClInclude Include="GolemKingArmRecover.h" />
     <ClInclude Include="GolemKingDeath.h" />
     <ClInclude Include="GolemKingIdle.h" />
     <ClInclude Include="GolemKingRock.h" />
@@ -280,7 +283,10 @@
     <ClCompile Include="GolemCorruptedMiniBoss.cpp" />
     <ClCompile Include="GolemKing.cpp" />
     <ClCompile Include="GolemKingAimAttack.cpp" />
+    <ClCompile Include="GolemKingArm.cpp" />
     <ClCompile Include="GolemKingArmAttack.cpp" />
+    <ClCompile Include="GolemKingArmIdle.cpp" />
+    <ClCompile Include="GolemKingArmRecover.cpp" />
     <ClCompile Include="GolemKingDeath.cpp" />
     <ClCompile Include="GolemKingIdle.cpp" />
     <ClCompile Include="GolemKingRock.cpp" />

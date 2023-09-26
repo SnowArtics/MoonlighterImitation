@@ -16,6 +16,10 @@ public:
     virtual void LateUpdate();
     virtual void Render();
 
+    virtual void OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me);
+    virtual void OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me);
+    virtual void OnCollisionExit(sn::Collider2D* other, sn::Collider2D* me);
+
 public:
     void SetEndTime(float _endTime) { endTime = _endTime; }
 
@@ -23,5 +27,10 @@ private:
     float curTime;
     float endTime;
     bool changeAnimTrigger;
+    bool armDownTrigger;
+    int armAttackCount;
+
+    Vector3 curPos;
+    Vector3 desPos;
 };
 

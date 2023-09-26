@@ -39,6 +39,8 @@
 #include "GolemKingAimAttack.h"
 #include "GolemKingArmAttack.h"
 #include "GolemKingWave.h"
+#include "GolemKingArmIdle.h"
+#include "GolemKingArmRecover.h"
 
 using namespace sn;
 
@@ -627,8 +629,10 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new GolemKingUp);
 		ai->AddState(new GolemKingIdle);
 		ai->AddState(new GolemKingRockAttack);
-		ai->AddState(new GolemKingAimAttack);
 		ai->AddState(new GolemKingArmAttack);
+		ai->AddState(new GolemKingArmIdle);
+		ai->AddState(new GolemKingArmRecover);
+		ai->AddState(new GolemKingAimAttack);
 		ai->AddState(new GolemKingWave);
 		ai->SetCurState(MON_STATE::GOLEMKING_IDLE);
 
