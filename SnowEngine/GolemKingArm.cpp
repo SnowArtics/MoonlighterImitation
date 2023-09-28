@@ -10,6 +10,8 @@
 #include "snSceneManager.h"
 
 #include <random>
+#include "snPlayer.h"
+#include "PlayerHP.h"
 
 GolemKingArm::GolemKingArm()
 	: curTime(0.f)
@@ -45,6 +47,7 @@ GolemKingArm::GolemKingArm()
 
 	sn::Collider2D* collider = AddComponent<sn::Collider2D>();
 	collider->SetCenter(Vector2(0.0f, 0.0f));
+	collider->SetSize(Vector2(0.2f, 0.4f));
 	collider->SetEnable(false);
 }
 
@@ -64,6 +67,16 @@ void GolemKingArm::Update()
 	Transform* tr = GetComponent<Transform>();
 
 	int intTime = curTime;
+
+	if ((curTime - (intTime/3*3)) > 1.6f && (curTime - (intTime / 3 * 3)) <= 1.8f) {
+		sn::Collider2D* collider = GetComponent<sn::Collider2D>();
+		collider->SetEnable(true);
+	}
+	else if ((curTime - (intTime / 3 * 3)) > 1.8f) {
+		sn::Collider2D* collider = GetComponent<sn::Collider2D>();
+		collider->SetEnable(false);
+	}
+
 	if ((intTime % 3) == 0 && !changeAnimTrigger) {
 		Animator* at = GetComponent<Animator>();
 		at->PlayAnimation(L"Rock_Shadow", true);
@@ -81,7 +94,7 @@ void GolemKingArm::Update()
 
 		Transform* playerTr = SceneManager::GetActiveScene()->GetPlayer()->GetComponent<Transform>();
 		tr->SetPosition(Vector3(playerTr->GetPosition().x, playerTr->GetPosition().y-0.2f, playerTr->GetPosition().z));
-		desPos = Vector3(playerTr->GetPosition().x, playerTr->GetPosition().y - 0.2f, playerTr->GetPosition().z);
+		desPos = Vector3(playerTr->GetPosition().x, playerTr->GetPosition().y, playerTr->GetPosition().z);
 		curPos = desPos;
 		curPos.y += 3.f;
 	}
@@ -121,6 +134,15 @@ void GolemKingArm::Render()
 void GolemKingArm::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
 	GameObject::OnCollisionEnter(other, me);
+
+	if (other->GetName() == L"FisrtCollider") {
+		snPlayer* player = static_cast<snPlayer*>(other->GetOwner());
+		float playerHP = player->GetHP();
+		playerHP -= 30.f;
+		player->SetHP(playerHP);
+		PlayerHP* playerHPComponent = player->GetComponent<PlayerHP>();
+		playerHPComponent->PlayDamage(30.f);
+	}
 }
 
 void GolemKingArm::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
