@@ -37,5 +37,8 @@ private:
     Vector3 golemKingPos;
     float fistAttackAngle;
     float fistAttackAngleTrigger;
+
+    float velocity;
+    float acceleration;
 };
 

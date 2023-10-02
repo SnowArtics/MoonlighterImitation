@@ -22,6 +22,8 @@ GolemKingFist::GolemKingFist()
 	, fistAttackTrigger(true)
 	, fistAttackAngle(0.f)
 	, fistAttackAngleTrigger(true)
+	, velocity(10.f)
+	, acceleration(100.f)
 {
 	MeshRenderer* mr = AddComponent<MeshRenderer>();
 	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -33,9 +35,11 @@ GolemKingFist::GolemKingFist()
 
 	//at->Create(L"GolemKingFist", atlas, Vector2(654.f, 382.f), Vector2(-109.f, 45.f), 6);
 	//at->Create(L"GolemKingFist", atlas, Vector2(545.f, 382.f), Vector2(109.f, 382.f), 1, 840.f, 0.1f, Vector2(0.0f,0.28f));
-	at->Create(L"GolemKingFist01", atlas, Vector2(0.f, 382.f), Vector2(109.f, 382.f), 1, 840.f, 0.1f, Vector2(0.0f,0.28f));
+	at->Create(L"GolemKingFist01", atlas, Vector2(545.f, 382.f), Vector2(109.f, 382.f), 1, 840.f, 0.1f, Vector2(0.0f,0.28f));
 
 	at->Create(L"GolemKingFistFinal01", atlas, Vector2(0.f, 382.f), Vector2(109.f, 382.f), 1, 840.f, 0.1f, Vector2(0.0f, 0.26f));
+
+	at->Create(L"GolemKingFistRecover01", atlas, Vector2(0.f, 382.f), Vector2(109.f, 382.f), 6, 840.f, 0.1f, Vector2(0.0f, 0.26f));
 
 	at->PlayAnimation(L"GolemKingFist01", true);
 
@@ -65,32 +69,44 @@ void GolemKingFist::Update()
 		SetState(eState::Dead);
 	}
 
-	if (curTime >= 5.f/* && fistAttackTrigger*/) {
-		fistAttackTrigger = false;
+	if (curTime >= 10.4f) {
 		Transform* tr = GetComponent<Transform>();
-		tr->SetScale(Vector3(10.0f, 20.0f, 0.0f));
+		tr->SetScale(Vector3(10.0f, 10.0f, 0.0f));
 
 		Animator* at = GetComponent<Animator>();
-		at->PlayAnimation(L"GolemKingFistFinal01", true);
+		at->PlayAnimation(L"GolemKingFistRecover01", false);
+	}
+	else if (curTime >= 6.f/* && fistAttackTrigger*/) {
+
+		velocity += acceleration * Time::DeltaTime();
 
 		if (fistAttackAngle > -19.f) {
 			fistAttackAngleTrigger = false;
+			velocity = 10.f;
 		}
 		else if (fistAttackAngle < -161.f) {
 			fistAttackAngleTrigger = true;
+			velocity = 10.f;
 		}
 
 		Revolution(fistAttackAngle);
 
 		if (fistAttackAngleTrigger) {
-			fistAttackAngle += 100.0f * Time::DeltaTime();
+			fistAttackAngle += velocity * Time::DeltaTime();
 		}
 		else {
-			fistAttackAngle -= 100.0f * Time::DeltaTime();
+			fistAttackAngle -= velocity * Time::DeltaTime();
 		}
 
 		GetComponent<Transform>()->SetRotation(0.0f, 0.0f, (fistAttackAngle+90.f)/50.f);
 
+	}
+	else if (curTime >= 5.f) {
+		Transform* tr = GetComponent<Transform>();
+		tr->SetScale(Vector3(10.0f, 20.0f, 0.0f));
+
+		Animator* at = GetComponent<Animator>();
+		at->PlayAnimation(L"GolemKingFistFinal01", false);
 	}
 	else if (curTime < 5.f) {
 		Transform* playerTr = SceneManager::GetActiveScene()->GetPlayer()->GetComponent<Transform>();
@@ -129,8 +145,8 @@ void GolemKingFist::RotateAround() {
 
 	dirPos = dirPos * 0.1f + Vector3(golemKingPos.x-1.f,golemKingPos.y + 0.6f,golemKingPos.z);
 
-	fistAttackAngle = CalculateAngle(Vector3(golemKingPos.x - 1.f, golemKingPos.y + 0.9f, golemKingPos.z), dirPos);
-
+	fistAttackAngle = CalculateAngle(Vector3(golemKingPos.x - 1.f, golemKingPos.y + 0.6f, golemKingPos.z), playerPos);
+	
 	Transform* tr = GetComponent<Transform>();
 	tr->SetPosition(dirPos);
 }
