@@ -191,7 +191,7 @@
       <Filter>Script\Monster\AI\State\GolemKingDeath</Filter>
     </ClCompile>
     <ClCompile Include="GolemKingAimAttack.cpp">
-      <Filter>Script\Monster\AI\State\GolemKingAimAttack</Filter>
+      <Filter>Script\Monster\AI\State\GolemKingAimPrepare</Filter>
     </ClCompile>
     <ClCompile Include="GolemKingRock.cpp">
       <Filter>Script\Monster\Monster\GolemKing\GolemKingRock</Filter>
@@ -210,6 +210,18 @@
     </ClCompile>
     <ClCompile Include="GolemKingArm.cpp">
       <Filter>Script\Monster\Monster\GolemKing\GolemKingArm</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemKingFist.cpp">
+      <Filter>Script\Monster\Monster\GolemKing\GolemKingFist</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemKingAimEnd.cpp">
+      <Filter>Script\Monster\AI\State\GolemKingAimEnd</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemKingAimShoot.cpp">
+      <Filter>Script\Monster\AI\State\GolemKingAimShoot</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemKingAimCycle.cpp">
+      <Filter>Script\Monster\AI\State\GolemKingAimCycle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -406,7 +418,7 @@
       <Filter>Script\Monster\AI\State\GolemKingDeath</Filter>
     </ClInclude>
     <ClInclude Include="GolemKingAimAttack.h">
-      <Filter>Script\Monster\AI\State\GolemKingAimAttack</Filter>
+      <Filter>Script\Monster\AI\State\GolemKingAimPrepare</Filter>
     </ClInclude>
     <ClInclude Include="GolemKingRock.h">
       <Filter>Script\Monster\Monster\GolemKing\GolemKingRock</Filter>
@@ -425,6 +437,18 @@
     </ClInclude>
     <ClInclude Include="GolemKingArm.h">
       <Filter>Script\Monster\Monster\GolemKing\GolemKingArm</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingFist.h">
+      <Filter>Script\Monster\Monster\GolemKing\GolemKingFist</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingAimEnd.h">
+      <Filter>Script\Monster\AI\State\GolemKingAimEnd</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingAimShoot.h">
+      <Filter>Script\Monster\AI\State\GolemKingAimShoot</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingAimCycle.h">
+      <Filter>Script\Monster\AI\State\GolemKingAimCycle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -623,9 +647,6 @@
     <Filter Include="Script\Monster\AI\State\GolemkingWave">
       <UniqueIdentifier>{452f6e44-b8c3-440e-a8ab-7642add01eb7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Script\Monster\AI\State\GolemKingAimAttack">
-      <UniqueIdentifier>{30921e99-db60-4b0d-a9ad-2159db1b7cab}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Script\Monster\AI\State\GolemKingDeath">
       <UniqueIdentifier>{635d02c2-5a33-4104-95f4-dbb5e837db13}</UniqueIdentifier>
     </Filter>
@@ -640,6 +661,21 @@
     </Filter>
     <Filter Include="Script\Monster\Monster\GolemKing\GolemKingArm">
       <UniqueIdentifier>{c01a0bb6-f741-474a-baf0-78807394402a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\Monster\GolemKing\GolemKingFist">
+      <UniqueIdentifier>{790f9272-ca5a-48e5-a8d3-da7fb0e49e8a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\GolemKingAimCycle">
+      <UniqueIdentifier>{62762547-8eb2-4d86-8f9a-542cf8948c28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\GolemKingAimShoot">
+      <UniqueIdentifier>{fdcaf7b5-f92b-4b92-842d-68ca97d3511a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\GolemKingAimEnd">
+      <UniqueIdentifier>{b9c4aaf1-12c5-4344-9114-0bb5886b601d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Monster\AI\State\GolemKingAimPrepare">
+      <UniqueIdentifier>{30921e99-db60-4b0d-a9ad-2159db1b7cab}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

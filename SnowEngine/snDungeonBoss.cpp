@@ -31,6 +31,8 @@
 #include "snRigidBody.h"
 #include "BossCamera.h"
 
+#include "GolemKingFist.h"
+
 namespace sn
 {
 	DungeonBoss::DungeonBoss()
@@ -58,6 +60,13 @@ namespace sn
 			GolemKing* pMon = static_cast<GolemKing*>(MonFactory::CreateMonster(MonType::GOLEMKING, Vector2(0.42f, 2.76f)));
 			AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
 		}
+
+		//{
+		//	//焊胶 林冈 积己
+		//	GolemKingFist* fist = new GolemKingFist;
+		//	AddGameObject(eLayerType::Projectile, static_cast<sn::GameObject*>(fist));
+		//	fist->SetGolemKingPos(Vector3(0.0f, -1.5f, 0.0f));
+		//}
 
 		{
 			//牢亥配府 UI 积己

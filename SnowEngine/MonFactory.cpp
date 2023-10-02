@@ -41,6 +41,9 @@
 #include "GolemKingWave.h"
 #include "GolemKingArmIdle.h"
 #include "GolemKingArmRecover.h"
+#include "GolemKingAimCycle.h"
+#include "GolemKingAimEnd.h"
+#include "GolemKingAimShoot.h"
 
 using namespace sn;
 
@@ -596,16 +599,16 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		at->Create(L"GOLEMKING_ARM_RECOVER", atlas, Vector2(0.0f, 1750.f), Vector2(350.f, 350.f), 11, 360.f);
 		at->Create(L"GOLEMKING_AIM_PREPARE", atlas, Vector2(0.0f, 2100.f), Vector2(350.f, 350.f), 16, 360.f);
 		at->Create(L"GOLEMKING_AIM_CYCLE_1", atlas, Vector2(0.0f, 2450.f), Vector2(350.f, 350.f), 16, 360.f);
-		at->Create(L"GOLEMKING_AIM_CYCLE_2", atlas, Vector2(0.0f, 2450.f), Vector2(350.f, 350.f), 16, 360.f);
-		at->Create(L"GOLEMKING_AIM_END", atlas, Vector2(0.0f, 2800.f), Vector2(350.f, 350.f), 32, 360.f);
+		at->Create(L"GOLEMKING_AIM_CYCLE_2", atlas, Vector2(0.0f, 2800.f), Vector2(350.f, 350.f), 16, 360.f);
+		at->Create(L"GOLEMKING_AIM_END", atlas, Vector2(0.0f, 3150.f), Vector2(350.f, 350.f), 32, 360.f);
 
 		atlas = Resources::Load<Texture>(L"GolemKing_Shoot", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemKing\\FistShoot.png");
 
-		at->Create(L"GOLEMKING_AIM_SHOOT", atlas, Vector2(0.0f, 700.f), Vector2(350.f, 350.f), 16);
+		at->Create(L"GOLEMKING_AIM_SHOOT", atlas, Vector2(0.0f, 700.f), Vector2(350.f, 350.f), 16, 360.f);
 
 		atlas = Resources::Load<Texture>(L"GolemKing_Shoot", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemKing\\FistShoot.png");
 
-		at->Create(L"GOLEMKING_DEATH", atlas, Vector2(0.0f, 0.f), Vector2(350.f, 350.f), 41);
+		at->Create(L"GOLEMKING_DEATH", atlas, Vector2(0.0f, 0.f), Vector2(350.f, 350.f), 41,720.f);
 
 		at->PlayAnimation(L"GOLEMKING_IDLE", true);
 
@@ -634,6 +637,9 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new GolemKingArmRecover);
 		ai->AddState(new GolemKingAimAttack);
 		ai->AddState(new GolemKingWave);
+		ai->AddState(new GolemKingAimCycle);
+		ai->AddState(new GolemKingAimShoot);
+		ai->AddState(new GolemKingAimEnd);
 		ai->SetCurState(MON_STATE::GOLEMKING_IDLE);
 
 		pMon->AddComponent<MiniBossHPBar>();

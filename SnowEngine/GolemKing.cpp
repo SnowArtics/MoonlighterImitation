@@ -11,6 +11,7 @@
 #include "MiniBossHPBar.h"
 #include "GolemKingWaveObject.h"
 #include "GolemKingArm.h"
+#include "GolemKingFist.h"
 
 #include "snMeshRenderer.h"
 #include "snCollider2D.h"
@@ -100,9 +101,24 @@ void GolemKing::Update()
 			animator->PlayAnimation(L"GOLEMKING_ARM_RECOVER", false);
 		}
 		break;
-		case MON_STATE::GOLEMKING_AIM_ATTACK:
+		case MON_STATE::GOLEMKING_AIM_PREPARE:
 		{
 			animator->PlayAnimation(L"GOLEMKING_AIM_PREPARE", false);
+		}
+		break;
+		case MON_STATE::GOLEMKING_AIM_CYCLE:
+		{
+			animator->PlayAnimation(L"GOLEMKING_AIM_CYCLE_1", true);
+		}
+		break;
+		case MON_STATE::GOLEMKING_AIM_SHOOT:
+		{
+			animator->PlayAnimation(L"GOLEMKING_AIM_CYCLE_1", true);
+		}
+		break;
+		case MON_STATE::GOLEMKING_AIM_END:
+		{
+			animator->PlayAnimation(L"GOLEMKING_AIM_END", false);
 		}
 		break;
 		case MON_STATE::DEAD:
@@ -159,6 +175,19 @@ void GolemKing::CreateArm()
 	tr->SetScale(0.1f, 0.1f, 0.0f);
 
 	SceneManager::GetActiveScene()->AddGameObject(eLayerType::Projectile, static_cast<GameObject*>(golemKingArm));
+}
+
+void GolemKing::CreateFist()
+{
+	//보스의 위치
+	Transform* tr = GetComponent<Transform>();
+	Vector3 pos = tr->GetPosition();
+
+	//보스 주먹 생성
+	GolemKingFist* fist = new GolemKingFist;
+	SceneManager::GetActiveScene()->AddGameObject(eLayerType::Projectile, static_cast<sn::GameObject*>(fist));
+	fist->SetGolemKingPos(pos);
+	fist->GetComponent<Transform>()->SetPosition(Vector3(pos.x, pos.y, pos.z));
 }
 
 void GolemKing::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
