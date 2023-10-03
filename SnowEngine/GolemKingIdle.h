@@ -18,5 +18,8 @@ public:
 private:
 	float endTime;
 	float executionTime;
+
+	int randomNumLow;
+	int randomNumHigh;
 };
 

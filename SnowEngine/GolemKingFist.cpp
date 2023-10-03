@@ -8,6 +8,8 @@
 #include "snCollider2D.h"
 #include "snTransform.h"
 #include "snSceneManager.h"
+#include "snPlayer.h"
+#include "PlayerHP.h"
 
 float CalculateAngle(Vector3 from, Vector3 to) {
 	float deltaX = to.x - from.x;
@@ -46,7 +48,7 @@ GolemKingFist::GolemKingFist()
 	sn::Collider2D* collider = AddComponent<sn::Collider2D>();
 	collider->SetCenter(Vector2(0.0f, 0.0f));
 	collider->SetSize(Vector2(0.05f, 1.0f));
-	collider->SetEnable(true);
+	collider->SetEnable(false);
 
 	Transform* tr = GetComponent<Transform>();
 	tr->SetScale(Vector3(10.0f, 10.0f, 0.0f));
@@ -75,6 +77,9 @@ void GolemKingFist::Update()
 
 		Animator* at = GetComponent<Animator>();
 		at->PlayAnimation(L"GolemKingFistRecover01", false);
+
+		sn::Collider2D* collider = GetComponent<sn::Collider2D>();
+		collider->SetEnable(false);
 	}
 	else if (curTime >= 6.f/* && fistAttackTrigger*/) {
 
@@ -107,6 +112,9 @@ void GolemKingFist::Update()
 
 		Animator* at = GetComponent<Animator>();
 		at->PlayAnimation(L"GolemKingFistFinal01", false);
+
+		sn::Collider2D* collider = GetComponent<sn::Collider2D>();
+		collider->SetEnable(true);
 	}
 	else if (curTime < 5.f) {
 		Transform* playerTr = SceneManager::GetActiveScene()->GetPlayer()->GetComponent<Transform>();
@@ -164,6 +172,16 @@ void GolemKingFist::Revolution(float _angle)
 
 void GolemKingFist::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
+	GameObject::OnCollisionEnter(other, me);
+
+	if (other->GetName() == L"FisrtCollider") {
+		snPlayer* player = static_cast<snPlayer*>(other->GetOwner());
+		float playerHP = player->GetHP();
+		playerHP -= 30.f;
+		player->SetHP(playerHP);
+		PlayerHP* playerHPComponent = player->GetComponent<PlayerHP>();
+		playerHPComponent->PlayDamage(30.f);
+	}
 }
 
 void GolemKingFist::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
