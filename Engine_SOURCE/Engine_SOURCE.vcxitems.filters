@@ -247,6 +247,7 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)snRigidBody.h">
       <Filter>GameObject\Component\RigidBody</Filter>
     </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snTextManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)snMath.inl">
@@ -366,5 +367,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)snRigidBody.cpp">
       <Filter>GameObject\Component\RigidBody</Filter>
     </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snTextManager.cpp" />
   </ItemGroup>
 </Project>

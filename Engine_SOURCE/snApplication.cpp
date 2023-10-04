@@ -6,6 +6,7 @@
 #include "snCollisionManager.h"
 #include "snFmod.h"
 #include "snFontWrapper.h"
+#include "snTextManager.h"
 
 namespace sn
 {
@@ -42,6 +43,9 @@ namespace sn
 		renderer::Initialize();
 		SceneManager::Initialize();
 		CollisionManager::Initialize();
+
+		//Text text(L"test", 20.f, 30.f, 20, TextColor(255.f, 255.f, 255.f, 255.f));
+		//TextManager::InsertText(L"Test01", text);
 	}
 
 	void Application::Update()
@@ -67,6 +71,7 @@ namespace sn
 		//FontWrapper::DrawFont(L"TEXT", 10.f, 30.f, 20, FONT_RGBA(255, 0, 255, 255));
 		//SceneManager::Render();
 		renderer::Render();
+		TextManager::Render();
 		//graphicDevice->Draw();
 	}
 

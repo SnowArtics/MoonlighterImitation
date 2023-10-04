@@ -9,6 +9,7 @@
 #include "snMaterial.h"
 #include "snPlayer.h"
 #include "snTime.h"
+#include "snTextManager.h"
 
 using namespace sn;
 
@@ -39,6 +40,8 @@ PlayerHP::~PlayerHP()
 
 void PlayerHP::Initialize()
 {
+	Text text(L"test", 20.f, 30.f, 20, TextColor(255.f, 255.f, 255.f, 255.f));
+	TextManager::InsertText(L"Test01", text);
 }
 
 void PlayerHP::Update()
