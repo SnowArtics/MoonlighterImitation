@@ -12,6 +12,7 @@
 #include "snTextManager.h"
 
 using namespace sn;
+using namespace std;
 
 PlayerHP::PlayerHP()
 	: Component(eComponentType::MonsterHPBar)
@@ -21,6 +22,19 @@ PlayerHP::PlayerHP()
 	, fakeHP(0.0f)
 	, realHP(0.0f)
 	, fullHP(0.0f)
+	, hitTime(0.0f)
+	, absoluteTime(0.f)
+{
+}
+
+PlayerHP::PlayerHP(float _fullHP, float _realHP)
+	: Component(eComponentType::MonsterHPBar)
+	, playerHPBarRed(nullptr)
+	, playerHPBarWhite(nullptr)
+	, playerHitScreen(nullptr)
+	, fakeHP(_realHP)
+	, realHP(_realHP)
+	, fullHP(_fullHP)
 	, hitTime(0.0f)
 	, absoluteTime(0.f)
 {
@@ -40,8 +54,14 @@ PlayerHP::~PlayerHP()
 
 void PlayerHP::Initialize()
 {
-	Text text(L"test", 20.f, 30.f, 20, TextColor(255.f, 255.f, 255.f, 255.f));
-	TextManager::InsertText(L"Test01", text);
+	int intRealHP = realHP;
+	int intFullHP = fullHP;
+
+	wstring stringRealHP = to_wstring(intRealHP);
+	wstring stringFullHP = to_wstring(intFullHP);
+
+	Text text(stringRealHP + L"/" + stringFullHP, 435.f, 120.f, 25, TextColor(255.f, 255.f, 255.f, 255.f));
+	TextManager::InsertText(L"PlayerHP", text);
 }
 
 void PlayerHP::Update()
@@ -162,4 +182,12 @@ void PlayerHP::PlayDamage(float _damage)
 
 	if (realHP < 1.f)
 		realHP = 1.f;
+
+	int intRealHP = realHP;
+	int intFullHP = fullHP;
+
+	wstring stringRealHP = to_wstring(intRealHP);
+	wstring stringFullHP = to_wstring(intFullHP);
+
+	TextManager::ChangeText(L"PlayerHP", stringRealHP + L"/" + stringFullHP);
 }

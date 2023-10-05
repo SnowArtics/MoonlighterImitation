@@ -35,7 +35,7 @@ public:
 	static void Initiailize();
 	static void Update();
 	static void Render();
-	static void InsertText(std::wstring _wstring, Text _text) { mapText.insert(std::make_pair(_wstring, _text)); };
+	static void InsertText(std::wstring _wstring, Text _text);
 	static void DeleteText(std::wstring _wstring) { auto it = mapText.find(_wstring); if (it != mapText.end()) mapText.erase(it); }
 	static void ChangeText(std::wstring _wstring, std::wstring _text) { auto it = mapText.find(_wstring); it->second.string = _text; }
 

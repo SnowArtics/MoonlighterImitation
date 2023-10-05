@@ -10,8 +10,10 @@
 #include "Monster.h"
 #include "snAnimator.h"
 #include "snTime.h"
+#include "snTextManager.h"
 
 using namespace sn;
+using namespace std;
 
 MiniBossHPBar::MiniBossHPBar()
 	: Component(eComponentType::MonsterHPBar)
@@ -115,8 +117,8 @@ void MiniBossHPBar::CreateHpBar()
 	bossEnterUI->SetName(L"HPBar");
 	SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, bossEnterUI);
 	Transform* bossEnterUITr = bossEnterUI->GetComponent<Transform>();
-	bossEnterUITr->SetPosition(Vector3(0.f, -1.5f, 0.f));
-	bossEnterUITr->SetScale(Vector3(5.625f, 3.f, 0.0f));
+	bossEnterUITr->SetPosition(Vector3(0.f, -1.2f, 0.f));
+	bossEnterUITr->SetScale(Vector3(5.625f, 4.f, 0.0f));
 
 	MeshRenderer* barMeshRenderer03 = bossEnterUI->AddComponent<MeshRenderer>();
 	barMeshRenderer03->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -129,6 +131,26 @@ void MiniBossHPBar::CreateHpBar()
 	at->Create(L"MINI_BOSS_ROOM_OPEN", atlas, Vector2(0.0f, 0.f), Vector2(195.f, 52.f), 26, 240.f);
 
 	at->PlayAnimation(L"MINI_BOSS_ROOM_OPEN", false);
+
+	if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene01") {
+		wstring bossName = GetOwner()->GetName();
+
+		Text text(bossName, 900.f, 910.f, 30, TextColor(255.f, 255.f, 255.f, 255.f));
+		TextManager::InsertText(bossName + L"Text", text);
+	}
+	else if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene02") {
+		wstring bossName = GetOwner()->GetName();
+
+		Text text(bossName, 820.f, 910.f, 30, TextColor(255.f, 255.f, 255.f, 255.f));
+		TextManager::InsertText(bossName + L"Text", text);
+	}
+	else {
+		wstring bossName = GetOwner()->GetName();
+
+		Text text(bossName, 910.f, 910.f, 30, TextColor(255.f, 255.f, 255.f, 255.f));
+		TextManager::InsertText(bossName + L"Text", text);
+	}
+	
 }
 
 void MiniBossHPBar::PlayDamage(float _damage)

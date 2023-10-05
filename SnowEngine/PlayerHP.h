@@ -10,6 +10,7 @@ class PlayerHP :
 {
 public:
 	PlayerHP();
+	PlayerHP(float _fullHP, float _realHP);
 	~PlayerHP();
 
 	virtual void Initialize();
@@ -20,6 +21,10 @@ public:
 public:
 	void CreateHpBar();
 	void PlayDamage(float _damage);
+
+public:
+	void SetRealHP(float _realHP) { realHP = _realHP; }
+	void SetFullHP(float _fullHP) { fullHP = _fullHP; }
 
 private:
 	sn::GameObject* playerHPBarRed;

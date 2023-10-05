@@ -376,7 +376,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 	case MonType::GOLEMMINIBOSS:
 	{
 		pMon = new GolemMiniBoss;
-		pMon->SetName(L"GOLEM");
+		pMon->SetName(L"Golem Warrior");
 		Transform* tr = pMon->GetComponent<Transform>();
 		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
 		tr->SetScale(3.0f, 3.0f, 3.0f);
@@ -441,7 +441,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 	case MonType::GOLEMCORRUPTMINIBOSS:
 	{
 		pMon = new GolemCorruptedMiniBoss;
-		pMon->SetName(L"GOLEM");
+		pMon->SetName(L"Golem Corrupted Warrior");
 		Transform* tr = pMon->GetComponent<Transform>();
 		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
 		tr->SetScale(3.0f, 3.0f, 3.0f);
@@ -567,7 +567,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 	case MonType::GOLEMKING:
 	{
 		pMon = new GolemKing;
-		pMon->SetName(L"GOLEMKING");
+		pMon->SetName(L"GolemKing");
 		Transform* tr = pMon->GetComponent<Transform>();
 		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
 		tr->SetScale(5.5f, 5.5f, 3.0f);

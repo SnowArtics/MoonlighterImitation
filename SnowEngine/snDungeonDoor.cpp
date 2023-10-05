@@ -42,7 +42,11 @@ namespace sn {
 
 		if (prevPlayerMapPos != curPlayerMapPos && dungeonBackgroundSpawnFlag) {
 			dungeonBackgroundSpawnFlag = false;
-			if (!(prevPlayerMapPos.first == -1 || prevPlayerMapPos.second == -1)) {
+
+			if (DungeonMapManager::GetInst()->GetDungeonArr()[curPlayerMapPos.first][curPlayerMapPos.second] >= 128 && SceneManager::GetActiveScene()->GetName() == L"DungeonScene03") {
+				SceneManager::SetChangeScene(L"DungeonBossScene01");
+			}
+			else if (!(prevPlayerMapPos.first == -1 || prevPlayerMapPos.second == -1)) {
 				DungeonMapManager::GetInst()->MakeDungeonBackground(curPlayerMapPos.first, curPlayerMapPos.second);
 				DungeonMapManager::GetInst()->DeleteDungeonBackground(prevPlayerMapPos.first, prevPlayerMapPos.second);
 				
@@ -55,8 +59,9 @@ namespace sn {
 					prevPlayerPos = 0x08;
 				else if (prevPlayerMapPos.second > curPlayerMapPos.second)
 					prevPlayerPos = 0x04;
-				DungeonMapManager::GetInst()->MakeDoor(curPlayerMapPos.first, curPlayerMapPos.second, prevPlayerPos);
-				DungeonMapManager::GetInst()->DeleteDoor(prevPlayerMapPos.first, prevPlayerMapPos.second);
+				
+					DungeonMapManager::GetInst()->MakeDoor(curPlayerMapPos.first, curPlayerMapPos.second, prevPlayerPos);
+					DungeonMapManager::GetInst()->DeleteDoor(prevPlayerMapPos.first, prevPlayerMapPos.second);			
 			}
 		}
 		else if (prevPlayerMapPos == curPlayerMapPos) {

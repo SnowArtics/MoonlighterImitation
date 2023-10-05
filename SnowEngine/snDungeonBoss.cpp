@@ -59,6 +59,7 @@ namespace sn
 			//º¸½º¸÷ »ý¼º
 			GolemKing* pMon = static_cast<GolemKing*>(MonFactory::CreateMonster(MonType::GOLEMKING, Vector2(0.42f, 2.76f)));
 			AddGameObject(eLayerType::Monster, static_cast<sn::GameObject*>(pMon));
+			pMon->SetName(L"GolemKing");
 		}
 
 		//{
@@ -220,7 +221,7 @@ namespace sn
 			playerFSM->AddState(new BowState);
 			playerFSM->AddState(new IdleState);
 
-			PlayerHP* playerHP = Player->AddComponent<PlayerHP>();
+			PlayerHP* playerHP = Player->AddComponent<PlayerHP>(100.f, 100.f);
 			playerHP->CreateHpBar();
 
 			Player->AddComponent<RigidBody>();

@@ -16,7 +16,6 @@ namespace sn {
 		virtual void OnExit() override;
 
 	private:
-
-
+		std::vector<std::vector<int>>	arr;
 	};
 }

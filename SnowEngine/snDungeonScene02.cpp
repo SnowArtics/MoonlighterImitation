@@ -54,7 +54,7 @@ namespace sn {
 		CollisionManager::SetLayer(eLayerType::Background, eLayerType::Door, false);
 
 		MazeMaker::GetInst()->Init();
-		MazeMaker::GetInst()->BackTracking(2, 3);
+		MazeMaker::GetInst()->BackTracking(2, 1);
 		arr = MazeMaker::GetInst()->GetDirArr();
 		DungeonMapManager::GetInst()->SetDungeonArr(arr);
 		std::pair<int, int> firstPlayerPos = MazeMaker::GetInst()->GetStartPos();
@@ -278,7 +278,7 @@ namespace sn {
 			playerFSM->AddState(new BowState);
 			playerFSM->AddState(new IdleState);
 
-			PlayerHP* playerHP = Player->AddComponent<PlayerHP>();
+			PlayerHP* playerHP = Player->AddComponent<PlayerHP>(100.f, 100.f);
 			playerHP->CreateHpBar();
 
 			Player->AddComponent<RigidBody>();

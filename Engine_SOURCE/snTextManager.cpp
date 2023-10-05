@@ -22,3 +22,11 @@ void TextManager::Render()
 		FontWrapper::DrawFont(it.second.string.c_str(), it.second.leftTop, it.second.rightTop, it.second.size, it.second.color.toInt());
 	}
 }
+
+void TextManager::InsertText(std::wstring _wstring, Text _text)
+{
+	_text.leftTop -= (float)_text.size;
+	_text.rightTop -= (float)_text.size;
+
+	mapText.insert(std::make_pair(_wstring, _text));
+}

@@ -28,9 +28,9 @@ namespace sn
 		Update();
 		LateUpdate();
 		Render();
-		Destroy();
 		ChangeScene();
 		ChangeAIState();
+		Destroy();
 	}
 
 	void Application::Initialize()
