@@ -323,6 +323,33 @@ namespace renderer {
 			spriteMaterial->SetTexture(texture);
 			Resources::Insert(L"LogoMaterial01", spriteMaterial);
 		}
+		{
+			//타이틀화면 왼쪽 문 이미지 메테리얼 생성
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"TitleLeftDoor", L"..\\Resources\\Texture\\Title\\GUI_StartScreen_LeftDoor.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"TitleLeftDoorMeterial", spriteMaterial);
+		}
+		{
+			//타이틀화면 오른쪽 문 이미지 메테리얼 생성
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"TitleRightDoor", L"..\\Resources\\Texture\\Title\\GUI_StartScreen_RightDoor.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"TitleRightDoorMeterial", spriteMaterial);
+		}
+		{
+			//타이틀화면 가운데 선 이미지 메테리얼 생성
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"TitleMiddleLine", L"..\\Resources\\Texture\\Title\\GUI_StartScreen_Line.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"TitleMiddleLineMeterial", spriteMaterial);
+		}
 #pragma endregion
 #pragma region village
 		{

@@ -32,6 +32,8 @@
 #include "BossCamera.h"
 
 #include "GolemKingFist.h"
+#include <snAudioSource.h>
+#include <snAudioListener.h>
 
 namespace sn
 {
@@ -226,6 +228,11 @@ namespace sn
 
 			Player->AddComponent<RigidBody>();
 
+			AudioSource* as = Player->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"Forbidden Steps", L"..\\Resources\\Sound\\BGM\\Moonlighter OST - 08 - Golem King_256k.mp3"));
+			as->Play();
+			as->SetLoop(true);
+
 			SetPlayer(Player);
 		}
 #pragma endregion
@@ -243,6 +250,7 @@ namespace sn
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 			SetMainCamera(cameraComp);
+			camera->AddComponent<AudioListener>();
 		}
 		//UI Camera
 		{

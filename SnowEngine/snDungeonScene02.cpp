@@ -37,6 +37,9 @@
 
 #include "snPlayer.h"
 #include "PlayerHP.h"
+#include <snAudioSource.h>
+#include <snAudioClip.h>
+#include <snAudioListener.h>
 
 namespace sn {
 	DungeonScene02::DungeonScene02()
@@ -283,6 +286,11 @@ namespace sn {
 
 			Player->AddComponent<RigidBody>();
 
+			AudioSource* as = Player->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"Sentient Stone", L"..\\Resources\\Sound\\BGM\\Moonlighter OST - 06 - Sentient Stone_256k.mp3"));
+			as->Play();
+			as->SetLoop(true);
+
 			SetPlayer(Player);
 		}
 #pragma endregion
@@ -295,6 +303,7 @@ namespace sn {
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->DisableLayerMasks();
 			cameraComp->TurnLayerMask(eLayerType::UI, true);
+			camera->AddComponent<AudioListener>();
 			//camera->AddComponent<CameraScript>();
 		}
 		// Light

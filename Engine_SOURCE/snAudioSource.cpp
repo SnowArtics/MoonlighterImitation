@@ -14,7 +14,7 @@ namespace sn
 
 	AudioSource::~AudioSource()
 	{
-
+		Stop();
 	}
 
 	void AudioSource::Initialize()

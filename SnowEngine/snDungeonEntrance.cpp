@@ -26,6 +26,7 @@
 #include "snSwordState3.h"
 #include "snBowState.h"
 #include "snPlayerCollision.h"
+#include "PlayerFollowCamera.h"
 
 namespace sn {
 	DungeonEntrance::DungeonEntrance()
@@ -252,6 +253,7 @@ namespace sn {
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
+			camera->AddComponent<PlayerFollowCamera>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 			SetMainCamera(cameraComp);

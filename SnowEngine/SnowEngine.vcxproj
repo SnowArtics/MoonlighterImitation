@@ -209,6 +209,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="MazeMaker.h" />
+    <ClInclude Include="PlayerFollowCamera.h" />
     <ClInclude Include="PlayerHP.h" />
     <ClInclude Include="snPlayer.h" />
     <ClInclude Include="Projectile.h" />
@@ -275,6 +276,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="TitleDoor.h" />
     <ClInclude Include="TurretAttack.h" />
     <ClInclude Include="TurretBrokenAttack.h" />
   </ItemGroup>
@@ -321,6 +323,7 @@
     <ClCompile Include="MonsterIdle.cpp" />
     <ClCompile Include="MonsterTrace.cpp" />
     <ClCompile Include="MazeMaker.cpp" />
+    <ClCompile Include="PlayerFollowCamera.cpp" />
     <ClCompile Include="PlayerHP.cpp" />
     <ClCompile Include="snPlayer.cpp" />
     <ClCompile Include="Projectile.cpp" />
@@ -388,6 +391,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="TitleDoor.cpp" />
     <ClCompile Include="TurretAttack.cpp" />
     <ClCompile Include="TurretBrokenAttack.cpp" />
   </ItemGroup>

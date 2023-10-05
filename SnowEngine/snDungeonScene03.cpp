@@ -37,6 +37,9 @@
 
 #include "snPlayer.h"
 #include "PlayerHP.h"
+#include <snAudioSource.h>
+#include <snAudioClip.h>
+#include <snAudioListener.h>
 
 namespace sn {
 	DungeonScene03::DungeonScene03()
@@ -259,6 +262,11 @@ namespace sn {
 
 			Player->AddComponent<RigidBody>();
 
+			AudioSource* as = Player->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"Gaining Courage", L"..\\Resources\\Sound\\BGM\\Moonlighter OST - 07 - Gaining Courage_256k.mp3"));
+			as->Play();
+			as->SetLoop(true);
+
 			SetPlayer(Player);
 		}
 #pragma endregion
@@ -271,6 +279,7 @@ namespace sn {
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->DisableLayerMasks();
 			cameraComp->TurnLayerMask(eLayerType::UI, true);
+			camera->AddComponent<AudioListener>();
 			//camera->AddComponent<CameraScript>();
 		}
 		// Light

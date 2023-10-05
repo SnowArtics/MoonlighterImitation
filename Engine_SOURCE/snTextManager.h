@@ -38,6 +38,7 @@ public:
 	static void InsertText(std::wstring _wstring, Text _text);
 	static void DeleteText(std::wstring _wstring) { auto it = mapText.find(_wstring); if (it != mapText.end()) mapText.erase(it); }
 	static void ChangeText(std::wstring _wstring, std::wstring _text) { auto it = mapText.find(_wstring); it->second.string = _text; }
+	static void ChangeColor(std::wstring _wstring, TextColor _color) { auto it = mapText.find(_wstring); it->second.color = _color; }
 
 private:
 	static std::map<std::wstring, Text> mapText;

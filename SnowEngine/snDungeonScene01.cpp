@@ -37,6 +37,9 @@
 
 #include "snPlayer.h"
 #include "PlayerHP.h"
+#include <snAudioSource.h>
+#include <snAudioClip.h>
+#include <snAudioListener.h>
 
 namespace sn {
 	DungeonScene01::DungeonScene01()
@@ -287,6 +290,11 @@ namespace sn {
 
 			Player->AddComponent<RigidBody>();
 
+			AudioSource* as = Player->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"Forbidden Steps", L"..\\Resources\\Sound\\BGM\\Moonlighter OST - 05 - Forbidden Steps_256k.mp3"));
+			as->Play();
+			as->SetLoop(true);
+
 			SetPlayer(Player);
 		}
 #pragma endregion
@@ -299,6 +307,7 @@ namespace sn {
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->DisableLayerMasks();
 			cameraComp->TurnLayerMask(eLayerType::UI, true);
+			camera->AddComponent<AudioListener>();
 			//camera->AddComponent<CameraScript>();
 		}
 		// Light

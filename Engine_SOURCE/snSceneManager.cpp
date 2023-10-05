@@ -70,7 +70,7 @@ namespace sn
 		if (iter == mScenes.end())
 			return nullptr;
 
-		mActiveScene->OnExit();
+		//mActiveScene->OnExit();
 		mActiveScene = iter->second;
 		mActiveScene->OnEnter();
 

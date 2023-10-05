@@ -12,6 +12,13 @@
 #include "snResources.h"
 #include "snInput.h"
 #include "snRenderer.h"
+#include <snAnimator.h>
+#include "snLight.h"
+
+#include "TitleDoor.h"
+#include <snAudioListener.h>
+#include <snAudioSource.h>
+#include <snAudioClip.h>
 
 namespace sn
 {
@@ -29,10 +36,19 @@ namespace sn
 			AddGameObject(eLayerType::Background, Background);
 			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"TitleBackgroundMaterial01"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
-			Background->GetComponent<Transform>()->SetScale(Vector3(9.77777735f, 5.5f, 2.0f));
+			//Background->GetComponent<Transform>()->SetScale(Vector3(9.77777735f, 5.5f, 2.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(11.f, 11.f, 2.0f));
+
+			std::shared_ptr<Texture> atlas
+				= Resources::Load<Texture>(L"TitleAnimationBackground01", L"..\\Resources\\Texture\\Title\\Main_menu.png");
+
+			Animator* at = Background->AddComponent<Animator>();
+			at->Create(L"TitleAnimation01", atlas, Vector2(0.0f, 360.0f), Vector2(640.f, 360.0f), 16, 720.f);
+			
+			at->PlayAnimation(L"TitleAnimation01", true);
 		}
 
 		{
@@ -41,10 +57,19 @@ namespace sn
 			AddGameObject(eLayerType::Background, Background);
 			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"TitleBackgroundMaterial02"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
-			Background->GetComponent<Transform>()->SetScale(Vector3(9.77777735f, 5.5f, 2.0f));
+			//Background->GetComponent<Transform>()->SetScale(Vector3(9.77777735f, 5.5f, 2.0f));
+			Background->GetComponent<Transform>()->SetScale(Vector3(11.f, 11.f, 2.0f));
+
+			std::shared_ptr<Texture> atlas
+				= Resources::Load<Texture>(L"TitleAnimationBackground02", L"..\\Resources\\Texture\\Title\\Main_menu.png");
+
+			Animator* at = Background->AddComponent<Animator>();
+			at->Create(L"TitleAnimation02", atlas, Vector2(0.0f, 0.0f), Vector2(640.f, 360.0f), 16, 720.f);
+
+			at->PlayAnimation(L"TitleAnimation02", true);
 		}
 
 		{
@@ -54,9 +79,15 @@ namespace sn
 			MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"LogoMaterial01"));
-			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 1.0f, 0.0f));
+			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 1.0f, -0.3f));
 			//Background->GetComponent<Transform>()->SetScale(Vector3(6.7f, 4.0f, 2.0f));
 			Background->GetComponent<Transform>()->SetScale(Vector3(4.f, 2.0f, 2.0f));
+		}
+
+		{
+			GameObject* Background = new GameObject();
+			AddGameObject(eLayerType::Background, Background);
+			Background->AddComponent<TitleDoor>();
 		}
 
 		{
@@ -69,6 +100,16 @@ namespace sn
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 			SetMainCamera(cameraComp);
+			camera->AddComponent<AudioListener>();
+		}
+		// Light
+		{
+			GameObject* light = new GameObject();
+			light->SetName(L"DirectionalLight01");
+			AddGameObject(eLayerType::Light, light);
+			Light* lightComp = light->AddComponent<Light>();
+			lightComp->SetType(eLightType::Directional);
+			lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
 		}
 		Scene::Initialize();
 	}
