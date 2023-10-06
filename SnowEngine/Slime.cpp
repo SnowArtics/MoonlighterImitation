@@ -8,6 +8,8 @@
 #include "snPlayer.h"
 #include "PlayerHP.h"
 #include "AI.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 using namespace sn;
 
@@ -91,6 +93,12 @@ void Slime::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 		SetMonsterInfo(monInfo);
 
 		GetComponent<AI>()->ChangeState(MON_STATE::TRACE);
+
+		AudioSource* as = GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"golem_dungeon_slime_hit", L"..\\Resources\\Sound\\SoundEffect\\Slime\\golem_dungeon_slime_hit.wav"));
+		as->Play();
+		as->SetVolume(3);
+		as->SetLoop(false);
 
 		if (monInfo.fHP <= 0.f) {
 			std::vector<std::vector<RoomInfo>>& vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();

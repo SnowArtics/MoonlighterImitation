@@ -6,6 +6,8 @@
 #include "snTransform.h"
 #include "snTime.h"
 #include "snCollider2D.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 using namespace sn;
 
@@ -19,6 +21,7 @@ SlimeAttack::SlimeAttack()
 	, time(0.f)
 	, targetPos()
 	, moveDir()
+	, soundFlag(false)
 {
 	targetPos = Vector3(0.0f, 0.0f, 0.0f);
 	moveDir = Vector3(0.0f, 0.0f, 0.0f);
@@ -30,6 +33,15 @@ SlimeAttack::~SlimeAttack()
 
 void SlimeAttack::Update()
 {
+	if (soundFlag == false) {
+		AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"golem_dungeon_slime_attack", L"..\\Resources\\Sound\\SoundEffect\\Slime\\golem_dungeon_slime_attack.wav"));
+		as->Play();
+		as->SetVolume(3);
+		as->SetLoop(false);
+		soundFlag = true;
+	}
+
 	time += Time::DeltaTime();
 
 	tMonInfo monInfo = GetMonster()->GetMonsterInfo();
@@ -73,6 +85,7 @@ void SlimeAttack::Update()
 		moveDir = Vector3(0.f, 0.f, 0.f);
 		time = 0.f;
 		attackFlag = true;
+		soundFlag = false;
 	}
 	moveDir.Normalize();
 

@@ -7,6 +7,8 @@
 #include "snTime.h"
 #include "MiniBossAttack.h"
 #include "MiniBossSmash.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 #include <random>
 
@@ -23,6 +25,14 @@ MiniBossTrace::~MiniBossTrace()
 
 void MiniBossTrace::Update()
 {
+	if (time == 0.f) {
+		AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"Miniboss_golemwarrior_idle_corrupted", L"..\\Resources\\Sound\\SoundEffect\\GolemCorruptedMiniBoss\\Miniboss_golemwarrior_idle_corrupted.wav"));
+		as->Play();
+		as->SetVolume(1);
+		as->SetLoop(true);
+	}
+
 	time += Time::DeltaTime();
 
 	sn::GameObject* player = SceneManager::GetActiveScene()->GetPlayer();
@@ -51,9 +61,15 @@ void MiniBossTrace::Update()
 			delayTime = 0.f;
 			if (randomNum == 1) {
 				SceneManager::ChangeMonsterState(GetAI(), MON_STATE::MINIBOSS_ATT);
+				AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
+				as->Stop();
+				time = 0.f;
 			}
 			else if (randomNum == 2) {
 				SceneManager::ChangeMonsterState(GetAI(), MON_STATE::MINIBOSS_SMASH);
+				AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
+				as->Stop();
+				time = 0.f;
 			}
 		}
 	}

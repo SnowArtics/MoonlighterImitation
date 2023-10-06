@@ -4,6 +4,8 @@
 #include "..\Engine_SOURCE\snTime.h"
 #include "..\Engine_SOURCE\snInput.h"
 #include "snCollider2D.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 RollState::RollState()
 	: PlayerState(PLAYER_STATE::ROLL)
@@ -17,6 +19,14 @@ RollState::~RollState()
 
 void RollState::Update()
 {
+	if (time == 0.f) {
+		AudioSource* as = GetPlayerFSM()->GetOwner()->GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"will_roll", L"..\\Resources\\Sound\\SoundEffect\\Will\\will_roll.wav"));
+		as->Play();
+		as->SetVolume(3);
+		as->SetLoop(false);
+	}
+
 	time += Time::DeltaTime();
 
 	sn::Collider2D* collider = GetPlayerFSM()->GetOwner()->GetComponent<sn::Collider2D>();

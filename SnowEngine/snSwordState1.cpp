@@ -6,6 +6,8 @@
 #include "snPlayerFSM.h"
 #include "..\Engine_SOURCE\snCollider2D.h"
 #include "snComponent.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 using namespace sn;
 
@@ -23,6 +25,14 @@ SwordState1::~SwordState1()
 
 void SwordState1::Update()
 {
+	if (time == 0.f) {
+		AudioSource* as = GetPlayerFSM()->GetOwner()->GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"short_sword_main_attack_swing", L"..\\Resources\\Sound\\SoundEffect\\Will\\ShortSword\\short_sword_main_attack_swing.wav"));
+		as->Play();
+		as->SetVolume(3);
+		as->SetLoop(false);
+	}
+
 	time += Time::DeltaTime();
 
 	PLAYER_DIR playerDir = GetPlayerFSM()->GetDirection();

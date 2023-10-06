@@ -4,6 +4,8 @@
 #include "Monster.h"
 #include "snGameObject.h"
 #include "snTransform.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 MiniBossTeleportAttack::MiniBossTeleportAttack()
 	: State(MON_STATE::MINIBOSS_TELEPORT_ATTACK)
@@ -17,6 +19,14 @@ MiniBossTeleportAttack::~MiniBossTeleportAttack()
 
 void MiniBossTeleportAttack::Update()
 {
+	if (time == 0.f) {
+		AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"Miniboss_golemwarrior_sword_corrupted_finish", L"..\\Resources\\Sound\\SoundEffect\\GolemCorruptedMiniBoss\\Miniboss_golemwarrior_sword_corrupted_finish.wav"));
+		as->Play();
+		as->SetVolume(1);
+		as->SetLoop(false);
+	}
+
 	time += Time::DeltaTime();	
 
 	if (time >= 1.0f) {

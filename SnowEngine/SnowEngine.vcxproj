@@ -181,6 +181,7 @@
     <ClInclude Include="GolemKingArmIdle.h" />
     <ClInclude Include="GolemKingArmRecover.h" />
     <ClInclude Include="GolemKingDeath.h" />
+    <ClInclude Include="GolemKingDeath01.h" />
     <ClInclude Include="GolemKingFist.h" />
     <ClInclude Include="GolemKingIdle.h" />
     <ClInclude Include="GolemKingRock.h" />
@@ -297,6 +298,7 @@
     <ClCompile Include="GolemKingArmIdle.cpp" />
     <ClCompile Include="GolemKingArmRecover.cpp" />
     <ClCompile Include="GolemKingDeath.cpp" />
+    <ClCompile Include="GolemKingDeath01.cpp" />
     <ClCompile Include="GolemKingFist.cpp" />
     <ClCompile Include="GolemKingIdle.cpp" />
     <ClCompile Include="GolemKingRock.cpp" />

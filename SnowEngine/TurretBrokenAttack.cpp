@@ -6,6 +6,8 @@
 #include "snTransform.h"
 #include "snTime.h"
 #include "snCollider2D.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 TurretBrokenAttack::TurretBrokenAttack()
 	: State(MON_STATE::ATT)
@@ -19,6 +21,15 @@ TurretBrokenAttack::~TurretBrokenAttack()
 
 void TurretBrokenAttack::Update()
 {
+	//망치 슬라임 사운드 부분
+	/*if (GetAI()->GetOwner()->GetName()== L"SlimeHermit" && time == 0.f) {
+		AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"golem_dungeon_slime_attack", L"..\\Resources\\Sound\\SoundEffect\\SlimeHermit\\golem_dungeon_slime_attack.wav"));
+		as->Play();
+		as->SetVolume(4);
+		as->SetLoop(false);
+	}*/
+
 	time += Time::DeltaTime();
 
 	GameObject* player = SceneManager::GetActiveScene()->GetPlayer();

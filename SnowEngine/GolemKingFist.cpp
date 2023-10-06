@@ -65,6 +65,10 @@ void GolemKingFist::Initialize()
 
 void GolemKingFist::Update()
 {
+	if (owner->GetComponent<AI>()->GetCurStateName() == MON_STATE::GOLEMKING_DEATH) {
+		SetState(eState::Dead);
+	}
+
 	curTime += Time::DeltaTime();
 
 	if (curTime >= endTime) {

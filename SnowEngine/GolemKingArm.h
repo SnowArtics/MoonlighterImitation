@@ -22,6 +22,7 @@ public:
 
 public:
     void SetEndTime(float _endTime) { endTime = _endTime; }
+    void SetOwner(GameObject* _owner) { owner = _owner; }
 
 private:
     float curTime;
@@ -32,5 +33,7 @@ private:
 
     Vector3 curPos;
     Vector3 desPos;
+
+    GameObject* owner;
 };
 

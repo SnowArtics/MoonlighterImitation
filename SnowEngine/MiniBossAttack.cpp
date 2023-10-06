@@ -9,6 +9,8 @@
 #include "snGameObject.h"
 #include "snMeshRenderer.h"
 #include "snCollider2D.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 MiniBossAttack::MiniBossAttack()
 	: State(MON_STATE::MINIBOSS_ATT)
@@ -22,6 +24,14 @@ MiniBossAttack::~MiniBossAttack()
 
 void MiniBossAttack::Update()
 {
+	if (time == 0.f) {
+		AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"Miniboss_golemwarrior_sword_corrupted_start", L"..\\Resources\\Sound\\SoundEffect\\GolemCorruptedMiniBoss\\Miniboss_golemwarrior_sword_corrupted_start.wav"));
+		as->Play();
+		as->SetVolume(4);
+		as->SetLoop(false);
+	}
+
 	time += Time::DeltaTime();
 
 	MeshRenderer* meshRenderer = GetAI()->GetOwner()->GetComponent<MeshRenderer>();

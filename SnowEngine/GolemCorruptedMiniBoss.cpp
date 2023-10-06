@@ -11,6 +11,8 @@
 #include "GolemSmashWave.h"
 #include "snMeshRenderer.h"
 #include "snResources.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 #include <thread>
 #include <random>
@@ -244,6 +246,12 @@ void GolemCorruptedMiniBoss::OnCollisionEnter(sn::Collider2D* other, sn::Collide
 		SetMonsterInfo(monInfo);
 
 		std::vector<std::vector<RoomInfo>> vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
+		
+		AudioSource* as = GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"golem_dungeon_golem_hit", L"..\\Resources\\Sound\\SoundEffect\\GolemCorruptedMiniBoss\\golem_dungeon_golem_hit.wav"));
+		as->Play();
+		as->SetVolume(4);
+		as->SetLoop(false);
 
 		if (monInfo.fHP <= 0.f) {
 			vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum -= 1;

@@ -6,6 +6,8 @@
 #include "snTransform.h"
 #include "snTime.h"
 #include "snCollider2D.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 TurretAttack::TurretAttack()
 	: State(MON_STATE::ATT)
@@ -19,6 +21,14 @@ TurretAttack::~TurretAttack()
 
 void TurretAttack::Update()
 {
+	if (time == 0.f) {
+		AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"golem_turret_attack01", L"..\\Resources\\Sound\\SoundEffect\\GolemTurret\\golem_turret_attack01.wav"));
+		as->Play();
+		as->SetVolume(3);
+		as->SetLoop(false);
+	}
+
 	time += Time::DeltaTime();
 
 	GameObject* player = SceneManager::GetActiveScene()->GetPlayer();

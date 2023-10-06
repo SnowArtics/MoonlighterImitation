@@ -43,7 +43,8 @@ namespace sn
 
 	void AudioClip::Stop()
 	{
-		mChannel->stop();
+		if(mChannel != nullptr)
+			mChannel->stop();
 	}
 
 	void AudioClip::Set3DAttributes(const Vector3 pos, const Vector3 vel)
@@ -52,6 +53,22 @@ namespace sn
 		FMOD_VECTOR fmodVel(vel.x, vel.y, vel.z);
 
 		mChannel->set3DAttributes(&fmodPos, &fmodVel);
+	}
+
+	void AudioClip::SetVolume(int _i)
+	{
+		mChannel->setVolume(_i);
+	}
+
+	void AudioClip::VolumeDown(int _i)
+	{
+		float volume;
+		int channelPriority;
+
+		mChannel->getPriority(&channelPriority);
+
+		mSound->getMusicChannelVolume(channelPriority, &volume);
+		mSound->setMusicChannelVolume(channelPriority, volume - _i);
 	}
 
 

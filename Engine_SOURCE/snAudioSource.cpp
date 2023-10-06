@@ -31,7 +31,8 @@ namespace sn
 		Vector3 pos = tr->GetPosition();
 		Vector3 foward = tr->Foward();
 
-		mAudioClip->Set3DAttributes(pos, foward);
+		if(mAudioClip != nullptr)
+			mAudioClip->Set3DAttributes(pos, foward);
 	}
 
 	void AudioSource::Render()
@@ -44,7 +45,8 @@ namespace sn
 	}
 	void AudioSource::Stop()
 	{
-		mAudioClip->Stop();
+		if(mAudioClip != nullptr)
+			mAudioClip->Stop();
 	}
 	void AudioSource::SetLoop(bool loop)
 	{

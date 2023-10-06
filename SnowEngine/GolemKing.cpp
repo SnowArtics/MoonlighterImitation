@@ -21,10 +21,12 @@
 #include <random>
 #include "snPlayer.h"
 #include <snRigidBody.h>
+#include "MiniBossHPBar.h"
 
 GolemKing::GolemKing()
 	:curTime(0.0f)
 	, bossHPBarTrigger(true)
+	, deadTrigger(false)
 {
 	//rockPoses.push_back(Vector3(0.4f, -1.0f, -1.0f));
 	//rockPoses.push_back(Vector3(-0.1f, -0.5f, -1.0f));
@@ -53,8 +55,12 @@ void GolemKing::Initialize()
 
 void GolemKing::Update()
 {
-	if (GetMonsterInfo().fHP <= 0.f) {
-		GetComponent<AI>()->ChangeState(MON_STATE::GOLEMKING_DEATH);
+	if (GetMonsterInfo().fHP <= 0.f && !deadTrigger) {
+		SceneManager::ChangeMonsterState(GetComponent<AI>(), MON_STATE::GOLEMKING_DEATH);
+		GetComponent<sn::Collider2D>()->SetEnable(false);
+		GetComponents<sn::Collider2D>()[1]->SetEnable(false);
+		GetComponent<MiniBossHPBar>()->DeleteObjects();
+		deadTrigger = true;
 	}
 
 	curTime += Time::DeltaTime();
@@ -121,15 +127,22 @@ void GolemKing::Update()
 			animator->PlayAnimation(L"GOLEMKING_AIM_END", false);
 		}
 		break;
-		case MON_STATE::DEAD:
+		case MON_STATE::GOLEMKING_DEATH:
+		{
+			animator->PlayAnimation(L"GOLEMKING_DEATH", false);
+		}
 			break;
+		case MON_STATE::GOLEMKING_DEATH01:
+		{
+			animator->PlayAnimation(L"GOLEMKING_DEATH01", false);
+		}
+		break;
 		default:
 			break;
 		}
 
 
 	}
-
 	Monster::Update();
 }
 
@@ -171,6 +184,7 @@ void GolemKing::CreateWave()
 void GolemKing::CreateArm()
 {
 	GolemKingArm* golemKingArm = new GolemKingArm;
+	golemKingArm->SetOwner(this);
 	Transform* tr = golemKingArm->GetComponent<Transform>();
 	tr->SetScale(0.1f, 0.1f, 0.0f);
 
@@ -185,6 +199,7 @@ void GolemKing::CreateFist()
 
 	//보스 주먹 생성
 	GolemKingFist* fist = new GolemKingFist;
+	fist->SetOwner(this);
 	SceneManager::GetActiveScene()->AddGameObject(eLayerType::Projectile, static_cast<sn::GameObject*>(fist));
 	fist->SetGolemKingPos(pos);
 	fist->GetComponent<Transform>()->SetPosition(Vector3(pos.x, pos.y, pos.z));
@@ -198,6 +213,10 @@ void GolemKing::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 		monInfo.fHP -= 30.f;
 		this->GetComponent<MiniBossHPBar>()->PlayDamage(30.f);
 		SetMonsterInfo(monInfo);
+
+		if (monInfo.fHP <= 0.f) {
+			GetComponent<AI>()->SetCurState(MON_STATE::GOLEMKING_DEATH);
+		}
 	}
 
 	if (other->GetName() == L"FisrtCollider" && me->GetName() == L"GolemKing_Wave_Collider") {

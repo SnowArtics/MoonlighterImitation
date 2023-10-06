@@ -21,6 +21,8 @@ public:
 	void CreateHpBar();
 	void PlayDamage(float _damage);
 
+	void DeleteObjects();
+
 private:
 	sn::GameObject* bossHPBracket;
 	sn::GameObject* bossHPBar;

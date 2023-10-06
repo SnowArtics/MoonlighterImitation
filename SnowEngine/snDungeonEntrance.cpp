@@ -27,6 +27,9 @@
 #include "snBowState.h"
 #include "snPlayerCollision.h"
 #include "PlayerFollowCamera.h"
+#include <snAudioSource.h>
+#include <snAudioClip.h>
+#include <snAudioListener.h>
 
 namespace sn {
 	DungeonEntrance::DungeonEntrance()
@@ -47,6 +50,8 @@ namespace sn {
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 			Background->GetComponent<Transform>()->SetScale(Vector3(11.1714f, 10.f, 2.0f));
 			Background->GetComponent<Transform>()->SetScale(Vector3(23.42857142857142f, 20.f, 2.0f));
+		
+			
 		}
 
 		{
@@ -254,9 +259,15 @@ namespace sn {
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
 			camera->AddComponent<PlayerFollowCamera>();
+			camera->AddComponent<AudioListener>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 			SetMainCamera(cameraComp);
+
+			AudioSource* as = camera->AddComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"dungeon_entrance_wind_ambient", L"..\\Resources\\Sound\\BGM\\dungeon_entrance_wind_ambient.wav"));
+			as->Play();
+			as->SetLoop(true);
 		}
 
 		//UI Camera
@@ -266,7 +277,7 @@ namespace sn {
 			camera->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -10.0f));
 			Camera* cameraComp = camera->AddComponent<Camera>();
 			cameraComp->DisableLayerMasks();
-			cameraComp->TurnLayerMask(eLayerType::UI, true);
+			cameraComp->TurnLayerMask(eLayerType::UI, true);			
 			//camera->AddComponent<CameraScript>();
 		}
 		// Light

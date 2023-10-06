@@ -7,6 +7,8 @@
 #include "snTime.h"
 #include "snCollider2D.h"
 #include "snGameObject.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 MiniBossSmash::MiniBossSmash()
 	: State(MON_STATE::MINIBOSS_SMASH)
@@ -20,6 +22,14 @@ MiniBossSmash::~MiniBossSmash()
 
 void MiniBossSmash::Update()
 {
+	if (time == 0.f) {
+		AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"Miniboss_golemwarrior_maze", L"..\\Resources\\Sound\\SoundEffect\\GolemCorruptedMiniBoss\\Miniboss_golemwarrior_maze.wav"));
+		as->Play();
+		as->SetVolume(3);
+		as->SetLoop(false);
+	}
+
 	time += Time::DeltaTime();
 
 	tMonInfo monInfo = GetMonster()->GetMonsterInfo();

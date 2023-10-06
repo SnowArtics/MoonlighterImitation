@@ -12,6 +12,8 @@
 #include "GolemSmashWave.h"
 #include "snMeshRenderer.h"
 #include "snResources.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 #include <thread>
 #include <random>
@@ -127,6 +129,11 @@ void GolemMiniBoss::Update()
 					firstColliderAttTime = 0.1f;
 				}
 				thirdCollider->SetEnable(false);
+				AudioSource* as = GetComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"Miniboss_golemwarrior_sword", L"..\\Resources\\Sound\\SoundEffect\\GolemMiniBoss\\Miniboss_golemwarrior_sword.wav"));
+				as->Play();
+				as->SetVolume(3);
+				as->SetLoop(false);
 				switch (monDir)
 				{
 				case MonDir::UP:
@@ -161,6 +168,11 @@ void GolemMiniBoss::Update()
 				if (waveCreateTime == 0.f) {
 					waveCreateTime = 0.1f;
 				}
+				AudioSource* as = GetComponent<AudioSource>();
+				as->SetClip(Resources::Load<AudioClip>(L"Miniboss_golemwarrior_maze", L"..\\Resources\\Sound\\SoundEffect\\GolemMiniBoss\\Miniboss_golemwarrior_maze.wav"));
+				as->Play();
+				as->SetVolume(3);
+				as->SetLoop(false);
 				secondCollider->SetEnable(false);
 				thirdCollider->SetEnable(true);
 				Vector3 pos = this->GetComponent<Transform>()->GetPosition();
@@ -230,6 +242,12 @@ void GolemMiniBoss::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 		SetMonsterInfo(monInfo);
 
 		std::vector<std::vector<RoomInfo>> vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
+
+		AudioSource* as = GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"GolemMiniBoss", L"..\\Resources\\Sound\\SoundEffect\\GolemMiniBoss\\golem_dungeon_golem_hit.wav"));
+		as->Play();
+		as->SetVolume(4);
+		as->SetLoop(false);
 
 		if (monInfo.fHP <= 0.f) {
 			vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum -= 1;

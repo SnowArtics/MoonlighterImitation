@@ -57,7 +57,7 @@ namespace sn {
 		CollisionManager::SetLayer(eLayerType::Background, eLayerType::Door, false);
 
 		MazeMaker::GetInst()->Init();
-		MazeMaker::GetInst()->BackTracking(2, 1);
+		MazeMaker::GetInst()->BackTracking(2, 2);
 		arr = MazeMaker::GetInst()->GetDirArr();
 		DungeonMapManager::GetInst()->SetDungeonArr(arr);
 		std::pair<int, int> firstPlayerPos = MazeMaker::GetInst()->GetStartPos();
@@ -65,20 +65,20 @@ namespace sn {
 		DungeonMapManager::GetInst()->SetPlayerMapSpawnPos(firstPlayerPos);
 
 		std::vector<std::wstring> DungeonName;
-		DungeonName.push_back(L"DungeonBackgroundMaterial00-1");
-		DungeonName.push_back(L"DungeonBackgroundMaterial01-1");
-		DungeonName.push_back(L"DungeonBackgroundMaterial02-1");
-		DungeonName.push_back(L"DungeonBackgroundMaterial03-1");
-		DungeonName.push_back(L"DungeonBackgroundMaterial04-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial00-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial01-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial02-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial03-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial04-1");
 		DungeonName.push_back(L"DungeonBackgroundMaterial05-1");
-		DungeonName.push_back(L"DungeonBackgroundMaterial06-1");
-		DungeonName.push_back(L"DungeonBackgroundMaterial07-1");
-		DungeonName.push_back(L"DungeonBackgroundMaterial08-1");
-		DungeonName.push_back(L"DungeonBackgroundMaterial09-1");
-		DungeonName.push_back(L"DungeonBackgroundMaterial10-1");
-		DungeonName.push_back(L"DungeonBackgroundMaterial11-1");
-		DungeonName.push_back(L"DungeonBackgroundMaterial12-1");
-		DungeonName.push_back(L"DungeonBackgroundMaterial13-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial06-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial07-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial08-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial09-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial10-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial11-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial12-1");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial13-1");
 
 		std::shuffle(DungeonName.begin(), DungeonName.end(), std::default_random_engine());
 

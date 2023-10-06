@@ -62,6 +62,10 @@ void GolemKingArm::Initialize()
 
 void GolemKingArm::Update()
 {
+	if (owner->GetComponent<AI>()->GetCurStateName() == MON_STATE::GOLEMKING_DEATH) {
+		SetState(eState::Dead);
+	}
+
 	curTime += Time::DeltaTime();
 
 	Transform* tr = GetComponent<Transform>();

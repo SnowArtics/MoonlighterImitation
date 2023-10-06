@@ -3,6 +3,7 @@
 #include "Monster.h"
 #include "snRigidBody.h"
 #include "snTransform.h"
+#include <snAudioSource.h>
 
 using namespace sn;
 
@@ -10,6 +11,7 @@ snPlayer::snPlayer()
 	: HP(100.f)
 	, UnStiffness(10.f)
 {
+	AddComponent<AudioSource>();
 }
 
 snPlayer::~snPlayer()

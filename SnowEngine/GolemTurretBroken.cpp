@@ -13,6 +13,8 @@
 #include "MonsterHPBar.h"
 #include "snPlayer.h"
 #include "PlayerHP.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 using namespace sn;
 
@@ -135,6 +137,11 @@ void GolemTurretBroken::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* 
 		this->GetComponent<MonsterHPBar>()->SetEnable(true);
 		SetMonsterInfo(monInfo);
 
+		AudioSource* as = GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"golem_dungeon_golem_hit", L"..\\Resources\\Sound\\SoundEffect\\Golem\\golem_dungeon_golem_hit.wav"));
+		as->Play();
+		as->SetVolume(4);
+		as->SetLoop(false);
 
 		if (monInfo.fHP <= 0.f) {
 			std::vector<std::vector<RoomInfo>>& vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();
@@ -167,6 +174,12 @@ void GolemTurretBroken::OnCollisionExit(sn::Collider2D* other, sn::Collider2D* m
 
 void GolemTurretBroken::CreateProjectile()
 {
+	AudioSource* as = GetComponent<AudioSource>();
+	as->SetClip(Resources::Load<AudioClip>(L"golem_dungeon_turret_shot", L"..\\Resources\\Sound\\SoundEffect\\GolemTurretBroken\\golem_dungeon_turret_shot.wav"));
+	as->Play();
+	as->SetVolume(3);
+	as->SetLoop(false);
+
 	AI* ai = GetComponent<AI>();
 	MonDir monDir = ai->GetCurDir();	
 	

@@ -7,10 +7,16 @@
 #include "MonsterHPBar.h"
 #include "snPlayer.h"
 #include "PlayerHP.h"
+#include <snAudioSource.h>
+#include "snResources.h"
+#include "snTime.h"
+#include "snAudioSource.h"
 
 using namespace sn;
 
 FylingRepairGolem::FylingRepairGolem()
+	: startTime(0.0f)
+	, endTime(0.0f)
 {
 }
 
@@ -25,6 +31,18 @@ void FylingRepairGolem::Initialize()
 
 void FylingRepairGolem::Update()
 {
+	if (startTime == 0.f) {
+		AudioSource* as = GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"golem_dungeon_flyingrepair_loop", L"..\\Resources\\Sound\\SoundEffect\\FlyingRepairGolem\\golem_dungeon_flyingrepair_loop.wav"));
+		as->Play();
+		as->SetVolume(1);
+		as->SetLoop(false);
+	}
+	startTime += Time::DeltaTime();
+	if (startTime >= 0.5f) {
+		startTime = 0.f;
+	}
+
 	AI* ai = GetComponent<AI>();
 	MonDir monDir = ai->GetCurDir();
 	MON_STATE monState = ai->GetCurStateName();
@@ -85,6 +103,11 @@ void FylingRepairGolem::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* 
 		this->GetComponent<MonsterHPBar>()->SetEnable(true);
 		SetMonsterInfo(monInfo);
 
+		AudioSource* as = GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"golem_dungeon_golem_hit", L"..\\Resources\\Sound\\SoundEffect\\Golem\\golem_dungeon_golem_hit.wav"));
+		as->Play();
+		as->SetVolume(4);
+		as->SetLoop(false);
 
 		if (monInfo.fHP <= 0.f) {
 			std::vector<std::vector<RoomInfo>>& vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();

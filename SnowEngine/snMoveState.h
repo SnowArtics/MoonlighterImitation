@@ -12,5 +12,9 @@ public:
 	virtual void Update();
 	virtual void Enter();
 	virtual void Exit();
+
+private:
+	float soundStartTime;
+	float soundEndTime;
 };
 

@@ -26,6 +26,7 @@ public:
 
 public:
     void SetGolemKingPos(Vector3 _golemKingPos) { golemKingPos = _golemKingPos; }
+    void SetOwner(GameObject* _owner) { owner = _owner; }
 
     Vector3 GetGolemKingPos() { return golemKingPos; }
 
@@ -40,5 +41,7 @@ private:
 
     float velocity;
     float acceleration;
+
+    GameObject* owner;
 };
 

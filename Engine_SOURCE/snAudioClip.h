@@ -26,6 +26,8 @@ namespace sn
 		void Stop();
 		void Set3DAttributes(const Vector3 pos, const Vector3 vel);
 		void SetLoop(bool loop) { mbLoop = loop; }
+		void SetVolume(int _i);
+		void VolumeDown(int _i);
 
 	private:
 		FMOD::Sound* mSound;

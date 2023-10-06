@@ -63,6 +63,11 @@ TitleDoor::TitleDoor()
 		Background->GetComponent<Transform>()->SetScale(Vector3(0.02684563758f, 5.5f, 2.0f));
 
 		middleLine = Background;
+
+		AudioSource* as = middleLine->AddComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"main_menu_wind", L"..\\Resources\\Sound\\BGM\\main_menu_wind.wav"));
+		as->Play();
+		as->SetLoop(true);
 	}
 }
 

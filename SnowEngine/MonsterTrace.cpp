@@ -5,6 +5,8 @@
 #include "snGameObject.h"
 #include "snTransform.h"
 #include "snTime.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 using namespace sn;
 
@@ -21,6 +23,14 @@ MonsterTrace::~MonsterTrace()
 
 void MonsterTrace::Update()
 {
+	if (GetAI()->GetOwner()->GetName() == L"Golem Warrior" && time == 0.f) {
+		AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"Miniboss_golemwarrior_idle", L"..\\Resources\\Sound\\SoundEffect\\GolemMiniBoss\\Miniboss_golemwarrior_idle.wav"));
+		as->Play();
+		as->SetVolume(1);
+		as->SetLoop(true);
+	}
+
 	time += Time::DeltaTime();
 
 	sn::GameObject* player = SceneManager::GetActiveScene()->GetPlayer();
@@ -28,7 +38,7 @@ void MonsterTrace::Update()
 	Vector3 playerPos = playerTr->GetPosition();
 
 	Monster* mon = GetMonster();
-	Transform* monTr = mon->GetComponent < Transform>();
+	Transform* monTr = mon->GetComponent <Transform>();
 	Vector3 monPos = monTr->GetPosition();
 
 	Vector3 moveDir = playerPos - monPos;
@@ -40,6 +50,10 @@ void MonsterTrace::Update()
 		if (delayTime >= mon->GetMonsterInfo().fAttDelay && mon->GetMonsterInfo().fAttDelay >= 0.f) {
 			SceneManager::ChangeMonsterState(GetAI(), MON_STATE::ATT);
 			delayTime = 0.f;
+
+			time = 0.f;
+			AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
+			as->Stop();
 		}
 	}
 	else {

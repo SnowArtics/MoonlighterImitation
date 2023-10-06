@@ -44,6 +44,8 @@
 #include "GolemKingAimCycle.h"
 #include "GolemKingAimEnd.h"
 #include "GolemKingAimShoot.h"
+#include "GolemKingDeath.h"
+#include "GolemKingDeath01.h"
 
 using namespace sn;
 
@@ -518,6 +520,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 	case MonType::SLIMEHERMIT:
 	{
 		pMon = new SlimeHermit;
+		pMon->SetName(L"SlimeHermit");
 		Transform* tr = pMon->GetComponent<Transform>();
 		tr->SetPosition(Vector3(_vPos.x, _vPos.y, 0.0f));
 
@@ -576,7 +579,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fAtt = 30.f;
 		info.fAttRange = 1.5f;
 		info.fRecogRange = 300.f;
-		info.fHP = 1000.f;
+		info.fHP = 100.f;
 		info.fSpeed = 0.5f;
 		info.fAttTime = 1.5f;
 		info.fAttDelay = 1.f;
@@ -606,9 +609,14 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		at->Create(L"GOLEMKING_AIM_SHOOT", atlas, Vector2(0.0f, 700.f), Vector2(350.f, 350.f), 16, 360.f);
 
-		atlas = Resources::Load<Texture>(L"GolemKing_Shoot", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemKing\\FistShoot.png");
 
-		at->Create(L"GOLEMKING_DEATH", atlas, Vector2(0.0f, 0.f), Vector2(350.f, 350.f), 41,720.f);
+		atlas = Resources::Load<Texture>(L"dead1", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemKing\\dead1.png");
+
+		at->Create(L"GOLEMKING_DEATH", atlas, Vector2(0.0f, 0.f), Vector2(308.f, 350.f), 41, 360.f, 0.1f, Vector2(0.f,0.0f));
+
+		atlas = Resources::Load<Texture>(L"dead2", L"..\\Resources\\Texture\\Dungeon\\Enemy\\GolemKing\\dead2.png");
+
+		at->Create(L"GOLEMKING_DEATH01", atlas, Vector2(0.0f, 0.f), Vector2(350.f, 350.f), 41, 360.f, 0.1f, Vector2(0.f,0.0f));
 
 		at->PlayAnimation(L"GOLEMKING_IDLE", true);
 
@@ -640,6 +648,8 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new GolemKingAimCycle);
 		ai->AddState(new GolemKingAimShoot);
 		ai->AddState(new GolemKingAimEnd);
+		ai->AddState(new GolemKingDeath);
+		ai->AddState(new GolemKingDeath01);
 		ai->SetCurState(MON_STATE::GOLEMKING_IDLE);
 
 		pMon->AddComponent<MiniBossHPBar>();

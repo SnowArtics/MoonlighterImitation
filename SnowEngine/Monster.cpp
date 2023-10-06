@@ -6,6 +6,7 @@
 #include "snRigidBody.h"
 #include "HitEffect.h"
 #include "snSceneManager.h"
+#include <snAudioSource.h>
 
 using namespace sn;
 
@@ -17,6 +18,7 @@ Monster::Monster()
 	, deadTime(0.f)
 {
 	AddHitEffect(Vector3(0.25f,0.25f,0.25f));
+	AddComponent<AudioSource>();
 }
 
 Monster::~Monster()
@@ -32,7 +34,7 @@ void Monster::Update()
 {
 	int monsterState = this->GetComponent<MeshRenderer>()->GetMonsterCB().state;
 
-	if (m_tInfo.fHP <= 0.f) {
+	if (m_tInfo.fHP <= 0.f && GetName() != L"GolemKing") {
 		for (int i = 0; i < GetComponents<sn::Collider2D>().size(); i++) {
 			GetComponents<sn::Collider2D>()[i]->SetEnable(false);
 		}
@@ -41,6 +43,12 @@ void Monster::Update()
 			hitEffect->SetState(eState::Dead);
 		}
 		monsterState = 2;
+	}
+	else if (m_tInfo.fHP <= 0.f && GetName() == L"GolemKing") {
+		if (hitEffect != nullptr) {
+			//delete hitEffect;
+			hitEffect->SetState(eState::Dead);
+		}
 	}
 
 	//0 is normal, 1 is hit, 2 is dead

@@ -19,5 +19,6 @@ private:
 	Vector3 targetPos;
 	Vector3 moveDir;
 	bool attackFlag;
+	bool soundFlag;
 };
 

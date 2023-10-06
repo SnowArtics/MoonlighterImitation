@@ -4,6 +4,8 @@
 #include "..\Engine_SOURCE\snTime.h"
 #include "..\Engine_SOURCE\snInput.h"
 #include "snPlayerFSM.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 SwordState2::SwordState2()
 	:PlayerState(PLAYER_STATE::ATTSWORD2)
@@ -19,6 +21,14 @@ SwordState2::~SwordState2()
 
 void SwordState2::Update()
 {
+	if (time == 0.f) {
+		AudioSource* as = GetPlayerFSM()->GetOwner()->GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"short_sword_main_swing2", L"..\\Resources\\Sound\\SoundEffect\\Will\\ShortSword\\short_sword_main_swing2.wav"));
+		as->Play();
+		as->SetVolume(3);
+		as->SetLoop(false);
+	}
+
 	time += Time::DeltaTime();
 
 	PLAYER_DIR playerDir = GetPlayerFSM()->GetDirection();

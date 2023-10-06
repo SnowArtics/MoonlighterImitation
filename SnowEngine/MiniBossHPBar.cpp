@@ -37,6 +37,8 @@ MiniBossHPBar::~MiniBossHPBar()
 
 	if (bossEnterUI)
 		bossEnterUI->SetState(sn::GameObject::eState::Dead);
+
+	TextManager::DeleteText(L"GolemKingText");
 }
 
 void MiniBossHPBar::Initialize()
@@ -55,8 +57,11 @@ void MiniBossHPBar::Update()
 	float HPGauge = realHP / fullHP;
 
 	Transform* bossHPBarTr = bossHPBar->GetComponent<Transform>();
-	bossHPBarTr->SetScale(Vector3(HPGauge * 5.6f, 0.5f, 0.0f));
-	bossHPBarTr->SetPosition(Vector3(0.f - (((1.0f - HPGauge) * 5.6f)/2), -2.2f, 0.0f));
+	if (bossHPBarTr != nullptr) {
+		bossHPBarTr->SetScale(Vector3(HPGauge * 5.6f, 0.5f, 0.0f));
+		bossHPBarTr->SetPosition(Vector3(0.f - (((1.0f - HPGauge) * 5.6f) / 2), -2.2f, 0.0f));
+	}
+
 }
 
 void MiniBossHPBar::LateUpdate()
@@ -160,4 +165,18 @@ void MiniBossHPBar::PlayDamage(float _damage)
 
 	Animator* at = bossHPBar->GetComponent<Animator>();
 	at->PlayAnimation(L"MINI_BOSS_DAMAGED", false);
+}
+
+void MiniBossHPBar::DeleteObjects()
+{
+	if (bossHPBracket)
+		bossHPBracket->SetState(sn::GameObject::eState::Dead);
+
+	if (bossHPBar)
+		bossHPBar->SetState(sn::GameObject::eState::Dead);
+
+	if (bossEnterUI)
+		bossEnterUI->SetState(sn::GameObject::eState::Dead);
+
+	TextManager::DeleteText(L"GolemKingText");
 }

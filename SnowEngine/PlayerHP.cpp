@@ -10,6 +10,7 @@
 #include "snPlayer.h"
 #include "snTime.h"
 #include "snTextManager.h"
+#include <snAudioSource.h>
 
 using namespace sn;
 using namespace std;
@@ -170,6 +171,12 @@ void PlayerHP::CreateHpBar()
 
 void PlayerHP::PlayDamage(float _damage)
 {
+	AudioSource *as = GetOwner()->GetComponent<AudioSource>();
+	as->SetClip(Resources::Load<AudioClip>(L"will_damaged", L"..\\Resources\\Sound\\SoundEffect\\Will\\will_damaged.wav"));
+	as->SetLoop(false);
+	as->SetVolume(3);
+	as->Play();
+
 	fakeHP = realHP;
 	realHP -= _damage;
 

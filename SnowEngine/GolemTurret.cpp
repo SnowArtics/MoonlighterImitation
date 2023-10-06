@@ -13,6 +13,8 @@
 #include "MonsterHPBar.h"
 #include "snPlayer.h"
 #include "PlayerHP.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 using namespace sn;
 
@@ -135,6 +137,11 @@ void GolemTurret::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 		this->GetComponent<MonsterHPBar>()->SetEnable(true);
 		SetMonsterInfo(monInfo);
 
+		AudioSource* as = GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"golem_dungeon_golem_hit", L"..\\Resources\\Sound\\SoundEffect\\Golem\\golem_dungeon_golem_hit.wav"));
+		as->Play();
+		as->SetVolume(4);
+		as->SetLoop(false);
 
 		if (monInfo.fHP <= 0.f) {
 			std::vector<std::vector<RoomInfo>>& vecRoomInfo = DungeonMapManager::GetInst()->GetRoomInfoArr();

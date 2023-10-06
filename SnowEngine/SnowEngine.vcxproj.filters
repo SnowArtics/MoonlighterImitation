@@ -229,6 +229,9 @@
     <ClCompile Include="PlayerFollowCamera.cpp">
       <Filter>Script\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="GolemKingDeath01.cpp">
+      <Filter>Script\Monster\AI\State\GolemKingDeath</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -461,6 +464,9 @@
     </ClInclude>
     <ClInclude Include="PlayerFollowCamera.h">
       <Filter>Script\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingDeath01.h">
+      <Filter>Script\Monster\AI\State\GolemKingDeath</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

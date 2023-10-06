@@ -3,9 +3,14 @@
 #include "..\Engine_SOURCE\snTransform.h"
 #include "..\Engine_SOURCE\snTime.h"
 #include "..\Engine_SOURCE\snInput.h"
+#include "snTime.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 MoveState::MoveState()
 	:PlayerState(PLAYER_STATE::MOVE)
+	, soundStartTime(0.0f)
+	, soundEndTime(0.21f)
 {
 }
 
@@ -15,6 +20,20 @@ MoveState::~MoveState()
 
 void MoveState::Update()
 {
+	if (soundStartTime == 0.f) {
+		AudioSource* as = GetPlayerFSM()->GetOwner()->GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"will_step_golem_dungeon", L"..\\Resources\\Sound\\SoundEffect\\Will\\will_step_golem_dungeon.wav"));
+		as->Play();
+		as->SetVolume(3);
+		as->SetLoop(false);
+	}
+
+	soundStartTime += Time::DeltaTime();
+
+	if (soundStartTime >= 0.5f) {
+		soundStartTime = 0.f;
+	}
+
 	Transform* tr = GetPlayerFSM()->GetOwner()->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
 
