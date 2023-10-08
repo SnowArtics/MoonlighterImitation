@@ -24,11 +24,11 @@ MonsterTrace::~MonsterTrace()
 void MonsterTrace::Update()
 {
 	if (GetAI()->GetOwner()->GetName() == L"Golem Warrior" && time == 0.f) {
-		AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
+		/*AudioSource* as = GetAI()->GetOwner()->GetComponent<AudioSource>();
 		as->SetClip(Resources::Load<AudioClip>(L"Miniboss_golemwarrior_idle", L"..\\Resources\\Sound\\SoundEffect\\GolemMiniBoss\\Miniboss_golemwarrior_idle.wav"));
 		as->Play();
 		as->SetVolume(1);
-		as->SetLoop(true);
+		as->SetLoop(false);*/
 	}
 
 	time += Time::DeltaTime();

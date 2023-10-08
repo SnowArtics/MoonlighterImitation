@@ -8,6 +8,8 @@
 #include "snCollider2D.h"
 #include "snTransform.h"
 #include "snSceneManager.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 #include <random>
 #include "snPlayer.h"
@@ -21,6 +23,7 @@ GolemKingArm::GolemKingArm()
 	, armDownTrigger(false)
 	, desPos(Vector3(0.0f, 0.0f, 0.0f))
 	, curPos(Vector3(0.0f, 0.0f, 0.0f))
+	, soundTrigger(false)
 {
 	MeshRenderer* mr = AddComponent<MeshRenderer>();
 	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -49,6 +52,8 @@ GolemKingArm::GolemKingArm()
 	collider->SetCenter(Vector2(0.0f, 0.0f));
 	collider->SetSize(Vector2(0.2f, 0.4f));
 	collider->SetEnable(false);
+
+	AddComponent<AudioSource>();
 }
 
 GolemKingArm::~GolemKingArm()
@@ -89,6 +94,7 @@ void GolemKingArm::Update()
 		armDownTrigger = false;
 		Transform* playerTr = SceneManager::GetActiveScene()->GetPlayer()->GetComponent<Transform>();
 		tr->SetPosition(playerTr->GetPosition());
+		soundTrigger = false;
 	}
 	else if((curTime - /*((curTime - intTime)+(armAttackCount*3))*/ (armAttackCount *3))<1.4f&&changeAnimTrigger){
 		Vector3 scale = tr->GetScale();
@@ -100,7 +106,7 @@ void GolemKingArm::Update()
 		tr->SetPosition(Vector3(playerTr->GetPosition().x, playerTr->GetPosition().y-0.2f, playerTr->GetPosition().z));
 		desPos = Vector3(playerTr->GetPosition().x, playerTr->GetPosition().y, playerTr->GetPosition().z);
 		curPos = desPos;
-		curPos.y += 3.f;
+		curPos.y += 3.f;			
 	}
 	else if ((curTime - (armAttackCount * 3)) >= 1.4f && changeAnimTrigger) {
 		if (armDownTrigger == false) {
@@ -116,6 +122,15 @@ void GolemKingArm::Update()
 			changeAnimTrigger = false;
 		}
 		tr->SetPosition(curPos);
+
+		if (soundTrigger == false) {
+			AudioSource* as = GetComponent<AudioSource>();
+			as->SetClip(Resources::Load<AudioClip>(L"golem_dungeon_king_golem_handcrash", L"..\\Resources\\Sound\\SoundEffect\\GolemKing\\golem_dungeon_king_golem_handcrash.wav"));
+			as->Play();
+			as->SetVolume(3);
+			as->SetLoop(false);
+			soundTrigger = true;
+		}
 	}
 
 	if (curTime >= endTime) {

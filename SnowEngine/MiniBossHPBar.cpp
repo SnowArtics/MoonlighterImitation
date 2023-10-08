@@ -179,4 +179,6 @@ void MiniBossHPBar::DeleteObjects()
 		bossEnterUI->SetState(sn::GameObject::eState::Dead);
 
 	TextManager::DeleteText(L"GolemKingText");
+	TextManager::DeleteText(L"Golem WarriorText");
+	TextManager::DeleteText(L"Golem Corrupted WarriorText");
 }

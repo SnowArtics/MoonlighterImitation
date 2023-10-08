@@ -24,7 +24,7 @@ void MoveState::Update()
 		AudioSource* as = GetPlayerFSM()->GetOwner()->GetComponent<AudioSource>();
 		as->SetClip(Resources::Load<AudioClip>(L"will_step_golem_dungeon", L"..\\Resources\\Sound\\SoundEffect\\Will\\will_step_golem_dungeon.wav"));
 		as->Play();
-		as->SetVolume(3);
+		as->SetVolume(1);
 		as->SetLoop(false);
 	}
 

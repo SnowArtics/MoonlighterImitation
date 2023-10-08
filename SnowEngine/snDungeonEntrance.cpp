@@ -30,6 +30,7 @@
 #include <snAudioSource.h>
 #include <snAudioClip.h>
 #include <snAudioListener.h>
+#include "PlayerHP.h"
 
 namespace sn {
 	DungeonEntrance::DungeonEntrance()
@@ -175,6 +176,9 @@ namespace sn {
 			playerFSM->AddState(new SwordState3);
 			playerFSM->AddState(new BowState);
 			playerFSM->AddState(new IdleState);
+
+			PlayerHP* playerHP = Player->AddComponent<PlayerHP>(100.f, 100.f);
+			playerHP->CreateHpBar();
 
 			SetPlayer(Player);
 		}

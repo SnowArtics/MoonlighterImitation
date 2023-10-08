@@ -29,6 +29,7 @@ private:
     float endTime;
     bool changeAnimTrigger;
     bool armDownTrigger;
+    bool soundTrigger;
     int armAttackCount;
 
     Vector3 curPos;

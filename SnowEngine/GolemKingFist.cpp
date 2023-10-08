@@ -10,6 +10,9 @@
 #include "snSceneManager.h"
 #include "snPlayer.h"
 #include "PlayerHP.h"
+#include "snGameObject.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 float CalculateAngle(Vector3 from, Vector3 to) {
 	float deltaX = to.x - from.x;

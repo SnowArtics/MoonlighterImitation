@@ -7,6 +7,8 @@
 #include "snTexture.h"
 #include "snCollider2D.h"
 #include "snTransform.h"
+#include <snAudioSource.h>
+#include "snResources.h"
 
 #include <random>
 

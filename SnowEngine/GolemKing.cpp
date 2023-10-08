@@ -22,6 +22,8 @@
 #include "snPlayer.h"
 #include <snRigidBody.h>
 #include "MiniBossHPBar.h"
+#include <snAudioClip.h>
+#include <snAudioSource.h>
 
 GolemKing::GolemKing()
 	:curTime(0.0f)
@@ -208,11 +210,17 @@ void GolemKing::CreateFist()
 void GolemKing::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
 	Monster::OnCollisionEnter(other, me);
-	if (other->GetName() == L"SecondCollider") {
+	if (other->GetName() == L"SecondCollider" && me->GetName() == L"GolemKing_First_Collider") {
 		tMonInfo monInfo = GetMonsterInfo();
 		monInfo.fHP -= 30.f;
 		this->GetComponent<MiniBossHPBar>()->PlayDamage(30.f);
 		SetMonsterInfo(monInfo);
+
+		AudioSource* as = GetComponent<AudioSource>();
+		as->SetClip(Resources::Load<AudioClip>(L"golem_dungeon_golem_hit", L"..\\Resources\\Sound\\SoundEffect\\Golem\\golem_dungeon_golem_hit.wav"));
+		as->Play();
+		as->SetVolume(4);
+		as->SetLoop(false);
 
 		if (monInfo.fHP <= 0.f) {
 			GetComponent<AI>()->SetCurState(MON_STATE::GOLEMKING_DEATH);

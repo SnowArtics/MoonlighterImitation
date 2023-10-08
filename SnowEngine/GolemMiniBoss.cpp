@@ -252,6 +252,8 @@ void GolemMiniBoss::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 		if (monInfo.fHP <= 0.f) {
 			vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum -= 1;
 
+			GetComponent<MiniBossHPBar>()->DeleteObjects();
+
 			if (vecRoomInfo[monsterMapPos.first][monsterMapPos.second].monsterNum <= 0) {
 				vecRoomInfo[monsterMapPos.first][monsterMapPos.second].clear = true;
 				DungeonMapManager::GetInst()->SetRoomInfoArr(vecRoomInfo);

@@ -579,7 +579,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		info.fAtt = 30.f;
 		info.fAttRange = 1.5f;
 		info.fRecogRange = 300.f;
-		info.fHP = 100.f;
+		info.fHP = 1000.f;
 		info.fSpeed = 0.5f;
 		info.fAttTime = 1.5f;
 		info.fAttDelay = 1.f;
@@ -596,7 +596,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		at->Create(L"GOLEMKING_UP", atlas, Vector2(0.0f, 0.0f), Vector2(350.f, 350.f), 32, 360.f);
 		at->Create(L"GOLEMKING_IDLE", atlas, Vector2(0.0f, 350.f), Vector2(350.f, 350.f), 16, 360.f);
-		at->Create(L"GOLEMKING_ROCK_ATTACK", atlas, Vector2(0.0f, 700.f), Vector2(350.f, 350.f), 43, 360.f);
+		at->Create(L"GOLEMKING_ROCK_ATTACK", atlas, Vector2(0.0f, 700.f), Vector2(350.f, 350.f), 43, 360.f, 0.07f);
 		at->Create(L"GOLEMKING_ARM_LAUNCH", atlas, Vector2(0.0f, 1050.f), Vector2(350.f, 350.f), 20, 360.f);
 		at->Create(L"GOLEMKING_NO_ARM_IDLE", atlas, Vector2(0.0f, 1400.f), Vector2(350.f, 350.f), 16, 360.f);
 		at->Create(L"GOLEMKING_ARM_RECOVER", atlas, Vector2(0.0f, 1750.f), Vector2(350.f, 350.f), 11, 360.f);
@@ -621,6 +621,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		at->PlayAnimation(L"GOLEMKING_IDLE", true);
 
 		sn::Collider2D* collider = pMon->AddComponent<sn::Collider2D>();
+		collider->SetName(L"GolemKing_First_Collider");
 		collider->SetSize(Vector2(0.4f, 0.4f));
 		collider->SetCenter(Vector2(-0.1f, -0.3f));
 
@@ -650,7 +651,7 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->AddState(new GolemKingAimEnd);
 		ai->AddState(new GolemKingDeath);
 		ai->AddState(new GolemKingDeath01);
-		ai->SetCurState(MON_STATE::GOLEMKING_IDLE);
+		ai->SetCurState(MON_STATE::GOLEMKING_UP);
 
 		pMon->AddComponent<MiniBossHPBar>();
 	}
