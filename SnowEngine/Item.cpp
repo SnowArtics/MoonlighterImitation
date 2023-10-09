@@ -35,6 +35,19 @@ void Item::Update()
 	else if (startTime > landingTime) {
 		sn::Collider2D* col = GetComponent<sn::Collider2D>();
 		col->SetEnable(true);
+
+		Transform* playerTr = SceneManager::GetActiveScene()->GetPlayer()->GetComponent<Transform>();
+		Vector3 playerPos = playerTr->GetPosition();
+
+		Transform* tr = GetComponent<Transform>();
+		Vector3 pos = tr->GetPosition();
+
+		Vector3 direction = playerPos - pos;
+		if (direction.Length() < 1.0f) {
+			direction.Normalize();
+			pos = pos + direction * 1.0f * Time::DeltaTime();
+			tr->SetPosition(pos);
+		}
 	}
 
 	sn::GameObject::Update();

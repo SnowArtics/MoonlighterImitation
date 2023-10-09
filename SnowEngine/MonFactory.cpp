@@ -117,6 +117,13 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
 		monsterHPBar->CreateHpBar();
+
+		std::vector<eItemType> eItems;
+		eItems.push_back(eItemType::Crystal_Energy);
+		eItems.push_back(eItemType::Golem_Pieces);
+		eItems.push_back(eItemType::Fabric);
+		eItems.push_back(eItemType::Fabric);
+		DroppingItem* di = pMon->AddComponent<DroppingItem>(eItems);
 	}
 		break;
 	case MonType::SLIME:
@@ -277,6 +284,11 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
 		monsterHPBar->CreateHpBar();
+
+		std::vector<eItemType> eItems;
+		eItems.push_back(eItemType::Broken_Sword);
+		eItems.push_back(eItemType::Golem_Pieces);
+		DroppingItem* di = pMon->AddComponent<DroppingItem>(eItems);
 	}
 		break;
 	case MonType::GOLEMTURRET:
@@ -333,6 +345,12 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
 		monsterHPBar->CreateHpBar();
+
+		std::vector<eItemType> eItems;
+		eItems.push_back(eItemType::Broken_Sword);
+		eItems.push_back(eItemType::Golem_Pieces);
+		eItems.push_back(eItemType::Crystal_Energy);
+		DroppingItem* di = pMon->AddComponent<DroppingItem>(eItems);
 	}
 		break;
 	case MonType::GOLEMTURRETBROKEN:
@@ -384,6 +402,11 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
 		monsterHPBar->CreateHpBar();
+
+		std::vector<eItemType> eItems;
+		eItems.push_back(eItemType::Fabric);
+		eItems.push_back(eItemType::Crystal_Energy);
+		DroppingItem* di = pMon->AddComponent<DroppingItem>(eItems);
 	}
 	break;
 	case MonType::GOLEMMINIBOSS:
@@ -449,6 +472,18 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->SetCurState(MON_STATE::IDLE);
 
 		pMon->AddComponent<MiniBossHPBar>();
+
+		std::vector<eItemType> eItems;
+		eItems.push_back(eItemType::Crystal_Energy);
+		eItems.push_back(eItemType::Crystal_Energy);
+		eItems.push_back(eItemType::Golem_Core);
+		eItems.push_back(eItemType::Golem_Core);
+		eItems.push_back(eItemType::Reinforced_Steel);
+		eItems.push_back(eItemType::Reinforced_Steel);
+		eItems.push_back(eItemType::Reinforced_Steel);
+		eItems.push_back(eItemType::Broken_Sword);
+		eItems.push_back(eItemType::Broken_Sword);
+		DroppingItem* di = pMon->AddComponent<DroppingItem>(eItems);
 	}
 	break;
 	case MonType::GOLEMCORRUPTMINIBOSS:
@@ -526,6 +561,20 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->SetCurState(MON_STATE::MINIBOSS_IDLE);
 
 		pMon->AddComponent<MiniBossHPBar>();
+
+		std::vector<eItemType> eItems;
+		eItems.push_back(eItemType::Crystal_Energy);
+		eItems.push_back(eItemType::Crystal_Energy);
+		eItems.push_back(eItemType::Golem_Core);
+		eItems.push_back(eItemType::Golem_Core);
+		eItems.push_back(eItemType::Reinforced_Steel);
+		eItems.push_back(eItemType::Reinforced_Steel);
+		eItems.push_back(eItemType::Reinforced_Steel);
+		eItems.push_back(eItemType::Golem_King_Design);
+		eItems.push_back(eItemType::Golem_King_Design);
+		eItems.push_back(eItemType::Broken_Sword);
+		eItems.push_back(eItemType::Broken_Sword);
+		DroppingItem* di = pMon->AddComponent<DroppingItem>(eItems);
 	}
 	break;
 	case MonType::SLIMEHERMIT:
@@ -665,6 +714,13 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 		ai->SetCurState(MON_STATE::GOLEMKING_UP);
 
 		pMon->AddComponent<MiniBossHPBar>();
+
+		std::vector<eItemType> eItems;
+		eItems.push_back(eItemType::Slime_Jelly);
+		eItems.push_back(eItemType::Slime_Jelly);
+		eItems.push_back(eItemType::Golem_Pieces);
+		eItems.push_back(eItemType::Golem_Core);
+		DroppingItem* di = pMon->AddComponent<DroppingItem>(eItems);
 	}
 	break;
 	default:
