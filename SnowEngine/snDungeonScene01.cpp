@@ -41,6 +41,8 @@
 #include <snAudioClip.h>
 #include <snAudioListener.h>
 
+#include "InventoryManager.h"
+
 namespace sn {
 	DungeonScene01::DungeonScene01()
 	{
@@ -52,6 +54,8 @@ namespace sn {
 
 	void DungeonScene01::Initialize()
 	{
+		InventoryManager::CreateUI();
+
 		SceneManager::GetActiveScene()->SetName(L"DungeonScene01");
 
 		DungeonMapManager::GetInst()->Init();
@@ -119,18 +123,18 @@ namespace sn {
 			Object->GetComponent<Transform>()->SetScale(Vector3(0.2f*YToXRatio, 0.2f, 0.0f));
 		}
 #pragma endregion
-		{
-			//牢亥配府 UI 积己
-			GameObject* UI = new GameObject();
-			UI->SetName(L"InventoryBase");
-			AddGameObject(eLayerType::UI, UI);
-			MeshRenderer* mr = UI->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"UIInventoryBaseMaterial01"));
-			UI->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			UI->GetComponent<Transform>()->SetScale(Vector3(7.576642335766424f, 4.f, 2.0f));
-			UI->SetEnable(false);
-		}
+		//{
+		//	//牢亥配府 UI 积己
+		//	GameObject* UI = new GameObject();
+		//	UI->SetName(L"InventoryBase");
+		//	AddGameObject(eLayerType::UI, UI);
+		//	MeshRenderer* mr = UI->AddComponent<MeshRenderer>();
+		//	mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		//	mr->SetMaterial(Resources::Find<Material>(L"UIInventoryBaseMaterial01"));
+		//	UI->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
+		//	UI->GetComponent<Transform>()->SetScale(Vector3(7.576642335766424f, 4.f, 2.0f));
+		//	UI->SetEnable(false);
+		//}
 		{
 			//UI 积己 何盒
 			{

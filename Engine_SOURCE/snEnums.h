@@ -88,6 +88,8 @@ namespace sn::enums
 	};
 
 	enum class eItemType {
+		NONE,
+
 		Broken_Sword,
 		Crystal_Energy,
 		GolemKing_Crystal_Energy,

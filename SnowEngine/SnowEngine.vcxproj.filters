@@ -265,6 +265,9 @@
     <ClCompile Include="DroppingItem.cpp">
       <Filter>Script\DroppingItem</Filter>
     </ClCompile>
+    <ClCompile Include="InventorySquare.cpp">
+      <Filter>Scene\Inventory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -534,6 +537,9 @@
     <ClInclude Include="DroppingItem.h">
       <Filter>Script\DroppingItem</Filter>
     </ClInclude>
+    <ClInclude Include="InventorySquare.h">
+      <Filter>Scene\Inventory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -796,6 +802,9 @@
     </Filter>
     <Filter Include="Script\DroppingItem">
       <UniqueIdentifier>{acf3bfb3-e143-4cf0-b1bd-3b4dce671551}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\Inventory">
+      <UniqueIdentifier>{631c1ffb-e56f-49a8-b4d2-5acf4eeecf28}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

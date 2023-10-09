@@ -248,6 +248,7 @@
       <Filter>GameObject\Component\RigidBody</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)snTextManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)snMath.inl">
@@ -368,5 +369,6 @@
       <Filter>GameObject\Component\RigidBody</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)snTextManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)InventoryManager.cpp" />
   </ItemGroup>
 </Project>

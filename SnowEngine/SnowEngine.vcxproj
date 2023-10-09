@@ -202,6 +202,7 @@
     <ClInclude Include="GolemTurret.h" />
     <ClInclude Include="GolemTurretBroken.h" />
     <ClInclude Include="HitEffect.h" />
+    <ClInclude Include="InventorySquare.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="MiniBossAttack.h" />
     <ClInclude Include="MiniBossHPBar.h" />
@@ -330,6 +331,7 @@
     <ClCompile Include="GolemTurret.cpp" />
     <ClCompile Include="GolemTurretBroken.cpp" />
     <ClCompile Include="HitEffect.cpp" />
+    <ClCompile Include="InventorySquare.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="MiniBossAttack.cpp" />
     <ClCompile Include="MiniBossHPBar.cpp" />

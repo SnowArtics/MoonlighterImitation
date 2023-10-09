@@ -1038,6 +1038,15 @@ namespace renderer {
 			Resources::Insert(L"UIInventoryBaseMaterial01", spriteMaterial);
 		}
 		{
+			//inventory base 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"invenSlot01", L"..\\Resources\\Texture\\UI\\Inventory\\invenSlot.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"InvenSlotMeterial01", spriteMaterial);
+		}
+		{
 			//MonsterHP UI1 持失
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"Monster_HP_BackBar", L"..\\Resources\\Texture\\Dungeon\\HPBar\\backBar.png");
