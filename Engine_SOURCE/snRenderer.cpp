@@ -1121,6 +1121,89 @@ namespace renderer {
 			Resources::Insert(L"PlayerHitScreen", spriteMaterial);
 		}
 #pragma endregion
+#pragma region Item
+		{
+			//Broken_SwordItem
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Broken_Sword", L"..\\Resources\\Texture\\Item\\Broken_Sword.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"Broken_Sword_Item", spriteMaterial);
+		}
+		{
+			//Crystal_Energy_Item
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Crystal_Energy", L"..\\Resources\\Texture\\Item\\Crystal_Energy.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"Crystal_Energy_Item", spriteMaterial);
+		}
+		{
+			//Energy_CrystalItem
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Energy_Crystal", L"..\\Resources\\Texture\\Item\\Energy_Crystal.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"Energy_CrystalItem", spriteMaterial);
+		}
+		{
+			//fabricItem
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"fabric", L"..\\Resources\\Texture\\Item\\fabric.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"fabricItem", spriteMaterial);
+		}
+		{
+			//Golem_CoreItem
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Golem_Core", L"..\\Resources\\Texture\\Item\\Golem_Core.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"Golem_CoreItem", spriteMaterial);
+		}
+		{
+			//Golem_King_designItem
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Golem_King_design", L"..\\Resources\\Texture\\Item\\Golem_King_design.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"Golem_King_designItem", spriteMaterial);
+		}
+		{
+			//golem_piecesItem
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"golem_pieces", L"..\\Resources\\Texture\\Item\\golem_pieces.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"golem_piecesItem", spriteMaterial);
+		}
+		{
+			//Reinforced_Steel_GItem
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Reinforced_Steel_G", L"..\\Resources\\Texture\\Item\\Reinforced_Steel_G.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"Reinforced_Steel_GItem", spriteMaterial);
+		}
+		{
+			//slime_jellyItem
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"slime_jelly", L"..\\Resources\\Texture\\Item\\slime_jelly.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"slime_jellyItem", spriteMaterial);
+		}
+#pragma endregion
 	}
 
 	void SetupState() {

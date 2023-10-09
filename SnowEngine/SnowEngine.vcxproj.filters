@@ -232,6 +232,39 @@
     <ClCompile Include="GolemKingDeath01.cpp">
       <Filter>Script\Monster\AI\State\GolemKingDeath</Filter>
     </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Script\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="ReinforcedSteel.cpp">
+      <Filter>Script\Item\ReinforcedSteel</Filter>
+    </ClCompile>
+    <ClCompile Include="SlimeJelly.cpp">
+      <Filter>Script\Item\SlimeJelly</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemPieces.cpp">
+      <Filter>Script\Item\GolemPieces</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemKingDesign.cpp">
+      <Filter>Script\Item\GolemKingDesign</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemCore.cpp">
+      <Filter>Script\Item\GolemCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Fabric.cpp">
+      <Filter>Script\Item\Fabric</Filter>
+    </ClCompile>
+    <ClCompile Include="BrokenSword.cpp">
+      <Filter>Script\Item\BrokenSword</Filter>
+    </ClCompile>
+    <ClCompile Include="CrystalEnergy.cpp">
+      <Filter>Script\Item\CrystalEnergy</Filter>
+    </ClCompile>
+    <ClCompile Include="GolemKingCrystalEnergy.cpp">
+      <Filter>Script\Item\GolemKingCrystalEnergy</Filter>
+    </ClCompile>
+    <ClCompile Include="DroppingItem.cpp">
+      <Filter>Script\DroppingItem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -468,6 +501,39 @@
     <ClInclude Include="GolemKingDeath01.h">
       <Filter>Script\Monster\AI\State\GolemKingDeath</Filter>
     </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Script\Item</Filter>
+    </ClInclude>
+    <ClInclude Include="ReinforcedSteel.h">
+      <Filter>Script\Item\ReinforcedSteel</Filter>
+    </ClInclude>
+    <ClInclude Include="SlimeJelly.h">
+      <Filter>Script\Item\SlimeJelly</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemPieces.h">
+      <Filter>Script\Item\GolemPieces</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingDesign.h">
+      <Filter>Script\Item\GolemKingDesign</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemCore.h">
+      <Filter>Script\Item\GolemCore</Filter>
+    </ClInclude>
+    <ClInclude Include="BrokenSword.h">
+      <Filter>Script\Item\BrokenSword</Filter>
+    </ClInclude>
+    <ClInclude Include="CrystalEnergy.h">
+      <Filter>Script\Item\CrystalEnergy</Filter>
+    </ClInclude>
+    <ClInclude Include="GolemKingCrystalEnergy.h">
+      <Filter>Script\Item\GolemKingCrystalEnergy</Filter>
+    </ClInclude>
+    <ClInclude Include="Fabric.h">
+      <Filter>Script\Item\Fabric</Filter>
+    </ClInclude>
+    <ClInclude Include="DroppingItem.h">
+      <Filter>Script\DroppingItem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -697,6 +763,39 @@
     </Filter>
     <Filter Include="Script\TitleDoor">
       <UniqueIdentifier>{f59f655d-ccf0-465f-b4d8-743d099064d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Item">
+      <UniqueIdentifier>{060934bd-cb2d-4ea6-9df5-61895d45421a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Item\BrokenSword">
+      <UniqueIdentifier>{cd5cbe1f-b63d-4a1a-be06-41a35dc92dc8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Item\CrystalEnergy">
+      <UniqueIdentifier>{4da172af-2ef9-44a4-9fac-2dacc8f2821c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Item\GolemKingCrystalEnergy">
+      <UniqueIdentifier>{c4220d2b-7d18-4fb5-b777-8a3fd657bb11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Item\Fabric">
+      <UniqueIdentifier>{7a9b80e3-7b83-4eb5-90e7-fc581f9fb90c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Item\GolemCore">
+      <UniqueIdentifier>{144cb471-965c-41b4-ad6d-497ce818fd62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Item\GolemKingDesign">
+      <UniqueIdentifier>{1b9bc30a-bab2-4a15-808c-37efc6cc7420}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Item\GolemPieces">
+      <UniqueIdentifier>{c0fc2047-d66c-44b3-8ede-2e0b3f6ebfd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Item\ReinforcedSteel">
+      <UniqueIdentifier>{7471e387-3a7a-453d-b6b1-445f2b85cd04}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Item\SlimeJelly">
+      <UniqueIdentifier>{e9099d2f-e88c-4f3f-ae0d-6f0adcf47aff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\DroppingItem">
+      <UniqueIdentifier>{acf3bfb3-e143-4cf0-b1bd-3b4dce671551}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

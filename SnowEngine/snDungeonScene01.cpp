@@ -68,19 +68,19 @@ namespace sn {
 
 		std::vector<std::wstring> DungeonName;
 		DungeonName.push_back(L"DungeonBackgroundMaterial00-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial01-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial02-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial03-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial04-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial05-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial06-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial07-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial08-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial09-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial10-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial11-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial12-0");
-		DungeonName.push_back(L"DungeonBackgroundMaterial13-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial01-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial02-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial03-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial04-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial05-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial06-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial07-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial08-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial09-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial10-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial11-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial12-0");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial13-0");
 
 		std::default_random_engine engine(static_cast<unsigned int>(std::time(nullptr)));
 

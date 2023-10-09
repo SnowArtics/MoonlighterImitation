@@ -46,6 +46,7 @@
 #include "GolemKingAimShoot.h"
 #include "GolemKingDeath.h"
 #include "GolemKingDeath01.h"
+#include "DroppingItem.h"
 
 using namespace sn;
 
@@ -171,6 +172,12 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
 		monsterHPBar->CreateHpBar();
+
+		std::vector<eItemType> eItems;
+		eItems.push_back(eItemType::Slime_Jelly);
+		eItems.push_back(eItemType::Slime_Jelly);
+		eItems.push_back(eItemType::Slime_Jelly);
+		DroppingItem* di = pMon->AddComponent<DroppingItem>(eItems);
 	}
 		break;
 
@@ -218,6 +225,10 @@ Monster* MonFactory::CreateMonster(MonType _eType, sn::math::Vector2 _vPos)
 
 		MonsterHPBar* monsterHPBar = pMon->AddComponent<MonsterHPBar>();
 		monsterHPBar->CreateHpBar();
+
+		std::vector<eItemType> eItems;
+		eItems.push_back(eItemType::Slime_Jelly);
+		DroppingItem* di = pMon->AddComponent<DroppingItem>(eItems);
 	}
 	break;
 	case MonType::FYLINGREPAIRGOLEM:

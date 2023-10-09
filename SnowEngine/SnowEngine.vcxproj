@@ -166,10 +166,15 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="BossCamera.h" />
+    <ClInclude Include="BrokenSword.h" />
+    <ClInclude Include="CrystalEnergy.h" />
+    <ClInclude Include="DroppingItem.h" />
     <ClInclude Include="DungeonMapManager.h" />
     <ClInclude Include="EntranceDoor.h" />
+    <ClInclude Include="Fabric.h" />
     <ClInclude Include="FylingRepairGolem.h" />
     <ClInclude Include="Golem.h" />
+    <ClInclude Include="GolemCore.h" />
     <ClInclude Include="GolemCorruptedMiniBoss.h" />
     <ClInclude Include="GolemKing.h" />
     <ClInclude Include="GolemKingAimAttack.h" />
@@ -180,8 +185,10 @@
     <ClInclude Include="GolemKingArmAttack.h" />
     <ClInclude Include="GolemKingArmIdle.h" />
     <ClInclude Include="GolemKingArmRecover.h" />
+    <ClInclude Include="GolemKingCrystalEnergy.h" />
     <ClInclude Include="GolemKingDeath.h" />
     <ClInclude Include="GolemKingDeath01.h" />
+    <ClInclude Include="GolemKingDesign.h" />
     <ClInclude Include="GolemKingFist.h" />
     <ClInclude Include="GolemKingIdle.h" />
     <ClInclude Include="GolemKingRock.h" />
@@ -190,10 +197,12 @@
     <ClInclude Include="GolemKingWave.h" />
     <ClInclude Include="GolemKingWaveObject.h" />
     <ClInclude Include="GolemMiniBoss.h" />
+    <ClInclude Include="GolemPieces.h" />
     <ClInclude Include="GolemSmashWave.h" />
     <ClInclude Include="GolemTurret.h" />
     <ClInclude Include="GolemTurretBroken.h" />
     <ClInclude Include="HitEffect.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="MiniBossAttack.h" />
     <ClInclude Include="MiniBossHPBar.h" />
     <ClInclude Include="MiniBossIdle.h" />
@@ -212,6 +221,8 @@
     <ClInclude Include="MazeMaker.h" />
     <ClInclude Include="PlayerFollowCamera.h" />
     <ClInclude Include="PlayerHP.h" />
+    <ClInclude Include="ReinforcedSteel.h" />
+    <ClInclude Include="SlimeJelly.h" />
     <ClInclude Include="snPlayer.h" />
     <ClInclude Include="Projectile.h" />
     <ClInclude Include="Slime.h" />
@@ -283,10 +294,15 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BossCamera.cpp" />
+    <ClCompile Include="BrokenSword.cpp" />
+    <ClCompile Include="CrystalEnergy.cpp" />
+    <ClCompile Include="DroppingItem.cpp" />
     <ClCompile Include="DungeonMapManager.cpp" />
     <ClCompile Include="EntranceDoor.cpp" />
+    <ClCompile Include="Fabric.cpp" />
     <ClCompile Include="FylingRepairGolem.cpp" />
     <ClCompile Include="Golem.cpp" />
+    <ClCompile Include="GolemCore.cpp" />
     <ClCompile Include="GolemCorruptedMiniBoss.cpp" />
     <ClCompile Include="GolemKing.cpp" />
     <ClCompile Include="GolemKingAimAttack.cpp" />
@@ -297,8 +313,10 @@
     <ClCompile Include="GolemKingArmAttack.cpp" />
     <ClCompile Include="GolemKingArmIdle.cpp" />
     <ClCompile Include="GolemKingArmRecover.cpp" />
+    <ClCompile Include="GolemKingCrystalEnergy.cpp" />
     <ClCompile Include="GolemKingDeath.cpp" />
     <ClCompile Include="GolemKingDeath01.cpp" />
+    <ClCompile Include="GolemKingDesign.cpp" />
     <ClCompile Include="GolemKingFist.cpp" />
     <ClCompile Include="GolemKingIdle.cpp" />
     <ClCompile Include="GolemKingRock.cpp" />
@@ -307,10 +325,12 @@
     <ClCompile Include="GolemKingWave.cpp" />
     <ClCompile Include="GolemKingWaveObject.cpp" />
     <ClCompile Include="GolemMiniBoss.cpp" />
+    <ClCompile Include="GolemPieces.cpp" />
     <ClCompile Include="GolemSmashWave.cpp" />
     <ClCompile Include="GolemTurret.cpp" />
     <ClCompile Include="GolemTurretBroken.cpp" />
     <ClCompile Include="HitEffect.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="MiniBossAttack.cpp" />
     <ClCompile Include="MiniBossHPBar.cpp" />
     <ClCompile Include="MiniBossIdle.cpp" />
@@ -327,6 +347,8 @@
     <ClCompile Include="MazeMaker.cpp" />
     <ClCompile Include="PlayerFollowCamera.cpp" />
     <ClCompile Include="PlayerHP.cpp" />
+    <ClCompile Include="ReinforcedSteel.cpp" />
+    <ClCompile Include="SlimeJelly.cpp" />
     <ClCompile Include="snPlayer.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Slime.cpp" />

@@ -36,13 +36,14 @@ namespace sn::enums
 		Projectile,
 		HitEffect,
 		InteractionDoor,
+		Item,
 		Player,
 		InteractionUI,
 		Light,
 		UI,
 
 		Camera,
-		End = 16,
+		End = 18,
 	};
 
 	enum class eResourceType
@@ -83,6 +84,20 @@ namespace sn::enums
 
 
 
+		END,
+	};
+
+	enum class eItemType {
+		Broken_Sword,
+		Crystal_Energy,
+		GolemKing_Crystal_Energy,
+		Fabric,
+		Golem_Core,
+		Golem_King_Design,
+		Golem_Pieces,
+		Reinforced_Steel,
+		Slime_Jelly,
+		
 		END,
 	};
 }
