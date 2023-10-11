@@ -338,13 +338,6 @@ namespace sn {
 		{
 			SceneManager::SetChangeScene(L"DungeonScene02");
 		}
-		if (Input::GetKeyDown(eKeyCode::I))
-		{
-			GameObject* inven = Scene::Find(L"InventoryBase");
-			std::wstring asdf = inven->GetName();
-			if (inven->GetEnable() == true) inven->SetEnable(false);
-			else inven->SetEnable(true);
-		}
 	}
 
 	void DungeonScene01::Render()

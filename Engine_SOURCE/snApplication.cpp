@@ -66,6 +66,7 @@ namespace sn
 
 	void Application::Render()
 	{
+		InventoryManager::Render();
 		Time::Render();
 
 		graphicDevice->ClearTarget();
@@ -76,7 +77,6 @@ namespace sn
 		renderer::Render();
 		TextManager::Render();
 		//graphicDevice->Draw();
-		InventoryManager::Render();
 	}
 
 	void Application::Destroy()
