@@ -8,6 +8,12 @@ using namespace sn;
 
 struct InventoryItem {
 	Vector3 pos;
+	sn::GameObject* slotItem;
+	bool isEmpty;
+	int itemCount;
+	int itemMaxCount;
+	std::wstring slotName;
+	eItemType _itemType;
 };
 
 enum SlotMoveDir {
@@ -25,9 +31,25 @@ public:
 	static void Render();
 
 public:
+	static bool GetInvenActive() { return bInvenActive; }
+
+public:
 	static void CreateUI();
 	static void ShowUI();
 	static void MoveSlot(SlotMoveDir _eSlotMoveDir);
+	static bool InputItem(eItemType _itemType);
+	static bool InputItemToPos(std::pair<int, int> _invenPos, eItemType _itemType);
+
+	template<typename T>
+	static std::wstring NumToWString(T& arg) {
+		return std::to_wstring(arg);
+	}
+
+	template<typename T, typename... Args>
+	static std::wstring NumToWString(T& firstArg, Args&... restArgs) {
+		std::to_wstring(firstArg);
+		IntToWString(restArgs);
+	}
 
 private:
 	static std::pair<int, int> curInvenSlotPos;

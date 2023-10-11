@@ -19,13 +19,15 @@ struct Text{
 	float			rightTop;
 	int				size;
 	TextColor		color;
+	bool			enable;
 
-	Text(std::wstring _string, float _leftTop, float _rightTop, int _size, TextColor _color)
+	Text(std::wstring _string, float _leftTop, float _rightTop, int _size, TextColor _color, bool _enable = true)
 		: string(_string)
 		, leftTop(_leftTop)
 		, rightTop(_rightTop)
 		, size(_size)
 		, color(_color)
+		, enable(_enable)
 	{}
 };
 
@@ -39,6 +41,7 @@ public:
 	static void DeleteText(std::wstring _wstring) { auto it = mapText.find(_wstring); if (it != mapText.end()) mapText.erase(it); }
 	static void ChangeText(std::wstring _wstring, std::wstring _text) { auto it = mapText.find(_wstring); it->second.string = _text; }
 	static void ChangeColor(std::wstring _wstring, TextColor _color) { auto it = mapText.find(_wstring); it->second.color = _color; }
+	static void SetEnable(std::wstring _wstring, bool _enable) { auto it = mapText.find(_wstring); it->second.enable = _enable; }
 
 private:
 	static std::map<std::wstring, Text> mapText;

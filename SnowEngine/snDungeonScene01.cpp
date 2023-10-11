@@ -63,7 +63,7 @@ namespace sn {
 		CollisionManager::SetLayer(eLayerType::Background, eLayerType::Door, false);
 
 		MazeMaker::GetInst()->Init();
-		MazeMaker::GetInst()->BackTracking(3, 3);
+		MazeMaker::GetInst()->BackTracking(1, 2);
 		arr = MazeMaker::GetInst()->GetDirArr();
 		DungeonMapManager::GetInst()->SetDungeonArr(arr);
 		std::pair<int, int> firstPlayerPos = MazeMaker::GetInst()->GetStartPos();

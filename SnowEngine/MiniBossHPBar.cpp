@@ -140,19 +140,19 @@ void MiniBossHPBar::CreateHpBar()
 	if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene01") {
 		wstring bossName = GetOwner()->GetName();
 
-		Text text(bossName, 900.f, 910.f, 30, TextColor(255.f, 255.f, 255.f, 255.f));
+		Text text(bossName, 860.f, 870.f, 30, TextColor(255.f, 255.f, 255.f, 255.f));
 		TextManager::InsertText(bossName + L"Text", text);
 	}
 	else if (SceneManager::GetActiveScene()->GetName() == L"DungeonScene02") {
 		wstring bossName = GetOwner()->GetName();
 
-		Text text(bossName, 820.f, 910.f, 30, TextColor(255.f, 255.f, 255.f, 255.f));
+		Text text(bossName, 800.f, 870.f, 30, TextColor(255.f, 255.f, 255.f, 255.f));
 		TextManager::InsertText(bossName + L"Text", text);
 	}
 	else {
 		wstring bossName = GetOwner()->GetName();
 
-		Text text(bossName, 910.f, 910.f, 30, TextColor(255.f, 255.f, 255.f, 255.f));
+		Text text(bossName, 890.f, 870.f, 30, TextColor(255.f, 255.f, 255.f, 255.f));
 		TextManager::InsertText(bossName + L"Text", text);
 	}
 	

@@ -3,9 +3,11 @@
 #include "snTime.h"
 #include "snCollider2D.h"
 #include "snSceneManager.h"
+#include "InventoryManager.h"
 
 Item::Item(eItemType _itemType)
-	: startTime(0.0f)
+	: itemType(_itemType)
+	,startTime(0.0f)
 	, landingTime(1.f)
 	, parabolaPeak(0.5f)
 	, startPoint()
@@ -68,7 +70,9 @@ void Item::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 	GameObject::OnCollisionEnter(other, me);
 
 	if (other->GetName() == L"FisrtCollider") {
-		SetState(eState::Dead);
+		if (InventoryManager::InputItem(itemType)) {
+			SetState(eState::Dead);
+		}
 	}
 }
 

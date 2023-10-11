@@ -32,6 +32,8 @@ public:
 	Vector3 ComputeParabolicMotion();
 
 private:
+	eItemType itemType;
+
 	float startTime;
 	float landingTime;
 	float parabolaPeak;
