@@ -57,6 +57,7 @@ private:
 	static std::vector<std::vector<InventoryItem>> inven;
 
 	static sn::GameObject* pInventory;
+	static sn::GameObject* pInventoryLeft;
 	static sn::GameObject* pInventorySlot;
 
 	static bool bInvenActive;

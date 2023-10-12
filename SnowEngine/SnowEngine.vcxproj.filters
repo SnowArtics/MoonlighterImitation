@@ -268,6 +268,7 @@
     <ClCompile Include="InventorySquare.cpp">
       <Filter>Scene\Inventory</Filter>
     </ClCompile>
+    <ClCompile Include="ObstacleCollider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -540,6 +541,7 @@
     <ClInclude Include="InventorySquare.h">
       <Filter>Scene\Inventory</Filter>
     </ClInclude>
+    <ClInclude Include="ObstacleCollider.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -805,6 +807,9 @@
     </Filter>
     <Filter Include="Scene\Inventory">
       <UniqueIdentifier>{631c1ffb-e56f-49a8-b4d2-5acf4eeecf28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\ObstacleCollider">
+      <UniqueIdentifier>{f52278ec-41cd-4d40-bc0f-a664bdd3ed86}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

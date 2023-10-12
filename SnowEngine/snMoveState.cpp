@@ -6,6 +6,7 @@
 #include "snTime.h"
 #include <snAudioSource.h>
 #include "snResources.h"
+#include "snRigidBody.h"
 
 MoveState::MoveState()
 	:PlayerState(PLAYER_STATE::MOVE)
@@ -36,6 +37,9 @@ void MoveState::Update()
 
 	Transform* tr = GetPlayerFSM()->GetOwner()->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
+
+	RigidBody* rb = GetPlayerFSM()->GetOwner()->GetComponent<RigidBody>();
+	Vector3 velocity = rb->GetVelocity();
 
 	std::vector<PLAYER_DIR>& actionDir = GetPlayerFSM()->GetActionDir();
 
@@ -87,7 +91,11 @@ void MoveState::Update()
 	pos.x += move.x * 2.3f * Time::DeltaTime();
 	pos.y += move.y * 2.3f * Time::DeltaTime();
 
-	tr->SetPosition(pos);
+	velocity.x = move.x * 2.3f;
+	velocity.y = move.y * 2.3f;
+
+	//tr->SetPosition(pos);
+	rb->SetVelocity(velocity);
 
 	if (!(Input::GetKey(eKeyCode::A))
 		&& !(Input::GetKey(eKeyCode::D))

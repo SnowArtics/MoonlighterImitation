@@ -12,6 +12,7 @@ std::pair<int, int> InventoryManager::curInvenSlotPos = std::make_pair<int, int>
 std::vector<std::vector<Vector3>> InventoryManager::vInventorySlotPos;
 std::vector<std::vector<InventoryItem>>  InventoryManager::inven;
 sn::GameObject* InventoryManager::pInventory = nullptr;
+sn::GameObject* InventoryManager::pInventoryLeft = nullptr;
 sn::GameObject* InventoryManager::pInventorySlot = nullptr;
 bool InventoryManager::bInvenActive = false;
 
@@ -157,6 +158,21 @@ void InventoryManager::CreateUI()
 		pInventory->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -2.0f));
 		pInventory->GetComponent<Transform>()->SetScale(Vector3(7.576642335766424f, 4.f, 2.0f));
 		pInventory->SetEnable(false);
+		bInvenActive = false;
+		curInvenSlotPos.first = 0;
+		curInvenSlotPos.second = 0;
+	}
+	{
+		//인벤토리 UI 생성
+		pInventoryLeft = new sn::GameObject();
+		pInventoryLeft->SetName(L"InventoryBase");
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, pInventoryLeft);
+		MeshRenderer* mr = pInventoryLeft->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"UIInventoryLeftBaseMaterial01"));
+		pInventoryLeft->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, -2.0f));
+		pInventoryLeft->GetComponent<Transform>()->SetScale(Vector3(7.576642335766424f, 4.f, 2.0f));
+		pInventoryLeft->SetEnable(false);
 		bInvenActive = false;
 		curInvenSlotPos.first = 0;
 		curInvenSlotPos.second = 0;

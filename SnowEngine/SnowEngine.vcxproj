@@ -220,6 +220,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="MazeMaker.h" />
+    <ClInclude Include="ObstacleCollider.h" />
     <ClInclude Include="PlayerFollowCamera.h" />
     <ClInclude Include="PlayerHP.h" />
     <ClInclude Include="ReinforcedSteel.h" />
@@ -347,6 +348,7 @@
     <ClCompile Include="MonsterIdle.cpp" />
     <ClCompile Include="MonsterTrace.cpp" />
     <ClCompile Include="MazeMaker.cpp" />
+    <ClCompile Include="ObstacleCollider.cpp" />
     <ClCompile Include="PlayerFollowCamera.cpp" />
     <ClCompile Include="PlayerHP.cpp" />
     <ClCompile Include="ReinforcedSteel.cpp" />
