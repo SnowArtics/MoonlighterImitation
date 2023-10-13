@@ -61,7 +61,7 @@ void PlayerHP::Initialize()
 	wstring stringRealHP = to_wstring(intRealHP);
 	wstring stringFullHP = to_wstring(intFullHP);
 
-	Text text(stringRealHP + L"/" + stringFullHP, 435.f, 120.f, 25, TextColor(255.f, 255.f, 255.f, 255.f));
+	Text text(stringRealHP + L"/" + stringFullHP, 400.f, 90.f, 25, TextColor(255.f, 255.f, 255.f, 255.f));
 	TextManager::InsertText(L"PlayerHP", text);
 }
 
