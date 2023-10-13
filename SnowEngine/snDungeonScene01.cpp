@@ -42,6 +42,7 @@
 #include <snAudioListener.h>
 
 #include "InventoryManager.h"
+#include "ObstacleCollider.h"
 
 namespace sn {
 	DungeonScene01::DungeonScene01()
@@ -300,6 +301,19 @@ namespace sn {
 			as->SetLoop(true);
 
 			SetPlayer(Player);
+		}
+		{
+			GameObject* Object = new GameObject();
+			AddGameObject(eLayerType::Obstacle, Object);
+			MeshRenderer* mr = Object->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"FountainMaterial"));
+
+			Vector3 playerPos = GetPlayer()->GetComponent<Transform>()->GetPosition();
+
+			Object->GetComponent<Transform>()->SetPosition(Vector3(playerPos.x+1.f, playerPos.y, playerPos.z));
+			Object->AddComponent<sn::Collider2D>();
+			Object->AddComponent<ObstacleCollider>();
 		}
 #pragma endregion
 

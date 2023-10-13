@@ -54,8 +54,8 @@ namespace sn
 	{
 		Time::Update();
 		Input::Update();
-		CollisionManager::Update();
 		SceneManager::Update();
+		CollisionManager::Update();
 		InventoryManager::Update();
 	}
 

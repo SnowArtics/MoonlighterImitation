@@ -268,7 +268,9 @@
     <ClCompile Include="InventorySquare.cpp">
       <Filter>Scene\Inventory</Filter>
     </ClCompile>
-    <ClCompile Include="ObstacleCollider.cpp" />
+    <ClCompile Include="ObstacleCollider.cpp">
+      <Filter>Script\ObstacleCollider</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -541,7 +543,9 @@
     <ClInclude Include="InventorySquare.h">
       <Filter>Scene\Inventory</Filter>
     </ClInclude>
-    <ClInclude Include="ObstacleCollider.h" />
+    <ClInclude Include="ObstacleCollider.h">
+      <Filter>Script\ObstacleCollider</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">

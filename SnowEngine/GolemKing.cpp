@@ -24,6 +24,8 @@
 #include "MiniBossHPBar.h"
 #include <snAudioClip.h>
 #include <snAudioSource.h>
+#include "snCollider2D.h"
+#include "ObstacleCollider.h"
 
 GolemKing::GolemKing()
 	:curTime(0.0f)

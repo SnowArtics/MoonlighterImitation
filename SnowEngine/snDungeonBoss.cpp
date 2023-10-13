@@ -34,6 +34,7 @@
 #include "GolemKingFist.h"
 #include <snAudioSource.h>
 #include <snAudioListener.h>
+#include "snRigidBody.h"
 
 namespace sn
 {
