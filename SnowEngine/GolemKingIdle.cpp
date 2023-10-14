@@ -9,7 +9,7 @@ GolemKingIdle::GolemKingIdle()
 	, endTime(1.6f)
 	, executionTime(0.f)
 	, randomNumLow(1)
-	, randomNumHigh(4)
+	, randomNumHigh(1)
 {
 }
 
@@ -25,8 +25,8 @@ void GolemKingIdle::Update()
 	std::random_device rd;
 	std::mt19937 gen(rd());
 
-	std::uniform_int_distribution<> distribution(1, 1);
-	//std::uniform_int_distribution<> distribution(randomNumLow, randomNumHigh);
+	//std::uniform_int_distribution<> distribution(1, 1);
+	std::uniform_int_distribution<> distribution(randomNumLow, randomNumHigh);
 
 	int randomNum = distribution(gen); // randomNums이 1일때 주먹 휘두르기, 2일때 충격파, 3일때 손 발사, 4일때 레이저 발사
 
@@ -38,6 +38,7 @@ void GolemKingIdle::Update()
 		{
 			SceneManager::ChangeMonsterState(GetAI(), MON_STATE::GOLEMKING_ROCK_ATTACK);
 			randomNumLow = 2;
+			randomNumHigh = 4;
 		}
 		break;
 		case 2:

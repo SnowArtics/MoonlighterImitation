@@ -9,6 +9,7 @@
 #include "snTransform.h"
 #include <snAudioSource.h>
 #include "snResources.h"
+#include "ObstacleCollider.h"
 
 #include <random>
 
@@ -53,6 +54,8 @@ GolemKingRock::GolemKingRock()
 	sn::Collider2D* collider = AddComponent<sn::Collider2D>();
 	collider->SetCenter(Vector2(0.0f, 0.0f));
 	collider->SetEnable(false);
+
+	AddComponent<ObstacleCollider>();
 }
 
 GolemKingRock::~GolemKingRock()
@@ -84,6 +87,7 @@ void GolemKingRock::Update()
 		if (curPos.y <= desPos.y) {
 			curPos = desPos;
 			rockTrigger = false;
+			GetComponent<sn::Collider2D>()->SetEnable(true);
 		}
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPosition(curPos);

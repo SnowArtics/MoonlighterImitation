@@ -42,6 +42,75 @@ void ObstacleCollider::OnCollisionEnter(sn::Collider2D* other)
 		return;
 	}
 	Vector3 velocity = rb->GetVelocity();
+
+	if (velocity.x != 0.0f && velocity.y != 0.f) {//대각선으로 해당 오브젝트에 접촉할때,
+		Vector3 otherPos = other->GetOwner()->GetComponent<Transform>()->GetPosition();
+		Vector3 pos = GetOwner()->GetComponent<Transform>()->GetPosition();
+		Vector3 posDirection = otherPos - pos;
+
+		sn::Collider2D* otherCol = other->GetOwner()->GetComponent<sn::Collider2D>();
+		Vector3 otherColPos = otherCol->GetPos();
+		Vector2 otherColSize = otherCol->GetSize();
+
+		Vector3 otherRightTop = Vector3(otherColPos.x + otherColSize.x / 2, otherColPos.y + otherColSize.y / 2, otherColPos.z);
+		Vector3 otherLeftTop = Vector3(otherColPos.x - otherColSize.x / 2, otherColPos.y + otherColSize.y / 2, otherColPos.z);
+		Vector3 otherLeftBottom = Vector3(otherColPos.x - otherColSize.x / 2, otherColPos.y - otherColSize.y / 2, otherColPos.z);
+		Vector3 otherRightBottom = Vector3(otherColPos.x + otherColSize.x / 2, otherColPos.y - otherColSize.y / 2, otherColPos.z);
+
+		sn::Collider2D* col = GetOwner()->GetComponent<sn::Collider2D>();
+		Vector3 colPos = col->GetPos();
+		Vector2 colSize = col->GetSize();
+
+		Vector3 rightTop = Vector3(colPos.x + colSize.x / 2, colPos.y + colSize.y / 2, colPos.z);
+		Vector3 leftTop = Vector3(colPos.x - colSize.x / 2, colPos.y + colSize.y / 2, colPos.z);
+		Vector3 leftBottom = Vector3(colPos.x - colSize.x / 2, colPos.y - colSize.y / 2, colPos.z);
+		Vector3 rightBottom = Vector3(colPos.x + colSize.x / 2, colPos.y - colSize.y / 2, colPos.z);
+
+		if (posDirection.x >= 0.0f && posDirection.y >= 0.0f) { //1사분면
+			float xGap = abs(otherLeftBottom.x - rightTop.x);
+			float yGap = abs(otherLeftBottom.y - rightTop.y);
+
+			if (xGap>=yGap) {
+				velocity.x = 0.0f;
+			}
+			else {
+				velocity.y = 0.0f;
+			}
+		}
+		else if (posDirection.x < 0.0f && posDirection.y >= 0.0f) { //2사분면
+			float xGap = abs(otherRightBottom.x - leftTop.x);
+			float yGap = abs(otherRightBottom.y - leftTop.y);
+
+			if (xGap >= yGap) {
+				velocity.x = 0.0f;
+			}
+			else {
+				velocity.y = 0.0f;
+			}
+		}
+		else if (posDirection.x < 0.0f && posDirection.y < 0.0f) { //3사분면
+			float xGap = abs(otherRightTop.x - leftBottom.x);
+			float yGap = abs(otherRightTop.y - leftBottom.y);
+
+			if (xGap >= yGap) {
+				velocity.x = 0.0f;
+			}
+			else {
+				velocity.y = 0.0f;
+			}
+		}
+		else if (posDirection.x >= 0.0f && posDirection.y < 0.0f) { //4사분면
+			float xGap = abs(otherLeftTop.x - rightBottom.x);
+			float yGap = abs(otherLeftTop.y - rightBottom.y);
+
+			if (xGap >= yGap) {
+				velocity.x = 0.0f;
+			}
+			else {
+				velocity.y = 0.0f;
+			}
+		}
+	}
 	
 	collisionObjects.insert(pair<UINT, Vector3>(other->GetColliderID(), velocity));
 }

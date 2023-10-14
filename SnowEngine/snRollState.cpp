@@ -6,6 +6,7 @@
 #include "snCollider2D.h"
 #include <snAudioSource.h>
 #include "snResources.h"
+#include "snRigidBody.h"
 
 RollState::RollState()
 	: PlayerState(PLAYER_STATE::ROLL)
@@ -36,28 +37,34 @@ void RollState::Update()
 	Transform* tr = GetPlayerFSM()->GetOwner()->GetComponent<Transform>();
 	Vector3 pos = tr->GetPosition();
 
+	RigidBody* rigidBody = GetPlayerFSM()->GetOwner()->GetComponent<RigidBody>();
+
 	if (actionDir.size() == 0) {
 		switch (GetPlayerFSM()->GetDirection())
 		{
 		case PLAYER_DIR::UP:
 			pos.y += 2.0f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::UP);
-			tr->SetPosition(pos);
+			//tr->SetPosition(pos);
+			rigidBody->SetVelocity(Vector3(0.0f, 2.0f, 0.0f));
 			break;
 		case PLAYER_DIR::DOWN:
 			pos.y -= 2.0f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::DOWN);
-			tr->SetPosition(pos);
+			//tr->SetPosition(pos);
+			rigidBody->SetVelocity(Vector3(0.0f, -2.0f, 0.0f));
 			break;
 		case PLAYER_DIR::RIGHT:
 			pos.x += 2.0f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::RIGHT);
-			tr->SetPosition(pos);
+			//tr->SetPosition(pos);
+			rigidBody->SetVelocity(Vector3(2.0f, 0.0f, 0.0f));
 			break;
 		case PLAYER_DIR::LEFT:
 			pos.x -= 2.0f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::LEFT);
-			tr->SetPosition(pos);
+			//tr->SetPosition(pos);
+			rigidBody->SetVelocity(Vector3(-2.0f, 0.0f, 0.0f));
 			break;
 		default:
 			break;
@@ -70,22 +77,26 @@ void RollState::Update()
 		case PLAYER_DIR::UP:
 			pos.y += 2.0f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::UP);
-			tr->SetPosition(pos);
+			//tr->SetPosition(pos);
+			rigidBody->SetVelocity(Vector3(.0f, 2.0f, 0.0f));
 			break;
 		case PLAYER_DIR::DOWN:
 			pos.y -= 2.0f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::DOWN);
-			tr->SetPosition(pos);
+			//tr->SetPosition(pos);
+			rigidBody->SetVelocity(Vector3(0.0f, -2.0f, 0.0f));
 			break;
 		case PLAYER_DIR::RIGHT:
 			pos.x += 2.0f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::RIGHT);
-			tr->SetPosition(pos);
+			//tr->SetPosition(pos);
+			rigidBody->SetVelocity(Vector3(2.0f, 0.0f, 0.0f));
 			break;
 		case PLAYER_DIR::LEFT:
 			pos.x -= 2.0f * Time::DeltaTime();
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::LEFT);
-			tr->SetPosition(pos);
+			//tr->SetPosition(pos);
+			rigidBody->SetVelocity(Vector3(-2.0f, .0f, 0.0f));
 			break;
 		default:
 			break;
