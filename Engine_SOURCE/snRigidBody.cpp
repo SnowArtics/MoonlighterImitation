@@ -84,7 +84,7 @@ namespace sn {
 			// 최종속도는 누적되어야 ㅎ해서 Normalize하면 안됨
 			Vector3 vDir = m_vVelocity;
 			vDir.Normalize();
-
+			
 			//이동 속력
 			Vector3 vPos = this->GetOwner()->GetComponent<Transform>()->GetPosition();
 

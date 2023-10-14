@@ -35,6 +35,7 @@
 #include <snAudioSource.h>
 #include <snAudioListener.h>
 #include "snRigidBody.h"
+#include <InventoryManager.h>
 
 namespace sn
 {
@@ -46,6 +47,8 @@ namespace sn
 	}
 	void DungeonBoss::Initialize()
 	{
+		InventoryManager::CreateUI();
+
 		{
 			//던전 배경 로딩 //1.7777777777777
 			GameObject* Background = new GameObject();
@@ -284,13 +287,6 @@ namespace sn
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::SetChangeScene(L"TitleScene");
-		}
-		if (Input::GetKeyDown(eKeyCode::I))
-		{
-			GameObject* inven = Scene::Find(L"InventoryBase");
-			std::wstring asdf = inven->GetName();
-			if (inven->GetEnable() == true) inven->SetEnable(false);
-			else inven->SetEnable(true);
 		}
 	}
 	void DungeonBoss::Render()

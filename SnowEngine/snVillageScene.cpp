@@ -24,6 +24,12 @@
 #include "snBowState.h"
 
 #include "MazeMaker.h"
+#include "PlayerHP.h"
+#include "PlayerFollowCamera.h"
+#include <snAudioListener.h>
+#include "snPlayer.h"
+#include "snPlayerCollision.h"
+#include <InventoryManager.h>
 
 namespace sn
 {
@@ -35,6 +41,7 @@ namespace sn
 	}
 	void VillageScene::Initialize()
 	{
+		InventoryManager::CreateUI();
 
 #pragma region VillageObject
 		{
@@ -130,13 +137,15 @@ namespace sn
 		}
 #pragma endregion
 
+#pragma region Player
 		{
 			//플레이어 생성
-			GameObject* Player = new GameObject();
-			AddGameObject(eLayerType::Player, Player);
+			snPlayer* Player = new snPlayer();
+			AddGameObject(eLayerType::Player, static_cast<GameObject*>(Player));
 			Player->SetName(L"Player");
+			Player->AddComponent<PlayerCollision>();
 			Collider2D* cd = Player->AddComponent<Collider2D>();
-			cd->SetSize(Vector2(0.5f, 0.5f));
+			cd->SetSize(Vector2(0.3f, 0.3f));
 			cd->SetName(L"FisrtCollider");
 			cd->SetEnable(true);
 			Collider2D* cd2 = Player->AddComponent<Collider2D>();
@@ -148,10 +157,10 @@ namespace sn
 			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-			Light* lightComp = Player->AddComponent<Light>();
-			lightComp->SetType(eLightType::Point);
-			lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
-			lightComp->SetRadius(2.0f);
+			//Light* lightComp = Player->AddComponent<Light>();
+			//lightComp->SetType(eLightType::Point);
+			//lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
+			//lightComp->SetRadius(2.0f);
 
 			std::shared_ptr<Texture> atlas
 				= Resources::Load<Texture>(L"WillMoveSprite", L"..\\Resources\\Texture\\Player\\moveState.png");
@@ -197,8 +206,7 @@ namespace sn
 
 			at->PlayAnimation(L"BOW_DOWN", true);
 
-			Player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
-			Player->GetComponent<Transform>()->SetScale(Vector3(1.0f, 1.0f, 1.0f));
+			Player->GetComponent<Transform>()->SetScale(Vector3(1.2f, 1.2f, 1.0f));
 
 			PlayerFSM* playerFSM = Player->AddComponent<PlayerFSM>();
 			playerFSM->AddState(new RollState);
@@ -209,8 +217,12 @@ namespace sn
 			playerFSM->AddState(new BowState);
 			playerFSM->AddState(new IdleState);
 
+			PlayerHP* playerHP = Player->AddComponent<PlayerHP>(100.f, 100.f);
+			playerHP->CreateHpBar();
+
 			SetPlayer(Player);
 		}
+#pragma endregion
 
 		{
 			//인벤토리 UI 생성
@@ -291,6 +303,8 @@ namespace sn
 			cameraComp->EnableLayerMasks();
 			cameraComp->TurnLayerMask(eLayerType::UI, false);
 			camera->AddComponent<CameraScript>();
+			camera->AddComponent<PlayerFollowCamera>();
+			camera->AddComponent<AudioListener>();
 			renderer::cameras.push_back(cameraComp);
 			renderer::mainCamera = cameraComp;
 			SetMainCamera(cameraComp);
@@ -314,7 +328,7 @@ namespace sn
 			AddGameObject(eLayerType::Light, light);
 			Light* lightComp = light->AddComponent<Light>();
 			lightComp->SetType(eLightType::Directional);
-			lightComp->SetColor(Vector4(0.4f, 0.4f, 0.4f, 1.0f));
+			lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
 		}
 		Scene::Initialize();
 	}
@@ -328,13 +342,6 @@ namespace sn
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::SetChangeScene(L"ShopScene");
-		}
-		if (Input::GetKeyDown(eKeyCode::I))
-		{
-			GameObject* inven = Scene::Find(L"InventoryBase");
-			std::wstring asdf = inven->GetName();
-			if (inven->GetEnable() == true) inven->SetEnable(false);
-			else inven->SetEnable(true);
 		}
 	}
 	void VillageScene::Render()

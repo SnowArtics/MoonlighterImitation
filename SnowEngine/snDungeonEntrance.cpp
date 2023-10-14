@@ -31,6 +31,8 @@
 #include <snAudioClip.h>
 #include <snAudioListener.h>
 #include "PlayerHP.h"
+#include <InventoryManager.h>
+#include <snRigidBody.h>
 
 namespace sn {
 	DungeonEntrance::DungeonEntrance()
@@ -41,6 +43,8 @@ namespace sn {
 	}
 	void DungeonEntrance::Initialize()
 	{
+		InventoryManager::CreateUI();
+	
 		{
 			//던전 배경 로딩 //1.171428571428571
 			GameObject* Background = new GameObject();
@@ -51,7 +55,6 @@ namespace sn {
 			Background->GetComponent<Transform>()->SetPosition(Vector3(0.0f, 0.0f, 0.0f));
 			Background->GetComponent<Transform>()->SetScale(Vector3(11.1714f, 10.f, 2.0f));
 			Background->GetComponent<Transform>()->SetScale(Vector3(23.42857142857142f, 20.f, 2.0f));
-		
 			
 		}
 
@@ -180,6 +183,8 @@ namespace sn {
 			PlayerHP* playerHP = Player->AddComponent<PlayerHP>(100.f, 100.f);
 			playerHP->CreateHpBar();
 
+			Player->AddComponent<RigidBody>();
+
 			SetPlayer(Player);
 		}
 #pragma endregion
@@ -305,13 +310,6 @@ namespace sn {
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::SetChangeScene(L"DungeonScene01");
-		}
-		if (Input::GetKeyDown(eKeyCode::I))
-		{
-			GameObject* inven = Scene::Find(L"InventoryBase");
-			std::wstring asdf = inven->GetName();
-			if (inven->GetEnable() == true) inven->SetEnable(false);
-			else inven->SetEnable(true);
 		}
 	}
 	void DungeonEntrance::Render()

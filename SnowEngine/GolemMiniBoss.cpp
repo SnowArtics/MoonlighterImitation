@@ -292,6 +292,12 @@ void GolemMiniBoss::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
 
 void GolemMiniBoss::OnCollisionExit(sn::Collider2D* other, sn::Collider2D* me)
 {
+	if (other->GetName() == L"FisrtCollider" && me->GetName() == L"Mini_Boss_Third_Collider") {
+		snPlayer* player = static_cast<snPlayer*>(other->GetOwner());
+		RigidBody* playerRigidBody = player->GetComponent<RigidBody>();
+
+		playerRigidBody->SetVelocity(Vector3(0.0f,0.0f,0.0f));
+	}
 }
 
 void GolemMiniBoss::CreateWave(Vector3 _transform)

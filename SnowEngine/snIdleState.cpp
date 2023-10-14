@@ -2,6 +2,7 @@
 #include "..\Engine_SOURCE\snTime.h"
 #include "..\Engine_SOURCE\snInput.h"
 #include "InventoryManager.h"
+#include <snRigidBody.h>
 
 IdleState::IdleState()
 	: PlayerState(PLAYER_STATE::IDLE)

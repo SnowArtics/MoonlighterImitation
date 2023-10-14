@@ -40,6 +40,7 @@
 #include <snAudioSource.h>
 #include <snAudioClip.h>
 #include <snAudioListener.h>
+#include <InventoryManager.h>
 
 namespace sn {
 	DungeonScene02::DungeonScene02()
@@ -50,6 +51,8 @@ namespace sn {
 	}
 	void DungeonScene02::Initialize()
 	{
+		InventoryManager::CreateUI();
+
 		SceneManager::GetActiveScene()->SetName(L"DungeonScene02");
 
 		DungeonMapManager::GetInst()->Init();
@@ -327,13 +330,6 @@ namespace sn {
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::SetChangeScene(L"DungeonScene03");
-		}
-		if (Input::GetKeyDown(eKeyCode::I))
-		{
-			GameObject* inven = Scene::Find(L"InventoryBase");
-			std::wstring asdf = inven->GetName();
-			if (inven->GetEnable() == true) inven->SetEnable(false);
-			else inven->SetEnable(true);
 		}
 	}
 	void DungeonScene02::Render()

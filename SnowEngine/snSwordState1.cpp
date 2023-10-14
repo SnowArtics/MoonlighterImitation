@@ -97,6 +97,9 @@ void SwordState1::Update()
 
 	if (time >= 0.1f && time < (attTime - 0.3f)) {
 		cd[1]->SetEnable(true);
+		velocity.x = 0.f;
+		velocity.y = 0.f;
+		rb->SetVelocity(velocity);
 	}
 	else {
 		cd[1]->SetEnable(false);
@@ -108,9 +111,15 @@ void SwordState1::Update()
 	else if (time > attTime) {
 		if (flag == true) {
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::ATTSWORD2);
+			velocity.x = 0.f;
+			velocity.y = 0.f;
+			rb->SetVelocity(velocity);
 		}
 		else {
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::IDLE);
+			velocity.x = 0.f;
+			velocity.y = 0.f;
+			rb->SetVelocity(velocity);
 		}
 	}
 }
