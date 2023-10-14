@@ -287,7 +287,8 @@ namespace sn {
 			PlayerHP* playerHP = Player->AddComponent<PlayerHP>(100.f, 100.f);
 			playerHP->CreateHpBar();
 
-			Player->AddComponent<RigidBody>();
+			RigidBody* rb = Player->AddComponent<RigidBody>();
+			rb->SetFricCoeff(0.0f);
 
 			AudioSource* as = Player->AddComponent<AudioSource>();
 			as->SetClip(Resources::Load<AudioClip>(L"Sentient Stone", L"..\\Resources\\Sound\\BGM\\Moonlighter OST - 06 - Sentient Stone_256k.mp3"));

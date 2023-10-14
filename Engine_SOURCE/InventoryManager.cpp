@@ -19,6 +19,28 @@ bool InventoryManager::bInvenActive = false;
 using namespace sn;
 using namespace std;
 
+InventoryManager::InventoryManager()
+{
+	if (pInventory != nullptr) {
+		delete pInventory;
+		pInventory = nullptr;
+	}
+
+	if (pInventoryLeft != nullptr) {
+		delete pInventoryLeft;
+		pInventoryLeft = nullptr;
+	}
+
+	if (pInventorySlot != nullptr) {
+		delete pInventorySlot;
+		pInventorySlot = nullptr;
+	}
+}
+
+InventoryManager::~InventoryManager()
+{
+}
+
 void InventoryManager::Initiailize()
 {
 	//인벤토리 slot 포즈를 저장하는 벡터 생성
@@ -236,6 +258,45 @@ void InventoryManager::CreateUI()
 				at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 21.f), 1, 90.f);
 
 				at->PlayAnimation(L"Transparent", false);
+
+				switch (inven[i][j]._itemType)
+				{
+				case sn::enums::eItemType::NONE:
+					at->PlayAnimation(L"Transparent", false);
+					break;
+				case sn::enums::eItemType::Broken_Sword:
+					at->PlayAnimation(L"Broken_Sword", false);
+					break;
+				case sn::enums::eItemType::Crystal_Energy:
+					at->PlayAnimation(L"Crystal_Energy", false);
+					break;
+				case sn::enums::eItemType::GolemKing_Crystal_Energy:
+					at->PlayAnimation(L"GolemKing_Crystal_Energy", false);
+					break;
+				case sn::enums::eItemType::Fabric:
+					at->PlayAnimation(L"fabric", false);
+					break;
+				case sn::enums::eItemType::Golem_Core:
+					at->PlayAnimation(L"Golem_Core", false);
+					break;
+				case sn::enums::eItemType::Golem_King_Design:
+					at->PlayAnimation(L"Golem_King_design", false);
+					break;
+				case sn::enums::eItemType::Golem_Pieces:
+					at->PlayAnimation(L"golem_pieces", false);
+					break;
+				case sn::enums::eItemType::Reinforced_Steel:
+					at->PlayAnimation(L"Reinforced_Steel_G", false);
+					break;
+				case sn::enums::eItemType::Slime_Jelly:
+					at->PlayAnimation(L"slime_jelly", false);
+					break;
+				case sn::enums::eItemType::END:
+					at->PlayAnimation(L"Transparent", false);
+					break;
+				default:
+					break;
+				}
 
 				//inven[i][j].slotItem->GetComponent<Transform>()->SetParent(pInventory->GetComponent<Transform>());
 

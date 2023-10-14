@@ -9,7 +9,7 @@ namespace sn {
 		:Component(eComponentType::RigidBody)
 		, m_fMass(1.f)
 		, m_vForce(Vector3(0.f, 0.f, 0.f))
-		, m_fFricCoeff(0.f)
+		, m_fFricCoeff(100.f)
 		, m_vMaxVelocity(Vector3(200.f, 600.f, 0.f))
 	{
 	}

@@ -37,6 +37,7 @@ namespace sn {
 		void AddVelocity(Vector3 _v) { m_vVelocity += _v; }
 		void SetMAXVelocity(Vector3 _v) { m_vMaxVelocity = _v; }
 		void SetAccelAlpha(Vector3 _vAccelA) { m_vAccelA = _vAccelA; }
+		void SetFricCoeff(float _fFricCoeff) { m_fFricCoeff = _fFricCoeff; }
 
 	private:
 		void Move();

@@ -26,6 +26,10 @@ enum SlotMoveDir {
 class InventoryManager
 {
 public:
+	InventoryManager();
+	~InventoryManager();
+
+public:
 	static void Initiailize();
 	static void Update();
 	static void Render();

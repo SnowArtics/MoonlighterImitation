@@ -230,7 +230,8 @@ namespace sn
 			PlayerHP* playerHP = Player->AddComponent<PlayerHP>(100.f, 100.f);
 			playerHP->CreateHpBar();
 
-			Player->AddComponent<RigidBody>();
+			RigidBody* rb = Player->AddComponent<RigidBody>();
+			rb->SetFricCoeff(0.0f);
 
 			AudioSource* as = Player->AddComponent<AudioSource>();
 			as->SetClip(Resources::Load<AudioClip>(L"Forbidden Steps", L"..\\Resources\\Sound\\BGM\\Moonlighter OST - 08 - Golem King_256k.mp3"));
