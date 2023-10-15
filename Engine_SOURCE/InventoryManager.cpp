@@ -19,7 +19,7 @@ bool InventoryManager::bInvenActive = false;
 using namespace sn;
 using namespace std;
 
-InventoryManager::InventoryManager()
+void InventoryManager::Initiailize()
 {
 	if (pInventory != nullptr) {
 		delete pInventory;
@@ -35,14 +35,7 @@ InventoryManager::InventoryManager()
 		delete pInventorySlot;
 		pInventorySlot = nullptr;
 	}
-}
 
-InventoryManager::~InventoryManager()
-{
-}
-
-void InventoryManager::Initiailize()
-{
 	//인벤토리 slot 포즈를 저장하는 벡터 생성
 	std::vector<Vector3> m_vInventorySlotPos;
 	m_vInventorySlotPos.push_back(Vector3(-2.86f, 1.1f, -2.0f));

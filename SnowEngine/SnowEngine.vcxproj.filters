@@ -271,6 +271,9 @@
     <ClCompile Include="ObstacleCollider.cpp">
       <Filter>Script\ObstacleCollider</Filter>
     </ClCompile>
+    <ClCompile Include="Shelf.cpp">
+      <Filter>Script\Shop</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -546,6 +549,9 @@
     <ClInclude Include="ObstacleCollider.h">
       <Filter>Script\ObstacleCollider</Filter>
     </ClInclude>
+    <ClInclude Include="Shelf.h">
+      <Filter>Script\Shop</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -814,6 +820,9 @@
     </Filter>
     <Filter Include="Script\ObstacleCollider">
       <UniqueIdentifier>{f52278ec-41cd-4d40-bc0f-a664bdd3ed86}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\Shop">
+      <UniqueIdentifier>{6d10d1ec-d244-4010-b890-9638b9499e5c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

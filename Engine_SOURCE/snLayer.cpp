@@ -15,6 +15,8 @@ namespace sn {
 			delete gameObj;
 			gameObj = nullptr;
 		}
+
+		int a = 0;
 	}
 
 	void Layer::Initialize()

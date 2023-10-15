@@ -224,6 +224,7 @@
     <ClInclude Include="PlayerFollowCamera.h" />
     <ClInclude Include="PlayerHP.h" />
     <ClInclude Include="ReinforcedSteel.h" />
+    <ClInclude Include="Shelf.h" />
     <ClInclude Include="SlimeJelly.h" />
     <ClInclude Include="snPlayer.h" />
     <ClInclude Include="Projectile.h" />
@@ -352,6 +353,7 @@
     <ClCompile Include="PlayerFollowCamera.cpp" />
     <ClCompile Include="PlayerHP.cpp" />
     <ClCompile Include="ReinforcedSteel.cpp" />
+    <ClCompile Include="Shelf.cpp" />
     <ClCompile Include="SlimeJelly.cpp" />
     <ClCompile Include="snPlayer.cpp" />
     <ClCompile Include="Projectile.cpp" />

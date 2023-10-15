@@ -55,6 +55,7 @@ public:
 	std::vector<PLAYER_DIR>& GetActionDir() { return actionDir; }
 	WEAPON_TYPE GetWeaponType() { return weaponType; }
 	bool GetCanMove(PLAYER_DIR _playerDir);
+	bool IsKeyPresent(PLAYER_STATE _state) { if (m_mapeState.find(_state) == m_mapeState.end()) return false; else return true; }
 
 private:
 	std::map<PLAYER_STATE, PlayerState*>	m_mapeState;

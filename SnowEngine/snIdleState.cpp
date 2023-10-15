@@ -44,10 +44,10 @@ void IdleState::Update()
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::UP);
 		}
 
-		if (Input::GetKeyDown(eKeyCode::SPACE))
+		if (Input::GetKeyDown(eKeyCode::SPACE) && GetPlayerFSM()->IsKeyPresent(PLAYER_STATE::ROLL))
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::ROLL);
 
-		if (Input::GetKeyDown(eKeyCode::J) && GetPlayerFSM()->GetWeaponType() == WEAPON_TYPE::SHORT_SWORD)
+		if (Input::GetKeyDown(eKeyCode::J) && GetPlayerFSM()->GetWeaponType() == WEAPON_TYPE::SHORT_SWORD && GetPlayerFSM()->IsKeyPresent(PLAYER_STATE::ATTSWORD1))
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::ATTSWORD1);
 		if (Input::GetKeyDown(eKeyCode::J) && GetPlayerFSM()->GetWeaponType() == WEAPON_TYPE::BOW)
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::ATTBOW);

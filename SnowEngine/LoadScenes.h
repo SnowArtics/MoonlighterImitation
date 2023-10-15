@@ -30,11 +30,11 @@ namespace sn
 		SceneManager::CreateScene<DungeonScene01>(L"DungeonScene01");
 		SceneManager::CreateScene<DungeonScene02>(L"DungeonScene02");
 		SceneManager::CreateScene<DungeonScene03>(L"DungeonScene03");
-		SceneManager::CreateScene<DungeonBoss>(L"DungeonScene01");
+		SceneManager::CreateScene<DungeonBoss>(L"DungeonBossScene01");
 
 		//SceneManager::LoadScene(L"VillageScene");
 
-		SceneManager::SetChangeScene(L"DungeonScene01");
+		SceneManager::SetChangeScene(L"ShopScene");
 		//SceneManager::LoadScene(L"VillageScene");
 	}
 }

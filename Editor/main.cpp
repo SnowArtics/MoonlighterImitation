@@ -1,6 +1,8 @@
 ﻿// Editor.cpp : 애플리케이션에 대한 진입점을 정의합니다.
 //
 #pragma once
+#define _CRTDBG_MAP_ALLOC
+
 #include "framework.h"
 #include "Editor.h"
 #include "..\Engine_SOURCE\snApplication.h"
@@ -17,6 +19,7 @@
 #pragma comment(lib, "..\\x64\\Release\\SnowEngine.lib")
 #endif
 
+#include<cstdlib>
 #include <crtdbg.h>
 #ifdef _DEBUG
 #define new new ( _NORMAL_BLOCK , __FILE__ , __LINE__ )
@@ -47,8 +50,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     //메모리릭(누수) 찾기
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    _CrtSetBreakAlloc(4232);
-    _CrtDumpMemoryLeaks();
+    //_CrtSetBreakAlloc(4251);
 
     SetProcessDPIAware();
 
@@ -96,6 +98,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     sn::Fmod::Release();
     sn::FontWrapper::Release();
     gui::Editor::Release();
+
+    _CrtDumpMemoryLeaks();
 
     return (int) msg.wParam;
 }

@@ -1,5 +1,6 @@
 #pragma once
 #include "snGameObject.h"
+#include "snEnums.h"
 
 namespace sn {
 	class Layer
@@ -16,6 +17,9 @@ namespace sn {
 
 		void DestroyAll();
 
+		void SetLayerType(eLayerType _ownLayerType) { ownLayerType = _ownLayerType; }
+		eLayerType GetLayerType() { return ownLayerType; }
+
 		void AddGameObject(GameObject* gameObj);
 		const std::vector<GameObject*> GetGameObjects()
 		{
@@ -24,6 +28,7 @@ namespace sn {
 
 	private:
 		std::vector<GameObject*> mGameObjects;
+		eLayerType	ownLayerType;
 	};
 }
 

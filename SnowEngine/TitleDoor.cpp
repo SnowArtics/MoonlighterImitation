@@ -25,7 +25,7 @@ TitleDoor::TitleDoor()
 {
 	{
 		//왼쪽 문
-		GameObject* Background = new GameObject();
+		sn::GameObject* Background = new sn::GameObject();
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Background, Background);
 		MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -39,7 +39,7 @@ TitleDoor::TitleDoor()
 
 	{
 		//오른쪽 문
-		GameObject* Background = new GameObject();
+		sn::GameObject* Background = new sn::GameObject();
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Background, Background);
 		MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
@@ -53,7 +53,7 @@ TitleDoor::TitleDoor()
 
 	{
 	//가운데 선
-		GameObject* Background = new GameObject();
+		sn::GameObject* Background = new sn::GameObject();
 		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Background, Background);
 		MeshRenderer* mr = Background->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));

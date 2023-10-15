@@ -104,14 +104,14 @@ void MoveState::Update()
 		GetPlayerFSM()->ChangeState(PLAYER_STATE::IDLE);
 	}
 
-	if (Input::GetKeyDown(eKeyCode::SPACE)) {
+	if (Input::GetKeyDown(eKeyCode::SPACE) && GetPlayerFSM()->IsKeyPresent(PLAYER_STATE::ROLL)) {
 		GetPlayerFSM()->ChangeState(PLAYER_STATE::ROLL);
 		return;
 	}
 
-	if (Input::GetKeyDown(eKeyCode::J) && GetPlayerFSM()->GetWeaponType() == WEAPON_TYPE::SHORT_SWORD)
+	if (Input::GetKeyDown(eKeyCode::J) && GetPlayerFSM()->GetWeaponType() == WEAPON_TYPE::SHORT_SWORD&&GetPlayerFSM()->IsKeyPresent(PLAYER_STATE::ATTSWORD1))
 		GetPlayerFSM()->ChangeState(PLAYER_STATE::ATTSWORD1);
-	if (Input::GetKeyDown(eKeyCode::J) && GetPlayerFSM()->GetWeaponType() == WEAPON_TYPE::BOW)
+	if (Input::GetKeyDown(eKeyCode::J) && GetPlayerFSM()->GetWeaponType() == WEAPON_TYPE::BOW&& GetPlayerFSM()->IsKeyPresent(PLAYER_STATE::ATTBOW))
 		GetPlayerFSM()->ChangeState(PLAYER_STATE::ATTBOW);
 }
 
