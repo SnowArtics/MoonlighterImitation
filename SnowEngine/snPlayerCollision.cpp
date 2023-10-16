@@ -29,7 +29,7 @@ void PlayerCollision::Render()
 {
 }
 
-void PlayerCollision::OnCollisionEnter(sn::Collider2D* other)
+void PlayerCollision::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
 	PlayerFSM* playerFSM = GetOwner()->GetComponent<PlayerFSM>();
 
@@ -49,11 +49,11 @@ void PlayerCollision::OnCollisionEnter(sn::Collider2D* other)
 	}
 }
 
-void PlayerCollision::OnCollisionStay(sn::Collider2D* other)
+void PlayerCollision::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
 {
 }
 
-void PlayerCollision::OnCollisionExit(sn::Collider2D* other)
+void PlayerCollision::OnCollisionExit(sn::Collider2D* other, sn::Collider2D* me)
 {
 	PlayerFSM* playerFSM = GetOwner()->GetComponent<PlayerFSM>();
 

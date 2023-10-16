@@ -50,7 +50,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     //메모리릭(누수) 찾기
     _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    //_CrtSetBreakAlloc(4251);
+    //_CrtSetBreakAlloc(1364);
+    _CrtDumpMemoryLeaks();
 
     SetProcessDPIAware();
 
@@ -94,12 +95,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     }
 
     renderer::Release();
+    //application.Release();
     sn::SceneManager::Release();
     sn::Fmod::Release();
     sn::FontWrapper::Release();
     gui::Editor::Release();
-
-    _CrtDumpMemoryLeaks();
 
     return (int) msg.wParam;
 }

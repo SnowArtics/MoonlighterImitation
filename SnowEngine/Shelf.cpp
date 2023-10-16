@@ -41,12 +41,9 @@ Shelf::Shelf()
 	atlas = Resources::Load<Texture>(L"slime_jelly", L"..\\Resources\\Texture\\Item\\slime_jelly.png");
 	at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 21.f), 1, 90.f);
 
-	at->PlayAnimation(L"slime_jelly", false);
+	at->PlayAnimation(L"Transparent", false);
 
-	sn::Collider2D* col = AddComponent<sn::Collider2D>();
-	col->SetSize(Vector2(0.6f, 0.6f));
-
-	AddComponent<ObstacleCollider>();
+	//AddComponent<ObstacleCollider>();
 }
 
 Shelf::~Shelf()

@@ -102,7 +102,7 @@ namespace sn {
 	{
 	}
 
-	void sn::DungeonDoor::OnCollisionEnter(Collider2D* other)
+	void sn::DungeonDoor::OnCollisionEnter(Collider2D* other, sn::Collider2D* me)
 	{
 		GameObject* otherObject = other->GetOwner();
 
@@ -143,11 +143,11 @@ namespace sn {
 		}
 	}
 
-	void sn::DungeonDoor::OnCollisionStay(Collider2D* other)
+	void sn::DungeonDoor::OnCollisionStay(Collider2D* other, sn::Collider2D* me)
 	{
 	}
 
-	void sn::DungeonDoor::OnCollisionExit(Collider2D* other)
+	void sn::DungeonDoor::OnCollisionExit(Collider2D* other, sn::Collider2D* me)
 	{
 	}
 }

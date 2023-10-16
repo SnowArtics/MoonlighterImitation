@@ -8,6 +8,7 @@
 #include "snFontWrapper.h"
 #include "snTextManager.h"
 #include "InventoryManager.h"
+#include "ShopManager.h"
 
 namespace sn
 {
@@ -40,6 +41,7 @@ namespace sn
 		Input::Initialize();
 		Fmod::Initialize();
 		InventoryManager::Initiailize();
+		ShopManager::Initiailize();
 		FontWrapper::Initialize();
 
 		renderer::Initialize();
@@ -57,6 +59,7 @@ namespace sn
 		SceneManager::Update();
 		CollisionManager::Update();
 		InventoryManager::Update();
+		ShopManager::Update();
 	}
 
 	void Application::LateUpdate()
@@ -67,6 +70,7 @@ namespace sn
 	void Application::Render()
 	{
 		InventoryManager::Render();
+		ShopManager::Render();
 		Time::Render();
 
 		graphicDevice->ClearTarget();
@@ -77,6 +81,11 @@ namespace sn
 		renderer::Render();
 		TextManager::Render();
 		//graphicDevice->Draw();
+	}
+
+	void Application::Release()
+	{
+		InventoryManager::Release();
 	}
 
 	void Application::Destroy()

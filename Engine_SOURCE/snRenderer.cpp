@@ -1047,13 +1047,40 @@ namespace renderer {
 			Resources::Insert(L"UIInventoryLeftBaseMaterial01", spriteMaterial);
 		}
 		{
-			//inventory base 持失
+			//inventory left base 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"Shop_Right", L"..\\Resources\\Texture\\UI\\Inventory\\showcase.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"UIShopRightBaseMaterial01", spriteMaterial);
+		}
+		{
+			//inventory slot01 持失
 			std::shared_ptr<Texture> texture
 				= Resources::Load<Texture>(L"invenSlot01", L"..\\Resources\\Texture\\UI\\Inventory\\invenSlot.png");
 			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
 			spriteMaterial->SetShader(shader);
 			spriteMaterial->SetTexture(texture);
 			Resources::Insert(L"InvenSlotMeterial01", spriteMaterial);
+		}
+		{
+			//inventory slot02 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"invenSlot02", L"..\\Resources\\Texture\\UI\\Inventory\\showcaseSlot.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"InvenSlotMeterial02", spriteMaterial);
+		}
+		{
+			//inventory slot02 持失
+			std::shared_ptr<Texture> texture
+				= Resources::Load<Texture>(L"invenSlot03", L"..\\Resources\\Texture\\UI\\Inventory\\select_price.png");
+			std::shared_ptr<Material> spriteMaterial = std::make_shared<Material>();
+			spriteMaterial->SetShader(shader);
+			spriteMaterial->SetTexture(texture);
+			Resources::Insert(L"InvenSlotMeterial03", spriteMaterial);
 		}
 		{
 			//MonsterHP UI1 持失

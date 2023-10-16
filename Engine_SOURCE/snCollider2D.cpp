@@ -159,7 +159,7 @@ namespace sn
 
 		for (Script* script : scripts)
 		{
-			script->OnCollisionEnter(other);
+			script->OnCollisionEnter(other, me);
 		}
 	}
 	void Collider2D::OnCollisionStay(Collider2D* other, Collider2D* me)
@@ -171,7 +171,7 @@ namespace sn
 
 		for (Script* script : scripts)
 		{
-			script->OnCollisionStay(other);
+			script->OnCollisionStay(other, me);
 		}
 	}
 	void Collider2D::OnCollisionExit(Collider2D* other, Collider2D* me)
@@ -183,7 +183,7 @@ namespace sn
 
 		for (Script* script : scripts)
 		{
-			script->OnCollisionExit(other);
+			script->OnCollisionExit(other, me);
 		}
 	}
 

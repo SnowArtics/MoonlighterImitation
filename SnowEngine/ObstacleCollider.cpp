@@ -5,8 +5,13 @@
 #include "snCollider2D.h"
 #include "snRigidBody.h"
 #include "Monster.h"
+#include "ShopManager.h"
 
 ObstacleCollider::ObstacleCollider()
+{
+}
+
+ObstacleCollider::ObstacleCollider(std::wstring _colName)
 {
 }
 
@@ -30,12 +35,18 @@ void ObstacleCollider::Render()
 {
 }
 
-void ObstacleCollider::OnCollisionEnter(sn::Collider2D* other)
+void ObstacleCollider::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
 	//Player와 Monster만 충돌 계산
 	if (!dynamic_cast<snPlayer*>(other->GetOwner()) && !dynamic_cast<Monster*>(other->GetOwner())) {
 		return;
 	}
+
+	ShopManager::SetShopInvenActive(1);
+
+	if (!(GetOwner()->GetComponent<sn::Collider2D>()->GetColliderID() == me->GetColliderID()))
+		return;
+
 
 	RigidBody* rb = other->GetOwner()->GetComponent<RigidBody>();
 	if (rb == nullptr) {
@@ -115,7 +126,7 @@ void ObstacleCollider::OnCollisionEnter(sn::Collider2D* other)
 	collisionObjects.insert(pair<UINT, Vector3>(other->GetColliderID(), velocity));
 }
 
-void ObstacleCollider::OnCollisionStay(sn::Collider2D* other)
+void ObstacleCollider::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
 {
 	auto it = collisionObjects.find(other->GetColliderID());
 	if (it == collisionObjects.end())
@@ -142,7 +153,13 @@ void ObstacleCollider::OnCollisionStay(sn::Collider2D* other)
 	}
 }
 
-void ObstacleCollider::OnCollisionExit(sn::Collider2D* other)
+void ObstacleCollider::OnCollisionExit(sn::Collider2D* other, sn::Collider2D* me)
 {
+	//Player와 Monster만 충돌 계산
+	if (!dynamic_cast<snPlayer*>(other->GetOwner()) && !dynamic_cast<Monster*>(other->GetOwner())) {
+		return;
+	}
+
+	ShopManager::SetShopInvenActive(0);
 	collisionObjects.erase(other->GetColliderID());
 }

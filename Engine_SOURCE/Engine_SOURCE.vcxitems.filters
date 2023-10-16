@@ -118,6 +118,9 @@
     <Filter Include="GameObject\Component\RigidBody">
       <UniqueIdentifier>{b1be3ab7-3b41-4472-b015-b604099b10bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Manager">
+      <UniqueIdentifier>{e56fa268-3431-4950-84b0-cd6e0277873c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -248,7 +251,12 @@
       <Filter>GameObject\Component\RigidBody</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)snTextManager.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryManager.h" />
+    <ClInclude Include="$(MSBuildThisFileDirectory)InventoryManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)ShopManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)snMath.inl">
@@ -369,6 +377,11 @@
       <Filter>GameObject\Component\RigidBody</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)snTextManager.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)InventoryManager.cpp" />
+    <ClCompile Include="$(MSBuildThisFileDirectory)InventoryManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)ShopManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

@@ -26,6 +26,8 @@
 #include "PlayerFollowCamera.h"
 #include <snAudioListener.h>
 #include "Shelf.h"
+#include "ObstacleCollider.h"
+#include "ShopManager.h"
 
 namespace sn
 {
@@ -38,6 +40,7 @@ namespace sn
 	void ShopScene::Initialize()
 	{
 		InventoryManager::CreateUI();
+		ShopManager::CreateShop();
 
 		SceneManager::GetActiveScene()->SetName(L"ShopScene");
 
@@ -138,36 +141,23 @@ namespace sn
 			renderer::mainCamera = cameraComp;
 			SetMainCamera(cameraComp);
 		}
-
 		{
-			//right top
-			GameObject* shelf = new Shelf();
-			Transform* tr = shelf->GetComponent<Transform>();
-			tr->SetPosition(-0.85f, -1.6f, 0.0f);
+			//Middle
+			GameObject* middleShelf = new Shelf();
+			Transform* tr = middleShelf->GetComponent<Transform>();
+			tr->SetPosition(-1.2f, -1.9f, 0.0f);
 			tr->SetScale(0.8f, 0.8f, 0.8f);
-			AddGameObject(eLayerType::Obstacle, shelf);
+			AddGameObject(eLayerType::Obstacle, middleShelf);
+
+			sn::Collider2D* col = middleShelf->AddComponent<sn::Collider2D>();
+			col->SetSize(Vector2(1.4f, 1.3f));
+
+			sn::Collider2D* col01 = middleShelf->AddComponent<sn::Collider2D>();
+			col01->SetSize(Vector2(1.7f, 1.6f));
+
+			middleShelf->AddComponent<ObstacleCollider>();
 		}
-		{	//left top
-			GameObject* shelf = new Shelf();
-			Transform* tr = shelf->GetComponent<Transform>();
-			tr->SetPosition(-1.55f, -1.6f, 0.0f);
-			tr->SetScale(0.8f, 0.8f, 0.8f);
-			AddGameObject(eLayerType::Obstacle, shelf);
-		}
-		{	//left bottom
-			GameObject* shelf = new Shelf();
-			Transform* tr = shelf->GetComponent<Transform>();
-			tr->SetPosition(-1.55f, -2.2f, 0.0f);
-			tr->SetScale(0.8f, 0.8f, 0.8f);
-			AddGameObject(eLayerType::Obstacle, shelf);
-		}
-		{	//right bottom
-			GameObject* shelf = new Shelf();
-			Transform* tr = shelf->GetComponent<Transform>();
-			tr->SetPosition(-0.85f, -2.2f, 0.0f);
-			tr->SetScale(0.8f, 0.8f, 0.8f);
-			AddGameObject(eLayerType::Obstacle, shelf);
-		}
+
 
 #pragma region Player
 		{

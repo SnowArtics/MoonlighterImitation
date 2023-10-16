@@ -58,7 +58,7 @@ void EntranceDoor::Render()
 {
 }
 
-void EntranceDoor::OnCollisionEnter(sn::Collider2D* other)
+void EntranceDoor::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 {
 	if (other->GetName() == L"FisrtCollider") {
 		doorState = 0;
@@ -68,7 +68,7 @@ void EntranceDoor::OnCollisionEnter(sn::Collider2D* other)
 	}
 }
 
-void EntranceDoor::OnCollisionStay(sn::Collider2D* other)
+void EntranceDoor::OnCollisionStay(sn::Collider2D* other, sn::Collider2D* me)
 {
 	if (other->GetName() == L"FisrtCollider") {
 		enterUI->SetEnable(true);
@@ -79,7 +79,7 @@ void EntranceDoor::OnCollisionStay(sn::Collider2D* other)
 	}
 }
 
-void EntranceDoor::OnCollisionExit(sn::Collider2D* other)
+void EntranceDoor::OnCollisionExit(sn::Collider2D* other, sn::Collider2D* me)
 {
 	if (other->GetName() == L"FisrtCollider") {
 		doorState = 2;

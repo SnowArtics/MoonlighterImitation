@@ -53,13 +53,13 @@ namespace sn {
 	{
 		int a = 0;
 	}
-	void PlayerMove::OnCollisionEnter(Collider2D* other)
+	void PlayerMove::OnCollisionEnter(Collider2D* other, sn::Collider2D* me)
 	{
 	}
-	void PlayerMove::OnCollisionStay(Collider2D* other)
+	void PlayerMove::OnCollisionStay(Collider2D* other, sn::Collider2D* me)
 	{
 	}
-	void PlayerMove::OnCollisionExit(Collider2D* other)
+	void PlayerMove::OnCollisionExit(Collider2D* other, sn::Collider2D* me)
 	{
 	}
 }

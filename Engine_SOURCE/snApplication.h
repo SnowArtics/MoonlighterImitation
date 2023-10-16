@@ -17,6 +17,7 @@ namespace sn
 		void Update();
 		void LateUpdate();
 		void Render();
+		void Release();
 		void Destroy();
 		void ChangeScene();
 		void ChangeAIState();

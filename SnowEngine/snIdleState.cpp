@@ -2,6 +2,7 @@
 #include "..\Engine_SOURCE\snTime.h"
 #include "..\Engine_SOURCE\snInput.h"
 #include "InventoryManager.h"
+#include "ShopManager.h"
 #include <snRigidBody.h>
 
 IdleState::IdleState()
@@ -22,7 +23,7 @@ void IdleState::Update()
 		return;
 	}
 
-	if (!InventoryManager::GetInvenActive()) {
+	if (!InventoryManager::GetInvenActive() && ShopManager::GetShopInvenActive() != 2) {
 		if (Input::GetKey(eKeyCode::A))
 		{
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::MOVE);
@@ -44,12 +45,12 @@ void IdleState::Update()
 			GetPlayerFSM()->SetDirection(PLAYER_DIR::UP);
 		}
 
-		if (Input::GetKeyDown(eKeyCode::SPACE) && GetPlayerFSM()->IsKeyPresent(PLAYER_STATE::ROLL))
+		if (Input::GetKeyDown(eKeyCode::SPACE) && GetPlayerFSM()->IsKeyPresent(PLAYER_STATE::ROLL) && ShopManager::GetShopInvenActive() != 2)
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::ROLL);
 
-		if (Input::GetKeyDown(eKeyCode::J) && GetPlayerFSM()->GetWeaponType() == WEAPON_TYPE::SHORT_SWORD && GetPlayerFSM()->IsKeyPresent(PLAYER_STATE::ATTSWORD1))
+		if (Input::GetKeyDown(eKeyCode::J) && GetPlayerFSM()->GetWeaponType() == WEAPON_TYPE::SHORT_SWORD && GetPlayerFSM()->IsKeyPresent(PLAYER_STATE::ATTSWORD1) && ShopManager::GetShopInvenActive() != 2)
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::ATTSWORD1);
-		if (Input::GetKeyDown(eKeyCode::J) && GetPlayerFSM()->GetWeaponType() == WEAPON_TYPE::BOW)
+		if (Input::GetKeyDown(eKeyCode::J) && GetPlayerFSM()->GetWeaponType() == WEAPON_TYPE::BOW && ShopManager::GetShopInvenActive() != 2)
 			GetPlayerFSM()->ChangeState(PLAYER_STATE::ATTBOW);
 	}
 }

@@ -15,9 +15,9 @@ namespace sn {
 
 		void Complete();
 
-		virtual void OnCollisionEnter(Collider2D* other);
-		virtual void OnCollisionStay(Collider2D* other);
-		virtual void OnCollisionExit(Collider2D* other);
+		virtual void OnCollisionEnter(Collider2D* other, sn::Collider2D* me);
+		virtual void OnCollisionStay(Collider2D* other, sn::Collider2D* me);
+		virtual void OnCollisionExit(Collider2D* other, sn::Collider2D* me);
 
 	private:
 
