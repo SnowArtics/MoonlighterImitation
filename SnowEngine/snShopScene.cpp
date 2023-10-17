@@ -40,6 +40,18 @@ namespace sn
 	void ShopScene::Initialize()
 	{
 		InventoryManager::CreateUI();
+
+		InventoryManager::InputItem(eItemType::Broken_Sword);
+		InventoryManager::InputItem(eItemType::Broken_Sword);
+		InventoryManager::InputItem(eItemType::Broken_Sword);
+		InventoryManager::InputItem(eItemType::Crystal_Energy);
+		InventoryManager::InputItem(eItemType::Crystal_Energy);
+		InventoryManager::InputItem(eItemType::Fabric);
+		InventoryManager::InputItem(eItemType::Fabric);
+		InventoryManager::InputItem(eItemType::Golem_Core);
+		InventoryManager::InputItem(eItemType::Golem_King_Design);
+		InventoryManager::InputItem(eItemType::Golem_Pieces);
+
 		ShopManager::CreateShop();
 
 		SceneManager::GetActiveScene()->SetName(L"ShopScene");

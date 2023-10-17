@@ -42,6 +42,7 @@ public:
 	static void ChangeText(std::wstring _wstring, std::wstring _text) { auto it = mapText.find(_wstring); it->second.string = _text; }
 	static void ChangeColor(std::wstring _wstring, TextColor _color) { auto it = mapText.find(_wstring); it->second.color = _color; }
 	static void SetEnable(std::wstring _wstring, bool _enable) { auto it = mapText.find(_wstring); it->second.enable = _enable; }
+	static std::wstring GetText(std::wstring _wstring) { auto it = mapText.find(_wstring); return it->second.string; }
 
 private:
 	static std::map<std::wstring, Text> mapText;

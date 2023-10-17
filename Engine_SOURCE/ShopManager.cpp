@@ -8,6 +8,7 @@
 #include "snAnimator.h"
 #include "snTextManager.h"
 #include "InventoryManager.h"
+#include "snTextManager.h"
 
 using namespace sn;
 using namespace std;
@@ -19,10 +20,10 @@ sn::GameObject* ShopManager::pInventoryLeft = nullptr;
 sn::GameObject* ShopManager::pShopRight = nullptr;
 sn::GameObject* ShopManager::pInventorySlot = nullptr;
 
-sn::GameObject* ShopManager::pRightTopShelf = nullptr;
-sn::GameObject* ShopManager::pLeftTopShelf = nullptr;
-sn::GameObject* ShopManager::pLeftBottomShelf = nullptr;
-sn::GameObject* ShopManager::pRightBottomShelf = nullptr;
+ShelfItem ShopManager::pRightTopShelf;
+ShelfItem ShopManager::pLeftTopShelf;
+ShelfItem ShopManager::pLeftBottomShelf;
+ShelfItem ShopManager::pRightBottomShelf;
 
 int ShopManager::iShopInvenActive = 0;
 
@@ -53,8 +54,7 @@ void ShopManager::Render()
 				if(shop[i][j].slotItem !=nullptr)
 					shop[i][j].slotItem->SetEnable(true);
 				if (!shop[i][j].isEmpty)
-					;
-					//TextManager::SetEnable(shop[i][j].slotName, true);
+					TextManager::SetEnable(shop[i][j].slotName, true);
 			}
 		}
 	}
@@ -68,7 +68,7 @@ void ShopManager::Render()
 			for (int j = 0; j < 7; j++) {
 				if (shop[i][j].slotItem != nullptr)
 					shop[i][j].slotItem->SetEnable(false);
-				//TextManager::SetEnable(shop[i][j].slotName, false);
+				TextManager::SetEnable(shop[i][j].slotName, false);
 			}
 		}
 	}
@@ -89,6 +89,12 @@ void ShopManager::Render()
 		else if (Input::GetKeyDown(eKeyCode::D))
 		{
 			MoveSlot(SlotMoveDir::RIGHT);
+		}
+		else if (Input::GetKeyDown(eKeyCode::K)) {
+			if (curInvenSlotPos.second < 5)
+				SetShopShelf();
+			else
+				BackShopShelf();
 		}
 	}
 }
@@ -116,8 +122,16 @@ void ShopManager::CreateShop()
 			for (int j = 5; j < 7; j++) {
 				shop[i][j].itemCount = 0;
 				shop[i][j].itemMaxCount = -1;
-				shop[i][j].isEmpty = true;
-				shop[i][j]._itemType = eItemType::Broken_Sword;
+				if(i%2!=1)
+					shop[i][j].isEmpty = true;
+				else
+					shop[i][j].isEmpty = false;
+
+				shop[i][j]._itemType = eItemType::NONE;
+
+				wstring ItoS = to_wstring(i);
+				wstring JtoS = to_wstring(j);
+				shop[i][j].slotName = ItoS + JtoS + L"InvenSlot";
 
 				if (i == 1 || i == 3) {
 					shop[i][j].slotItem = nullptr;
@@ -147,7 +161,7 @@ void ShopManager::CreateShop()
 				at->Create(L"GolemKing_Crystal_Energy", atlas, Vector2(0.0f, 0.0f), Vector2(19.f, 19.f), 1, 90.f);
 
 				atlas = Resources::Load<Texture>(L"fabric", L"..\\Resources\\Texture\\Item\\fabric.png");
-				at->Create(L"fabric", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 24.f), 1, 90.f);
+				at->Create(L"fabric", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 16.f), 1, 90.f);
 
 				atlas = Resources::Load<Texture>(L"Golem_Core", L"..\\Resources\\Texture\\Item\\Golem_Core.png");
 				at->Create(L"Golem_Core", atlas, Vector2(0.0f, 0.0f), Vector2(13.f, 13.f), 1, 90.f);
@@ -156,13 +170,13 @@ void ShopManager::CreateShop()
 				at->Create(L"Golem_King_design", atlas, Vector2(0.0f, 0.0f), Vector2(22.f, 23.f), 1, 90.f);
 
 				atlas = Resources::Load<Texture>(L"golem_pieces", L"..\\Resources\\Texture\\Item\\golem_pieces.png");
-				at->Create(L"golem_pieces", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 26.f), 1, 90.f);
+				at->Create(L"golem_pieces", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 17.f), 1, 90.f);
 
 				atlas = Resources::Load<Texture>(L"Reinforced_Steel_G", L"..\\Resources\\Texture\\Item\\Reinforced_Steel_G.png");
 				at->Create(L"Reinforced_Steel_G", atlas, Vector2(0.0f, 0.0f), Vector2(15.f, 16.f), 1, 90.f);
 
 				atlas = Resources::Load<Texture>(L"slime_jelly", L"..\\Resources\\Texture\\Item\\slime_jelly.png");
-				at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 21.f), 1, 90.f);
+				at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 14.f), 1, 90.f);
 
 				at->PlayAnimation(L"Transparent", false);
 
@@ -211,20 +225,50 @@ void ShopManager::CreateShop()
 			}
 		}
 	}
+	{
+		//텍스트 위치 생성
+		std::vector < vector<Vector2>> texPos2D;
+		std::vector<Vector2> texPos1D01;
+		for (int i = 0; i < 4; i++) {			
+			for (int j = 0; j < 2; j++) {
+				if (i % 2 != 1)
+					texPos1D01.push_back(Vector2(1200.f + j * 375.f, 275.f + i*175.f));
+				else
+					texPos1D01.push_back(Vector2(1030.f + j * 375.f, 255.f + i * 176.f));
+			}
+			texPos2D.push_back(texPos1D01);
+			texPos1D01.clear();
+			texPos1D01.shrink_to_fit();
+		}
+
+		//텍스트 생성
+		for (int i = 0; i < 4; i++) {
+			for (int j = 5; j < 7; j++) {
+				if (i % 2 != 1) {
+					Text text(L"0", texPos2D[i][j - 5].x, texPos2D[i][j - 5].y, 25, TextColor(255.f, 255.f, 255.f, 255.f), false);
+					TextManager::InsertText(shop[i][j].slotName, text);
+				}
+				else {
+					Text text(L"합계:", texPos2D[i][j - 5].x, texPos2D[i][j - 5].y, 30, TextColor(255.f, 255.f, 255.f, 255.f), false);
+					TextManager::InsertText(shop[i][j].slotName, text);
+				}				
+			}
+		}
+	}
 #pragma region shelfCreate
 	{
 		//right top
-		pRightTopShelf = new GameObject();
-		Transform* tr = pRightTopShelf->GetComponent<Transform>();
-		tr->SetPosition(-0.85f, -1.6f, 0.0f);
-		tr->SetScale(0.8f, 0.8f, 0.8f);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Obstacle, pRightTopShelf);
+		pRightTopShelf.shelfItem = new GameObject();
+		Transform* tr = pRightTopShelf.shelfItem->GetComponent<Transform>();
+		tr->SetPosition(-0.9f, -1.65f, 0.0f);
+		tr->SetScale(1.5f, 1.5f, 0.8f);
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Obstacle, pRightTopShelf.shelfItem);
 
-		MeshRenderer* mr = pRightTopShelf->AddComponent<MeshRenderer>();
+		MeshRenderer* mr = pRightTopShelf.shelfItem->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-		Animator* at = pRightTopShelf->AddComponent<Animator>();
+		Animator* at = pRightTopShelf.shelfItem->AddComponent<Animator>();
 		std::shared_ptr<Texture> atlas = Resources::Load<Texture>(L"transparent_space", L"..\\Resources\\Texture\\Item\\transparent_space.png");
 		at->Create(L"Transparent", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 30.f), 1, 90.f);
 
@@ -238,7 +282,7 @@ void ShopManager::CreateShop()
 		at->Create(L"GolemKing_Crystal_Energy", atlas, Vector2(0.0f, 0.0f), Vector2(19.f, 19.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"fabric", L"..\\Resources\\Texture\\Item\\fabric.png");
-		at->Create(L"fabric", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 24.f), 1, 90.f);
+		at->Create(L"fabric", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 16.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"Golem_Core", L"..\\Resources\\Texture\\Item\\Golem_Core.png");
 		at->Create(L"Golem_Core", atlas, Vector2(0.0f, 0.0f), Vector2(13.f, 13.f), 1, 90.f);
@@ -247,28 +291,28 @@ void ShopManager::CreateShop()
 		at->Create(L"Golem_King_design", atlas, Vector2(0.0f, 0.0f), Vector2(22.f, 23.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"golem_pieces", L"..\\Resources\\Texture\\Item\\golem_pieces.png");
-		at->Create(L"golem_pieces", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 26.f), 1, 90.f);
+		at->Create(L"golem_pieces", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 17.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"Reinforced_Steel_G", L"..\\Resources\\Texture\\Item\\Reinforced_Steel_G.png");
 		at->Create(L"Reinforced_Steel_G", atlas, Vector2(0.0f, 0.0f), Vector2(15.f, 16.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"slime_jelly", L"..\\Resources\\Texture\\Item\\slime_jelly.png");
-		at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 21.f), 1, 90.f);
+		at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 14.f), 1, 90.f);
 
-		at->PlayAnimation(L"slime_jelly", false);
+		at->PlayAnimation(L"Transparent", false);
 	}
 	{	//left top
-		GameObject* pLeftTopShelf = new GameObject();
-		Transform* tr = pLeftTopShelf->GetComponent<Transform>();
-		tr->SetPosition(-1.55f, -1.6f, 0.0f);
-		tr->SetScale(0.8f, 0.8f, 0.8f);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Obstacle, pLeftTopShelf);
+		pLeftTopShelf.shelfItem = new GameObject();
+		Transform* tr = pLeftTopShelf.shelfItem->GetComponent<Transform>();
+		tr->SetPosition(-1.5f, -1.65f, 0.0f);
+		tr->SetScale(1.5f, 1.5f, 0.8f);
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Obstacle, pLeftTopShelf.shelfItem);
 
-		MeshRenderer* mr = pLeftTopShelf->AddComponent<MeshRenderer>();
+		MeshRenderer* mr = pLeftTopShelf.shelfItem->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-		Animator* at = pLeftTopShelf->AddComponent<Animator>();
+		Animator* at = pLeftTopShelf.shelfItem->AddComponent<Animator>();
 		std::shared_ptr<Texture> atlas = Resources::Load<Texture>(L"transparent_space", L"..\\Resources\\Texture\\Item\\transparent_space.png");
 		at->Create(L"Transparent", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 30.f), 1, 90.f);
 
@@ -282,7 +326,7 @@ void ShopManager::CreateShop()
 		at->Create(L"GolemKing_Crystal_Energy", atlas, Vector2(0.0f, 0.0f), Vector2(19.f, 19.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"fabric", L"..\\Resources\\Texture\\Item\\fabric.png");
-		at->Create(L"fabric", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 24.f), 1, 90.f);
+		at->Create(L"fabric", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 16.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"Golem_Core", L"..\\Resources\\Texture\\Item\\Golem_Core.png");
 		at->Create(L"Golem_Core", atlas, Vector2(0.0f, 0.0f), Vector2(13.f, 13.f), 1, 90.f);
@@ -291,28 +335,28 @@ void ShopManager::CreateShop()
 		at->Create(L"Golem_King_design", atlas, Vector2(0.0f, 0.0f), Vector2(22.f, 23.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"golem_pieces", L"..\\Resources\\Texture\\Item\\golem_pieces.png");
-		at->Create(L"golem_pieces", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 26.f), 1, 90.f);
+		at->Create(L"golem_pieces", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 17.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"Reinforced_Steel_G", L"..\\Resources\\Texture\\Item\\Reinforced_Steel_G.png");
 		at->Create(L"Reinforced_Steel_G", atlas, Vector2(0.0f, 0.0f), Vector2(15.f, 16.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"slime_jelly", L"..\\Resources\\Texture\\Item\\slime_jelly.png");
-		at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 21.f), 1, 90.f);
+		at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 14.f), 1, 90.f);
 
-		at->PlayAnimation(L"slime_jelly", false);
+		at->PlayAnimation(L"Transparent", false);
 	}
 	{	//left bottom
-		GameObject* pLeftBottomShelf = new GameObject();
-		Transform* tr = pLeftBottomShelf->GetComponent<Transform>();
-		tr->SetPosition(-1.55f, -2.2f, 0.0f);
-		tr->SetScale(0.8f, 0.8f, 0.8f);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Obstacle, pLeftBottomShelf);
+		pLeftBottomShelf.shelfItem = new GameObject();
+		Transform* tr = pLeftBottomShelf.shelfItem->GetComponent<Transform>();
+		tr->SetPosition(-1.5f, -2.15f, 0.0f);
+		tr->SetScale(1.5f, 1.5f, 0.8f);
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Obstacle, pLeftBottomShelf.shelfItem);
 
-		MeshRenderer* mr = pLeftBottomShelf->AddComponent<MeshRenderer>();
+		MeshRenderer* mr = pLeftBottomShelf.shelfItem->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-		Animator* at = pLeftBottomShelf->AddComponent<Animator>();
+		Animator* at = pLeftBottomShelf.shelfItem->AddComponent<Animator>();
 		std::shared_ptr<Texture> atlas = Resources::Load<Texture>(L"transparent_space", L"..\\Resources\\Texture\\Item\\transparent_space.png");
 		at->Create(L"Transparent", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 30.f), 1, 90.f);
 
@@ -326,7 +370,7 @@ void ShopManager::CreateShop()
 		at->Create(L"GolemKing_Crystal_Energy", atlas, Vector2(0.0f, 0.0f), Vector2(19.f, 19.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"fabric", L"..\\Resources\\Texture\\Item\\fabric.png");
-		at->Create(L"fabric", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 24.f), 1, 90.f);
+		at->Create(L"fabric", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 16.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"Golem_Core", L"..\\Resources\\Texture\\Item\\Golem_Core.png");
 		at->Create(L"Golem_Core", atlas, Vector2(0.0f, 0.0f), Vector2(13.f, 13.f), 1, 90.f);
@@ -335,28 +379,28 @@ void ShopManager::CreateShop()
 		at->Create(L"Golem_King_design", atlas, Vector2(0.0f, 0.0f), Vector2(22.f, 23.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"golem_pieces", L"..\\Resources\\Texture\\Item\\golem_pieces.png");
-		at->Create(L"golem_pieces", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 26.f), 1, 90.f);
+		at->Create(L"golem_pieces", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 17.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"Reinforced_Steel_G", L"..\\Resources\\Texture\\Item\\Reinforced_Steel_G.png");
 		at->Create(L"Reinforced_Steel_G", atlas, Vector2(0.0f, 0.0f), Vector2(15.f, 16.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"slime_jelly", L"..\\Resources\\Texture\\Item\\slime_jelly.png");
-		at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 21.f), 1, 90.f);
+		at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 14.f), 1, 90.f);
 
-		at->PlayAnimation(L"slime_jelly", false);
+		at->PlayAnimation(L"Transparent", false);
 	}
 	{	//right bottom
-		GameObject* pRightBottomShelf = new GameObject();
-		Transform* tr = pRightBottomShelf->GetComponent<Transform>();
-		tr->SetPosition(-0.85f, -2.2f, 0.0f);
-		tr->SetScale(0.8f, 0.8f, 0.8f);
-		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Obstacle, pRightBottomShelf);
+		pRightBottomShelf.shelfItem = new GameObject();
+		Transform* tr = pRightBottomShelf.shelfItem->GetComponent<Transform>();
+		tr->SetPosition(-0.9f, -2.15f, 0.0f);
+		tr->SetScale(1.5f, 1.5f, 0.8f);
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::Obstacle, pRightBottomShelf.shelfItem);
 
-		MeshRenderer* mr = pRightBottomShelf->AddComponent<MeshRenderer>();
+		MeshRenderer* mr = pRightBottomShelf.shelfItem->AddComponent<MeshRenderer>();
 		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
 		mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
 
-		Animator* at = pRightBottomShelf->AddComponent<Animator>();
+		Animator* at = pRightBottomShelf.shelfItem->AddComponent<Animator>();
 		std::shared_ptr<Texture> atlas = Resources::Load<Texture>(L"transparent_space", L"..\\Resources\\Texture\\Item\\transparent_space.png");
 		at->Create(L"Transparent", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 30.f), 1, 90.f);
 
@@ -370,7 +414,7 @@ void ShopManager::CreateShop()
 		at->Create(L"GolemKing_Crystal_Energy", atlas, Vector2(0.0f, 0.0f), Vector2(19.f, 19.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"fabric", L"..\\Resources\\Texture\\Item\\fabric.png");
-		at->Create(L"fabric", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 24.f), 1, 90.f);
+		at->Create(L"fabric", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 16.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"Golem_Core", L"..\\Resources\\Texture\\Item\\Golem_Core.png");
 		at->Create(L"Golem_Core", atlas, Vector2(0.0f, 0.0f), Vector2(13.f, 13.f), 1, 90.f);
@@ -379,15 +423,15 @@ void ShopManager::CreateShop()
 		at->Create(L"Golem_King_design", atlas, Vector2(0.0f, 0.0f), Vector2(22.f, 23.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"golem_pieces", L"..\\Resources\\Texture\\Item\\golem_pieces.png");
-		at->Create(L"golem_pieces", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 26.f), 1, 90.f);
+		at->Create(L"golem_pieces", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 17.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"Reinforced_Steel_G", L"..\\Resources\\Texture\\Item\\Reinforced_Steel_G.png");
 		at->Create(L"Reinforced_Steel_G", atlas, Vector2(0.0f, 0.0f), Vector2(15.f, 16.f), 1, 90.f);
 
 		atlas = Resources::Load<Texture>(L"slime_jelly", L"..\\Resources\\Texture\\Item\\slime_jelly.png");
-		at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 21.f), 1, 90.f);
+		at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 14.f), 1, 90.f);
 
-		at->PlayAnimation(L"slime_jelly", false);
+		at->PlayAnimation(L"Transparent", false);
 	}
 #pragma endregion
 
@@ -482,14 +526,186 @@ void ShopManager::MoveSlot(SlotMoveDir _eSlotMoveDir)
 	Transform* tr = pInventorySlot->GetComponent<Transform>();
 	tr->SetPosition(shop[curInvenSlotPos.first][curInvenSlotPos.second].pos);
 
-	if (curInvenSlotPos.first == 1 || curInvenSlotPos.first == 3) {
-		if (curInvenSlotPos.second == 5 || curInvenSlotPos.second == 6) {
-			tr->SetScale(Vector3(2.0f, 2.0f, 0.0f));
-			pInventorySlot->GetComponent<Animator>()->PlayAnimation(L"showcaseSlot", false);
-		}
+	if ((curInvenSlotPos.first == 1 || curInvenSlotPos.first == 3)&&(curInvenSlotPos.second == 5 || curInvenSlotPos.second == 6)) {
+		tr->SetScale(Vector3(2.0f, 2.0f, 0.0f));
+		pInventorySlot->GetComponent<Animator>()->PlayAnimation(L"showcaseSlot", false);
 	}
 	else {
 		tr->SetScale(Vector3(.6f, .6f, 0.0f));
 		pInventorySlot->GetComponent<Animator>()->PlayAnimation(L"invenSlot", false);
 	}
+}
+
+void ShopManager::SetShopShelf()
+{
+	if (shop[curInvenSlotPos.first][curInvenSlotPos.second].isEmpty == true)
+		return;
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 5; j < 7; j++) {
+			if (i % 2 != 1 && shop[i][j].isEmpty == true) {
+				shop[i][j].isEmpty = false;
+				shop[i][j].itemCount = shop[curInvenSlotPos.first][curInvenSlotPos.second].itemCount;
+				shop[i][j].itemMaxCount = shop[curInvenSlotPos.first][curInvenSlotPos.second].itemMaxCount;
+				shop[i][j]._itemType = shop[curInvenSlotPos.first][curInvenSlotPos.second]._itemType;
+				TextManager::ChangeText(shop[i][j].slotName, NumToWString(shop[i][j].itemCount));
+				TextManager::SetEnable(shop[i][j].slotName, true);
+
+				std::wstring changeAnimationName;
+
+				switch (shop[i][j]._itemType)
+				{
+				case sn::enums::eItemType::NONE:
+					break;
+				case sn::enums::eItemType::Broken_Sword:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"Broken_Sword", false);
+					changeAnimationName = L"Broken_Sword";
+					break;
+				case sn::enums::eItemType::Crystal_Energy:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"Crystal_Energy", false);
+					changeAnimationName = L"Crystal_Energy";
+					break;
+				case sn::enums::eItemType::GolemKing_Crystal_Energy:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"GolemKing_Crystal_Energy", false);
+					changeAnimationName = L"GolemKing_Crystal_Energy";
+					break;
+				case sn::enums::eItemType::Fabric:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"fabric", false);
+					changeAnimationName = L"fabric";
+					break;
+				case sn::enums::eItemType::Golem_Core:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"Golem_Core", false);
+					changeAnimationName = L"Golem_Core";
+					break;
+				case sn::enums::eItemType::Golem_King_Design:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"Golem_King_design", false);
+					changeAnimationName = L"Golem_King_design";
+					break;
+				case sn::enums::eItemType::Golem_Pieces:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"golem_pieces", false);
+					changeAnimationName = L"golem_pieces";
+					break;
+				case sn::enums::eItemType::Reinforced_Steel:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"Reinforced_Steel_G", false);
+					changeAnimationName = L"Reinforced_Steel_G";
+					break;
+				case sn::enums::eItemType::Slime_Jelly:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"slime_jelly", false);
+					changeAnimationName = L"slime_jelly";
+					break;
+				case sn::enums::eItemType::END:
+					break;
+				default:
+					break;
+				}
+
+				shop[curInvenSlotPos.first][curInvenSlotPos.second].isEmpty = true;
+				shop[curInvenSlotPos.first][curInvenSlotPos.second].itemCount = 0;
+				shop[curInvenSlotPos.first][curInvenSlotPos.second].itemMaxCount = -1;
+				shop[curInvenSlotPos.first][curInvenSlotPos.second]._itemType = eItemType::NONE;
+				shop[curInvenSlotPos.first][curInvenSlotPos.second].slotItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+				TextManager::ChangeText(shop[curInvenSlotPos.first][curInvenSlotPos.second].slotName, NumToWString(shop[curInvenSlotPos.first][curInvenSlotPos.second].itemCount));
+				TextManager::SetEnable(shop[curInvenSlotPos.first][curInvenSlotPos.second].slotName, false);
+			
+				InventoryManager::inven[curInvenSlotPos.first][curInvenSlotPos.second] = shop[curInvenSlotPos.first][curInvenSlotPos.second];
+
+				if (i == 0 && j == 5) {
+					pLeftTopShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(changeAnimationName, false);
+				}
+				else if (i == 0 && j == 6) {
+					pRightTopShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(changeAnimationName, false);
+				}
+				else if (i == 2 && j == 5) {
+					pLeftBottomShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(changeAnimationName, false);
+				}
+				else if (i == 2 && j == 6) {
+					pRightBottomShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(changeAnimationName, false);
+				}
+
+				return;
+			}
+		}
+	}
+	return;
+}
+
+void ShopManager::BackShopShelf() {
+	if (curInvenSlotPos.first == 1 || curInvenSlotPos.first == 3)
+		return;
+
+	for (int i = 0; i < 4; i++) {
+		for (int j = 0; j < 5; j++) {
+			if (i % 2 != 1 && shop[i][j].isEmpty == true) {
+				shop[i][j].isEmpty = false;
+				shop[i][j].itemCount = shop[curInvenSlotPos.first][curInvenSlotPos.second].itemCount;
+				shop[i][j].itemMaxCount = shop[curInvenSlotPos.first][curInvenSlotPos.second].itemMaxCount;
+				shop[i][j]._itemType = shop[curInvenSlotPos.first][curInvenSlotPos.second]._itemType;
+				TextManager::ChangeText(shop[i][j].slotName, NumToWString(shop[i][j].itemCount));
+				TextManager::SetEnable(shop[i][j].slotName, true);
+
+				switch (shop[i][j]._itemType)
+				{
+				case sn::enums::eItemType::NONE:
+					break;
+				case sn::enums::eItemType::Broken_Sword:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"Broken_Sword", false);
+					break;
+				case sn::enums::eItemType::Crystal_Energy:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"Crystal_Energy", false);
+					break;
+				case sn::enums::eItemType::GolemKing_Crystal_Energy:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"GolemKing_Crystal_Energy", false);
+					break;
+				case sn::enums::eItemType::Fabric:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"fabric", false);
+					break;
+				case sn::enums::eItemType::Golem_Core:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"Golem_Core", false);
+					break;
+				case sn::enums::eItemType::Golem_King_Design:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"Golem_King_design", false);
+					break;
+				case sn::enums::eItemType::Golem_Pieces:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"golem_pieces", false);
+					break;
+				case sn::enums::eItemType::Reinforced_Steel:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"Reinforced_Steel_G", false);
+					break;
+				case sn::enums::eItemType::Slime_Jelly:
+					shop[i][j].slotItem->GetComponent<Animator>()->PlayAnimation(L"slime_jelly", false);
+					break;
+				case sn::enums::eItemType::END:
+					break;
+				default:
+					break;
+				}
+
+				InventoryManager::inven[i][j] = shop[i][j];
+
+				shop[curInvenSlotPos.first][curInvenSlotPos.second].isEmpty = true;
+				shop[curInvenSlotPos.first][curInvenSlotPos.second].itemCount = 0;
+				shop[curInvenSlotPos.first][curInvenSlotPos.second].itemMaxCount = -1;
+				shop[curInvenSlotPos.first][curInvenSlotPos.second]._itemType = eItemType::NONE;
+				shop[curInvenSlotPos.first][curInvenSlotPos.second].slotItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+				TextManager::ChangeText(shop[curInvenSlotPos.first][curInvenSlotPos.second].slotName, NumToWString(shop[curInvenSlotPos.first][curInvenSlotPos.second].itemCount));
+				TextManager::SetEnable(shop[curInvenSlotPos.first][curInvenSlotPos.second].slotName, false);
+
+				if (curInvenSlotPos.first == 0 && curInvenSlotPos.second == 5) {
+					pLeftTopShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+				}
+				else if (curInvenSlotPos.first == 0 && curInvenSlotPos.second == 6) {
+					pRightTopShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+				}
+				else if (curInvenSlotPos.first == 2 && curInvenSlotPos.second == 5) {
+					pLeftBottomShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+				}
+				else if (curInvenSlotPos.first == 2 && curInvenSlotPos.second == 6) {
+					pRightBottomShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+				}
+
+				return;
+			}
+		}
+	}
+	return;
 }

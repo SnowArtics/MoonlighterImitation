@@ -24,7 +24,7 @@ Shelf::Shelf()
 	at->Create(L"GolemKing_Crystal_Energy", atlas, Vector2(0.0f, 0.0f), Vector2(19.f, 19.f), 1, 90.f);
 
 	atlas = Resources::Load<Texture>(L"fabric", L"..\\Resources\\Texture\\Item\\fabric.png");
-	at->Create(L"fabric", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 24.f), 1, 90.f);
+	at->Create(L"fabric", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 16.f), 1, 90.f);
 
 	atlas = Resources::Load<Texture>(L"Golem_Core", L"..\\Resources\\Texture\\Item\\Golem_Core.png");
 	at->Create(L"Golem_Core", atlas, Vector2(0.0f, 0.0f), Vector2(13.f, 13.f), 1, 90.f);
@@ -33,13 +33,13 @@ Shelf::Shelf()
 	at->Create(L"Golem_King_design", atlas, Vector2(0.0f, 0.0f), Vector2(22.f, 23.f), 1, 90.f);
 
 	atlas = Resources::Load<Texture>(L"golem_pieces", L"..\\Resources\\Texture\\Item\\golem_pieces.png");
-	at->Create(L"golem_pieces", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 26.f), 1, 90.f);
+	at->Create(L"golem_pieces", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 17.f), 1, 90.f);
 
 	atlas = Resources::Load<Texture>(L"Reinforced_Steel_G", L"..\\Resources\\Texture\\Item\\Reinforced_Steel_G.png");
 	at->Create(L"Reinforced_Steel_G", atlas, Vector2(0.0f, 0.0f), Vector2(15.f, 16.f), 1, 90.f);
 
 	atlas = Resources::Load<Texture>(L"slime_jelly", L"..\\Resources\\Texture\\Item\\slime_jelly.png");
-	at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(30.f, 21.f), 1, 90.f);
+	at->Create(L"slime_jelly", atlas, Vector2(0.0f, 0.0f), Vector2(20.f, 14.f), 1, 90.f);
 
 	at->PlayAnimation(L"Transparent", false);
 

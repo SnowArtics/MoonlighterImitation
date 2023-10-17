@@ -7,6 +7,11 @@
 using namespace sn::math;
 using namespace sn;
 
+struct ShelfItem {
+	int price;
+	sn::GameObject* shelfItem;
+};
+
 class ShopManager
 {
 public:
@@ -17,6 +22,8 @@ public:
 public:
 	static void CreateShop();
 	static void MoveSlot(SlotMoveDir _eSlotMoveDir);
+	static void SetShopShelf();
+	static void BackShopShelf();
 
 	template<typename T>
 	static std::wstring NumToWString(T& arg) {
@@ -42,10 +49,10 @@ private:
 	static sn::GameObject* pShopRight;
 	static sn::GameObject* pInventorySlot;
 
-	static sn::GameObject* pRightTopShelf;
-	static sn::GameObject* pLeftTopShelf;
-	static sn::GameObject* pLeftBottomShelf;
-	static sn::GameObject* pRightBottomShelf;
+	static ShelfItem pRightTopShelf;
+	static ShelfItem pLeftTopShelf;
+	static ShelfItem pLeftBottomShelf;
+	static ShelfItem pRightBottomShelf;
 
 	static int iShopInvenActive; //0 is none, 1 is ready, 2 is active
 };
