@@ -12,6 +12,11 @@ struct ShelfItem {
 	sn::GameObject* shelfItem;
 };
 
+struct PriceSelect {
+	std::wstring textTitle;
+	Vector3 pos;
+};
+
 class ShopManager
 {
 public:
@@ -44,6 +49,7 @@ public:
 private:
 	static std::pair<int, int> curInvenSlotPos;
 	static std::vector<std::vector<InventoryItem>> shop;
+	static std::vector<std::vector<PriceSelect>> price;
 
 	static sn::GameObject* pInventoryLeft;
 	static sn::GameObject* pShopRight;
@@ -55,5 +61,6 @@ private:
 	static ShelfItem pRightBottomShelf;
 
 	static int iShopInvenActive; //0 is none, 1 is ready, 2 is active
+	static bool bPriceSelectActive;
 };
 

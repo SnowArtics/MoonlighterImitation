@@ -15,6 +15,7 @@ using namespace std;
 
 std::pair<int, int> ShopManager::curInvenSlotPos = std::make_pair<int, int>(0, 0);
 std::vector<std::vector<InventoryItem>>  ShopManager::shop;
+std::vector<std::vector<PriceSelect>>  ShopManager::price;
 
 sn::GameObject* ShopManager::pInventoryLeft = nullptr;
 sn::GameObject* ShopManager::pShopRight = nullptr;
@@ -26,6 +27,7 @@ ShelfItem ShopManager::pLeftBottomShelf;
 ShelfItem ShopManager::pRightBottomShelf;
 
 int ShopManager::iShopInvenActive = 0;
+bool ShopManager::bPriceSelectActive = false;
 
 void ShopManager::Initiailize()
 {
@@ -116,7 +118,7 @@ void ShopManager::CreateShop()
 		shop[2][6].pos = Vector3(2.93f, -0.35f, -3.f);
 		shop[3][5].pos = Vector3(1.06f, -1.08f, -3.f);
 		shop[3][6].pos = Vector3(2.93f, -1.08f, -3.f);
-
+		
 		for (int i = 0; i < 4; i++) {
 			
 			for (int j = 5; j < 7; j++) {
