@@ -15,6 +15,7 @@ struct ShelfItem {
 struct PriceSelect {
 	std::wstring textTitle;
 	Vector3 pos;
+	Vector3 texPos;
 };
 
 class ShopManager
@@ -27,8 +28,10 @@ public:
 public:
 	static void CreateShop();
 	static void MoveSlot(SlotMoveDir _eSlotMoveDir);
+	static void MovePriceSlot(SlotMoveDir _eSlotMoveDir);
 	static void SetShopShelf();
 	static void BackShopShelf();
+	static void SetPrice();
 
 	template<typename T>
 	static std::wstring NumToWString(T& arg) {
@@ -48,12 +51,14 @@ public:
 
 private:
 	static std::pair<int, int> curInvenSlotPos;
+	static std::pair<int, int> curPriceSlotPos;
 	static std::vector<std::vector<InventoryItem>> shop;
 	static std::vector<std::vector<PriceSelect>> price;
 
 	static sn::GameObject* pInventoryLeft;
 	static sn::GameObject* pShopRight;
 	static sn::GameObject* pInventorySlot;
+	static sn::GameObject* pPriceSlot;
 
 	static ShelfItem pRightTopShelf;
 	static ShelfItem pLeftTopShelf;

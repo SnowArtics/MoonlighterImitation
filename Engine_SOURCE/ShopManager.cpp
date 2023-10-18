@@ -9,17 +9,20 @@
 #include "snTextManager.h"
 #include "InventoryManager.h"
 #include "snTextManager.h"
+#include <string.h>
 
 using namespace sn;
 using namespace std;
 
 std::pair<int, int> ShopManager::curInvenSlotPos = std::make_pair<int, int>(0, 0);
+std::pair<int, int> ShopManager::curPriceSlotPos = std::make_pair<int, int>(0, 0);
 std::vector<std::vector<InventoryItem>>  ShopManager::shop;
 std::vector<std::vector<PriceSelect>>  ShopManager::price;
 
 sn::GameObject* ShopManager::pInventoryLeft = nullptr;
 sn::GameObject* ShopManager::pShopRight = nullptr;
 sn::GameObject* ShopManager::pInventorySlot = nullptr;
+sn::GameObject* ShopManager::pPriceSlot = nullptr;
 
 ShelfItem ShopManager::pRightTopShelf;
 ShelfItem ShopManager::pLeftTopShelf;
@@ -44,38 +47,7 @@ void ShopManager::Update()
 
 void ShopManager::Render()
 {
-	if (Input::GetKeyDown(eKeyCode::J) && iShopInvenActive == 1)
-	{
-		pInventoryLeft->SetEnable(true);
-		pShopRight->SetEnable(true);
-		pInventorySlot->SetEnable(true);
-		iShopInvenActive = 2;
-
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 7; j++) {
-				if(shop[i][j].slotItem !=nullptr)
-					shop[i][j].slotItem->SetEnable(true);
-				if (!shop[i][j].isEmpty)
-					TextManager::SetEnable(shop[i][j].slotName, true);
-			}
-		}
-	}
-	else if (Input::GetKeyDown(eKeyCode::J) && iShopInvenActive ==2) {
-		pInventoryLeft->SetEnable(false);
-		pShopRight->SetEnable(false);
-		pInventorySlot->SetEnable(false);
-		iShopInvenActive = 1;
-
-		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 7; j++) {
-				if (shop[i][j].slotItem != nullptr)
-					shop[i][j].slotItem->SetEnable(false);
-				TextManager::SetEnable(shop[i][j].slotName, false);
-			}
-		}
-	}
-
-	if (iShopInvenActive == 2) {
+	if (iShopInvenActive == 2&& bPriceSelectActive == false) {
 		if (Input::GetKeyDown(eKeyCode::W))
 		{
 			MoveSlot(SlotMoveDir::UP);
@@ -97,6 +69,109 @@ void ShopManager::Render()
 				SetShopShelf();
 			else
 				BackShopShelf();
+		}
+		else if (Input::GetKeyDown(eKeyCode::J))
+		{
+			if ((curInvenSlotPos.first == 1 || curInvenSlotPos.first == 3) && (curInvenSlotPos.second == 5 || curInvenSlotPos.second == 6)&&(shop[curInvenSlotPos.first-1][curInvenSlotPos.second].isEmpty==false)) {
+				bPriceSelectActive = true;
+				pInventorySlot->SetEnable(false);
+				pPriceSlot->SetEnable(true);
+
+				if (curInvenSlotPos.first == 1) {
+					if (curInvenSlotPos.second == 5) {
+						pPriceSlot->GetComponent<Transform>()->SetPosition(price[0][3].pos);
+						curPriceSlotPos.first = 0;
+						curPriceSlotPos.second = 3;
+					}
+					else {
+						pPriceSlot->GetComponent<Transform>()->SetPosition(price[0][7].pos);
+						curPriceSlotPos.first = 0;
+						curPriceSlotPos.second = 7;
+					}
+				}
+				else {
+					if (curInvenSlotPos.second == 5) {
+						pPriceSlot->GetComponent<Transform>()->SetPosition(price[2][3].pos);
+						curPriceSlotPos.first = 2;
+						curPriceSlotPos.second = 3;
+					}
+					else {
+						pPriceSlot->GetComponent<Transform>()->SetPosition(price[2][7].pos);
+						curPriceSlotPos.first = 2;
+						curPriceSlotPos.second = 7;
+					}
+				}
+				return;
+			}
+		}
+	}
+
+	if (bPriceSelectActive == true) {
+		if (Input::GetKeyDown(eKeyCode::W))
+		{
+			MovePriceSlot(SlotMoveDir::UP);
+		}
+		else if (Input::GetKeyDown(eKeyCode::S))
+		{
+			MovePriceSlot(SlotMoveDir::DOWN);
+		}
+		else if (Input::GetKeyDown(eKeyCode::A))
+		{
+			MovePriceSlot(SlotMoveDir::LEFT);
+		}
+		else if (Input::GetKeyDown(eKeyCode::D))
+		{
+			MovePriceSlot(SlotMoveDir::RIGHT);
+		}
+		else if (Input::GetKeyDown(eKeyCode::J))
+		{
+			bPriceSelectActive = false;
+			pInventorySlot->SetEnable(true);
+			pPriceSlot->SetEnable(false);
+			return;
+		}
+	}
+
+	if (Input::GetKeyDown(eKeyCode::J) && iShopInvenActive == 1)
+	{
+		pInventoryLeft->SetEnable(true);
+		pShopRight->SetEnable(true);
+		pInventorySlot->SetEnable(true);
+		iShopInvenActive = 2;
+
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 7; j++) {
+				if (shop[i][j].slotItem != nullptr)
+					shop[i][j].slotItem->SetEnable(true);
+				if (!shop[i][j].isEmpty)
+					TextManager::SetEnable(shop[i][j].slotName, true);
+			}
+		}
+
+		for (int i = 0; i < price.size(); i++) {
+			for (int j = 0; j < price[i].size(); j++) {
+				TextManager::SetEnable(price[i][j].textTitle,true);
+			}
+		}
+	}
+	else if (Input::GetKeyDown(eKeyCode::J) && iShopInvenActive == 2) {
+		pInventoryLeft->SetEnable(false);
+		pShopRight->SetEnable(false);
+		pInventorySlot->SetEnable(false);
+		iShopInvenActive = 1;
+
+		for (int i = 0; i < 4; i++) {
+			for (int j = 0; j < 7; j++) {
+				if (shop[i][j].slotItem != nullptr)
+					shop[i][j].slotItem->SetEnable(false);
+				TextManager::SetEnable(shop[i][j].slotName, false);
+			}
+		}
+
+		for (int i = 0; i < price.size(); i++) {
+			for (int j = 0; j < price[i].size(); j++) {
+				TextManager::SetEnable(price[i][j].textTitle, false);
+			}
 		}
 	}
 }
@@ -257,6 +332,67 @@ void ShopManager::CreateShop()
 			}
 		}
 	}
+
+		//가격 위치 생성
+	{
+		for (int i = 0; i < 4; i++) {
+			vector<PriceSelect> priceSelect1D;
+			if (i == 0 || i == 2) {
+				for (int j = 0; j < 8; j++) {
+					if (j < 4) {
+						PriceSelect mPriceSelect;
+						wstring ItoS = to_wstring(i);
+						wstring JtoS = to_wstring(j);
+						mPriceSelect.textTitle = ItoS + JtoS + L"PriceSlot";
+						mPriceSelect.texPos = Vector3(1144.f + j * 15.f, 360.f + i * 175.f, -2.0f);
+						//mPriceSelect.texPos = Vector3(1144.f + j * 15.f, 340.f + i * 175.f, -2.0f);
+						mPriceSelect.pos = Vector3(0.96f+j*0.08f, 0.82f + i*-0.875f, -2.0f);
+
+						priceSelect1D.push_back(mPriceSelect);
+					}
+					else {
+						PriceSelect mPriceSelect;
+						wstring ItoS = to_wstring(i);
+						wstring JtoS = to_wstring(j);
+						mPriceSelect.textTitle = ItoS + JtoS + L"PriceSlot";
+						mPriceSelect.texPos = Vector3(1457.f + j * 15.f, 360.f + i * 175.f, -2.0f);
+						//mPriceSelect.texPos = Vector3(1457.f + j * 15.f, 340.f + i * 175.f, -2.0f);
+						mPriceSelect.pos = Vector3(2.82f + (j-4)*0.08f, 0.82f + i * -0.875f, -2.0f);
+
+						priceSelect1D.push_back(mPriceSelect);
+					}					
+				}
+			}
+			else {
+				for (int j = 0; j < 2; j++) {
+					PriceSelect mPriceSelect;
+					wstring ItoS = to_wstring(i);
+					wstring JtoS = to_wstring(j);
+					mPriceSelect.textTitle = ItoS + JtoS + L"PriceSlot";
+					mPriceSelect.texPos = Vector3(1150.f +j* 375.f, 262.f+i*175.f, -2.0f);
+					mPriceSelect.pos = Vector3(1.0f, 1.0f, -2.0f);
+
+					priceSelect1D.push_back(mPriceSelect);
+				}
+			}
+
+			price.push_back(priceSelect1D);
+		}
+
+		for(int i=0;i<price.size();i++){
+			for (int j = 0; j < price[i].size(); j++) {
+				if (i == 0 || i == 2) {
+						Text text(L"0", price[i][j].texPos.x, price[i][j].texPos.y, 28, TextColor(0.f, 0.f, 0.f, 200.f), false);
+						TextManager::InsertText(price[i][j].textTitle, text);
+				}
+				else {
+						Text text(L"0", price[i][j].texPos.x, price[i][j].texPos.y, 30, TextColor(0.f, 0.f, 0.f, 200.f), false);
+						TextManager::InsertText(price[i][j].textTitle, text);
+				}				
+			}
+		}
+	}
+
 #pragma region shelfCreate
 	{
 		//right top
@@ -487,6 +623,20 @@ void ShopManager::CreateShop()
 		pInventorySlot->GetComponent<Transform>()->SetScale(Vector3(0.6f, 0.6f, 2.0f));
 		pInventorySlot->SetEnable(false);
 	}
+
+	{
+		//인벤토리 Price Slot UI 생성
+		pPriceSlot = new sn::GameObject();
+		pPriceSlot->SetName(L"InventoryPriceSlot");
+		SceneManager::GetActiveScene()->AddGameObject(eLayerType::UI, pPriceSlot);
+		MeshRenderer* mr = pPriceSlot->AddComponent<MeshRenderer>();
+		mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+		mr->SetMaterial(Resources::Find<Material>(L"InvenSlotMeterial03"));
+		pPriceSlot->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -2.0f));
+		pPriceSlot->GetComponent<Transform>()->SetScale(Vector3(0.35f, 1.f, 0.0f));
+		pPriceSlot->GetComponent<Transform>()->SetScale(Vector3(0.105f, 0.3f, 0.0f));
+		pPriceSlot->SetEnable(true);
+	}
 }
 
 void ShopManager::MoveSlot(SlotMoveDir _eSlotMoveDir)
@@ -536,6 +686,113 @@ void ShopManager::MoveSlot(SlotMoveDir _eSlotMoveDir)
 		tr->SetScale(Vector3(.6f, .6f, 0.0f));
 		pInventorySlot->GetComponent<Animator>()->PlayAnimation(L"invenSlot", false);
 	}
+}
+
+void ShopManager::MovePriceSlot(SlotMoveDir _eSlotMoveDir)
+{
+	int leftMoveLimit = 0;
+	int rightMoveLimit = 0;
+
+	pair<int, int> resultPos;
+	int itemCount = 0;
+
+	ShelfItem& shelfitem = pRightTopShelf;
+
+	if (curPriceSlotPos.second < 4) {
+		leftMoveLimit = 0;
+		rightMoveLimit = 3;
+		if (curPriceSlotPos.first == 0) {
+			resultPos.first = curPriceSlotPos.first+1;
+			resultPos.second = 0;
+			itemCount = shop[0][5].itemCount;
+			shelfitem = pLeftTopShelf;
+		}
+		else {
+			resultPos.first = curPriceSlotPos.first+1;
+			resultPos.second = 0;
+			itemCount = shop[2][5].itemCount;
+			shelfitem = pLeftBottomShelf;
+		}
+	}
+	else {
+		leftMoveLimit = 4;
+		rightMoveLimit = 7;
+		if (curPriceSlotPos.first == 0) {
+			resultPos.first = curPriceSlotPos.first+1;
+			resultPos.second = 1;
+			itemCount = shop[0][6].itemCount;
+			shelfitem = pRightTopShelf;
+		}
+		else {
+			resultPos.first = curPriceSlotPos.first+1;
+			resultPos.second = 1;
+			itemCount = shop[2][6].itemCount;
+			shelfitem = pRightBottomShelf;
+		}
+	}
+
+	switch (_eSlotMoveDir)
+	{
+	case UP:
+	{
+		wstring stringNum = TextManager::GetText(price[curPriceSlotPos.first][curPriceSlotPos.second].textTitle);
+		int num = stoi(stringNum);
+		if (num == 9)
+			num = 0;
+		else
+			num++;
+		TextManager::ChangeText(price[curPriceSlotPos.first][curPriceSlotPos.second].textTitle, NumToWString(num));
+
+		int resultNum = 0;
+		for (int i = 0; i < 4; i++) {
+			wstring stringNum01 = TextManager::GetText(price[curPriceSlotPos.first][leftMoveLimit+i].textTitle);
+			resultNum += stoi(stringNum01) * (pow(10, 3- i));
+		}
+		resultNum *= itemCount;
+		shelfitem.price = resultNum;
+		TextManager::ChangeText(price[resultPos.first][resultPos.second].textTitle, NumToWString(resultNum));
+	}
+	break;
+	case DOWN:
+	{
+		wstring stringNum = TextManager::GetText(price[curPriceSlotPos.first][curPriceSlotPos.second].textTitle);
+		int num = stoi(stringNum);
+		if (num == 0)
+			num = 9;
+		else
+			num--;
+		TextManager::ChangeText(price[curPriceSlotPos.first][curPriceSlotPos.second].textTitle, NumToWString(num));
+
+		int resultNum = 0;
+		for (int i = 0; i < 4; i++) {
+			wstring stringNum01 = TextManager::GetText(price[curPriceSlotPos.first][leftMoveLimit + i].textTitle);
+			resultNum += stoi(stringNum01) * (pow(10,3-i));
+		}
+		resultNum *= itemCount;
+		shelfitem.price = resultNum;
+		TextManager::ChangeText(price[resultPos.first][resultPos.second].textTitle, NumToWString(resultNum));
+	}
+	break;
+	case LEFT:
+	{
+		if (curPriceSlotPos.second != leftMoveLimit) {
+			curPriceSlotPos.second -= 1;
+		}
+	}
+	break;
+	case RIGHT:
+	{
+		if (curPriceSlotPos.second != rightMoveLimit) {
+			curPriceSlotPos.second += 1;
+		}
+	}
+	break;
+	default:
+		break;
+	}
+
+	Transform* tr = pPriceSlot->GetComponent<Transform>();
+	tr->SetPosition(price[curPriceSlotPos.first][curPriceSlotPos.second].pos);
 }
 
 void ShopManager::SetShopShelf()
@@ -710,4 +967,8 @@ void ShopManager::BackShopShelf() {
 		}
 	}
 	return;
+}
+
+void ShopManager::SetPrice() {
+
 }
