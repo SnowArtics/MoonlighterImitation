@@ -20,7 +20,7 @@ void TextManager::Render()
 {
 	for (const auto& it : mapText) {
 		if (it.second.enable) {
-			FontWrapper::DrawFont(it.second.string.c_str(), it.second.leftTop, it.second.rightTop, it.second.size, it.second.color.toInt());
+			FontWrapper::DrawFont(it.second.string.c_str(), it.second.leftTop, it.second.rightTop+20.f, it.second.size, it.second.color.toInt());
 		}
 	}
 }
