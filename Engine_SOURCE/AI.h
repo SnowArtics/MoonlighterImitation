@@ -7,6 +7,8 @@ enum class MON_STATE {
 	TRACE,//쫓기
 	ATT,	//가까운 상대 공격
 	TARGET_ATT,// 지정한 타겟공격
+	MOVE, //이동
+	BUY, //구매
 	MINIBOSS_IDLE,
 	MINIBOSS_TRACE,
 	MINIBOSS_ATT,

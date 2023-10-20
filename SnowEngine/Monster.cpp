@@ -10,14 +10,16 @@
 
 using namespace sn;
 
-Monster::Monster()
+Monster::Monster(bool _bool)
 	:m_tInfo{}
 	, monsterMapPos({ -1,-1 })
 	, time(0.f)
 	,hitTime(0.f)
 	, deadTime(0.f)
+	, hitEffect(nullptr)
 {
-	AddHitEffect(Vector3(0.25f,0.25f,0.25f));
+	if(_bool)
+		AddHitEffect(Vector3(0.25f,0.25f,0.25f));
 	AddComponent<AudioSource>();
 }
 

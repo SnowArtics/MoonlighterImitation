@@ -240,7 +240,7 @@ void GolemKing::OnCollisionEnter(sn::Collider2D* other, sn::Collider2D* me)
 
 		Vector3 dir = playerPos - monPos;
 		dir.Normalize();
-		float UnStiffness = player->GetUnStiffness()*1.5f;
+		float UnStiffness = player->GetUnStiffness();
 
 		playerRigidBody->SetVelocity(dir * UnStiffness);
 	}

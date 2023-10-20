@@ -274,6 +274,18 @@
     <ClCompile Include="Shelf.cpp">
       <Filter>Script\Shop</Filter>
     </ClCompile>
+    <ClCompile Include="NPC.cpp">
+      <Filter>Script\NPC</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCIdle.cpp">
+      <Filter>Script\NPC\State\NPCIdle</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCMove.cpp">
+      <Filter>Script\NPC\State\NPCMove</Filter>
+    </ClCompile>
+    <ClCompile Include="NPCBuy.cpp">
+      <Filter>Script\NPC\State\NPCBuy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h" />
@@ -552,6 +564,18 @@
     <ClInclude Include="Shelf.h">
       <Filter>Script\Shop</Filter>
     </ClInclude>
+    <ClInclude Include="NPC.h">
+      <Filter>Script\NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCIdle.h">
+      <Filter>Script\NPC\State\NPCIdle</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCMove.h">
+      <Filter>Script\NPC\State\NPCMove</Filter>
+    </ClInclude>
+    <ClInclude Include="NPCBuy.h">
+      <Filter>Script\NPC\State\NPCBuy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Load">
@@ -823,6 +847,21 @@
     </Filter>
     <Filter Include="Script\Shop">
       <UniqueIdentifier>{6d10d1ec-d244-4010-b890-9638b9499e5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\NPC">
+      <UniqueIdentifier>{b2947171-2e5c-48da-9be1-8da7a3cd1d6f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\NPC\State">
+      <UniqueIdentifier>{2a5f47f8-7a1d-4b9d-8ec4-e91a4319d4a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\NPC\State\NPCIdle">
+      <UniqueIdentifier>{43d3c15f-c08f-4f93-9989-a07be94db65c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\NPC\State\NPCMove">
+      <UniqueIdentifier>{0473c60c-b2c4-4d11-aeee-8d7f30cb06ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Script\NPC\State\NPCBuy">
+      <UniqueIdentifier>{14d4c600-b913-4057-98a7-e14854e94b0d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

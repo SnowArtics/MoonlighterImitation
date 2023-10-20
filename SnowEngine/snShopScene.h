@@ -16,8 +16,10 @@ namespace sn
 		virtual void OnEnter() override;
 		virtual void OnExit() override;
 
+		void CreateNPC();
+
 	private:
-
-
+		bool bShopOpen;
+		float time;
 	};
 }

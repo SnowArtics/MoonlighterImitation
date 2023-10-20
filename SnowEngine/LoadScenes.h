@@ -34,7 +34,7 @@ namespace sn
 
 		//SceneManager::LoadScene(L"VillageScene");
 
-		SceneManager::SetChangeScene(L"ShopScene");
+		SceneManager::SetChangeScene(L"DungeonBossScene01");
 		//SceneManager::LoadScene(L"VillageScene");
 	}
 }

@@ -10,6 +10,7 @@
 #include "InventoryManager.h"
 #include "snTextManager.h"
 #include <string.h>
+#include "snTime.h"
 
 using namespace sn;
 using namespace std;
@@ -18,6 +19,8 @@ std::pair<int, int> ShopManager::curInvenSlotPos = std::make_pair<int, int>(0, 0
 std::pair<int, int> ShopManager::curPriceSlotPos = std::make_pair<int, int>(0, 0);
 std::vector<std::vector<InventoryItem>>  ShopManager::shop;
 std::vector<std::vector<PriceSelect>>  ShopManager::price;
+std::vector<std::vector<Vector3>>  ShopManager::loot;
+std::vector<int>  ShopManager::priceList;
 
 sn::GameObject* ShopManager::pInventoryLeft = nullptr;
 sn::GameObject* ShopManager::pShopRight = nullptr;
@@ -31,6 +34,7 @@ ShelfItem ShopManager::pRightBottomShelf;
 
 int ShopManager::iShopInvenActive = 0;
 bool ShopManager::bPriceSelectActive = false;
+float ShopManager::time = 0;
 
 void ShopManager::Initiailize()
 {
@@ -39,6 +43,103 @@ void ShopManager::Initiailize()
 	for (int i = 0; i < 4; i++) {
 		shop.push_back(tempShop);
 	}
+
+	vector<Vector3> loot1D;
+	loot1D.push_back(Vector3(0.5f, -2.0f, 0.0f));
+	loot1D.push_back(Vector3(0.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(1.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(1.5f, -2.0f, 0.0f));
+	loot1D.push_back(Vector3(1.0f, -2.25f, 0.0f));
+	loot1D.push_back(Vector3(0.f, -1.5f, 0.0f));
+	loot1D.push_back(Vector3(0.f, -1.0f, 0.0f));
+	loot1D.push_back(Vector3(-1.5f, -1.0f, 0.0f));
+	loot1D.push_back(Vector3(-1.5f, -1.2f, 0.0f));//
+	loot1D.push_back(Vector3(-1.5f, -1.0f, 0.0f));
+	loot1D.push_back(Vector3(0.f, -1.0f, 0.0f));
+	loot1D.push_back(Vector3(0.f, -1.8f, 0.0f));
+	loot1D.push_back(Vector3(1.f, -1.6f, 0.0f));
+	loot1D.push_back(Vector3(0.7f, -4.0f, 0.0f));
+
+	loot.push_back(loot1D);
+	loot1D.clear();
+	loot1D.shrink_to_fit();
+
+	loot1D.push_back(Vector3(1.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(0.5f, -2.0f, 0.0f));
+	loot1D.push_back(Vector3(1.0f, -2.25f, 0.0f));
+	loot1D.push_back(Vector3(1.5f, -2.0f, 0.0f));
+	loot1D.push_back(Vector3(0.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(0.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(0.f, -2.7f, 0.0f));
+	loot1D.push_back(Vector3(-1.5f, -2.7f, 0.0f));
+	loot1D.push_back(Vector3(-1.5f, -2.5f, 0.0f));//
+	loot1D.push_back(Vector3(-1.5f, -2.7f, 0.0f));
+	loot1D.push_back(Vector3(0.f, -2.7f, 0.0f));
+	loot1D.push_back(Vector3(0.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(1.f, -1.6f, 0.0f));
+	loot1D.push_back(Vector3(0.7f, -4.0f, 0.0f));
+
+	loot.push_back(loot1D);
+	loot1D.clear();
+	loot1D.shrink_to_fit();
+
+	loot1D.push_back(Vector3(1.0f, -2.25f, 0.0f));
+	loot1D.push_back(Vector3(0.5f, -2.0f, 0.0f));
+	loot1D.push_back(Vector3(0.5f, -2.0f, 0.0f));
+	loot1D.push_back(Vector3(0.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(0.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(1.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(1.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(1.5f, -2.0f, 0.0f));
+	loot1D.push_back(Vector3(-0.5f, -2.2f, 0.0f));//
+	loot1D.push_back(Vector3(1.5f, -2.0f, 0.0f));
+	loot1D.push_back(Vector3(1.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(1.f, -1.6f, 0.0f));
+	loot1D.push_back(Vector3(0.7f, -4.0f, 0.0f));
+
+	loot.push_back(loot1D);
+	loot1D.clear();
+	loot1D.shrink_to_fit();
+
+	loot1D.push_back(Vector3(1.5f, -2.0f, 0.0f));
+	loot1D.push_back(Vector3(0.5f, -2.0f, 0.0f));
+	loot1D.push_back(Vector3(1.0f, -2.25f, 0.0f));
+	loot1D.push_back(Vector3(1.0f, -2.25f, 0.0f));
+	loot1D.push_back(Vector3(1.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(1.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(1.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(0.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(-0.5f, -1.6f, 0.0f));//
+	loot1D.push_back(Vector3(0.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(1.f, -1.6f, 0.0f));
+	loot1D.push_back(Vector3(0.7f, -4.0f, 0.0f));
+
+	loot.push_back(loot1D);
+	loot1D.clear();
+	loot1D.shrink_to_fit();
+
+	loot1D.push_back(Vector3(0.5f, -2.0f, 0.0f));
+	loot1D.push_back(Vector3(0.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(1.0f, -2.25f, 0.0f));
+	loot1D.push_back(Vector3(1.5f, -2.5f, 0.0f));
+	loot1D.push_back(Vector3(1.5f, -2.0f, 0.0f));
+
+	loot.push_back(loot1D);
+	loot1D.clear();
+	loot1D.shrink_to_fit();
+
+
+	priceList.push_back(0);
+	priceList.push_back(180);
+	priceList.push_back(125);
+	priceList.push_back(3125);
+	priceList.push_back(312);
+	priceList.push_back(125);
+	priceList.push_back(1875);
+	priceList.push_back(187);
+	priceList.push_back(375);
+	priceList.push_back(100);
+	priceList.push_back(0);
 }
 
 void ShopManager::Update()
@@ -635,7 +736,7 @@ void ShopManager::CreateShop()
 		pPriceSlot->GetComponent<Transform>()->SetPosition(Vector3(0.f, 0.f, -2.0f));
 		pPriceSlot->GetComponent<Transform>()->SetScale(Vector3(0.35f, 1.f, 0.0f));
 		pPriceSlot->GetComponent<Transform>()->SetScale(Vector3(0.105f, 0.3f, 0.0f));
-		pPriceSlot->SetEnable(true);
+		pPriceSlot->SetEnable(false);
 	}
 }
 
@@ -696,7 +797,7 @@ void ShopManager::MovePriceSlot(SlotMoveDir _eSlotMoveDir)
 	pair<int, int> resultPos;
 	int itemCount = 0;
 
-	ShelfItem& shelfitem = pRightTopShelf;
+	int shelfItemPos = 0;
 
 	if (curPriceSlotPos.second < 4) {
 		leftMoveLimit = 0;
@@ -705,13 +806,13 @@ void ShopManager::MovePriceSlot(SlotMoveDir _eSlotMoveDir)
 			resultPos.first = curPriceSlotPos.first+1;
 			resultPos.second = 0;
 			itemCount = shop[0][5].itemCount;
-			shelfitem = pLeftTopShelf;
+			shelfItemPos = 0;
 		}
 		else {
 			resultPos.first = curPriceSlotPos.first+1;
 			resultPos.second = 0;
 			itemCount = shop[2][5].itemCount;
-			shelfitem = pLeftBottomShelf;
+			shelfItemPos = 1;
 		}
 	}
 	else {
@@ -721,13 +822,13 @@ void ShopManager::MovePriceSlot(SlotMoveDir _eSlotMoveDir)
 			resultPos.first = curPriceSlotPos.first+1;
 			resultPos.second = 1;
 			itemCount = shop[0][6].itemCount;
-			shelfitem = pRightTopShelf;
+			shelfItemPos = 3;
 		}
 		else {
 			resultPos.first = curPriceSlotPos.first+1;
 			resultPos.second = 1;
 			itemCount = shop[2][6].itemCount;
-			shelfitem = pRightBottomShelf;
+			shelfItemPos = 2;
 		}
 	}
 
@@ -749,7 +850,20 @@ void ShopManager::MovePriceSlot(SlotMoveDir _eSlotMoveDir)
 			resultNum += stoi(stringNum01) * (pow(10, 3- i));
 		}
 		resultNum *= itemCount;
-		shelfitem.price = resultNum;
+		switch (shelfItemPos) {
+		case 0:
+			pLeftTopShelf.price = resultNum;
+			break;
+		case 1:
+			pLeftBottomShelf.price = resultNum;
+			break;
+		case 2:
+			pRightBottomShelf.price = resultNum;
+			break;
+		case 3:
+			pRightTopShelf.price = resultNum;
+			break;
+		}
 		TextManager::ChangeText(price[resultPos.first][resultPos.second].textTitle, NumToWString(resultNum));
 	}
 	break;
@@ -769,7 +883,20 @@ void ShopManager::MovePriceSlot(SlotMoveDir _eSlotMoveDir)
 			resultNum += stoi(stringNum01) * (pow(10,3-i));
 		}
 		resultNum *= itemCount;
-		shelfitem.price = resultNum;
+		switch (shelfItemPos) {
+		case 0:
+			pLeftTopShelf.price = resultNum;
+			break;
+		case 1:
+			pLeftBottomShelf.price = resultNum;
+			break;
+		case 2:
+			pRightBottomShelf.price = resultNum;
+			break;
+		case 3:
+			pRightTopShelf.price = resultNum;
+			break;
+		}
 		TextManager::ChangeText(price[resultPos.first][resultPos.second].textTitle, NumToWString(resultNum));
 	}
 	break;
@@ -870,15 +997,19 @@ void ShopManager::SetShopShelf()
 
 				if (i == 0 && j == 5) {
 					pLeftTopShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(changeAnimationName, false);
+					pLeftTopShelf._itemType = shop[i][j]._itemType;
 				}
 				else if (i == 0 && j == 6) {
 					pRightTopShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(changeAnimationName, false);
+					pRightTopShelf._itemType = shop[i][j]._itemType;
 				}
 				else if (i == 2 && j == 5) {
 					pLeftBottomShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(changeAnimationName, false);
+					pLeftBottomShelf._itemType = shop[i][j]._itemType;
 				}
 				else if (i == 2 && j == 6) {
 					pRightBottomShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(changeAnimationName, false);
+					pRightBottomShelf._itemType = shop[i][j]._itemType;
 				}
 
 				return;
@@ -948,18 +1079,23 @@ void ShopManager::BackShopShelf() {
 				shop[curInvenSlotPos.first][curInvenSlotPos.second].slotItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
 				TextManager::ChangeText(shop[curInvenSlotPos.first][curInvenSlotPos.second].slotName, NumToWString(shop[curInvenSlotPos.first][curInvenSlotPos.second].itemCount));
 				TextManager::SetEnable(shop[curInvenSlotPos.first][curInvenSlotPos.second].slotName, false);
+				TextManager::ChangeText(price[curInvenSlotPos.first+1][curInvenSlotPos.second-5].textTitle, L"0");
 
 				if (curInvenSlotPos.first == 0 && curInvenSlotPos.second == 5) {
 					pLeftTopShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+					pLeftTopShelf._itemType = eItemType::NONE;
 				}
 				else if (curInvenSlotPos.first == 0 && curInvenSlotPos.second == 6) {
 					pRightTopShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+					pLeftTopShelf._itemType = eItemType::NONE;
 				}
 				else if (curInvenSlotPos.first == 2 && curInvenSlotPos.second == 5) {
 					pLeftBottomShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+					pLeftTopShelf._itemType = eItemType::NONE;
 				}
 				else if (curInvenSlotPos.first == 2 && curInvenSlotPos.second == 6) {
 					pRightBottomShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+					pLeftTopShelf._itemType = eItemType::NONE;
 				}
 
 				return;
@@ -971,4 +1107,138 @@ void ShopManager::BackShopShelf() {
 
 void ShopManager::SetPrice() {
 
+}
+
+vector<Vector3> ShopManager::GetLoot() {
+	if (pLeftTopShelf.price != 0) {
+		pLeftTopShelf.realPrice = pLeftTopShelf.price;
+		pLeftTopShelf.price = 0;
+		return loot[0];
+	}
+	else if (pLeftBottomShelf.price != 0) {
+		pLeftBottomShelf.realPrice = pLeftBottomShelf.price;
+		pLeftBottomShelf.price = 0;
+		return loot[1];
+	}
+	else if (pRightBottomShelf.price != 0) {
+		pRightBottomShelf.realPrice = pRightBottomShelf.price;
+		pRightBottomShelf.price = 0;
+		return loot[2];
+	}
+	else if (pRightTopShelf.price != 0) {
+		pRightTopShelf.realPrice = pRightTopShelf.price;
+		pRightTopShelf.price = 0;
+		return loot[3];
+	}
+	else {
+		return loot[4];
+	}
+}
+
+int ShopManager::SearchGoods(int _pos) {
+	int resultPrice;
+
+	switch (_pos)
+	{
+	case 0:
+	{
+		resultPrice = priceList[(int)pLeftTopShelf._itemType];
+	}
+	break;
+	case 1:
+	{
+		resultPrice = priceList[(int)pLeftBottomShelf._itemType];
+	}
+	break;
+	case 2:
+	{
+		resultPrice = priceList[(int)pRightBottomShelf._itemType];
+	}
+	break;
+	case 3:
+	{
+		resultPrice = priceList[(int)pRightTopShelf._itemType];
+	}
+	break;
+	default:
+		break;
+	}
+
+	return resultPrice;
+}
+
+void ShopManager::BuyGoods(int _pos) {
+	switch (_pos)
+	{
+	case 0:
+	{
+		pLeftTopShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+		pLeftTopShelf.price = 0;
+		pLeftTopShelf.realPrice = 0;
+		pLeftTopShelf._itemType = eItemType::NONE;
+
+		shop[0][5].isEmpty = true;
+		shop[0][5].slotItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+		shop[0][5].itemCount = 0;
+		shop[0][5].itemMaxCount = -1;
+		shop[0][5]._itemType = eItemType::NONE;
+
+		TextManager::ChangeText(price[1][0].textTitle, L"0");
+	}
+		break;
+	case 1:
+	{
+		pLeftBottomShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+		pLeftBottomShelf.price = 0;
+		pLeftBottomShelf.realPrice = 0;
+		pLeftBottomShelf._itemType = eItemType::NONE;
+
+		shop[2][5].isEmpty = true;
+		shop[2][5].slotItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+		shop[2][5].itemCount = 0;
+		shop[2][5].itemMaxCount = -1;
+		shop[2][5]._itemType = eItemType::NONE;
+
+		TextManager::ChangeText(price[3][0].textTitle, L"0");
+	}
+		break;
+	case 2:
+	{
+		pRightBottomShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+		pRightBottomShelf.price = 0;
+		pRightBottomShelf.realPrice = 0;
+		pRightBottomShelf._itemType = eItemType::NONE;
+
+		shop[2][6].isEmpty = true;
+		shop[2][6].slotItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+		shop[2][6].itemCount = 0;
+		shop[2][6].itemMaxCount = -1;
+		shop[2][6]._itemType = eItemType::NONE;
+
+		TextManager::ChangeText(price[3][1].textTitle, L"0");
+	}
+		break;
+	case 3:
+	{
+		pRightTopShelf.shelfItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+		pRightTopShelf.price = 0;
+		pRightTopShelf.realPrice = 0;
+		pRightTopShelf._itemType = eItemType::NONE;
+
+		shop[0][6].isEmpty = true;
+		shop[0][6].slotItem->GetComponent<Animator>()->PlayAnimation(L"Transparent", false);
+		shop[0][6].itemCount = 0;
+		shop[0][6].itemMaxCount = -1;
+		shop[0][6]._itemType = eItemType::NONE;
+
+		TextManager::ChangeText(price[1][1].textTitle, L"0");
+	}
+		break;
+	default:
+		break;
+	}
+}
+
+void ShopManager::CreateNPC() {
+	
 }

@@ -21,7 +21,7 @@ class HitEffect;
 class Monster : public sn::GameObject
 {
 public:
-    Monster();
+    Monster(bool _bool = true);
     virtual ~Monster();
 
 public:

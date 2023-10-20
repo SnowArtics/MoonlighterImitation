@@ -87,7 +87,7 @@ void GolemKingRock::Update()
 		if (curPos.y <= desPos.y) {
 			curPos = desPos;
 			rockTrigger = false;
-			GetComponent<sn::Collider2D>()->SetEnable(true);
+			GetComponent<sn::Collider2D>()->SetEnable(false);
 		}
 		Transform* tr = GetComponent<Transform>();
 		tr->SetPosition(curPos);

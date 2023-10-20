@@ -33,6 +33,7 @@ public:
 
 public:
 	static bool GetInvenActive() { return bInvenActive; }
+	static std::wstring GetMoneyTitle() { return moneyTitle; }
 
 public:
 	static void CreateUI();
@@ -59,6 +60,8 @@ private:
 
 	static sn::GameObject* pInventory;
 	static sn::GameObject* pInventorySlot;
+
+	static std::wstring moneyTitle;
 
 	static bool bInvenActive;
 

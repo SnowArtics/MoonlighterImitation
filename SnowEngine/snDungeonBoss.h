@@ -16,7 +16,8 @@ namespace sn {
 		virtual void OnExit() override;
 
 	private:
-
-
+		sn::GameObject* teleport;
+		bool ChangeSceneTrigger;
+		float time;
 	};
 }

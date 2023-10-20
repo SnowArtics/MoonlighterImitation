@@ -43,7 +43,7 @@ namespace sn {
 		if (prevPlayerMapPos != curPlayerMapPos && dungeonBackgroundSpawnFlag) {
 			dungeonBackgroundSpawnFlag = false;
 
-			if (DungeonMapManager::GetInst()->GetDungeonArr()[curPlayerMapPos.first][curPlayerMapPos.second] >= 128 && SceneManager::GetActiveScene()->GetName() == L"DungeonScene03") {
+			if (curPlayerMapPos.first != -1 && curPlayerMapPos.second != -1 &&DungeonMapManager::GetInst()->GetDungeonArr()[curPlayerMapPos.first][curPlayerMapPos.second] >= 128 && SceneManager::GetActiveScene()->GetName() == L"DungeonScene03") {
 				SceneManager::SetChangeScene(L"DungeonBossScene01");
 			}
 			else if (!(prevPlayerMapPos.first == -1 || prevPlayerMapPos.second == -1)) {

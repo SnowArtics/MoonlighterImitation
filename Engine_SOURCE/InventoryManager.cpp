@@ -14,6 +14,7 @@ std::vector<std::vector<Vector3>> InventoryManager::vInventorySlotPos;
 std::vector<std::vector<InventoryItem>>  InventoryManager::inven;
 sn::GameObject* InventoryManager::pInventory = nullptr;
 sn::GameObject* InventoryManager::pInventorySlot = nullptr;
+std::wstring InventoryManager::moneyTitle = L"";
 bool InventoryManager::bInvenActive = false;
 
 using namespace sn;
@@ -89,6 +90,11 @@ void InventoryManager::Initiailize()
 			TextManager::InsertText(inven[i][j].slotName, text);
 		}
 	}
+
+	moneyTitle = L"moneyTitle01";
+
+	Text text(L"0", 80.f,175.f, 30, TextColor(255.f, 255.f, 255.f, 255.f), true);
+	TextManager::InsertText(moneyTitle, text);
 }
 
 void InventoryManager::Update()

@@ -220,6 +220,10 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="LoadScenes.h" />
     <ClInclude Include="MazeMaker.h" />
+    <ClInclude Include="NPC.h" />
+    <ClInclude Include="NPCBuy.h" />
+    <ClInclude Include="NPCIdle.h" />
+    <ClInclude Include="NPCMove.h" />
     <ClInclude Include="ObstacleCollider.h" />
     <ClInclude Include="PlayerFollowCamera.h" />
     <ClInclude Include="PlayerHP.h" />
@@ -349,6 +353,10 @@
     <ClCompile Include="MonsterIdle.cpp" />
     <ClCompile Include="MonsterTrace.cpp" />
     <ClCompile Include="MazeMaker.cpp" />
+    <ClCompile Include="NPC.cpp" />
+    <ClCompile Include="NPCBuy.cpp" />
+    <ClCompile Include="NPCIdle.cpp" />
+    <ClCompile Include="NPCMove.cpp" />
     <ClCompile Include="ObstacleCollider.cpp" />
     <ClCompile Include="PlayerFollowCamera.cpp" />
     <ClCompile Include="PlayerHP.cpp" />

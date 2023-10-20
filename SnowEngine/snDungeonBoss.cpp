@@ -36,11 +36,29 @@
 #include <snAudioListener.h>
 #include "snRigidBody.h"
 #include <InventoryManager.h>
+#include "snTime.h"
 
 namespace sn
 {
 	DungeonBoss::DungeonBoss()
+		: ChangeSceneTrigger(false)
+		, teleport(nullptr)
+		, time(0.0f)
 	{
+		{
+			teleport = new GameObject();
+			AddGameObject(eLayerType::Player, teleport);
+
+			MeshRenderer* mr = teleport->AddComponent<MeshRenderer>();
+			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
+			mr->SetMaterial(Resources::Find<Material>(L"SpriteAnimaionMaterial"));
+
+			Animator* at = teleport->AddComponent<Animator>();
+			std::shared_ptr<Texture> atlas = Resources::Load<Texture>(L"WillTeleport", L"..\\Resources\\Texture\\Player\\teleport.png");
+			at->Create(L"WillTeleport", atlas, Vector2(0.0f, 0.0f), Vector2(104.f, 104.f), 26);
+
+			teleport->SetEnable(false);
+		}
 	}
 	DungeonBoss::~DungeonBoss()
 	{
@@ -275,11 +293,16 @@ namespace sn
 			Light* lightComp = light->AddComponent<Light>();
 			lightComp->SetType(eLightType::Directional);
 			lightComp->SetColor(Vector4(0.8f, 0.8f, 0.8f, 1.0f));
-		}
+		} 
 		Scene::Initialize();
 	}
 	void DungeonBoss::Update()
 	{
+		GameObject* player = GetPlayer();
+		//if (player != nullptr && teleport != nullptr) {
+		//	Vector3 playerPos = SceneManager::GetActiveScene()->GetPlayer()->GetComponent<Transform>()->GetPosition();
+		//	teleport->GetComponent<Transform>()->SetPosition(playerPos);
+		//}		
 		Scene::Update();
 	}
 	void DungeonBoss::LateUpdate()
@@ -287,8 +310,24 @@ namespace sn
 		Scene::LateUpdate();
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
-			SceneManager::SetChangeScene(L"TitleScene");
+			SceneManager::SetChangeScene(L"ShopScene");
 		}
+		//if (Input::GetKeyDown(eKeyCode::L) && ChangeSceneTrigger == false)
+		//{
+		//	ChangeSceneTrigger = true;
+		//	GetPlayer()->SetEnable(false);
+		//	teleport->SetEnable(true);
+		//	teleport->GetComponent<Animator>()->PlayAnimation(L"WillTeleport", false);
+		//}
+		//if (ChangeSceneTrigger) {
+		//	time += Time::DeltaTime();
+		//	if (time >= 2.6f) {
+		//		SceneManager::SetChangeScene(L"ShopScene");
+		//		time = 0.f;
+		//		ChangeSceneTrigger = false;
+		//	}
+		//}
+		
 	}
 	void DungeonBoss::Render()
 	{

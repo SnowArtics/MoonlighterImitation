@@ -64,7 +64,7 @@ namespace sn {
 		CollisionManager::SetLayer(eLayerType::Background, eLayerType::Door, false);
 
 		MazeMaker::GetInst()->Init();
-		MazeMaker::GetInst()->BackTracking(1, 2);
+		MazeMaker::GetInst()->BackTracking(2, 2);
 		arr = MazeMaker::GetInst()->GetDirArr();
 		DungeonMapManager::GetInst()->SetDungeonArr(arr);
 		std::pair<int, int> firstPlayerPos = MazeMaker::GetInst()->GetStartPos();
@@ -73,19 +73,19 @@ namespace sn {
 
 		std::vector<std::wstring> DungeonName;
 		DungeonName.push_back(L"DungeonBackgroundMaterial00-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial01-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial02-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial03-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial04-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial05-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial06-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial07-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial08-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial09-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial10-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial11-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial12-0");
-		//DungeonName.push_back(L"DungeonBackgroundMaterial13-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial01-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial02-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial03-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial04-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial05-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial06-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial07-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial08-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial09-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial10-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial11-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial12-0");
+		DungeonName.push_back(L"DungeonBackgroundMaterial13-0");
 
 		std::default_random_engine engine(static_cast<unsigned int>(std::time(nullptr)));
 
@@ -303,21 +303,7 @@ namespace sn {
 
 			SetPlayer(Player);
 		}
-		{
-			GameObject* Object = new GameObject();
-			AddGameObject(eLayerType::Obstacle, Object);
-			MeshRenderer* mr = Object->AddComponent<MeshRenderer>();
-			mr->SetMesh(Resources::Find<Mesh>(L"RectMesh"));
-			mr->SetMaterial(Resources::Find<Material>(L"FountainMaterial"));
-
-			Vector3 playerPos = GetPlayer()->GetComponent<Transform>()->GetPosition();
-
-			Object->GetComponent<Transform>()->SetPosition(Vector3(playerPos.x+1.f, playerPos.y, playerPos.z));
-			Object->AddComponent<sn::Collider2D>();
-			Object->AddComponent<ObstacleCollider>();
-		}
 #pragma endregion
-
 		//UI Camera
 		{
 			GameObject* camera = new GameObject();

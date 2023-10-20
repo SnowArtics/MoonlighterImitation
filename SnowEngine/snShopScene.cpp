@@ -28,10 +28,14 @@
 #include "Shelf.h"
 #include "ObstacleCollider.h"
 #include "ShopManager.h"
+#include "snTime.h"
+#include "NPC.h"
 
 namespace sn
 {
 	ShopScene::ShopScene()
+		:bShopOpen(false)
+		, time(0.f)
 	{
 	}
 	ShopScene::~ShopScene()
@@ -240,7 +244,7 @@ namespace sn
 
 			at->PlayAnimation(L"BOW_DOWN", true);
 
-			Player->GetComponent<Transform>()->SetPosition(Vector3(0.0f, -2.0f, 0.0f));
+			Player->GetComponent<Transform>()->SetPosition(Vector3(0.7f, -1.0f, 0.0f));
 			Player->GetComponent<Transform>()->SetScale(Vector3(1.0f, 1.0f, 1.0f));
 
 			PlayerFSM* playerFSM = Player->AddComponent<PlayerFSM>();
@@ -285,6 +289,16 @@ namespace sn
 	}
 	void ShopScene::Update()
 	{
+		if (bShopOpen) {
+			time += Time::DeltaTime();
+		}
+
+		if (time / 1.f > 1.f) {
+			time -= 1.f;
+			CreateNPC();
+			bShopOpen = false;
+		}
+
 		Scene::Update();
 	}
 	void ShopScene::LateUpdate()
@@ -294,6 +308,14 @@ namespace sn
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
 			SceneManager::SetChangeScene(L"DungeonEntrance");
+		}
+
+		if (Input::GetKeyDown(eKeyCode::L) && bShopOpen == false)
+		{
+			bShopOpen = true;
+		}
+		else if (Input::GetKeyDown(eKeyCode::L) && bShopOpen == true) {
+			bShopOpen = false;
 		}
 	}
 	void ShopScene::Render()
@@ -308,5 +330,12 @@ namespace sn
 	void ShopScene::OnExit()
 	{
 		DestroyAll();
+	}
+	void ShopScene::CreateNPC()
+	{
+		NPC* npc = new NPC();
+		Transform* tr = npc->GetComponent<Transform>();
+		tr->SetPosition(Vector3(0.7f, -4.0f, 0.0f));
+		AddGameObject(eLayerType::Monster, npc);
 	}
 }
