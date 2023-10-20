@@ -68,16 +68,16 @@ namespace sn {
 		DungeonMapManager::GetInst()->SetPlayerMapSpawnPos(firstPlayerPos);
 
 		std::vector<std::wstring> DungeonName;
-		DungeonName.push_back(L"DungeonBackgroundMaterial00-2");
-		DungeonName.push_back(L"DungeonBackgroundMaterial01-2");
-		DungeonName.push_back(L"DungeonBackgroundMaterial02-2");
-		DungeonName.push_back(L"DungeonBackgroundMaterial03-2");
-		DungeonName.push_back(L"DungeonBackgroundMaterial04-2");
-		DungeonName.push_back(L"DungeonBackgroundMaterial05-2");
-		DungeonName.push_back(L"DungeonBackgroundMaterial06-2");
-		DungeonName.push_back(L"DungeonBackgroundMaterial07-2");
-		DungeonName.push_back(L"DungeonBackgroundMaterial08-2");
-		DungeonName.push_back(L"DungeonBackgroundMaterial09-2");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial00-2");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial01-2");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial02-2");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial03-2");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial04-2");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial05-2");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial06-2");
+		///DungeonName.push_back(L"DungeonBackgroundMaterial07-2");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial08-2");
+		//DungeonName.push_back(L"DungeonBackgroundMaterial09-2");
 		DungeonName.push_back(L"DungeonBackgroundMaterial10-2");
 		DungeonName.push_back(L"DungeonBackgroundMaterial11-2");
 		DungeonName.push_back(L"DungeonBackgroundMaterial12-2");
