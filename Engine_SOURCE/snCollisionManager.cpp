@@ -87,6 +87,20 @@ namespace sn
 		id.left = left->GetColliderID();
 		id.right = right->GetColliderID();
 
+		std::vector<std::pair<int, int>> leftColArea = left->GetColArea();
+		std::vector<std::pair<int, int>> rightColArea = right->GetColArea();
+
+		int areaCount = leftColArea.size() + rightColArea.size();
+		for (int i = 0; i < leftColArea.size(); i++) {
+			for (int j = 0; j < rightColArea.size(); j++) {
+				if (leftColArea != rightColArea)
+					--areaCount;
+			}
+		}
+
+		if (areaCount == 0)
+			return;
+
 		// 충돌정보를 가져온다
 		std::map<UINT64, bool>::iterator iter
 			= mCollisionMap.find(id.id);
@@ -348,5 +362,32 @@ namespace sn
 	float CollisionManager::Magnitude(float x, float y, float z)
 	{
 		return std::sqrt(x * x + y * y + z * z);
+	}
+	std::vector<std::pair<int, int>> CollisionManager::GetColliderArea(float _posX, float _posY, float _scaleX, float _scaleY)
+	{
+		std::vector<std::pair<int, int>> colArea;
+
+		int posX = _posX;
+		int posY = _posY;
+
+		int scaleX = _posX + _scaleX;
+		int scaleY = _posY + _scaleY;
+
+
+		if (posX != scaleX || posY != scaleY) {
+			int i = posX;
+			int j = posY;
+
+			do {
+				do {
+					colArea.push_back(std::pair<int, int>(j, i));
+					++j;
+				} while (j < scaleY);
+				++i;
+				j = posY;
+			} while (i < scaleX);
+		}
+
+		return colArea;
 	}
 }

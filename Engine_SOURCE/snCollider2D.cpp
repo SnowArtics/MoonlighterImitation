@@ -1,6 +1,7 @@
 #include "snCollider2D.h"
 #include "snGameObject.h"
 #include "snRenderer.h"
+#include "snCollisionManager.h"
 
 namespace sn
 {
@@ -83,11 +84,16 @@ namespace sn
 			}
 
 			mMesh.name = GetOwner()->GetName();
+
+			mColliderArea = CollisionManager::GetColliderArea(mPosition.x, mPosition.y, mSize.x, mSize.y);
 		}
 	}
 
 	void Collider2D::Update()
 	{
+		if (enable) {
+			mColliderArea = CollisionManager::GetColliderArea(mPosition.x, mPosition.y, mSize.x, mSize.y);
+		}
 	}
 	void Collider2D::LateUpdate()
 	{

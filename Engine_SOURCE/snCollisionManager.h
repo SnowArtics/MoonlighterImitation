@@ -34,8 +34,9 @@ namespace sn
 		static bool CircleToRectCollision(Collider2D* left, Collider2D* right);
 		static float Magnitude(float x, float y, float z);
 
-	private:
+		static std::vector<std::pair<int, int>> GetColliderArea(float _posX, float _posY, float _scaleX, float _scaleY);
 
+	private:
 		static std::bitset<LAYER_MAX> mMatrix[LAYER_MAX];
 		static std::map<UINT64, bool> mCollisionMap;
 	};

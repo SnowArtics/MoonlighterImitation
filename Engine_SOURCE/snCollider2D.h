@@ -35,6 +35,7 @@ namespace sn
 		Vector3 GetPos() { return mPosition; }
 		Vector2 GetSize() { return mSize; }
 		bool GetEnable() { return enable; }
+		std::vector<std::pair<int, int>> GetColArea() { return mColliderArea; }
 
 	private:
 		static UINT mColliderNumber;
@@ -47,6 +48,8 @@ namespace sn
 		Vector2 mCenter;
 
 		graphics::DebugMesh mMesh;
+
+		std::vector<std::pair<int, int>> mColliderArea;
 
 		bool enable;
 	};
