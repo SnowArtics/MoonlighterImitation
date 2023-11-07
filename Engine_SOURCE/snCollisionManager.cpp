@@ -90,7 +90,7 @@ namespace sn
 		std::vector<std::pair<int, int>> leftColArea = left->GetColArea();
 		std::vector<std::pair<int, int>> rightColArea = right->GetColArea();
 
-		int areaCount = leftColArea.size() + rightColArea.size();
+		int areaCount = leftColArea.size() * rightColArea.size();
 		for (int i = 0; i < leftColArea.size(); i++) {
 			for (int j = 0; j < rightColArea.size(); j++) {
 				if (leftColArea != rightColArea)
@@ -374,7 +374,10 @@ namespace sn
 		int scaleY = _posY + _scaleY;
 
 
-		if (posX != scaleX || posY != scaleY) {
+		if (posX == scaleX && posY == scaleY) {
+			colArea.push_back(std::pair<int, int>(posY, posX));
+		}
+		else {			
 			int i = posX;
 			int j = posY;
 
