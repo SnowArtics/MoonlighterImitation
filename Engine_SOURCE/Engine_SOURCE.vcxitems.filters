@@ -121,6 +121,15 @@
     <Filter Include="Manager">
       <UniqueIdentifier>{e56fa268-3431-4950-84b0-cd6e0277873c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Audio">
+      <UniqueIdentifier>{c4c3ab2d-9470-455a-a11b-2bfae5064dec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Font">
+      <UniqueIdentifier>{e66e992a-6be0-4105-be27-cc023497e212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Light">
+      <UniqueIdentifier>{e943dac3-083e-499a-a80d-9ec28e04be4a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="$(MSBuildThisFileDirectory)CommonInclude.h">
@@ -222,7 +231,6 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)snStructedBuffer.h">
       <Filter>Graphics\StructedBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)snLight.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)snParticleSystem.h">
       <Filter>GameObject\Component\ParticleSystem</Filter>
     </ClInclude>
@@ -238,23 +246,40 @@
     <ClInclude Include="$(MSBuildThisFileDirectory)snComputeShader.h">
       <Filter>Resource\Shader\CS</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)snParticleShader.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)snPaintShader.h">
       <Filter>Resource\Shader\CS</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)snAudioClip.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)snAudioListener.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)snAudioSource.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)snFmod.h" />
-    <ClInclude Include="$(MSBuildThisFileDirectory)snFontWrapper.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)snRigidBody.h">
       <Filter>GameObject\Component\RigidBody</Filter>
     </ClInclude>
-    <ClInclude Include="$(MSBuildThisFileDirectory)snTextManager.h" />
     <ClInclude Include="$(MSBuildThisFileDirectory)InventoryManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
     <ClInclude Include="$(MSBuildThisFileDirectory)ShopManager.h">
+      <Filter>Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snAudioClip.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snAudioListener.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snAudioSource.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snFmod.h">
+      <Filter>Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snFontWrapper.h">
+      <Filter>Font</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snLight.h">
+      <Filter>Light</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snParticleShader.h">
+      <Filter>Graphics\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="$(MSBuildThisFileDirectory)snTextManager.h">
       <Filter>Manager</Filter>
     </ClInclude>
   </ItemGroup>
@@ -348,7 +373,6 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)snStructedBuffer.cpp">
       <Filter>Graphics\StructedBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)snLight.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)snParticleSystem.cpp">
       <Filter>GameObject\Component\ParticleSystem</Filter>
     </ClCompile>
@@ -364,23 +388,40 @@
     <ClCompile Include="$(MSBuildThisFileDirectory)snComputeShader.cpp">
       <Filter>Resource\Shader\CS</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)snParticleShader.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)snPaintShader.cpp">
       <Filter>Resource\Shader\CS</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)snAudioClip.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)snAudioListener.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)snAudioSource.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)snFmod.cpp" />
-    <ClCompile Include="$(MSBuildThisFileDirectory)snFontWrapper.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)snRigidBody.cpp">
       <Filter>GameObject\Component\RigidBody</Filter>
     </ClCompile>
-    <ClCompile Include="$(MSBuildThisFileDirectory)snTextManager.cpp" />
     <ClCompile Include="$(MSBuildThisFileDirectory)InventoryManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
     <ClCompile Include="$(MSBuildThisFileDirectory)ShopManager.cpp">
+      <Filter>Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snAudioClip.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snAudioListener.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snAudioSource.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snFmod.cpp">
+      <Filter>Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snFontWrapper.cpp">
+      <Filter>Font</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snLight.cpp">
+      <Filter>Light</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snParticleShader.cpp">
+      <Filter>Graphics\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="$(MSBuildThisFileDirectory)snTextManager.cpp">
       <Filter>Manager</Filter>
     </ClCompile>
   </ItemGroup>
