@@ -123,7 +123,7 @@ namespace sn
 
 		if (Input::GetKeyDown(eKeyCode::N))
 		{
-			SceneManager::SetChangeScene(L"VillageScene");
+			SceneManager::SetChangeScene(L"DungeonEntrance");
 		}
 	}
 	void TitleScene::Render()
