@@ -87,19 +87,19 @@ namespace sn
 		id.left = left->GetColliderID();
 		id.right = right->GetColliderID();
 
-		std::vector<std::pair<int, int>> leftColArea = left->GetColArea();
-		std::vector<std::pair<int, int>> rightColArea = right->GetColArea();
-
-		int areaCount = leftColArea.size() * rightColArea.size();
-		for (int i = 0; i < leftColArea.size(); i++) {
-			for (int j = 0; j < rightColArea.size(); j++) {
-				if (leftColArea != rightColArea)
-					--areaCount;
-			}
-		}
-
-		if (areaCount == 0)
-			return;
+		//std::vector<std::pair<int, int>> leftColArea = left->GetColArea();
+		//std::vector<std::pair<int, int>> rightColArea = right->GetColArea();
+		//
+		//int areaCount = leftColArea.size() * rightColArea.size();
+		//for (int i = 0; i < leftColArea.size(); i++) {
+		//	for (int j = 0; j < rightColArea.size(); j++) {
+		//		if (leftColArea != rightColArea)
+		//			--areaCount;
+		//	}
+		//}
+		//
+		//if (areaCount == 0)
+		//	return;
 
 		// 충돌정보를 가져온다
 		std::map<UINT64, bool>::iterator iter
@@ -163,9 +163,6 @@ namespace sn
 		// 네모 네모 충돌
 		// 분리축 이론
 
-		// To do... (숙제)
-		// 분리축이 어렵다 하시는분들은
-		// 원 - 원 충돌
 /*		if (leftType == eColliderType::Circle && rightType == eColliderType::Circle)
 			return CircleToCircleCollision(left, right);
 		else*/ if (leftType == eColliderType::Rect && rightType == eColliderType::Rect)
